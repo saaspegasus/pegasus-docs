@@ -140,4 +140,4 @@ To migrate a project from non-formatted to formatted code, you can go through th
 You can remove the Pegasus examples by unchecking the "Include Examples" checkbox
 on your project page and re-downloading (or [upgrading](upgrading.md)) your codebase.
 
-For earlier versions you can use [these instructions](https://github.com/czue/pegasus-docs/blob/1becc2cb8f86738eeba85c9faddb15f69b8ad7bc/cookbooks.md#delete-pegasus-examples).
+For earlier versions you can use [these instructions](https://github.com/saaspegasus/pegasus-docs/blob/1becc2cb8f86738eeba85c9faddb15f69b8ad7bc/cookbooks.md#delete-pegasus-examples).
