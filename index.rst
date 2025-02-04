@@ -43,6 +43,7 @@ contributions are most welcome!
    cookbooks
    experimental
    upgrading
+   community
    release-notes
 
 .. _saaspegasus.com: https://www.saaspegasus.com/
