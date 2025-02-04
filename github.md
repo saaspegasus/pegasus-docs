@@ -117,6 +117,9 @@ It is possible to configure your Github integration this way.
 To do so, when adding the repository, click "Show Advanced Options," then specify the subdirectory you want to use
 for your Pegasus code in the "Subdirectory" field.
 
+If you would like to update an existing project to use a subdirectory, you'll have unlink and re-add your repository,
+then [reconnect it](#connecting-an-existing-project-to-github).
+
 ## Troubleshooting
 
 **I keep getting "Error pushing to GitHub. Please check your token scopes." when pushing my project.**
