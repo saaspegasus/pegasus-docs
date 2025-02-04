@@ -1,5 +1,5 @@
-Using Digital Ocean Spaces for Media (in addition to AWS services)
-==================================================================
+Using Digital Ocean Spaces for Django Media (in addition to AWS services)
+=========================================================================
 
 __*The following guide was contributed by Neil Bartlett, a member of the Pegasus community.
 Any questions or issues using it should be directed to the #deployment channel of the community Slack.*__
