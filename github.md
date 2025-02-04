@@ -106,6 +106,17 @@ Github provides detailed guidance on how to do this.
 For "Connect Github," follow the [oauth instructions](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data),
 and for personal access tokens, follow the [personal access token instructions](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization).
 
+## Pushing Pegasus code to a subdirectory in your repository
+
+By default, your entire git repository is dedicated to Pegasus, with all of Pegasus's files included at the root
+of the repository. Some projects---especially those with a separate front end---may want to instead include Pegasus code
+in a subdirectory of the repository (e.g. "backend"), so that other projects (e.g. "frontend") can be included
+in the same repository.
+
+It is possible to configure your Github integration this way. 
+To do so, when adding the repository, click "Show Advanced Options," then specify the subdirectory you want to use
+for your Pegasus code in the "Subdirectory" field.
+
 ## Troubleshooting
 
 **I keep getting "Error pushing to GitHub. Please check your token scopes." when pushing my project.**
