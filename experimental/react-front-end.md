@@ -9,8 +9,8 @@ The hybrid model is still recommended for the overwhelming majority of Pegasus p
 However, there are valid reasons to run a completely separate React front---including access to dedicated tooling and libraries,
 and isolating your front end and back end code.
 
-Pegasus experimentally ships with a decoupled front end *example application* that can be used as a starting point for building
-out a decoupled front end with React.
+Pegasus experimentally ships with a decoupled front end *example* single page application that can be used as a starting point for building
+out a decoupled front end / SPA with React.
 It uses [Vite](https://vitejs.dev/) as a development server and build tool.
 
 The features it includes are:
