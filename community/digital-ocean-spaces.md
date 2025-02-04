@@ -1,16 +1,19 @@
 Using Digital Ocean Spaces for Django Media (in addition to AWS services)
 =========================================================================
 
-__*The following guide was contributed by Neil Bartlett, a member of the Pegasus community.
+__*The following guide was contributed by Neil Bartlett and Finbar, members of the Pegasus community.
 Any questions or issues using it should be directed to the #deployment channel of the community Slack.*__
 
-The following guide documents how to use a different media storage (in this case, Digital Ocean Spaces),
-while still using some Amazon services (in this case, SES for email).
+This guide documents how to use a different media storage (in this case, Digital Ocean Spaces),
+while still using some Amazon services (in this case, SES for email), deployed to Digital Ocean App Platform.
 
 The main issue/insight is that `django-storages` allows for [different settings/environment variables](https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#authentication-settings),
 e.g. `AWS_S3_ACCESS_KEY_ID` vs `AWS_ACCESS_KEY_ID` or `AWS_S3_SECRET_ACCESS_KEY` vs `AWS_SECRET_ACCESS_KEY`.
 
 This means you can use a different AWS key for S3, SES, or any other service.
+
+Many of the steps would be the same when deploying to other platforms, but some of the details around where to put
+variables or access a shell/console would be different.
 
 Here's a detailed walkthrough:
  
