@@ -438,6 +438,9 @@ AWS_STORAGE_BUCKET_NAME
 Should you wish to use a different storage backed e.g. [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces)
 you can follow the setup described in the [django-storages][django-storages] documentation.
 
+There is also a [Pegasus community guide](./community/digital-ocean-spaces.md) that walks through this in more detail.
+
+
 [django-storages]: https://django-storages.readthedocs.io/en/latest/index.html
 
 ## Django Debug Toolbar
