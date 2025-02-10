@@ -32,7 +32,7 @@ get from the table below:
 
 | Codebase            | Commit ID                                  | Last Updated |
 |---------------------|--------------------------------------------|--------------|
-| Scriv               | `2e6a656778a55e115e236680e37fe2773dcc3bd4` | Sep 4, 2024  |
+| Scriv               | `57412dc5faa2ec001b8affa144dfd1bb6d213969` | Feb, 2025    |
 | Translation Creator | `60595de93e05161de3cd2a25678da7ddd9ac0709` | Sep 4, 2024  |
 
 Enter the commit ID and click "Set Commit ID".
