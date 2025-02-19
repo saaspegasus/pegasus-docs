@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Pegasus'
-copyright = '2023, Cory Zue'
+copyright = '2025, Elodin Labs and SaaS Pegasus'
 author = 'Cory Zue'
 
 # The short X.Y version
