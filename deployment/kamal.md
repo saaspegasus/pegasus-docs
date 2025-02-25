@@ -275,7 +275,7 @@ If health checks are failing that means the middleware isn't set up properly.
 The healthcheck url that kamal hits (`/up` by default), must match the path defined in `apps.web.middleware.healthchecks.HealthCheckMiddleware`
 (also `/up` by default).
 
-To fix it confirm the following things:
+To fix it, confirm the following things:
 
 1. Ensure that `"apps.web.middleware.healthchecks.HealthCheckMiddleware",` is the first middleware in `settings.MIDDLEWARE`.
 2. Ensure that the paths match.
