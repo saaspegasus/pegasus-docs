@@ -266,20 +266,21 @@ or ask ChatGPT how to do this for your specific environment).
 #### Health checks are failing because of `ALLOWED_HOSTS`
 
 Kamal runs a "health check" during deploys to ensure your new application is ready to handle requests.
-This involves pinging your workers at http://localhost:8000 and waiting for them to respond with a "200 OK" status code.
+This involves pinging your workers on an internal docker address and waiting for them to respond with a "200 OK" status code.
 
-Since these requests are made via localhost, you must have `localhost` in your `ALLOWED_HOSTS`, in addition to your production
-endpoints, or Django will reject the requests. So your setting should look something like:
+Because it's not possible to predict the hostname for these requests, a special middleware that bypasses the host check
+is included in Pegasus to handle this situation.
 
-```yaml
-ALLOWED_HOSTS = [
-  "example.com",  # use your app's domain here
-  "localhost",
-]
-```
+If health checks are failing that means the middleware isn't set up properly.
+The healthcheck url that kamal hits (`/up` by default), must match the path defined in `apps.web.middleware.healthchecks.HealthCheckMiddleware`
+(also `/up` by default).
 
-It is recommended to read [the security documentation](https://docs.djangoproject.com/en/5.0/topics/security/#host-headers-virtual-hosting)
-for this feature to understand the implications of it being included.
+To fix it confirm the following things:
+
+1. Ensure that `"apps.web.middleware.healthchecks.HealthCheckMiddleware",` is the first middleware in `settings.MIDDLEWARE`.
+2. Ensure that the paths match.
+   1. The kamal path is defined in the `proxy` section of `deploy.yml`, under `healthcheck`. If there is no `healthcheck` section, then it's using the default path.
+   2. The middleware path is defined in `apps/web/middleware/healthchecks.py`.
 
 ### Cookbooks
 
