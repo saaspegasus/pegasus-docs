@@ -3,6 +3,58 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.2
+
+This is a maintenance release with a number of bugfixes and minor updates.
+
+### Added
+
+- **You can now configure the Github integration to push your Pegasus code to a subdirectory of the repository.**
+  Thanks to Simon for helping with this, and Aaron, Bernard, Danil, and Arno for suggesting it!
+
+### Changed
+
+- **Include handling of `.css` files on bootstrap and bulma builds in `webpack.config.js`.**
+  This allows you to mix and match sass and css files.
+- Ported the `navbar.sass` file to css, moved it to the `bulma` folder, and removed it from non-Bulma builds.
+- **Set [Django's cache framework](https://docs.djangoproject.com/en/latest/topics/cache/) to use Redis in production by default.**
+  - Also explicitly list `redis` as a first-class requirement, which also fixes a bug where tests could fail if you disabled celery.
+- Added `.venv` and `venv` to the `.gitignore` file. (Thanks Peter for suggesting!)
+- Use the project id in the default `AWS_STORAGE_BUCKET_NAME` in deploy.yml. (Kamal deployments, thanks Peter for suggesting!)
+- Updated the version of `ruff` used by pre-commit to the one that's installed in the project, and upgraded ruff to the latest (0.9.7). (Thanks Peter for reporting!)
+- Removed `ENABLE_DEBUG_TOOLBAR=True` from production environment/secrets files.
+- Consistently use double quotes instead of single quotes in environment files. (thanks Peter for suggesting!)
+- Added a timeout + error handling to turnstile requests, to prevent hanging if Cloudflare was for some reason down.
+  (thanks Peter for suggesting!)
+
+### Fixed
+
+- Fixed a bug where `setuptools` was accidentally not present in production requirements files when using pip-tools.
+  This caused production deployments to fail in certain cases.
+- Fixed the active tab highlighting styles in the examples navigation on Bulma builds.
+- Removed unnecessary `<div>` elements from `top_nav.html` on bootstrap builds.
+- Don't include docker translation instructions in README if not using docker. (Thanks Peter for reporting!)
+- Updated the Pegasus CLI to [version 0.8](https://github.com/saaspegasus/pegasus-cli/releases/tag/v0.8), which
+  fixes a bad html closing tag in the generated templates. (Thanks Julian for the bugfix!)
+- Removed celery sections from `deploy.yml` in kamal builds if celery isn't enabled.
+- Removed duplicate and unused variable declarations across Kamal's `deploy.yml` and `secrets` files.
+- Fixed an issue deploying to Heroku with Docker when using uv. (thanks Toul for reporting!)
+- Improved edge-case handling when Stripe checkout URLs were manually manipulated.
+  Users should now see helpful error messages instead of getting 500 errors or ending up in an invalid state.
+
+### Removed
+
+- Removed `django_otp` dependency and configuration, which was only there to facilitate the transition 
+  to `allauth.mfa`. See the release notes for [Version 2024.5](#version-20245) for more information on this change.
+- Removed the default user-facing messages on login/logout. You can add them back or customize them by editing the files in
+  `/templates/account/messages/`.
+
+### Documentation
+
+- Added [a community guide on using Digital Ocean Spaces](./community/digital-ocean-spaces.md) (alongside Amazon SES).
+  Thanks Neil and Finbar for the contribution!
+
+*Feb 27 2025*
 
 ## Version 2025.1.1
 
