@@ -36,26 +36,11 @@ To change the sidebar nav edit the `./templates/web/components/app_nav.html` fil
 
 ## Styles
 
-**Customizing styles requires setting up the [front-end build pipeline](/front-end).**
+All of Pegasus's CSS frameworks are designed to be customized to your needs.
+You can set specific colors or override the themes entirely.
 
-Both Bootstrap and Bulma are designed to be customized to your needs.
-
-To change styles, edit the generated `site-<framework>.scss` file in `assets/styles` with any custom styles you want
-and run this command to rebuild them:
-
-```bash
-npm run build  # or "dev" or "dev-watch"
-```
-
-As a simple, impactful change to get started, you can set the following variable to change
-the primary color/theme across the site:
-
-```scss
-$primary: #2e7636;  // change primary color to green
-```
-
-Just make sure to put this change at the top of your file before the `@import` statements!
-More details on customizing themes can be found in the [CSS docs](/css/).
+How styles are customized depends on the CSS framework.
+For more information, see the individual page for your framework in [the CSS docs](/css.rst)
 
 ## Javascript
 
