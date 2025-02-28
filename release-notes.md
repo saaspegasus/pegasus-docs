@@ -5,7 +5,7 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.2
 
-This is a maintenance release with a number of bugfixes and minor updates.
+This is a maintenance release with a number of upgrades and fixes.
 
 ### Added
 
@@ -20,23 +20,25 @@ This is a maintenance release with a number of bugfixes and minor updates.
   This makes the setup more consistent with a typical Tailwind project.
   - Removed "sass" and "sass-loader" packages from Tailwind builds.
   - Updated `webpack.config.js` on bootstrap and bulma builds to also now handle `.css` files.
-- Ported the `navbar.sass` file to css, moved it to the `bulma` folder, and removed it from non-Bulma builds.
+  - Related, ported the `navbar.sass` file to css, moved it to the `bulma` folder, and removed it from non-Bulma builds.
 - **Set [Django's cache framework](https://docs.djangoproject.com/en/latest/topics/cache/) to use Redis in production by default.**
-  - Redis cached will be set when `settings.DEBUG` is `False`.
+  - The Redis cache will be enabled when `settings.DEBUG` is `False`.
   - Also explicitly list `redis` as a first-class requirement, which fixes a bug where tests could fail if you disabled celery.
 - Added `.venv` and `venv` to the `.gitignore` file. (Thanks Peter for suggesting!)
 - Use the project id in the default `AWS_STORAGE_BUCKET_NAME` in deploy.yml. (Kamal deployments, thanks Peter for suggesting!)
 - Updated the version of `ruff` used by pre-commit to the one that's installed in the project, and upgraded ruff to the latest (0.9.7). (Thanks Peter for reporting!)
-- Removed `ENABLE_DEBUG_TOOLBAR=True` from production environment/secrets files.
-- Consistently use double quotes instead of single quotes in environment and deployment files. (thanks Peter for suggesting!)
 - Added a timeout and error handling to turnstile requests, to prevent hanging if Cloudflare was for some reason down.
-  (thanks Peter for suggesting!)
+  (Thanks Peter for suggesting!)
+- Removed `ENABLE_DEBUG_TOOLBAR=True` from production environment/secrets files.
+- Consistently use double quotes instead of single quotes in environment and deployment files. (Thanks Peter for suggesting!)
+- Removed duplicate and unused variable declarations across Kamal's `deploy.yml` and `secrets` files.
+  Public variables are now listed in `deploy.yml` and private ones are listed in `secrets`. (Thanks Peter for suggesting!)
 
 ### Fixed
 
 - **Improved edge-case handling the Stripe checkout integration.**
   - Users should now see helpful error messages instead of getting 500 errors or ending up in an invalid state if they hit certain invalid URLs.
-  - This also closes a vulnerability where an attacker could potentially simulate e-commerce purchases through manual inspection
+  - This also fixes a vulnerability where an attacker could potentially simulate e-commerce purchases through manual inspection
     and manipulation of requests.
 - Fixed a bug where `setuptools` was accidentally not present in production requirements files when using pip-tools.
   This caused production deployments to fail in certain cases. (Thanks Eeshan and Jim for reporting!)
@@ -47,7 +49,6 @@ This is a maintenance release with a number of bugfixes and minor updates.
 - Updated the Pegasus CLI to [version 0.8](https://github.com/saaspegasus/pegasus-cli/releases/tag/v0.8), which
   fixes a bad html closing tag in the generated templates. (Thanks Julian for the bugfix!)
 - Removed celery sections from `deploy.yml` in kamal builds if celery isn't enabled.
-- Removed duplicate and unused variable declarations across Kamal's `deploy.yml` and `secrets` files. (thanks Peter for suggesting!)
 
 ### Removed
 
@@ -67,6 +68,8 @@ This is a maintenance release with a number of bugfixes and minor updates.
 
 Tailwind projects that have added their own `.sass` files will need to either restore sass support or port these files to `.css` (llms are good at this!).
 You can "restore" sass support by rejecting the proposed changes in `package.json` and `webpack.config.js` during upgrade.
+
+If you have removed Redis from your project you will need to update the default cache config in `settings.py`.
 
 *Feb 28, 2025*
 
