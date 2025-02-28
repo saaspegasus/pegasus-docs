@@ -10,42 +10,50 @@ This is a maintenance release with a number of bugfixes and minor updates.
 ### Added
 
 - **You can now configure the Github integration to push your Pegasus code to a subdirectory of the repository.**
+  [More details in the updated Github docs here](./github.md#pushing-pegasus-code-to-a-subdirectory-in-your-repository).
   Thanks to Simon for helping with this, and Aaron, Bernard, Danil, and Arno for suggesting it!
-
+- Added a `429.html` error template.
+  
 ### Changed
 
-- **Include handling of `.css` files on bootstrap and bulma builds in `webpack.config.js`.**
-  This allows you to mix and match sass and css files.
+- **Migrated the majority of shared style files from sass to css, and removed sass from Tailwind builds.** 
+  This makes the setup more consistent with a typical Tailwind project.
+  - Removed "sass" and "sass-loader" packages from Tailwind builds.
+  - Updated `webpack.config.js` on bootstrap and bulma builds to also now handle `.css` files.
 - Ported the `navbar.sass` file to css, moved it to the `bulma` folder, and removed it from non-Bulma builds.
 - **Set [Django's cache framework](https://docs.djangoproject.com/en/latest/topics/cache/) to use Redis in production by default.**
-  - Also explicitly list `redis` as a first-class requirement, which also fixes a bug where tests could fail if you disabled celery.
+  - Redis cached will be set when `settings.DEBUG` is `False`.
+  - Also explicitly list `redis` as a first-class requirement, which fixes a bug where tests could fail if you disabled celery.
 - Added `.venv` and `venv` to the `.gitignore` file. (Thanks Peter for suggesting!)
 - Use the project id in the default `AWS_STORAGE_BUCKET_NAME` in deploy.yml. (Kamal deployments, thanks Peter for suggesting!)
 - Updated the version of `ruff` used by pre-commit to the one that's installed in the project, and upgraded ruff to the latest (0.9.7). (Thanks Peter for reporting!)
 - Removed `ENABLE_DEBUG_TOOLBAR=True` from production environment/secrets files.
-- Consistently use double quotes instead of single quotes in environment files. (thanks Peter for suggesting!)
-- Added a timeout + error handling to turnstile requests, to prevent hanging if Cloudflare was for some reason down.
+- Consistently use double quotes instead of single quotes in environment and deployment files. (thanks Peter for suggesting!)
+- Added a timeout and error handling to turnstile requests, to prevent hanging if Cloudflare was for some reason down.
   (thanks Peter for suggesting!)
 
 ### Fixed
 
+- **Improved edge-case handling the Stripe checkout integration.**
+  - Users should now see helpful error messages instead of getting 500 errors or ending up in an invalid state if they hit certain invalid URLs.
+  - This also closes a vulnerability where an attacker could potentially simulate e-commerce purchases through manual inspection
+    and manipulation of requests.
 - Fixed a bug where `setuptools` was accidentally not present in production requirements files when using pip-tools.
-  This caused production deployments to fail in certain cases.
+  This caused production deployments to fail in certain cases. (Thanks Eeshan and Jim for reporting!)
+- Fixed an issue deploying to Heroku with Docker when using uv by removing Docker caching, which Heroku does not support. (thanks Toul for reporting!)
 - Fixed the active tab highlighting styles in the examples navigation on Bulma builds.
-- Removed unnecessary `<div>` elements from `top_nav.html` on bootstrap builds.
-- Don't include docker translation instructions in README if not using docker. (Thanks Peter for reporting!)
+- Removed unnecessary `<div>` elements from `top_nav.html` on Bootstrap builds.
+- Don't include Docker translation instructions in README if not using Docker. (Thanks Peter for reporting!)
 - Updated the Pegasus CLI to [version 0.8](https://github.com/saaspegasus/pegasus-cli/releases/tag/v0.8), which
   fixes a bad html closing tag in the generated templates. (Thanks Julian for the bugfix!)
 - Removed celery sections from `deploy.yml` in kamal builds if celery isn't enabled.
-- Removed duplicate and unused variable declarations across Kamal's `deploy.yml` and `secrets` files.
-- Fixed an issue deploying to Heroku with Docker when using uv. (thanks Toul for reporting!)
-- Improved edge-case handling when Stripe checkout URLs were manually manipulated.
-  Users should now see helpful error messages instead of getting 500 errors or ending up in an invalid state.
+- Removed duplicate and unused variable declarations across Kamal's `deploy.yml` and `secrets` files. (thanks Peter for suggesting!)
 
 ### Removed
 
 - Removed `django_otp` dependency and configuration, which was only there to facilitate the transition 
   to `allauth.mfa`. See the release notes for [Version 2024.5](#version-20245) for more information on this change.
+  - Also removed the associated `migrate_allauth_2fa` management command.
 - Removed the default user-facing messages on login/logout. You can add them back or customize them by editing the files in
   `/templates/account/messages/`.
 
@@ -54,7 +62,13 @@ This is a maintenance release with a number of bugfixes and minor updates.
 - Added [a community guide on using Digital Ocean Spaces](./community/digital-ocean-spaces.md) (alongside Amazon SES).
   Thanks Neil and Finbar for the contribution!
 
-*Feb 27 2025*
+
+### Upgrading
+
+Tailwind projects that have added their own `.sass` files will need to either restore sass support or port these files to `.css` (llms are good at this!).
+You can "restore" sass support by rejecting the proposed changes in `package.json` and `webpack.config.js` during upgrade.
+
+*Feb 28, 2025*
 
 ## Version 2025.1.1
 
