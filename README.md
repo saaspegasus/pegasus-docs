@@ -28,4 +28,4 @@ The docs should now be visible at [http://localhost:8000](http://localhost:8000)
 
 ## Deployment
 
-Deployment is handled by Netlify. The latest main branch is automatically deployed.
+Deployment is handled by Cloudflare. The latest main branch is automatically deployed via Cloudflare Pages.

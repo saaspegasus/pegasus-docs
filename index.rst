@@ -44,6 +44,7 @@ contributions are most welcome!
    experimental
    upgrading
    community
+   marketplace
    release-notes
 
 .. _saaspegasus.com: https://www.saaspegasus.com/

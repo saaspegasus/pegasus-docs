@@ -1,7 +1,5 @@
-Marketplace
-===========
-
-## How to connect a marketplace app to a Pegasus project
+How to connect a marketplace app to a Pegasus project
+=====================================================
 
 Follow these steps to connect a marketplace app to a Pegasus project.
 We'll do this for [scriv], but the process should be the same for other apps built on Pegasus.
@@ -13,7 +11,7 @@ Next, create new Pegasus project for your app from [the projects page](https://w
 **You should choose the same config choices as the marketplace app**,
 which you can find in the `pegasus-config.yaml` file in the repository root.
 
-You can also refer to [this screenshot](images/marketplace/scriv-pegasus-config.png) for how the configuration
+You can also refer to [this screenshot](../images/marketplace/scriv-pegasus-config.png) for how the configuration
 should look as of September, 2024.
 
 Next, connect your Pegasus project to your Github repository:
