@@ -24,4 +24,4 @@
 - Default Python version: 3.12
 
 ## Deployment
-- Automatically deployed via Netlify from main branch
+- Automatically deployed via Cloudflare Pages from main branch
