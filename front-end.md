@@ -164,6 +164,32 @@ Note: there are many ways to do this, but this is the way it's currently handled
 
 You can see an example with HTMX (version 2023.2 and later) or Alpine.js (version 2023.3 and later).
 
+#### Example: Adding simple-datatables
+
+As an example, if you want to add [simple-datatables](https://github.com/fiduswriter/simple-datatables) to your project,
+first install it:
+
+```
+npm install simple-datatables
+```
+
+Then add the following lines to your `site.js` file:
+
+```javascript
+import { DataTable } from 'simple-datatables';
+window.DataTable = DataTable;
+```
+
+Then you can access the `DataTable` object from any page:
+
+```javascript
+// initialize the the table with id "mytable" 
+const dataTable = new DataTable("#mytable", {
+   searchable: true,
+   fixedHeight: true,
+});
+```
+
 ### Using the SiteJS library
 
 Pegasus uses [webpack libraries](https://webpack.js.org/guides/author-libraries/) to expose helper code.
