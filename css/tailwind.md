@@ -140,6 +140,22 @@ If you enable this setting, flowbite will automatically be installed and you can
 flowbite components into any Django template.
 The reference page has an example of a few of these components.
 
+#### Extending Flowbite
+
+The default setup shows how to use Flowbite *alongside* DaisyUI.
+However, if you want to use Flowbite more holistically for your application you can.
+
+To get started, uncomment the following lines in your `site-tailwind.css` file:
+
+```
+/* Uncomment to use flowbite's theme system and plugin. This may conflict with DaisyUI */
+/* @import "flowbite/src/themes/default"; */
+/* If you uncomment this you can remove the flowbite plugin section from tailwind.config.js */
+/* @plugin "flowbite/plugin"; */
+```
+
+This will add flowbite's default styles and theme, which are necessary for some extended components like datatables.
+
 ### Tailwind UI
 
 [Tailwind UI](https://tailwindui.com/) is a great product for building more complex pages, including marketing sites and app UIs.
