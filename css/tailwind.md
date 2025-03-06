@@ -116,7 +116,7 @@ However it is *not* connected to any backend data---it is just a UI example.
 #### Working with shadcn
 
 The dashboard can be found in `assets/javascript/shadcn-dashboard`.
-Shadcn components are stored in the `assets/javascript/components/ui` folder.
+Shadcn components are stored in the `assets/javascript/shadcn/components/ui` folder.
 
 Components can be imported in other JavaScript files using the same import path syntax used by the dashboard:
 
@@ -125,15 +125,7 @@ import { Button } from "@/components/ui/button"
 ```
 
 You can use the [shadcn cli](https://ui.shadcn.com/docs/cli) to create components,
-however it currently creates them in the wrong folder (this is surprisingly hard to change).
-So adding a component is a two step process:
-
-```
-npx shadcn@latest add badge
-mv components/ui/* assets/javascript/components/ui/
-```
-
-After that you should be able to import and use your component in your React code.
+and they should automatically be added to the right folder.
 
 ### Flowbite
 
