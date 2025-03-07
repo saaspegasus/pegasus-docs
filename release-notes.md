@@ -3,6 +3,13 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.2.1
+
+This is a hotfix release that fixes a missing newline between `REDIS_URL` and `GOOGLE_ANALYTICS_ID`
+in `.env` / `secrets` files. Thanks Peter for the bug report!
+
+*Mar 7 2025*
+
 ## Version 2025.2
 
 This is a maintenance release with a number of upgrades and fixes.
