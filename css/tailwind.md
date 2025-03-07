@@ -1,6 +1,6 @@
 # Tailwind CSS
 
-As of version 2022.8 Pegasus officially supports [Tailwind CSS](https://tailwindcss.com/) (Version 3).
+Pegasus supports [Tailwind CSS](https://tailwindcss.com/) (Version 4) and it is the recommended CSS framework.
 
 ## Demo and Overview
 
