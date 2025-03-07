@@ -72,27 +72,18 @@ see the [daisyUI theme documentation](https://daisyui.com/docs/themes/) and thei
 
 ### Extending themes
 
-If you'd like to extend one of the built-in themes you can do that in your `tailwind.config.js` file.
+If you'd like to extend one of the built-in themes you can do that in your `site-tailwind.css` file
+as specified in the [DaisyUI docs](https://daisyui.com/docs/themes/#-3).
 
-For example, add a section like this to set custom primary and secondary colors for light and dark mode.
+For example, to change the colors of the default theme, add a section like this:
 
-```javascript
-daisyui: {
-  themes: [
-    {
-      light: {
-        ...require("daisyui/src/theming/themes")["light"],
-        primary: "#0c2340",
-        secondary: "#bd3039"
-      },
-      dark: {
-        ...require("daisyui/src/theming/themes")["dark"],
-        primary: "#bd3039",
-        secondary: "#0c2340"
-      }
-    },
-  ],
-},
+```css
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: blue;
+  --color-secondary: teal;
+}
 ```
 
 ## Other products / themes
