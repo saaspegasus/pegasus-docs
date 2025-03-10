@@ -19,7 +19,7 @@ Pegasus ships with full support for localizing user-facing text.
 Currently, not all the user-facing text is properly tagged for localization but this will be incrementally addressed
 in future releases.
 
-For full documentation on localization see the [Django docs](https://docs.djangoproject.com/en/4.1/topics/i18n/).
+For full documentation on localization see the [Django docs](https://docs.djangoproject.com/en/stable/topics/i18n/).
 
 ## Big picture
 
