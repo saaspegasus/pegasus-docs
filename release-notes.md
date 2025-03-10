@@ -9,6 +9,8 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
   (Thanks Eeshan for reporting and fixing!)
 - Removed `--no-emit-package setuptools` from the `make pip-compile` command.
   Some configurations require setuptools and this was causing issues on some pip-tools builds.
+- Changed ruff `exclude` to `extend-exclude` in `pyproject.toml` to keep ruff's defaults. Thanks Justin for the suggestion!
+- Added help text to a few `make` targets that were missing it. Thanks Steve for the suggestion!
 
 ### Tailwind 4 Update
 
