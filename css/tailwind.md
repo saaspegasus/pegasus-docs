@@ -139,16 +139,13 @@ The reference page has an example of a few of these components.
 The default setup shows how to use Flowbite *alongside* DaisyUI.
 However, if you want to use Flowbite more holistically for your application you can.
 
-To get started, uncomment the following lines in your `site-tailwind.css` file:
+To get started, uncomment the following line in your `site-tailwind.css` file:
 
 ```
-/* Uncomment to use flowbite's theme system and plugin. This may conflict with DaisyUI */
 /* @import "flowbite/src/themes/default"; */
-/* If you uncomment this you can remove the flowbite plugin section from tailwind.config.js */
-/* @plugin "flowbite/plugin"; */
 ```
 
-This will add flowbite's default styles and theme, which are necessary for some extended components like datatables.
+This will add flowbite's default styles, which are necessary for some extended components like datatables.
 
 ### Tailwind UI
 
