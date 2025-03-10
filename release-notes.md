@@ -11,6 +11,7 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
   Some configurations require setuptools and this was causing issues on some pip-tools builds.
 - Changed ruff `exclude` to `extend-exclude` in `pyproject.toml` to keep ruff's defaults. Thanks Justin for the suggestion!
 - Added help text to a few `make` targets that were missing it. Thanks Steve for the suggestion!
+- Removed unused `pg-is-loading` CSS class.
 
 ### Tailwind 4 Update
 
@@ -29,6 +30,7 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 - Cleaned up various bits of to use nested selectors.
 - Improved the contrast of the `pg-text-muted` class on dark mode.
 - Cleaned up commented out code in CSS files.
+- Removed `content` section of `tailwind.config.js`. Tailwind 4 automatically finds all content for the project.
 
 ## Version 2025.2.2
 
