@@ -18,14 +18,18 @@ Next, connect your Pegasus project to your Github repository:
 
 1. From the project page, select "Get Code".
 2. On the "Push to Github" tab, click "Add a repo".
-3. Set the owner and name to the fork you created above.
+3. Set the owner and name to the fork you created above. This should be your existing fork of Scriv, not a new repository.
 4. Click "Add Repo".
 
 You will be prompted to authenticate with Github.
 If you haven't already, you should set that up according to [the Github guide](https://docs.saaspegasus.com/github/#connecting-your-account).
 
 After connecting your Github, you will be prompted to enter a commit ID according to the last Pegasus commit
-in the repository. You should enter the commit ID of the most recent Pegasus update, which you can
+in the repository. It will look something like this:
+
+![Set Commit](/images/scriv-set-commit.png)
+
+In the "Commit id" field, enter the commit ID of the most recent Pegasus update, which you can
 get from the table below:
 
 | Codebase            | Commit ID                                  | Last Updated |
