@@ -3,6 +3,16 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.2.2
+
+This is a hotfix release that fixes a bug in the styling of the avatar in the navbar on Bootstrap using certain browsers.
+Thanks Luc for reporting!
+
+- Restored `navbar.css` on bootstrap builds and moved it out of the bulma-specific folder.
+- Updated imports in `base.css` accordingly.
+
+*Mar 13 2025*
+
 ## Version 2025.2.1
 
 This is a hotfix release that fixes a missing newline between `REDIS_URL` and `GOOGLE_ANALYTICS_ID`
