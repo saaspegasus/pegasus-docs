@@ -12,6 +12,8 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 - Changed ruff `exclude` to `extend-exclude` in `pyproject.toml` to keep ruff's defaults. Thanks Justin for the suggestion!
 - Added help text to a few `make` targets that were missing it. Thanks Steve for the suggestion!
 - Removed unused `pg-is-loading` CSS class.
+- Fix syntax of commented out `EMAIL_BACKEND` variable in `deploy.yml`
+- Remove language codes from the language selector dropdown.
 
 ### Tailwind 4 Update
 
