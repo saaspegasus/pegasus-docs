@@ -14,6 +14,8 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 - Removed unused `pg-is-loading` CSS class.
 - Fix syntax of commented out `EMAIL_BACKEND` variable in `deploy.yml`
 - Remove language codes from the language selector dropdown.
+- Fixed an issue running `./manage.py` commands in production docker containers when using `uv`.
+  Thanks Richard, Bryan, and Ken for reporting.
 
 ### Tailwind 4 Update
 
