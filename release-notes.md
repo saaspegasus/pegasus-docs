@@ -5,13 +5,18 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.3
 
-This release updates the Tailwind front end to Tailwind 4 and DaisyUI 5 and adds initial rules files for AIs.
+This release upgrades TailwindCSS to version 4 (and DaisyUI to Version 5).
 It also has several minor updates and fixes. 
 
 ### Tailwind 4 Update
 
+Pegasus now runs on Tailwind V4!
+This comes with [a huge number of improvements](https://tailwindcss.com/blog/tailwindcss-v4), including much faster
+build times, simplified tooling, automatic content detection, and more.
+
 Tailwind and DaisyUI were upgraded using the associated guides ([Tailwind](https://tailwindcss.com/docs/upgrade-guide),
 [DaisyUI](https://daisyui.com/docs/upgrade/)).
+There is also an [upgrade guide for Pegasus apps](./css/tailwind.md#upgrading-from-tailwind-3-to-4).
 
 Here's a detailed breakdown of the changes:
 
