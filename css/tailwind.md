@@ -156,14 +156,14 @@ Note that you will have to rebuild styles when adding TailwindUI components, as 
 
 ## Upgrading from Tailwind 3 to 4
 
-Pegasus 2025.3 updates Tailwind from version 3 to version 4. This is a big upgrade, and if you have added tailwind markup to your
+Pegasus 2025.3 updates Tailwind from version 3 to version 4. This is a big upgrade, and if you have added Tailwind markup to your
 project you will likely need to upgrade your own code and not just rely on the Pegasus updates.
 
 This section should help you with that process.
 It will be updated over time as additional questions and issues come up.
 If you have any problems with the migration, send a message in the community Slack!
 
-To upgrade your project to Tailwind 4, we recommend the following steps:
+It's recommended to follow the following steps to upgrade your project to Tailwind 4:
 
 1. Read through the [Tailwind Upgrade Notes](https://tailwindcss.com/docs/upgrade-guide) and confirm you're ready to
    upgrade from a browser support perspective.
@@ -173,7 +173,7 @@ To upgrade your project to Tailwind 4, we recommend the following steps:
 4. Run your app.
 
 At this point, your project should be running on Tailwind 4,
-though if you've done customizations you may have to take further steps to get those working (see below).
+though you should review the sections below for additional steps.
 
 ### Restoring custom themes
 
@@ -214,8 +214,16 @@ Finally run the upgrade tool:
 npx @tailwindcss/upgrade --force
 ```
 
-This should apply Tailwind's automatic migrations to your existing HTML / JS files.
+This should apply Tailwind's automatic migrations to your existing HTML / JS / CSS files.
 Review these changes, commit the changes you want, and then undo the changes made to the `content` section above.
+Note that you may not want to apply some changes like shadow-downsizing, since these have already been included in Pegasus.
+
+### DaisyUI Updates
+
+Some common DaisyUI upgrades that you may need to check include:
+
+- Changing active navigation tab classes from `"active"` to `"menu-active"`.
+- Removing `-bordered` from inputs.
 
 ## Troubleshooting
 
