@@ -1,6 +1,6 @@
 # Tailwind CSS
 
-As of version 2022.8 Pegasus officially supports [Tailwind CSS](https://tailwindcss.com/) (Version 3).
+Pegasus supports [Tailwind CSS](https://tailwindcss.com/) (Version 4) and it is the recommended CSS framework for most projects.
 
 ## Demo and Overview
 
@@ -40,26 +40,29 @@ A full list of available components can be found at the [daisyUI component libra
 If you enable dark mode, Pegasus will ship with the default DaisyUI light and dark themes which
 are used for regular and dark mode, respectively.
 But DaisyUI offers a number of [out-of-the-box themes](https://daisyui.com/docs/themes/) you can use in your Pegasus app.
-To change themes, make sure the theme is enabled in your `tailwind.config.js`'s `daisyui` section,
-and specify the default dark mode theme if necessary:
+To change themes, make sure the theme is enabled in the daisyui section of `site-tailwind.css` and specify
+what you want for defaults for light and dark mode as follows:
 
+```css
+@plugin "daisyui" {
+  themes: cupcake --default, night --prefersdark;
+};
+```
+Additionally, you should update the `darkMode` setting in your `tailwind.config.js`:
 ```javascript
 module.exports = {
-  // changes the themes to "cupcake" and "coffee"
-  daisyui: {
-    themes: ["cupcake", "coffee"],
-  },
-  // sets the "coffee" theme as the one used for dark mode
-  darkMode: ["class", '[data-theme="coffee"]'],
+  // sets the "night" theme as the one used for dark mode
+  darkMode: ["class", '[data-theme="night"]'],
 }
 ```
+
 After changing these values you will have to [rebuild your front end](../front-end.md#building-in-development).
 
 Finally, you will also have to update the default themes in your `settings.py`:
 
 ```
 LIGHT_THEME = "cupcake"
-DARK_THEME = "coffee"
+DARK_THEME = "night"
 ```
 
 After this, your app should be fully styled in the new themes!
@@ -69,27 +72,18 @@ see the [daisyUI theme documentation](https://daisyui.com/docs/themes/) and thei
 
 ### Extending themes
 
-If you'd like to extend one of the built-in themes you can do that in your `tailwind.config.js` file.
+If you'd like to extend one of the built-in themes you can do that in your `site-tailwind.css` file
+as specified in the [DaisyUI docs](https://daisyui.com/docs/themes/#-3).
 
-For example, add a section like this to set custom primary and secondary colors for light and dark mode.
+For example, to change the colors of the default theme, add a section like this:
 
-```javascript
-daisyui: {
-  themes: [
-    {
-      light: {
-        ...require("daisyui/src/theming/themes")["light"],
-        primary: "#0c2340",
-        secondary: "#bd3039"
-      },
-      dark: {
-        ...require("daisyui/src/theming/themes")["dark"],
-        primary: "#bd3039",
-        secondary: "#0c2340"
-      }
-    },
-  ],
-},
+```css
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: blue;
+  --color-secondary: teal;
+}
 ```
 
 ## Other products / themes
@@ -116,7 +110,7 @@ However it is *not* connected to any backend data---it is just a UI example.
 #### Working with shadcn
 
 The dashboard can be found in `assets/javascript/shadcn-dashboard`.
-Shadcn components are stored in the `assets/javascript/components/ui` folder.
+Shadcn components are stored in the `assets/javascript/shadcn/components/ui` folder.
 
 Components can be imported in other JavaScript files using the same import path syntax used by the dashboard:
 
@@ -125,15 +119,7 @@ import { Button } from "@/components/ui/button"
 ```
 
 You can use the [shadcn cli](https://ui.shadcn.com/docs/cli) to create components,
-however it currently creates them in the wrong folder (this is surprisingly hard to change).
-So adding a component is a two step process:
-
-```
-npx shadcn@latest add badge
-mv components/ui/* assets/javascript/components/ui/
-```
-
-After that you should be able to import and use your component in your React code.
+and they should automatically be added to the right folder.
 
 ### Flowbite
 
@@ -148,12 +134,96 @@ If you enable this setting, flowbite will automatically be installed and you can
 flowbite components into any Django template.
 The reference page has an example of a few of these components.
 
+#### Extending Flowbite
+
+The default setup shows how to use Flowbite *alongside* DaisyUI.
+However, if you want to use Flowbite more holistically for your application you can.
+
+To get started, uncomment the following line in your `site-tailwind.css` file:
+
+```
+/* @import "flowbite/src/themes/default"; */
+```
+
+This will add flowbite's default styles, which are necessary for some extended components like datatables.
+
 ### Tailwind UI
 
 [Tailwind UI](https://tailwindui.com/) is a great product for building more complex pages, including marketing sites and app UIs.
 It another great option for getting help with UI components and pages, and should integrate seamlessly with the current Pegasus templates.
 
 Note that you will have to rebuild styles when adding TailwindUI components, as described in the "Development" section above.
+
+## Upgrading from Tailwind 3 to 4
+
+Pegasus 2025.3 updates Tailwind from version 3 to version 4. This is a big upgrade, and if you have added Tailwind markup to your
+project you will likely need to upgrade your own code and not just rely on the Pegasus updates.
+
+This section should help you with that process.
+It will be updated over time as additional questions and issues come up.
+If you have any problems with the migration, send a message in the community Slack!
+
+It's recommended to follow the following steps to upgrade your project to Tailwind 4:
+
+1. Read through the [Tailwind Upgrade Notes](https://tailwindcss.com/docs/upgrade-guide) and confirm you're ready to
+   upgrade from a browser support perspective.
+2. Do a [normal Pegasus upgrade](/upgrading.md) of your project to Version 2025.3 or later.
+2. Merge all conflicts as carefully as you can.
+3. Rebuild your front end (`npm install`, `npm run dev`).
+4. Run your app.
+
+At this point, your project should be running on Tailwind 4,
+though you should review the sections below for additional steps.
+
+### Restoring custom themes
+
+To restore custom themes, follow the [instructions above](#changing-your-themes) to re-apply your theme configuration
+(and if necessary, be sure to also remove it from `tailwind.config.js`).
+
+Note that some DaisyUI themes look slightly different in version 5 and may require further customization for the same
+look-and-feel.
+
+### Migrating non-Pegasus files
+
+You will likely want to run the [Tailwind upgrade tool](https://tailwindcss.com/docs/upgrade-guide#using-the-upgrade-tool)
+on your project to apply any automatic upgrades to files that aren't managed by Pegasus.
+
+After going through the steps above, you can re-run Tailwind's migration tool by following these steps.
+
+First, temporarily re-install Tailwind v3 on your project. This is required for the upgrade tool to run:
+
+```bash
+npm install tailwindcss@3
+```
+
+Next, temporarily restore the "content" section in your `tailwind.config.js` from your main branch.
+It should look something like this:
+
+```javascript
+  content: [
+    './apps/**/*.html',
+    './apps/web/templatetags/form_tags.py',
+    './assets/**/*.{js,ts,jsx,tsx,vue}',
+    './templates/**/*.html',
+  ],
+```
+
+Finally run the upgrade tool:
+
+```bash
+npx @tailwindcss/upgrade --force
+```
+
+This should apply Tailwind's automatic migrations to your existing HTML / JS / CSS files.
+Review these changes, commit the changes you want, and then undo the changes made to the `content` section above.
+Note that you may not want to apply some changes like shadow-downsizing, since these have already been included in Pegasus.
+
+### DaisyUI Updates
+
+Some common DaisyUI upgrades that you may need to check include:
+
+- Changing active navigation tab classes from `"active"` to `"menu-active"`.
+- Removing `-bordered` from inputs.
 
 ## Troubleshooting
 

@@ -3,6 +3,87 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.3
+
+This release upgrades TailwindCSS to version 4 (and DaisyUI to Version 5).
+It also has several minor updates and fixes. 
+
+### Tailwind 4 Update
+
+Pegasus now runs on Tailwind V4!
+This comes with [a huge number of improvements](https://tailwindcss.com/blog/tailwindcss-v4), including much faster
+build times, simplified tooling, automatic content detection, and more.
+
+Tailwind and DaisyUI were upgraded using the associated guides ([Tailwind](https://tailwindcss.com/docs/upgrade-guide),
+[DaisyUI](https://daisyui.com/docs/upgrade/)).
+There is also an [upgrade guide for Pegasus apps](./css/tailwind.md#upgrading-from-tailwind-3-to-4).
+
+Here's a detailed breakdown of the changes:
+
+- **Upgraded to Tailwind 4 and DaisyUI 5.**
+- **Changed how tailwind is imported and customized in `site-tailwind.css` to match the V4 guidance.**
+- **Removed `content` section of `tailwind.config.js`. Tailwind 4 automatically finds all content for the project.**
+- **Updated `postcss.config.js` to match the Tailwind 4 recommendation (using `@tailwindcss/postcss`).**
+- __Converted tailwind-specific CSS to V4 syntax, using `npx @tailwindcss/upgrade`. *These changes were automated.*__
+  - Removed `@layer` declarations
+  - Converted some helper classes to use `@utility`
+  - Changed some double quotes to single quotes and cleaned up whitespace in css files.
+  - Updated various classes in templates/JavaScript files according to the migration guide,
+    e.g. `outline-none` --> `outline-hidden`, `flex-grow` --> `grow`, 
+   `max-w-screen-xl` --> `max-w-(--breakpoint-xl)` etc.
+- DaisyUI updates:
+  - **DaisyUI is now initialized as a plugin in `site-tailwind.css` instead of `tailwind.config.js`.**
+  - **Themes are also now handled in this section. The docs have been updated to reflect this.** 
+  - Updated Pegasus CSS color variables to use the DaisyUI 5 versions.
+  - Cleaned up Tailwind form rendering tags, removed unnecessary markup, and upgraded markup to be compatible DaisyUI 5,
+    e.g. removing `-bordered` classes.
+  - Checkboxes will now appear on the left instead of the right of labels.
+  - Updated active tabs to use the latest DaisyUI markup (`menu-active` instead of `active`).
+- Shadcn updates:
+  - **Moved shadcn components from `assets/javascript/components/ui` to `assets/javascript/shadcn/components/ui`.**
+  - **New shadcn components can now be added via the CLI and will end up in the right place with no additional steps.**
+  - Updated `tsconfig.json` and `webpack.config.js` to be consistent with new shadcn setup.
+  - Regenerated shadcn components from the latest version of the library.
+  - Changed shadcn themeing to use `@theme` declaration.
+  - Removed all shadcn customizations from `tailwind.config.js` as they are superceded by the theme system.
+  - Upgraded various shadcn dependencies to their latest versions.
+- Flowbite updates:
+  - **Upgraded Flowbite to version 3.1.**
+  - **Flowbite is now initialized as a plugin in `site-tailwind.css`.**
+  - Explicitly import flowbite styles when building with flowbite enabled. This fixes out-of-the-box styling of some plugins.
+    (Thanks Eeshan for reporting and fixing!)
+- Extracted dark mode selector to its own component and upgraded it to work with DaisyUI 5.
+- Other fixes / changes
+  - Cleaned up various bits of CSS to use nested selectors.
+  - Improved the contrast of the `pg-text-muted` class on dark mode.
+  - Cleaned up commented out code in CSS files.
+- Removed unused "app" CSS class styles.
+- Standalone front end updates:
+  - **Removed tailwind entirely from the standalone front end CSS.**
+    The standalone front end currently gets its css from the same built file as the Django app.
+- Updated the [Tailwind Documentation](/css/tailwind.md) to reflect the V4 changes.
+
+### Other Updates
+
+- Fixed an issue running `./manage.py` commands in production docker containers when using `uv`.
+  Thanks Richard, Bryan, and Ken for reporting!
+- Fixed active tab highlighting on Flowbite demo.
+- Removed `--no-emit-package setuptools` from the `make pip-compile` command.
+  Some configurations require setuptools and this was causing issues on some pip-tools builds.
+  Thanks Jim for reporting and fixing!
+- Changed ruff `exclude` to `extend-exclude` in `pyproject.toml` to keep ruff's defaults. Thanks Justin for the suggestion!
+- Added help text to a few `make` targets that were missing it. Thanks Steve for the suggestion!
+- Removed unused `pg-is-loading` CSS class.
+- Fix syntax of commented out `EMAIL_BACKEND` variable in `deploy.yml`.
+- Removed language codes from the language selector dropdown.
+
+### Upgrading
+
+See the [Tailwind upgrade guide](./css/tailwind.md#upgrading-from-tailwind-3-to-4) for details on upgrading
+existing Tailwind projects.
+
+*Mar 26, 2025*
+
 ## Version 2025.2.2
 
 This is a hotfix release that fixes a bug in the styling of the avatar in the navbar on Bootstrap using certain browsers.

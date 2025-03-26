@@ -210,7 +210,8 @@ Some examples of things you might want to do next include:
 
 - Customize your landing page and set up a pricing page
 - Start modifying the list of navigation tabs and logged-in user experience
-- Create a new django app and begin building out your data models in `models.py`
+- Create a new django app and begin building out your data models in `models.py`.
+  It's recommended to use the [Pegasus CLI](https://github.com/saaspegasus/pegasus-cli/) for this.
 
 For some initial pointers on where to to make Pegasus your own, head on over to the 
 [Customizations Page](/customizations).
