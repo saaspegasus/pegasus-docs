@@ -3,6 +3,31 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.3
+
+- Explicitly import flowbite styles when building with flowbite enabled. This fixes out-of-the-box styling of some plugins.
+  (Thanks Eeshan for reporting and fixing!)
+- Removed `--no-emit-package setuptools` from the `make pip-compile` command.
+  Some configurations require setuptools and this was causing issues on some pip-tools builds.
+
+### Tailwind 4 Update
+
+- Cleaned up Tailwind form rendering tags, removed unnecessary markup, and upgraded to DaisyUI 5
+- Extracted dark mode selector to its own component and upgraded it to work with DaisyUI 5
+- Checkboxes will now appear on the left instead of the right of labels.
+- Fixed active tab highlighting on flowbite demo
+- Update active tabs to use the latest DaisyUI markup.
+- Moved shadcn components from `assets/javascript/components/ui` to `assets/javascript/shadcn/components/ui`.
+- Regenerated shadcn components from the latest version of the library.
+- Fixed default installation of new shadcn components.
+- Downgraded datepicker to fix styling (maybe).
+- Changed some double quotes to single quotes in css files.
+- Converted tailwind-specific CSS to V4 syntax, using `npx @tailwindcss/upgrade`.
+- Removed unused "app" style.
+- Cleaned up various bits of to use nested selectors.
+- Improved the contrast of the `pg-text-muted` class on dark mode.
+- Cleaned up commented out code in CSS files.
+
 ## Version 2025.2.2
 
 This is a hotfix release that fixes a bug in the styling of the avatar in the navbar on Bootstrap using certain browsers.
