@@ -40,7 +40,7 @@ A full list of available components can be found at the [daisyUI component libra
 If you enable dark mode, Pegasus will ship with the default DaisyUI light and dark themes which
 are used for regular and dark mode, respectively.
 But DaisyUI offers a number of [out-of-the-box themes](https://daisyui.com/docs/themes/) you can use in your Pegasus app.
-To change themes, make sure the theme is enabled in the daisyui sectoin of `site-tailwind.css` and specify
+To change themes, make sure the theme is enabled in the daisyui section of `site-tailwind.css` and specify
 what you want for defaults for light and dark mode as follows:
 
 ```css
@@ -153,6 +153,64 @@ This will add flowbite's default styles, which are necessary for some extended c
 It another great option for getting help with UI components and pages, and should integrate seamlessly with the current Pegasus templates.
 
 Note that you will have to rebuild styles when adding TailwindUI components, as described in the "Development" section above.
+
+## Upgrading from Tailwind 3 to 4
+
+Pegasus 2025.3 updates Tailwind from version 3 to version 4. This is a big upgrade, and if you have added tailwind markup to your
+project you will likely need to upgrade your own code and not just rely on the Pegasus updates.
+
+This section should help you with that process.
+It will be updated over time as additional questions and issues come up.
+If you have any problems with the migration, send a message in the community Slack!
+
+To upgrade your project to Tailwind 4, we recommend the following steps:
+
+1. Start a [normal upgrade](/upgrading.md) of your project to 2025.3 or later.
+2. Merge all conflicts as carefully as you can.
+3. Rebuild your front end (`npm install`, `npm run dev`).
+4. Run your app.
+
+At this point, your project should be running on Tailwind 4,
+though if you've done customizations you may have to take further steps to get those working (see below).
+
+### Restoring custom themes
+
+To restore custom themes, follow the [instructions above](#changing-your-themes) to re-apply your theme configuration.
+Note that DaisyUI themes look slightly different in version 5.
+
+### Migrating non-Pegasus files
+
+You will likely want to run the tailwind upgrade tool on your project to apply any automatic upgrades to files that
+aren't managed by Pegasus.
+
+After going through the steps above, you can re-run Tailwind's migration tool by following these steps.
+
+First, temporarily re-install Tailwind v3 on your project. This is required for the upgrade tool to run:
+
+```bash
+npm install tailwindcss@3
+```
+
+Next, temporarily restore the "content" section in your `tailwind.config.js` from your main branch.
+It should look something like this:
+
+```javascript
+  content: [
+    './apps/**/*.html',
+    './apps/web/templatetags/form_tags.py',
+    './assets/**/*.{js,ts,jsx,tsx,vue}',
+    './templates/**/*.html',
+  ],
+```
+
+Finally run the upgrade tool:
+
+```bash
+npx @tailwindcss/upgrade --force
+```
+
+This should apply Tailwind's automatic migrations to your existing HTML / JS files.
+Review these changes, commit the changes you want, and then undo the changes made to the `content` section above.
 
 ## Troubleshooting
 
