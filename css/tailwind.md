@@ -165,7 +165,9 @@ If you have any problems with the migration, send a message in the community Sla
 
 To upgrade your project to Tailwind 4, we recommend the following steps:
 
-1. Start a [normal upgrade](/upgrading.md) of your project to 2025.3 or later.
+1. Read through the [Tailwind Upgrade Notes](https://tailwindcss.com/docs/upgrade-guide) and confirm you're ready to
+   upgrade from a browser support perspective.
+2. Do a [normal Pegasus upgrade](/upgrading.md) of your project to Version 2025.3 or later.
 2. Merge all conflicts as carefully as you can.
 3. Rebuild your front end (`npm install`, `npm run dev`).
 4. Run your app.
@@ -175,13 +177,16 @@ though if you've done customizations you may have to take further steps to get t
 
 ### Restoring custom themes
 
-To restore custom themes, follow the [instructions above](#changing-your-themes) to re-apply your theme configuration.
-Note that DaisyUI themes look slightly different in version 5.
+To restore custom themes, follow the [instructions above](#changing-your-themes) to re-apply your theme configuration
+(and if necessary, be sure to also remove it from `tailwind.config.js`).
+
+Note that some DaisyUI themes look slightly different in version 5 and may require further customization for the same
+look-and-feel.
 
 ### Migrating non-Pegasus files
 
-You will likely want to run the tailwind upgrade tool on your project to apply any automatic upgrades to files that
-aren't managed by Pegasus.
+You will likely want to run the [Tailwind upgrade tool](https://tailwindcss.com/docs/upgrade-guide#using-the-upgrade-tool)
+on your project to apply any automatic upgrades to files that aren't managed by Pegasus.
 
 After going through the steps above, you can re-run Tailwind's migration tool by following these steps.
 
