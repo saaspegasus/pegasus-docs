@@ -35,7 +35,7 @@ get from the table below:
 | Codebase            | Commit ID                                  | Last Updated |
 |---------------------|--------------------------------------------|--------------|
 | Scriv               | `57412dc5faa2ec001b8affa144dfd1bb6d213969` | Feb, 2025    |
-| Translation Creator | `8223212df001e072ef6bd32b54dea8937ef0831e` | Feb, 2025    |
+| Translation Creator | `673e3cf37ffeb3472c0eedf3a38e924ee7a3c0ab` | March, 2025  |
 
 Enter the commit ID and click "Set Commit ID".
 
