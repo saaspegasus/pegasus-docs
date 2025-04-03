@@ -32,7 +32,7 @@ Render and Fly are comparable, and are the recommended options for staging sites
 since they are easy to set up and have a generous free tier.
 
 If you would like to deploy to a platform that's not listed here, please get in touch on Slack or by emailing 
-cory@saaspegasus.com and I'm happy to help!
+support@saaspegasus.com and I'm happy to help!
 
 ## Deployment to any VPS
 

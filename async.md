@@ -119,4 +119,4 @@ pip install -r requirements/dev-requirements.txt
 
 Since this is a new feature there may be some speed-bumps getting it into production on all platforms.
 While every deployment platform is expected to work, it is not possible to test every app/configuration.
-So, if you have any issues please reach out over email (cory@saaspegasus.com) or on Slack and I will do my best to help! 
+So, if you have any issues please reach out over email (support@saaspegasus.com) or on Slack and I will do my best to help! 
