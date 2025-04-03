@@ -3,6 +3,28 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.4
+
+AI tool support!
+
+- Improved default file input styles. 
+- Removed unused `postcss.config.js` file from the front end. (Thanks Jacob for reporting!)
+- Add front end install / build to `make init`. (Thanks Jacob for reporting!)
+- Bumped `vite` used by the standalone front end to the latest version.
+- Upgraded several Python packages to their latest versions.
+
+### Translation Creator updates
+
+Big thanks to Valics who helped me add some nice updates to Translation Creator.
+
+- Translations will now keep your comments.
+- Added pagination, sort, and filtering to the translations view.
+- Added the ability to delete projects and clear translations.
+- Updated the DB constraint to use a hash of the input text instead of the text itself, which improves performance
+  and fixes a bug with long translations.
+- Added / updated test cases.
+- Upgraded to the latest Pegasus, including Tailwind 4 and DaisyUI 5. 
+
 ## Version 2025.3
 
 This release upgrades TailwindCSS to version 4 (and DaisyUI to Version 5).
