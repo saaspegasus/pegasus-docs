@@ -8,6 +8,6 @@ Read on for details about using AI with Pegasus.
 
 .. toctree::
 
-   ai/overview
+   ai/development
    ai/llms
    ai/images
