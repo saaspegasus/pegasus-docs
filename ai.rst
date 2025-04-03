@@ -1,8 +1,10 @@
 LLMs and AI
 =========
 
-Pegasus ships with multiple example applications that integrate with LLMs and image generating AI models.
-Read on for details about the various AI integrations available in Pegasus.
+Pegasus ships with AI-based tools and integrations that help you *build* your application,
+as well as example AI applications built *on top of* Pegasus.
+
+Read on for details about using AI with Pegasus.
 
 .. toctree::
 
