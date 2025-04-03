@@ -12,6 +12,9 @@ AI tool support!
 - Add front end install / build to `make init`. (Thanks Jacob for reporting!)
 - Bumped `vite` used by the standalone front end to the latest version.
 - Upgraded several Python packages to their latest versions.
+- Fixed a potential XSS vulnerability issue with `markdown_tags` not properly escaping vulnerable tags.
+  This issue existed in the AI chat UI.
+
 
 ### Translation Creator updates
 
