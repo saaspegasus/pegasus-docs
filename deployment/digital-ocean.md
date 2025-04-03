@@ -23,7 +23,7 @@ If you are planning to use Celery or Redis, first create your Redis cluster.
 In the command below, replace `<your-project>` with the values from `deploy/app-spec.yaml`.
 
 ```
-doctl databases create <your-project>-redis --engine redis --num-nodes 1 --version 7
+doctl databases create <your-project>-redis --engine redis --num-nodes 1 --version 7 --region <your-region>
 ```
 
 Next edit the `/deploy/app-spec.yaml` file. In particular, make sure to set your Github repository and branch.
