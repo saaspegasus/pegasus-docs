@@ -69,29 +69,29 @@ Then skip ahead to the [post-install steps](getting-started.md#post-installation
 
 If you're using Docker you can skip this section.
 
-### Set up your Python environment
-
-There are several ways of setting up your Python environment.
-
-See [this page](./python/setup.md) for information on choosing an option and setting up your environment.
-
 ### Enter the project directory
 
 ```
 cd {{ project_name }}
 ```
 
-You should see a lot of newly created files for your project including a `manage.py` file.
+You should see your project files, including a `manage.py` file.
+
+### Set up your Python environment
+
+There are several ways of setting up your Python environment.
+
+See [this page](./python/setup.md) for information on choosing an option and setting up your environment.
 
 ### Install package requirements
 
-If you used `uv` your packages should already be installed.
-If you chose a different option, install them now by running:
+With `uv`:
 
-```shell
+```
+# with uv
+uv sync
+# or if using pip tools
 pip install -r dev-requirements.txt
-# for production installs use
-pip install -r requirements.txt
 ```
 
 Note: if you have issues installing `psycopg2`, try installing the dependencies outlined in 
