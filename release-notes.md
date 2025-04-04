@@ -18,7 +18,8 @@ Watch a demo below, or check out the new [AI tool docs](/ai/development.md).
 
 ### Added
 
-- **Optional rules files and MCP configuration for Cursor or Claude**
+- **Optional rules files and MCP configuration for Cursor or Claude.**
+  - These files will continue to be modified and iterated on as more developers use them and provide feedback.
 
 ### Changed
 
