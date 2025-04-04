@@ -31,8 +31,9 @@ Watch a demo below, or check out the new [AI tool docs](/ai/development.md).
 ### Fixed
 
 - **Fixed a potential XSS vulnerability issue with `markdown_tags` not properly escaping vulnerable tags.**
-  This issue existed in the AI chat UI, though would be present in any usage of that library.
+  This issue existed if you were using the AI chat UI, or built other functionality on top of that library.
   All markdown is now sanitized with `nh3`. (Thanks Mitja for reporting!)
+  - Also added tests for this functionality.
 
 ### Translation Creator updates
 
