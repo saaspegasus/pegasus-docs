@@ -5,7 +5,11 @@ These will be constantly edited, expanded on, and improved as the community is a
 
 ## Video overview
 
-See below for a demo of how you can use these tools to help you with development. 
+See below for a demo of how you can use these tools to help you with development.
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/o3VrQFdvVQ8" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
 
 ## Rules Files
 
@@ -30,6 +34,17 @@ work directly with your application in a browser.
 
 See the demo video above for more detail.
 
+## Working with Cursor
+
+[Cursor](https://www.cursor.com/) is an AI code editor (IDE).
+If you enable the Cursor integration, your rules files will be saved to the `/.cursor/rules/` directory
+and will be labeled to be automatically included based on the context.
+For example, the Python coding guidelines will be included anytime you're editing a `.py` file.
+
+The MCP setup for Cursor will be saved to `.cursor/mcp.json`, and should be discoverable by Cursor there.
+
+You can modify the rules files and MCP set up in your Cursor settings or by editing the files by hand.
+
 ## Working with Claude Code
 
 [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) is a command-line
@@ -38,17 +53,6 @@ If you enable the Claude code integration, your rules will be collapsed into a s
 file for Claude to use.
 
 Additionally, the MCP setup will be saved to `.mcp.json` and should be automatically discovered by claude.
-
-## Cursor
-
-[Cursor](https://www.cursor.com/) is an AI code editor (IDE).
-If you enable the Cursor integration, your rules files will be saved to the `/cursor/rules/` directory
-and will be labeled to be automatically included based on the context.
-For example, the Python coding guidelines will be included anytime you're editing a `.py` file.
-
-The MCP setup for Cursor will be saved to `.cursor/mcp.json`, and should be discoverable by Cursor there.
-
-You can modify the rules files and MCP set up in your Cursor settings or by editing the files by hand.
 
 ## Other tools
 
