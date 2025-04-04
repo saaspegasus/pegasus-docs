@@ -5,28 +5,49 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.4
 
-AI tool support!
+The main feature of this release is improved support for AI tools and coding assistants.
+This release adds a suite of rules files that can be used with Cursor, Claude Code, or other AI-enabled IDEs.
+It also adds an MCP configuration for interfacing with your development database and controlling a web browser.
+These options are configurable via new project settings.
+
+Watch a demo below, or check out the new [AI tool docs](/ai/development.md).
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/o3VrQFdvVQ8" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+### Added
+
+- **Optional rules files and MCP configuration for Cursor or Claude**
+
+### Changed
 
 - Improved default file input styles. 
-- Removed unused `postcss.config.js` file from the front end. (Thanks Jacob for reporting!)
 - Add front end install / build to `make init`. (Thanks Jacob for reporting!)
 - Bumped `vite` used by the standalone front end to the latest version.
 - Upgraded several Python packages to their latest versions.
-- Fixed a potential XSS vulnerability issue with `markdown_tags` not properly escaping vulnerable tags.
-  This issue existed in the AI chat UI. (Thanks Mitja for reporting!)
+- Removed unused `postcss.config.js` file from the front end. (Thanks Jacob for reporting!)
 
+### Fixed
+
+- **Fixed a potential XSS vulnerability issue with `markdown_tags` not properly escaping vulnerable tags.**
+  This issue existed in the AI chat UI, though would be present in any usage of that library.
+  All markdown is now sanitized with `nh3`. (Thanks Mitja for reporting!)
 
 ### Translation Creator updates
 
-Big thanks to Valics who helped me add some nice updates to Translation Creator.
+A number of new features were added to [Translation Creator](https://www.saaspegasus.com/store/product/translation-creator/)
+this month. Big thanks to community member Valics who contributed the first draft of most of these updates.
 
-- Translations will now keep your comments.
-- Added pagination, sort, and filtering to the translations view.
+- **Upgraded to the latest Pegasus, including Tailwind 4 and DaisyUI 5.** 
+- **Translations will now retain comments.**
+- **Added pagination, sort, and filtering to the translations view.**
 - Added the ability to delete projects and clear translations.
 - Updated the DB constraint to use a hash of the input text instead of the text itself, which improves performance
   and fixes a bug with long translations.
 - Added / updated test cases.
-- Upgraded to the latest Pegasus, including Tailwind 4 and DaisyUI 5. 
+
+*April 4, 2025*
 
 ## Version 2025.3
 
