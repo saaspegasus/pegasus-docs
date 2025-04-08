@@ -49,6 +49,7 @@ Ensure that you have configured the following variables (if you are using them):
 - All apps should set `SECRET_KEY` to a long, randomly-generated value.
 - If you're using Stripe, you should set the `STRIPE_TEST_PUBLIC_KEY`, `STRIPE_TEST_SECRET_KEY`, 
 `STRIPE_LIVE_PUBLIC_KEY`, and `STRIPE_LIVE_SECRET_KEY` config vars (or whatever subset you are using).
+  You also need to set `STRIPE_LIVE_MODE` to `True`.
 - If you set up email, ensure whatever keys/secrets you need are set.
 - If you're using Mailchimp, set `MAILCHIMP_API_KEY` and `MAILCHIMP_LIST_ID`.
 - If you're using Health Checks, set `HEALTH_CHECK_TOKENS`.
