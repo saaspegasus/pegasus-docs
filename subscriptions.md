@@ -422,7 +422,7 @@ class CustomUser(SubscriptionModelBase, AbstractUser):
 
 ## Stripe in Production
 
-In development you will use your Stripe test account, but when it comes time to go to production,
+In development, you will use your Stripe test account, but when it comes time to go to production,
 you will want to switch to the live account.
 
 This entails:
