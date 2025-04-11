@@ -106,20 +106,19 @@ export default function Profile() {
 
 The front end uses the [same api client](apis.md#api-clients) as the backend / hybrid model.
 The API client is installed as a local npm package.
-If the APIs are not public, it should be initialized with an authentication token (which you can get from the `AuthContext`).
+
+Authentication is handled via sessions and does not require any additional configuration.
 Here is a basic example from the employee app demo:
 
 ```jsx
-import {useContext} from "react";
-import {AuthContext} from "../../auth/authcontext.tsx";
 import {PegasusApi} from "api-client";
+import EmployeeApplication from "../../../../assets/javascript/pegasus/examples/react/App.jsx";
+import {getApiConfiguration} from "../../api/utils.tsx";
 
 export default function EmployeeApp() {
-  const {token} = useContext(AuthContext);
-  const client = new PegasusApi(getApiConfiguration(token));
-
+  const client = new PegasusApi(getApiConfiguration());
   return (
-    <EmployeeApplication client={client} />
+    <EmployeeApplication client={client} urlBase="/dashboard/employees" />
   );
 }
 ```
