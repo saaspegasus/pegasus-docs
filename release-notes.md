@@ -3,6 +3,36 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.4.1
+
+- Teams invitation workflow changes:
+  - When a user signs up with a pending invitation they will be redirected to view it before creating their first team.
+  - Users can view pending invitations for any of their email addresses from the team selector dropdown.
+  - **Accepting an invitation requires having a verified email address for the email it was sent to.**
+  - Inviting an email address of someone who's already in a team will show an error message that they are already part of the team.
+  - Added an API for accessing the logged-in user's invitations, used by the React view.
+  - React: renamed `getInviteUrl` helper JS function to `getResendInviteUrl`.
+  - Don't allow invitations to people who are already members of a team.
+- Standalone front end updates:
+  - Enabled [allauth headless](https://docs.allauth.org/en/dev/headless/index.html) 
+  - Added a `CustomHeadlessAdapter` class to add the user's profile picture to the API.
+  - Removed translation markup from JavaScript code that is shared with the standalone front end.
+    This doesn't work, currently.
+  - Updated the standalone front end to use an authentication system against allauth headless
+    (which borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project).
+  - Updated `.eslintrc.cjs` to `eslint.config.mjs` and tweaked the configuration settings.
+  - Upgraded eslint-related libraries.
+  - Show more/better validation errors on login, signup, etc.
+- Backend auth updates
+  - Removed `dj-rest-auth` and `djangorestframework-simplejwt`. Auth now uses allauth headless and sessions by default. 
+  - Removed the `apps/authentication` app and associated api client code.
+  - Added allauth headless app and configuration to `settings.py`
+  
+- Removed the "app-card" styling from the loading widget to make it more versatile.
+- Add `DEBUG=false` to `heroku.yml` setup section, which helps enforce that debug is disabled when running `collectstatic`.
+  This helps avoid "No module named 'daphne'" errors in async deployments. Thanks Abhishek for reporting!
+
+
 ## Version 2025.4
 
 The main feature of this release is improved support for AI tools and coding assistants.
