@@ -16,7 +16,7 @@ It uses [Vite](https://vitejs.dev/) as a development server and build tool.
 The features it includes are:
 
 - A standalone Vite / React application.
-- Authentication via JWT---including sign up, login and logout functionality.
+- Authentication via headless allauth and sessions---including sign up, login, social login, 2fa, email confirmation, and logout functionality.
 - A sample profile page which shows how to retrieve data from your back end and display it.
 - The employee lifecycle demo that ships with Pegasus (if enabled).
 
@@ -66,45 +66,39 @@ npm run dev
 Note: your Django backend must also be running for the front end to work,
 and you must also [build your Django front end](front-end.md) for styles to work.
 
-
 ## Authentication
 
-Authentication is handled via *protected routes* and *authentication context*.
+The authentication for this project borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project.
+In particular, the `src/lib/` and `src/allauth_auth/` folders have been copied in from that project and lightly modified to work with Pegasus.
+
+Authentication is primarily handled via *authenticated routes* and *authentication context*.
 You can see an example of how to set this up in the profile page.
 
-Any page in your application that requires login can be wrapped in the `ProtectedRoute` component.
+Any page in your application that requires login can be wrapped in the `AuthenticatedRoute` component.
 For example, like this:
 
 ```jsx
-<ProtectedRoute>
+<AuthenticatedRoute>
   <p>Hello authenticated user!</p>
-</ProtectedRoute>
+</AuthenticatedRoute>
 ```
 
 Alternatively, if you make a page a child of the `<Dashboard>` component this will be automatically configured for you.
 See `main.tsx` as an example of how this is set up.
 
-When using the `ProtectedRoute`, if the user is not logged in they will be redirected to the login page.
+When using the `AuthenticatedRoute`, if the user is not logged in they will be redirected to the login page.
 If they are logged in, they will be able to access the route, and you can assume access
 to the user object and other APIs.
 
-If you want to access user data you can use the `AuthContext` context.
-This context is made available from the `AuthProvider` component, which is available on all pages.
-
-Here is an example of using the `AuthContext` from the Profile page:
+If you want to access user data you can use the `useAuthInfo` helper function which returns an `AuthContext` context.
+Here is a simplified example taken from the Profile page:
 
 ```jsx
-import {useContext} from "react";
-import {AuthContext} from "../../auth/authcontext";
-
+import { useAuthInfo } from "../../allauth_auth/hooks";
 
 export default function Profile() {
-  const { user } = useContext(AuthContext);
-  return (
-    <p>
-      Hello {user?.getDisplayName}!
-    </p>
-  );
+  const { user } = useAuthInfo();
+  return <p>The user's email address is: {user?.email}</p>
 }
 ```
 
