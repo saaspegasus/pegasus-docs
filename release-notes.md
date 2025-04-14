@@ -17,21 +17,33 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
   - Enabled [allauth headless](https://docs.allauth.org/en/dev/headless/index.html) 
   - Added a `CustomHeadlessAdapter` class to add the user's profile picture to the API.
   - Removed translation markup from JavaScript code that is shared with the standalone front end.
-    This doesn't work, currently.
-  - Updated the standalone front end to use an authentication system against allauth headless
-    (which borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project).
+    Translations are not supported, currently.
+  - **Updated the standalone front end to use an authentication system against allauth headless
+    (which borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project).**
+    This involved a large number of code-level changes which are not fully outlined here, though some of the larger ones are listed below.
+    Additionally, [the front end docs](./experimental/react-front-end.md) have been updated to reflect the key updates.
   - Updated `.eslintrc.cjs` to `eslint.config.mjs` and tweaked the configuration settings.
   - Upgraded eslint-related libraries.
   - Show more/better validation errors on login, signup, etc.
+  - Changed `ProtectedRoute` to `AuthenticatedRoute`.
+  - Added templates and components for various new authentication workflows (email confirmation, password reset, etc.).
 - Backend auth updates
   - Removed `dj-rest-auth` and `djangorestframework-simplejwt`. Auth now uses allauth headless and sessions by default. 
   - Removed the `apps/authentication` app and associated api client code.
-  - Added allauth headless app and configuration to `settings.py`
-  
+  - Added allauth headless app and configuration to `settings.py` (if authentication APIs are enabled or using the standalone front end).
+
 - Removed the "app-card" styling from the loading widget to make it more versatile.
 - Add `DEBUG=false` to `heroku.yml` setup section, which helps enforce that debug is disabled when running `collectstatic`.
   This helps avoid "No module named 'daphne'" errors in async deployments. Thanks Abhishek for reporting!
-
+- Fix: The `dark_mode_selector.html` component is no longer included if you have disabled dark mode.
+- Improved chat height styling on mobile screens to avoid extra scrolling.
+- Fixed a test case in `test_member_management` that wasn't getting properly exercised.
+- Made a few ruff formatting/linting improvements:
+  - Use `contextlib.suppress` in a few places instead of the previous exception handling
+  - Use `raise ... from` in several places for more explicit exception handling.
+  - Combined some nested if statements into single lines.
+  - Change from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
+  
 
 ## Version 2025.4
 
