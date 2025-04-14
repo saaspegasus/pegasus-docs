@@ -1,7 +1,7 @@
 Standalone React Front End
 ==========================
 
-*Added in version 2024.4.*
+*Added in version 2024.4. Expanded in version 2025.4.1.*
 
 SaaS Pegasus's default React integration is based on a hybrid-model for reasons
 [outlined here](https://www.saaspegasus.com/guides/modern-javascript-for-django-developers/client-server-architectures/#enter-the-hybrid-architecture).
@@ -16,14 +16,15 @@ It uses [Vite](https://vitejs.dev/) as a development server and build tool.
 The features it includes are:
 
 - A standalone Vite / React application.
-- Authentication via headless allauth and sessions---including sign up, login, social login, 2fa, email confirmation, and logout functionality.
-- A sample profile page which shows how to retrieve data from your back end and display it.
-- The employee lifecycle demo that ships with Pegasus (if enabled).
+- Authentication via headless allauth and sessions---including sign up, login, social login, email confirmation,
+  two-factor authentication, and logout functionality.
+- A sample profile page which shows how to retrieve data from the logged in user (via the back end APIs) and display it.
+- The employee lifecycle demo that ships with Pegasus (if enabled), showing a full create, update, delete (CRUD) workflow.
 
 The standalone front end is *only available on TailwindCSS* and uses DaisyUI for styling.
 
 **The standalone is not intended to be a replacement for Pegasus's UI, but a reference example you can use
-as a starting point to build standalone, React, single-page-applications with Pegasus.**
+as a starting point to build standalone, single-page-applications with Pegasus and React.**
 
 Here's a demo:
 
@@ -139,6 +140,7 @@ Here are some of the larger limitations:
 
 - Only a very limited subset of Pegasus functionality is available in the front end.
 - The front end styles only support Tailwind CSS.
+- Internationalization (translations) are not supported.
 - There is no guidance/support for production deployment of the front end.
 
 ## Troubleshooting
