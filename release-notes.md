@@ -38,11 +38,21 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 - Fix: The `dark_mode_selector.html` component is no longer included if you have disabled dark mode.
 - Improved chat height styling on mobile screens to avoid extra scrolling.
 - Fixed a test case in `test_member_management` that wasn't getting properly exercised.
-- Made a few ruff formatting/linting improvements:
-  - Use `contextlib.suppress` in a few places instead of the previous exception handling
-  - Use `raise ... from` in several places for more explicit exception handling.
-  - Combined some nested if statements into single lines.
-  - Change from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
+- **Ruff linting updates**
+  - Changed from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
+  - Updated the default ruff rules to enable all of the [E (error) Rules](https://docs.astral.sh/ruff/rules/#error-e),
+    as well as the [UP (pyupgrade) Rules](https://docs.astral.sh/ruff/rules/#pyupgrade-up), [B (flake8-bugbear) Rules](https://docs.astral.sh/ruff/rules/#flake8-bugbear-b),
+    and [SIM (flake8-simplify) rules](https://docs.astral.sh/ruff/rules/#flake8-simplify-sim), in addition to the already-enabled
+    [F (Pyflakes) Rules](https://docs.astral.sh/ruff/rules/#pyflakes-f), and [I (isort) Rules](https://docs.astral.sh/ruff/rules/#isort-i).
+  - These lead to some minor code changes, including: 
+    - Use `contextlib.suppress` in a few places instead of the previous exception handling
+    - Use `raise ... from` in several places for more explicit exception handling.
+    - Combined some nested if statements into single lines.
+    - Use super() instead of super(C, self)
+    - Use f-strings instead of percent style format strings
+    - Use Type | OtherType instead of Union[Type, OtherType]
+    - Use core types for list, dict etc instead of the type classes.
+    - Define classes without the object base class
   
 
 ## Version 2025.4
