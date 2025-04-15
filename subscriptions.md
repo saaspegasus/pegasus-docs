@@ -172,21 +172,45 @@ to test locally using [Stripe's excellent guide](https://stripe.com/docs/webhook
 
 ### Webhooks in development
 
-In development the easiest way to set up webhooks is to install the [Stripe CLI](https://stripe.com/docs/stripe-cli),
-and then run it with the following command:
+In development, the easiest way to set up webhooks is with the [Stripe CLI](https://stripe.com/docs/stripe-cli).
 
-```
-stripe listen --forward-to localhost:8000/stripe/webhook/
-```
+First install the CLI and set it up. Then print your CLI secret with:
 
-If you'd prefer, you can also do this with Docker (no Stripe install required) by running:
-
-```
-docker run --network host --rm -it stripe/stripe-cli listen --forward-to  localhost:8000/stripe/webhook/  --api-key sk_test_<your_key>
+```bash
+stripe listen --print-secret
 ```
 
-**Make sure to set `DJSTRIPE_WEBHOOK_SECRET` in your `settings.py` or environment.**
-This value will be in the console output in the Stripe CLI.
+Or with Docker (no install required):
+
+```bash
+docker run --network host --rm -it stripe/stripe-cli listen \
+  --print-secret \
+  --api-key sk_test_<your_key>
+```
+
+Then you can set up your webhook endpoint by running:
+
+```bash
+./manage.py bootstrap_development_webhooks --secret <your_secret>
+```
+
+This will create a webhook endpoint for `djstripe` in your application.
+The `bootstrap_development_webhooks` will also output a stripe command you can then use to listen for webhooks.
+
+It will look something like this, with the `<uuid>` replaced by your own webhook endpoint's ID:
+
+```bash
+stripe listen \
+  --forward-to http://localhost:8000/stripe/webhook/<uuid>/"
+```
+
+Or in Docker:
+
+```
+docker run --network host --rm -it stripe/stripe-cli listen \
+  --forward-to  localhost:8000/stripe/webhook/<uuid>/ \
+  --api-key sk_test_<your_key>
+```
 
 ### Webhooks in production
 
