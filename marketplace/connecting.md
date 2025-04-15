@@ -32,10 +32,10 @@ in the repository. It will look something like this:
 In the "Commit id" field, enter the commit ID of the most recent Pegasus update, which you can
 get from the table below:
 
-| Codebase            | Commit ID                                  | Last Updated |
-|---------------------|--------------------------------------------|--------------|
-| Scriv               | `57412dc5faa2ec001b8affa144dfd1bb6d213969` | Feb, 2025    |
-| Translation Creator | `673e3cf37ffeb3472c0eedf3a38e924ee7a3c0ab` | March, 2025  |
+| Codebase            | Commit ID                                  | Pegasus Version | Last Updated |
+|---------------------|--------------------------------------------|-----------------|--------------|
+| Scriv               | `8490937bb9799ad2e740b25f2a8d68683657f2f7` | 2025.4          | April, 2025  |
+| Translation Creator | `673e3cf37ffeb3472c0eedf3a38e924ee7a3c0ab` | 2025.3          | March, 2025  |
 
 Enter the commit ID and click "Set Commit ID".
 
