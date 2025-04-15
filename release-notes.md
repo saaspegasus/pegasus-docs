@@ -53,7 +53,23 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
     - Use Type | OtherType instead of Union[Type, OtherType]
     - Use core types for list, dict etc instead of the type classes.
     - Define classes without the object base class
+- **Upgraded dj-stripe to version 2.9**
+  - **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
+  - Updated webhook handling to be compatible with the above model.
+  - Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
+  - Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
+  - Removed the no-longer used `DJSTRIPE_WEBHOOK_SECRET` setting and environment variable.
+  - Also upgraded `stripe` to `11.6` (there is [a bug with djstripe and the latest `12.0` release](https://github.com/dj-stripe/dj-stripe/issues/2153))
+  - Updated the [subscription docs](/subscriptions.md#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
+
+- Deleted the unused `_create_api_keys_if_necessary` function in `bootstrap_subscriptions.py`
+- Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
+  [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).
   
+### Upgrading
+
+Something about dj-stripe. Refer to [subscription docs](/subscriptions.md#webhooks).
+
 
 ## Version 2025.4
 
