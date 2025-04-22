@@ -36,7 +36,7 @@ To compile the front-end JavaScript and CSS files it's expected that you have in
 - [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 Pegasus is developed and tested on the latest LTS releases, which (at the time of this writing)
-are Node version {{default_node_version}} and npm 10.
+are Node version {{default_node_version}} and npm 11.
 Later versions will likely work, but aren't regularly-tested.
 Also it's recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage different node/npm environments more easily.
 `nvm` is essentially `virtualenv` for Node.js/npm.
