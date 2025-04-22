@@ -102,7 +102,6 @@ export default function Profile() {
   return <p>The user's email address is: {user?.email}</p>
 }
 ```
-
 ## Backend API access
 
 The front end uses the [same api client](apis.md#api-clients) as the backend / hybrid model.
@@ -130,6 +129,15 @@ Routing is handled by [React Router](https://reactrouter.com/en/main).
 
 The main routes for the project are configured in `main.tsx`, and you can also include child routes
 by following the pattern used by the employee demo.
+
+## URLs in Emails
+
+Some workflows, like email confirmation and password reset, require sending the user a link to your site.
+Allauth only supports a single link for the entire application so you need to choose whether that link should
+go to your Django application or your React front end.
+
+To use the React front end's pages for these workflows, you can set `USE_HEADLESS_URLS = True` in your settings or environment variables.
+This will configure the [`HEADLESS_FRONTEND_URLS` setting](https://docs.allauth.org/en/dev/headless/configuration.html) to work with the built-in front end.
 
 ## Known Limitations
 
