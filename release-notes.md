@@ -5,66 +5,111 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.4.1
 
-- Teams invitation workflow changes:
+This is a big release with a few major features.
+
+### Team invitation workflow changes
+
+The workflow around new users joining teams and accepting invitations has been streamlined based on user feedback.
+For a summary of the changes you can watch [this walkthrough](https://youtu.be/qxr_WdQEL2g) or read below.
+
+Key user-facing changes:
+
   - When a user signs up with a pending invitation they will be redirected to view it before creating their first team.
   - Users can view pending invitations for any of their email addresses from the team selector dropdown.
   - **Accepting an invitation requires having a verified email address for the email it was sent to.**
   - Inviting an email address of someone who's already in a team will show an error message that they are already part of the team.
+
+In addition, the following fixes and code updates were made:
+
   - Added an API for accessing the logged-in user's invitations, used by the React view.
   - React: renamed `getInviteUrl` helper JS function to `getResendInviteUrl`.
-  - Don't allow invitations to people who are already members of a team.
-- Standalone front end updates:
-  - Enabled [allauth headless](https://docs.allauth.org/en/dev/headless/index.html) 
-  - Added a `CustomHeadlessAdapter` class to add the user's profile picture to the API.
-  - Removed translation markup from JavaScript code that is shared with the standalone front end.
-    Translations are not supported, currently.
+
+### API authentication and Standalone front end updates
+
+The [Standalone React Front end](./experimental/react-front-end.md) underwent a major overhaul. Importantly, it now uses
+[allauth headless](https://docs.allauth.org/en/dev/headless/index.html) instead of a custom `dj-rest-auth` and custom
+authentication APIs.
+
+On top of this, support for many new authentication workflows was added to the standalone front end,
+including email confirmation, password reset, and social authentication.
+The standalone front end is now close-to-parity with the Django authentication system. 
+
+Details:
+
+  - **Enabled and configured [allauth headless](https://docs.allauth.org/en/dev/headless/index.html)**
+    (if authentication APIs are enabled or using the standalone front end).
+  - **Removed `dj-rest-auth` and `djangorestframework-simplejwt`. Auth now uses allauth headless and sessions by default.** 
+  - **Removed the `apps/authentication` app and associated api client code.**
   - **Updated the standalone front end to use an authentication system against allauth headless
     (which borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project).**
     This involved a large number of code-level changes which are not fully outlined here, though some of the larger ones are listed below.
-    Additionally, [the front end docs](./experimental/react-front-end.md) have been updated to reflect the key updates.
-  - Updated `.eslintrc.cjs` to `eslint.config.mjs` and tweaked the configuration settings.
-  - Upgraded eslint-related libraries.
-  - Show more/better validation errors on login, signup, etc.
-  - Changed `ProtectedRoute` to `AuthenticatedRoute`.
-  - Added templates and components for various new authentication workflows (email confirmation, password reset, etc.).
-- Backend auth updates
-  - Removed `dj-rest-auth` and `djangorestframework-simplejwt`. Auth now uses allauth headless and sessions by default. 
-  - Removed the `apps/authentication` app and associated api client code.
-  - Added allauth headless app and configuration to `settings.py` (if authentication APIs are enabled or using the standalone front end).
+    - Added a `CustomHeadlessAdapter` class to add the user's profile picture to the API.
+    - Removed translation markup from JavaScript code that is shared with the standalone front end.
+      Translations are not supported, currently.
+    - Upgraded eslint-related libraries.
+    - Updated `.eslintrc.cjs` to `eslint.config.mjs` and tweaked the configuration settings.
+    - Show more/better validation errors on login, signup, etc.
+    - Changed `ProtectedRoute` to `AuthenticatedRoute`.
+    - Added templates and components for various new authentication workflows (email confirmation, password reset, etc.).
+  - Updated [the front end docs](./experimental/react-front-end.md) to reflect the latest setup.
 
-- Removed the "app-card" styling from the loading widget to make it more versatile.
-- Add `DEBUG=false` to `heroku.yml` setup section, which helps enforce that debug is disabled when running `collectstatic`.
-  This helps avoid "No module named 'daphne'" errors in async deployments. Thanks Abhishek for reporting!
-- Fix: The `dark_mode_selector.html` component is no longer included if you have disabled dark mode.
-- Improved chat height styling on mobile screens to avoid extra scrolling.
-- Fixed a test case in `test_member_management` that wasn't getting properly exercised.
-- **Ruff linting updates**
-  - Changed from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
-  - Updated the default ruff rules to enable all of the [E (error) Rules](https://docs.astral.sh/ruff/rules/#error-e),
+### Ruff linting updates
+
+The ruff linting rules were expanded and code has been modified to pass the revised ruleset.
+This leads to cleaner, more consistent code across the project.
+
+Details:
+
+  - **Updated the default ruff rules to enable all of the [E (error) Rules](https://docs.astral.sh/ruff/rules/#error-e),
     as well as the [UP (pyupgrade) Rules](https://docs.astral.sh/ruff/rules/#pyupgrade-up), [B (flake8-bugbear) Rules](https://docs.astral.sh/ruff/rules/#flake8-bugbear-b),
     and [SIM (flake8-simplify) rules](https://docs.astral.sh/ruff/rules/#flake8-simplify-sim), in addition to the already-enabled
-    [F (Pyflakes) Rules](https://docs.astral.sh/ruff/rules/#pyflakes-f), and [I (isort) Rules](https://docs.astral.sh/ruff/rules/#isort-i).
+    [F (Pyflakes) Rules](https://docs.astral.sh/ruff/rules/#pyflakes-f), and [I (isort) Rules](https://docs.astral.sh/ruff/rules/#isort-i).**
   - These lead to some minor code changes, including: 
     - Use `contextlib.suppress` in a few places instead of the previous exception handling
     - Use `raise ... from` in several places for more explicit exception handling.
     - Combined some nested if statements into single lines.
-    - Use super() instead of super(C, self)
-    - Use f-strings instead of percent style format strings
-    - Use Type | OtherType instead of Union[Type, OtherType]
+    - Use `super()` instead of `super(C, self)`
+    - Use f-strings instead of percent style format strings when possible.
+    - Use `Type | OtherType` instead of `Union[Type, OtherType]` in type hints
     - Use core types for list, dict etc instead of the type classes.
     - Define classes without the object base class
-- **Upgraded dj-stripe to version 2.9**
-  - **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
-  - Updated webhook handling to be compatible with the above model.
-  - Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
-  - Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
-  - Removed the no-longer used `DJSTRIPE_WEBHOOK_SECRET` setting and environment variable.
-  - Also upgraded `stripe` to `11.6` (there is [a bug with djstripe and the latest `12.0` release](https://github.com/dj-stripe/dj-stripe/issues/2153))
-  - Updated the [subscription docs](/subscriptions.md#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
+  - Changed from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
 
-- Deleted the unused `_create_api_keys_if_necessary` function in `bootstrap_subscriptions.py`
-- Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
-  [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).
+### dj-stripe and webhook updates
+
+This release upgrades `dj-stripe` to version 2.9 and migrates to dj-stripe's database-backed webhooks.
+This lets you set up multiple webhook endpoints/secrets, if desired.
+See the upgrade guide for details on updating.
+
+Details:
+
+- **Upgraded dj-stripe to version 2.9**
+- **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
+  See [the dj-stripe webhook documentation](https://dj-stripe.dev/2.9/usage/webhooks/) for more details.
+- Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
+- Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
+- Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
+- Removed the no-longer used `DJSTRIPE_WEBHOOK_SECRET` setting and environment variable.
+- Upgraded `stripe` to version `11.6` (there is [a bug with djstripe and the latest `12.0` release](https://github.com/dj-stripe/dj-stripe/issues/2153))
+- Updated the [subscription docs](/subscriptions.md#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
+- **Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
+  [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).**
+  - This fixes an issue with loading the "manage subscription" page when using the latest Stripe API version. 
+
+### Other updates
+
+- **Change: Upgraded npm to the latest version (11.3) in Docker containers and docs.**
+- **Change: Added a honeypot field to the sign up form to help reduce bot sign ups.** (Thanks Chris and Stian for suggesting!)
+- Change: Removed the "app-card" styling from the loading widget to make it more versatile.
+- Change: Tweaked whitespace in a few templates to be more consistent across the project.
+- Fix: Added `DEBUG=false` to `heroku.yml` setup section, which helps enforce that debug is disabled when running `collectstatic`.
+  This helps avoid "No module named 'daphne'" errors in async deployments. Thanks Abhishek for reporting!
+- Fix: The `dark_mode_selector.html` component is no longer included if you have disabled dark mode.
+- Fix: Improved chat height styling on mobile screens to avoid extra scrolling.
+- Fix: Updated the migration that creates the default Site object to also update the table sequence ID.
+  Thanks Julian and Geoff for the suggestion and help with this! 
+- Fix: Fixed a test case in `test_member_management` that wasn't getting properly exercised.
+- Fix: Deleted the unused `_create_api_keys_if_necessary` function in `bootstrap_subscriptions.py`
   
 ### Upgrading
 
@@ -87,7 +132,7 @@ Watch a demo below, or check out the new [AI tool docs](/ai/development.md).
 ### Added
 
 - **Optional rules files and MCP configuration for Cursor or Claude.**
-  - These files will continue to be modified and iterated on as more developers use them and provide feedback.
+  - These files will continue to be modified and iterated on as more developers use them and provide feedback.settings
 
 ### Changed
 
