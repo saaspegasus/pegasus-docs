@@ -240,8 +240,8 @@ Once webhooks are properly set up, all underlying Stripe data will be automatica
 
 #### Legacy setup before Pegasus 2025.4.1:
 
-These instructions are only for projects running prior to Pegasus version 2025.4.1.
-For recent projects, use the instructions above.
+**These instructions are only for projects running prior to Pegasus version 2025.4.1.
+For recent projects, use the instructions above.**
 
 - Navigate to this page [Webhooks](https://dashboard.stripe.com/webhooks) (assuming you're logged into Stripe).
 - Toggle off test mode in the top right corner.
