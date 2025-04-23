@@ -24,6 +24,8 @@ In addition, the following fixes and code updates were made:
   - Added an API and serializer for accessing the logged-in user's invitations, used by the React view.
   - React: renamed `getInviteUrl` helper JS function to `getResendInviteUrl`.
 
+*Thanks to EJ, Geoff, Valics, Simon, Arno, and possibly others who contributed ideas and feedback on the design of these changes.*
+
 ### API authentication and Standalone front end updates
 
 The [Standalone React Front end](./experimental/react-front-end.md) underwent a major overhaul. Importantly, it now uses
