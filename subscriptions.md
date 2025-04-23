@@ -214,7 +214,34 @@ docker run --network host --rm -it stripe/stripe-cli listen \
 
 ### Webhooks in production
 
-To set up webhooks in production:
+The webhook setup changed significantly in version 2025.4.1.
+If you are on version 2025.4.1 or later, follow these steps, which are taken from the [dj-stripe docs](https://dj-stripe.dev/2.9/usage/webhooks/).
+For versions earlier than 2025.4.1 see the next section.
+
+- As a superuser, visit the Django admin of your site and navigate to djstripe -> Webhook endpoints -> Add webhook endpoint
+  (or /admin/djstripe/webhookendpoint/add/).
+- Select your Stripe account, check "Live mode" and verify the Base url matches your server's domain, e.g. https://www.example.com.
+- Under "Advanced" verify the API version is correct.
+- Under "Advanced", choose the enabled events you want to listen for. At a minimum you want:
+  - `checkout.session.completed`
+  - `customer.subscription.updated`
+  - `customer.subscription.deleted`
+  - You can add other webhooks as well, (or choose `*` to enable all webhooks) but these are the minimum set required
+    for subscriptions and the billing portal to work properly.
+- Verify the other settings (the defaults should be fine) and click "Save".
+
+After completing these steps, visit your [Stripe dashboard](https://dashboard.stripe.com/webhooks) and confirm
+the new webhook endpoint has been synced to Stripe.
+Secrets are managed by dj-stripe, and the webhook should be working!
+
+In production, you should not need to run `stripe listen --forward-to localhost:8000/stripe/webhook/` (or the Docker equivalent).
+
+Once webhooks are properly set up, all underlying Stripe data will be automatically synced from Stripe with no additional setup required on your part.
+
+#### Legacy setup before Pegasus 2025.4.1:
+
+These instructions are only for projects running prior to Pegasus version 2025.4.1.
+For recent projects, use the instructions above.
 
 - Navigate to this page [Webhooks](https://dashboard.stripe.com/webhooks) (assuming you're logged into Stripe).
 - Toggle off test mode in the top right corner.
@@ -227,10 +254,6 @@ To set up webhooks in production:
 - **Ensure to set `DJSTRIPE_WEBHOOK_SECRET` in your `settings.py` or as an environment variable.**
   This value can be found in the Stripe dashboard where you configure your webhook and may be referred to as the `Signing Secret`.
 
-In production, you should not need to run `stripe listen --forward-to localhost:8000/stripe/webhook/` (or the Docker equivalent).
-
-Once webhooks are properly set up, all underlying Stripe data will be automatically synced from Stripe with no additional setup required on your part.
-
 ### Custom Webhook Handling
 
 You may want to do more than just update the underlying Stripe objects when processing webhooks, 
@@ -239,7 +262,7 @@ for example, notifying a customer or admin of a failed payment.
 Pegasus ships with an example of executing custom logic from a webhook in `apps/subscriptions/webhooks.py`. 
 This basic example will mail your project admins when a Subscription is canceled.
 
-More details on custom webhooks can be found in the [dj-stripe documentation](https://dj-stripe.readthedocs.io/en/stable/usage/webhooks.html).
+More details on custom webhooks can be found in the [dj-stripe documentation](https://dj-stripe.dev/2.9/usage/webhooks/).
 
 ## Supporting multiple currencies
 
