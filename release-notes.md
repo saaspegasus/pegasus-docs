@@ -21,7 +21,7 @@ Key user-facing changes:
 
 In addition, the following fixes and code updates were made:
 
-  - Added an API for accessing the logged-in user's invitations, used by the React view.
+  - Added an API and serializer for accessing the logged-in user's invitations, used by the React view.
   - React: renamed `getInviteUrl` helper JS function to `getResendInviteUrl`.
 
 ### API authentication and Standalone front end updates
@@ -38,7 +38,8 @@ Details:
 
   - **Enabled and configured [allauth headless](https://docs.allauth.org/en/dev/headless/index.html)**
     (if authentication APIs are enabled or using the standalone front end).
-  - **Removed `dj-rest-auth` and `djangorestframework-simplejwt`. Auth now uses allauth headless and sessions by default.** 
+  - **Removed `dj-rest-auth` and `djangorestframework-simplejwt` and associated setup code.
+    Auth now uses allauth headless and sessions by default.** 
   - **Removed the `apps/authentication` app and associated api client code.**
   - **Updated the standalone front end to use an authentication system against allauth headless
     (which borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project).**
@@ -51,7 +52,29 @@ Details:
     - Show more/better validation errors on login, signup, etc.
     - Changed `ProtectedRoute` to `AuthenticatedRoute`.
     - Added templates and components for various new authentication workflows (email confirmation, password reset, etc.).
+    - Added an `ACCOUNT_USER_DISPLAY` setting.
   - Updated [the front end docs](./experimental/react-front-end.md) to reflect the latest setup.
+
+### Djstripe upgrade and webhook updates
+
+This release upgrades `dj-stripe` to version 2.9 and migrates to dj-stripe's database-backed webhooks.
+This lets you set up multiple webhook endpoints/secrets, if desired.
+See the upgrade guide for details on updating.
+
+Details:
+
+- **Upgraded dj-stripe to version 2.9**
+- **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
+  See [the dj-stripe webhook documentation](https://dj-stripe.dev/2.9/usage/webhooks/) for more details.
+- Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
+- Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
+- Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
+- Removed the no-longer used `DJSTRIPE_WEBHOOK_SECRET` setting and environment variable.
+- Upgraded `stripe` to version `11.6` (there is [a bug with djstripe and the latest `12.0` release](https://github.com/dj-stripe/dj-stripe/issues/2153))
+- Updated the [subscription docs](/subscriptions.md#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
+- **Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
+  [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).**
+  - This fixes an issue with loading the "manage subscription" page when using the latest Stripe API version. 
 
 ### Ruff linting updates
 
@@ -75,33 +98,19 @@ Details:
     - Define classes without the object base class
   - Changed from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
 
-### dj-stripe and webhook updates
-
-This release upgrades `dj-stripe` to version 2.9 and migrates to dj-stripe's database-backed webhooks.
-This lets you set up multiple webhook endpoints/secrets, if desired.
-See the upgrade guide for details on updating.
-
-Details:
-
-- **Upgraded dj-stripe to version 2.9**
-- **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
-  See [the dj-stripe webhook documentation](https://dj-stripe.dev/2.9/usage/webhooks/) for more details.
-- Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
-- Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
-- Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
-- Removed the no-longer used `DJSTRIPE_WEBHOOK_SECRET` setting and environment variable.
-- Upgraded `stripe` to version `11.6` (there is [a bug with djstripe and the latest `12.0` release](https://github.com/dj-stripe/dj-stripe/issues/2153))
-- Updated the [subscription docs](/subscriptions.md#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
-- **Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
-  [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).**
-  - This fixes an issue with loading the "manage subscription" page when using the latest Stripe API version. 
-
 ### Other updates
 
 - **Change: Upgraded npm to the latest version (11.3) in Docker containers and docs.**
-- **Change: Added a honeypot field to the sign up form to help reduce bot sign ups.** (Thanks Chris and Stian for suggesting!)
+- **Change: Added a honeypot field to the sign up form to help reduce bot/spam sign ups.** (Thanks Chris and Stian for suggesting!)
+- Change: added an "@" alias for the `assets/javascript` folder and started using it in imports.
 - Change: Removed the "app-card" styling from the loading widget to make it more versatile.
 - Change: Tweaked whitespace in a few templates to be more consistent across the project.
+- Change: Updated development Docker setup to run as the logged-in user (under a `django` user account) instead of root.
+  This should help with file ownership permissions being assigned to root after running the project with Docker.
+  Thanks Finbar and Jacob for the suggestion and help with this!
+- Change: Use `blocktranslate trimmed` instead of `blocktranslate` in some Django templates.
+- Change: Updated the output of `bootstrap_subscriptions` to communicate that only subscription products should be added
+  to `ACTIVE_PRODUCTS`.
 - Fix: Added `DEBUG=false` to `heroku.yml` setup section, which helps enforce that debug is disabled when running `collectstatic`.
   This helps avoid "No module named 'daphne'" errors in async deployments. Thanks Abhishek for reporting!
 - Fix: The `dark_mode_selector.html` component is no longer included if you have disabled dark mode.
@@ -110,11 +119,50 @@ Details:
   Thanks Julian and Geoff for the suggestion and help with this! 
 - Fix: Fixed a test case in `test_member_management` that wasn't getting properly exercised.
 - Fix: Deleted the unused `_create_api_keys_if_necessary` function in `bootstrap_subscriptions.py`
-  
+- Fix: Fixed the hover text color of the `.pg-button-danger` CSS class styles on tailwind builds. 
+
 ### Upgrading
 
-Something about dj-stripe. Refer to [subscription docs](/subscriptions.md#webhooks).
 
+#### Authentication APIs
+
+#### Djstripe and Webhooks
+
+There are a few issues you might run into with the dj-stripe upgrade.
+
+**Database Migrations**
+
+If you get an `InconsistentMigrationHistory` running `manage.py migrate` on your database, look for any diffs
+in your existing migration files that change the `djstripe` dependency from `0012_2_8` to `0014_2_9a`, and then
+revert these changes back to `0012_2_8`.
+
+**Webhooks**
+
+The most recent dj-stripe has disabled the global webhook support in favor of database-backed webhooks.
+These are more versatile, secure, and easier to set up, but require a migration from the previous set up.
+
+To migrate your webhooks, follow the instructions to set up a new webhook endpoint from the [subscriptions docs](./subscriptions.md#webhooks-in-production)
+and then delete your previous webhook endpoint.
+**If you fail to do this your webhooks will stop working in production.**
+
+#### Formatting and linting
+
+All Pegasus code should be updated to pass the new ruff linting configuration, but the configuration changes
+might cause build failures on code that has been added/modified.
+Most fixes can be automated by running:
+
+```
+ruff check --fix
+```
+
+On the upgraded codebase.
+
+Some errors will likely require manual fixing, which can be done by reading the output and making the suggested change
+(or even giving the task to an LLM).
+Alternatively, you can modify the `[tool.ruff.lint]` section of `pyproject.toml` to remove any categories
+of fixes you don't want to turn on for your project.
+
+*April 23, 2025*
 
 ## Version 2025.4
 
