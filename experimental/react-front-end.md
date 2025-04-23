@@ -7,7 +7,7 @@ SaaS Pegasus's default React integration is based on a hybrid-model for reasons
 [outlined here](https://www.saaspegasus.com/guides/modern-javascript-for-django-developers/client-server-architectures/#enter-the-hybrid-architecture).
 The hybrid model is still recommended for the overwhelming majority of Pegasus projects using React.
 However, there are valid reasons to run a completely separate React front---including access to dedicated tooling and libraries,
-and isolating your front end and back end code.
+isolating your front end and back end code, and working with AI-based tools that generate single-page applications.
 
 Pegasus experimentally ships with a decoupled front end *example* single page application that can be used as a starting point for building
 out a decoupled front end / SPA with React.
@@ -69,7 +69,8 @@ and you must also [build your Django front end](front-end.md) for styles to work
 
 ## Authentication
 
-The authentication for this project borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project.
+Authentication uses session-based authentication against the Django backend (previous versions of the front end used JWTs).
+The authentication implementation borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project.
 In particular, the `src/lib/` and `src/allauth_auth/` folders have been copied in from that project and lightly modified to work with Pegasus.
 
 Authentication is primarily handled via *authenticated routes* and *authentication context*.
@@ -89,7 +90,7 @@ See `main.tsx` as an example of how this is set up.
 
 When using the `AuthenticatedRoute`, if the user is not logged in they will be redirected to the login page.
 If they are logged in, they will be able to access the route, and you can assume access
-to the user object and other APIs.
+to the user object and other APIs that require login.
 
 If you want to access user data you can use the `useAuthInfo` helper function which returns an `AuthContext` context.
 Here is a simplified example taken from the Profile page:
@@ -149,7 +150,7 @@ Here are some of the larger limitations:
 - Only a very limited subset of Pegasus functionality is available in the front end.
 - The front end styles only support Tailwind CSS.
 - Internationalization (translations) are not supported.
-- There is no guidance/support for production deployment of the front end.
+- There is not yet any guidance/support for production deployment of the front end.
 
 ## Troubleshooting
 
