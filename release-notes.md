@@ -5,7 +5,7 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.4.1
 
-This is a big release with a few major features.
+This is a big release with a few major updates.
 
 ### Team invitation workflow changes
 
@@ -14,9 +14,9 @@ For a summary of the changes you can watch [this walkthrough](https://youtu.be/q
 
 Key user-facing changes:
 
-  - When a user signs up with a pending invitation they will be redirected to view it before creating their first team.
-  - Users can view pending invitations for any of their email addresses from the team selector dropdown.
+  - **When a user signs up with a pending invitation they will be redirected to view it before creating their first team.**
   - **Accepting an invitation requires having a verified email address for the email it was sent to.**
+  - Users can view pending invitations for any of their email addresses from the team selector dropdown.
   - Inviting an email address of someone who's already in a team will show an error message that they are already part of the team.
 
 In addition, the following fixes and code updates were made:
@@ -32,7 +32,7 @@ authentication APIs.
 
 On top of this, support for many new authentication workflows was added to the standalone front end,
 including email confirmation, password reset, and social authentication.
-The standalone front end is now close-to-parity with the Django authentication system. 
+The standalone front end---which is still in experimental mode---is now close-to-parity with the Django authentication system. 
 
 Details:
 
@@ -41,9 +41,10 @@ Details:
   - **Removed `dj-rest-auth` and `djangorestframework-simplejwt` and associated setup code.
     Auth now uses allauth headless and sessions by default.** 
   - **Removed the `apps/authentication` app and associated api client code.**
-  - **Updated the standalone front end to use an authentication system against allauth headless
-    (which borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project).**
-    This involved a large number of code-level changes which are not fully outlined here, though some of the larger ones are listed below.
+  - **Updated the standalone front end to use an authentication system against allauth headless and added 
+    support for email confirmation, social authentication and password reset.**
+    These changes borrow heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project,
+    and involve a large number of code-level changes which are not fully outlined here, though some of the larger ones are listed below:
     - Added a `CustomHeadlessAdapter` class to add the user's profile picture to the API.
     - Removed translation markup from JavaScript code that is shared with the standalone front end.
       Translations are not supported, currently.
@@ -53,33 +54,30 @@ Details:
     - Changed `ProtectedRoute` to `AuthenticatedRoute`.
     - Added templates and components for various new authentication workflows (email confirmation, password reset, etc.).
     - Added an `ACCOUNT_USER_DISPLAY` setting.
-  - Updated [the front end docs](./experimental/react-front-end.md) to reflect the latest setup.
+  - Updated [the standalone front end docs](./experimental/react-front-end.md) to reflect the latest setup.
 
 ### Djstripe upgrade and webhook updates
 
 This release upgrades `dj-stripe` to version 2.9 and migrates to dj-stripe's database-backed webhooks.
 This lets you set up multiple webhook endpoints/secrets, if desired.
-See the upgrade guide for details on updating.
+See the upgrade section below for details on updating.
 
 Details:
 
 - **Upgraded dj-stripe to version 2.9**
 - **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
-  See [the dj-stripe webhook documentation](https://dj-stripe.dev/2.9/usage/webhooks/) for more details.
+  See [the updated subscription webhooks documentation](./subscriptions.md#webhooks) for more details.
 - Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
 - Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
 - Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
 - Removed the no-longer used `DJSTRIPE_WEBHOOK_SECRET` setting and environment variable.
 - Upgraded `stripe` to version `11.6` (there is [a bug with djstripe and the latest `12.0` release](https://github.com/dj-stripe/dj-stripe/issues/2153))
 - Updated the [subscription docs](/subscriptions.md#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
-- **Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
-  [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).**
-  - This fixes an issue with loading the "manage subscription" page when using the latest Stripe API version. 
 
 ### Ruff linting updates
 
 The ruff linting rules were expanded and code has been modified to pass the revised ruleset.
-This leads to cleaner, more consistent code across the project.
+This leads to cleaner, more consistent code across the project and should make future Pegasus merges/upgrades smoother.
 
 Details:
 
@@ -94,23 +92,27 @@ Details:
     - Use `super()` instead of `super(C, self)`
     - Use f-strings instead of percent style format strings when possible.
     - Use `Type | OtherType` instead of `Union[Type, OtherType]` in type hints
-    - Use core types for list, dict etc instead of the type classes.
-    - Define classes without the object base class
-  - Changed from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
+    - Use core types for `list`, `dict` etc. instead of the type classes.
+    - Define classes without the object base class.
+    - Increased strictness around line lengths.
+  - Changed rule definition from `extend-select` to `select` based on [ruff's recommendations](https://docs.astral.sh/ruff/linter/#rule-selection).
 
 ### Other updates
 
 - **Change: Upgraded npm to the latest version (11.3) in Docker containers and docs.**
 - **Change: Added a honeypot field to the sign up form to help reduce bot/spam sign ups.** (Thanks Chris and Stian for suggesting!)
-- Change: added an "@" alias for the `assets/javascript` folder and started using it in imports.
-- Change: Removed the "app-card" styling from the loading widget to make it more versatile.
-- Change: Tweaked whitespace in a few templates to be more consistent across the project.
+- Change: Added an "@" alias for the `assets/javascript` folder and started using it in imports.
 - Change: Updated development Docker setup to run as the logged-in user (under a `django` user account) instead of root.
   This should help with file ownership permissions being assigned to root after running the project with Docker.
   Thanks Finbar and Jacob for the suggestion and help with this!
+- Change: Removed the "app-card" styling from the loading widget to make it more versatile.
+- Change: Tweaked whitespace in a few templates to be more consistent across the project.
 - Change: Use `blocktranslate trimmed` instead of `blocktranslate` in some Django templates.
 - Change: Updated the output of `bootstrap_subscriptions` to communicate that only subscription products should be added
   to `ACTIVE_PRODUCTS`.
+- **Fix: Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
+  [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).**
+  - This fixes an issue with loading the "manage subscription" page when using the latest Stripe API version. 
 - Fix: Added `DEBUG=false` to `heroku.yml` setup section, which helps enforce that debug is disabled when running `collectstatic`.
   This helps avoid "No module named 'daphne'" errors in async deployments. Thanks Abhishek for reporting!
 - Fix: The `dark_mode_selector.html` component is no longer included if you have disabled dark mode.
@@ -123,8 +125,25 @@ Details:
 
 ### Upgrading
 
+There are several changes in this release that may require additional steps during the upgrade process.
+To help with this, I recorded a video walkthrough of myself upgrading one of my own projects, which you can watch below:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/I9XSU_HDMf4" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
 
 #### Authentication APIs
+
+If you were using Pegasus's [standalone React front end](./experimental/react-front-end.md) then your setup should work
+out of the box after upgrading.
+
+If you were using the `dj-rest-auth` app and previous authentication APIs in a different way, then you will need to either:
+
+1. Update the client code to work with allauth headless. This can be done by referring to the example front end
+   and [allauth documentation](https://docs.allauth.org/en/dev/headless/index.html).
+2. Restore the previous implementation of the authentication APIs.
+   This can be achieved by *rejecting* the proposed changes to remove the `apps.authentication` app and library dependencies/setup
+   during the upgrade process.
 
 #### Djstripe and Webhooks
 
@@ -152,17 +171,17 @@ might cause build failures on code that has been added/modified.
 Most fixes can be automated by running:
 
 ```
-ruff check --fix
+(uv run) ruff check --fix --unsafe-fixes
 ```
 
-On the upgraded codebase.
+On the upgraded codebase and reviewing the changes made.
 
 Some errors will likely require manual fixing, which can be done by reading the output and making the suggested change
 (or even giving the task to an LLM).
 Alternatively, you can modify the `[tool.ruff.lint]` section of `pyproject.toml` to remove any categories
 of fixes you don't want to turn on for your project.
 
-*April 23, 2025*
+*April 24, 2025*
 
 ## Version 2025.4
 
@@ -545,7 +564,7 @@ This is a minor hotfix release for 2024.12
 *Jan 13, 2025*
 
 ## Version 2024.12
-
+content/
 This release adds first-class support for using uv as a complete replacement for development and production workflows
 (see below), and has a handful of fixes/changes.
 
