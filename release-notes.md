@@ -162,13 +162,14 @@ These are more versatile, secure, and easier to set up, but require a migration 
 
 To migrate your webhooks, follow the instructions to set up a new webhook endpoint from the [subscriptions docs](./subscriptions.md#webhooks-in-production)
 and then delete your previous webhook endpoint.
+There is a complete walkthrough of this process in the video above.
 **If you fail to do this your webhooks will stop working in production.**
 
 #### Formatting and linting
 
 All Pegasus code should be updated to pass the new ruff linting configuration, but the configuration changes
 might cause build failures on code that has been added/modified.
-Most fixes can be automated by running:
+Many fixes can be automated by running:
 
 ```
 (uv run) ruff check --fix --unsafe-fixes
@@ -176,8 +177,9 @@ Most fixes can be automated by running:
 
 On the upgraded codebase and reviewing the changes made.
 
-Some errors will likely require manual fixing, which can be done by reading the output and making the suggested change
+However, some errors will likely require manual fixing, which can be done by reading the output and making the suggested change
 (or even giving the task to an LLM).
+You can see how I did this process with Claude code in the above video.
 Alternatively, you can modify the `[tool.ruff.lint]` section of `pyproject.toml` to remove any categories
 of fixes you don't want to turn on for your project.
 
