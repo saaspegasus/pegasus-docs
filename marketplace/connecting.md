@@ -34,7 +34,7 @@ get from the table below:
 
 | Codebase            | Commit ID                                  | Pegasus Version | Last Updated |
 |---------------------|--------------------------------------------|-----------------|--------------|
-| Scriv               | `8490937bb9799ad2e740b25f2a8d68683657f2f7` | 2025.4          | April, 2025  |
+| Scriv               | `dbee5f634503f9d37b061c7a682e59db3bfece06` | 2025.4.1        | April, 2025  |
 | Translation Creator | `673e3cf37ffeb3472c0eedf3a38e924ee7a3c0ab` | 2025.3          | March, 2025  |
 
 Enter the commit ID and click "Set Commit ID".
