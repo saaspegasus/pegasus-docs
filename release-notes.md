@@ -3,6 +3,19 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.4.2
+
+This is a bugfix release that addresses a few problems in the most recent build:
+
+- Moved the new `CustomHeadlessAdapter` to `users/adapters.py` to fix an issue with it not being available if you built
+  without teams enabled. Thanks Alex for reporting!
+- Remove source maps for JavaScript bundles in production. This results in substantially smaller production bundle sizes.
+  Thanks Jan for reporting!
+- Automatically do a best effort to set the user/group ID used by the development docker container in the `Makefile`.
+  Thanks Jacob for suggesting!
+
+*Apr 29, 2025*
+
 ## Version 2025.4.1
 
 This is a big release with a few major updates.
