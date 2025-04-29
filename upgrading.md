@@ -151,9 +151,26 @@ In this example, the type annotations were added to the function signature:
 +def is_member(user: CustomUser, team: apps.teams.models.Team) -> bool:
 ```
 
-## Other notes
+## Conflict Resolution Tips and Tricks
 
-### Database Migrations
+The most time-consuming part of an upgrade is typically resolving conflicts between changes you've made and changes
+in the updated Pegasus release. Here are some tips and tricks for managing this process.
+
+### Make sure resolutions are recorded
+
+Git has a feature called [rerere](https://git-scm.com/book/en/v2/Git-Tools-Rerere), which stands for "reuse recorded resolution”.
+This feature allows you to ask Git to remember how you've resolved a conflict so that the next time it sees the same conflict,
+Git can resolve it for you automatically.
+Enabling this feature will make future merges much smoother as each conflict will only have to be resolved once.
+
+The easiest way to ensure rerere is enabled is to use the Github integration.
+If that's not possible, you can enable it locally by running:
+
+```
+$ git config --global rerere.enabled true
+```
+
+### Resolving Database Migrations
 
 It can be quite common for there to be conflicting database migrations during an upgrade.
 This can happen when Pegasus modifies data models, you change your project settings in a way that updates models,
@@ -163,7 +180,7 @@ To resolve any issues with database migrations, follow the following steps:
 
 1. Always commit your migration files to source control.
    This makes it easier to have a consistent state across environments and builds.
-2. Before doing an upgrade, make sure your project migrations are up-to-date (`manage.py makemigrations` should do nothing).
+2. Before doing an upgrade, make sure your project migrations are up to date (`manage.py makemigrations` should do nothing).
 3. After doing an upgrade, if Pegasus adds or changes any migration files, *discard those changes*.
 4. After merging the code and discarding any changes to migrations introduced by Pegasus, re-run `manage.py makemigrations` on
    the upgraded code, and commit the result to source control.
@@ -172,7 +189,31 @@ To resolve any issues with database migrations, follow the following steps:
 Basically, **you should always keep your migration history and throw away any changes Pegasus proposes to existing migration files.**
 Then re-run `makemigrations` on the merged code.
 
-### Python Packages
+### Resolving Python Package "generated" files
+
+Python packages in Pegasus have lock files that are dynamically generated from other files:
+
+- If you're using uv, your `uv.lock` is generated from `pyproject.toml`.
+- If you're using pip-tools, your `requirements.txt` is generated from `requirements.in`.
+
+In either case, the easiest way to resolve the conflicts in these files is:
+
+1. *Merge* the source file (`pyproject.toml` or `requirements.in`).
+2. Accept all of SaaS Pegasus's proposed changes to the generated file.
+3. Regenerate the generated file, using `uv sync` or `pip-compile`.
+4. Manually inspect the new library versions and update them as needed.
+
+The end result of this should be that you get all of Pegasus's pinned versions, and then manually choose which of your
+own dependencies (if any) to update.
+
+### Resolving bundled static files
+
+Conflicts in any built static files should be resolved by:
+
+1. Deleting the files entirely.
+2. Re-running `npm run build` / `npm run dev` and committing the result.
+
+## Post-merge steps
 
 After upgrading you may also need to reinstall requirements (`pip install -r requirements.txt`),
 npm packages (`npm install`), etc. depending on what has changed.
