@@ -3,6 +3,16 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.4.3
+
+This is another bugfix release:
+
+- Make the user/group creation more resilient in development Docker containers,
+  which fixes a permissions issue on MacOS in certain environments. Thanks Chris for reporting!
+- Add `architecture.md` to cursor rules directory.
+
+*May 1, 2025*
+
 ## Version 2025.4.2
 
 This is a bugfix release that addresses a few problems in the most recent build:
