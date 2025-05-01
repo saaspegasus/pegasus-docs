@@ -24,6 +24,12 @@ This is a bugfix release that addresses a few problems in the most recent build:
 - Automatically do a best effort to set the user/group ID used by the development docker container in the `Makefile`.
   Thanks Jacob for suggesting!
 
+For the source map fix, you can change the "devtool" setting in `webpack.config.js` to this:
+
+```javascript
+  devtool: process.env.NODE_ENV === 'production' ? false : "eval-cheap-source-map",
+```
+
 *Apr 29, 2025*
 
 ## Version 2025.4.1
