@@ -3,6 +3,17 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.4.4
+
+This is another minor release:
+
+- Stop dynamically setting user/group ID in the `Makefile` and just default to `1000`. The dynamic ID assignment
+  was continuing to cause issues on certain MacOS environments.
+- Add `make build-api-client` target even when not using Docker.
+- Added additional guidance on Pegasus's Django model conventions to the Python AI rules.
+
+*May 5, 2025*
+
 ## Version 2025.4.3
 
 This is another bugfix release:
