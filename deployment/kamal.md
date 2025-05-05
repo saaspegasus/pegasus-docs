@@ -197,7 +197,7 @@ The easiest way to run one-off commands on your server is to use the `kamal app 
 For example:
 
 ```
-kamal app exec 'python manage.py bootstrap_subscriptions'
+kamal app exec -r web 'python manage.py bootstrap_subscriptions'
 ```
 
 If you want an interactive SSH-style shell you can run:
