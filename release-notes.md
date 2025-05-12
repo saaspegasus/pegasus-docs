@@ -3,6 +3,28 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.5
+
+**Added the option to use Vite as a bundler instead of webpack.**
+
+- `window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).
+  - Affected files include: `app.js` (`window.SiteJS.app`), `pegasus.js` (`window.SiteJS.pegasus`)
+  - Imports in those files were also renamed to avoid namespace confilcts.
+
+Other front end cleanup related to the Vite update
+- Updated all JavaScript files using JSX to have a `.jsx` extension.
+- Removed legacy Vue2 code and imports from the Vue example.
+- Removed unused imports shadcn components.
+- Removed leading tilde ("~" character) from CSS imports in various places.
+- Changed CSS imports in JavaScript files from `require` to `import`.
+- Updated the standalone front end to run on port 5174 to not conflict with the default vite port.
+- Fixed a few small React warnings/issues in the AI chat app. 
+
+- **Upgraded all Python packages to the latest versions, including Django 5.2.**
+- Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.
+- Added explicit width and height to some svgs to slightly improve styling when CSS is not present.
+
+
 ## Version 2025.4.4
 
 This is another minor release:
