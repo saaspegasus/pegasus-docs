@@ -96,27 +96,41 @@ const dataTable = new DataTable("#mytable", {
 
 ### Using the SiteJS library
 
-Pegasus uses [webpack libraries](https://webpack.js.org/guides/author-libraries/) to expose helper code.
+Pegasus previously used [webpack libraries](https://webpack.js.org/guides/author-libraries/) to expose helper code,
+however has shifted to providing this functionality by directly updating the `window.SiteJS` object.
 
-You can export code in any file. For example in `app.js`:
+If you'd like to add utility functions to sitewide JavaScript, you can update this object in any front end file.
+For example in `app.js` we add modal functionality as follows:
 
+```commandline
+import { Modals as AppModals } from './web/modals';
+
+// Ensure SiteJS global exists
+if (typeof window.SiteJS === 'undefined') {
+  window.SiteJS = {};
+}
+
+// Assign this entry's exports to SiteJS.app
+window.SiteJS.app = {
+  Modals: AppModals,
+}
 ```
-export { Modals } from './web/modals';
-```
-
 Then, as long as you import the `app-bundle.js` file (as per above),
-you will have all the exported code available via the `SiteJS` library. For example:
+you will have all the exported code available via the `SiteJS` library. So you can run:
 
 ```javascript
 const modal = SiteJS.app.Modals.initializeModal();
 ```
 
-The structure for using something will always be:
+The convention for using this functionality is:
 
 ```javascript
 SiteJS.<package-name>
 ```
 
-Where `<package-name>` is the name of the file in the `module.exports` section of `webpack.config.js`.
+Where `<package-name>` is the name of the file in the `module.exports` section of `vite.config.ts`/`webpack.config.js`.
 You can look at existing Pegasus examples to get a better sense of how this works.
 
+Note that this functionality was first built on Webpack libraries,
+but has since been made explicit in the code and is only a *convention*.
+You can use any other convention you want, but this is the one that Pegasus uses.
