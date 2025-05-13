@@ -21,6 +21,8 @@ Other front end cleanup related to the Vite update
 - Fixed a few small React warnings/issues in the AI chat app. 
 
 - **Upgraded all Python packages to the latest versions, including Django 5.2.**
+- **Upgraded all npm packages to the latest versions.**
+- Removed no longer needed `vue-template-compiler` dependency.
 - Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.
 - Added explicit width and height to some svgs to slightly improve styling when CSS is not present.
 
