@@ -8,4 +8,5 @@ The Pegasus front end is documented here.
    front-end/overview
    front-end/vite
    front-end/webpack
+   front-end/design-patterns
 
