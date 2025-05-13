@@ -26,4 +26,9 @@ To run your Vite server and serve your front end files you should run:
 npm run dev
 ```
 
+Or in Docker:
+
+```commandline
+make npm-dev
+```
 This command will also automatically refresh your front end whenever any changes are made. 
