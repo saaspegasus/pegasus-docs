@@ -33,7 +33,7 @@ Choosing is relatively simple: **if you don't know what you want, use Vite**.
 
 Vite is faster, more modern, and includes a number of features not supported by webpack, including:
 
-1. Hot Module Replacement (HMR)---a development feacture that lets code changes in your front end files automatically
+1. Hot Module Replacement (HMR)---a development feature that lets code changes in your front end files automatically
    update without a full-page reload.
 2. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
    code dependencies. This leads to less redundant JavaScript and faster page loads.
