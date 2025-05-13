@@ -5,7 +5,16 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.5
 
-**Added the option to use Vite as a bundler instead of webpack.**
+**Added the option to use Vite as a bundler instead of Webpack.**
+Vite is a modern build tool that adds a few key benefits over the Webpack build system:
+
+1. It is much faster than Webpack.
+2. Hot Module Replacement (HMR)---a development feature that lets code changes in your front end files automatically
+   update without a full-page reload.
+3. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
+   code dependencies. This leads to less redundant JavaScript and faster page loads.
+
+See the overhauled [front end documentation](/front-end.rst) and [Vite-specific guidance](/front-end/vite.md) for more details.
 
 - `window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).
   - Affected files include: `app.js` (`window.SiteJS.app`), `pegasus.js` (`window.SiteJS.pegasus`)
