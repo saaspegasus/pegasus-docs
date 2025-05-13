@@ -58,12 +58,16 @@ To compile the front-end JavaScript and CSS files it's expected that you have in
 Pegasus is developed and tested on the latest LTS releases, which (at the time of this writing)
 are Node version {{default_node_version}} and npm 11.
 Later versions will likely work, but aren't regularly-tested.
-Also it's recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage different node/npm environments more easily.
+
+It's recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage different node/npm environments more easily.
 `nvm` is essentially `virtualenv` for Node.js/npm.
+
+Alternatively, you can build and run your front end with Docker.
+However, this has been known to cause performance problems in some environments.
 
 ## Initial setup
 
-Getting started should be as simple as running:
+Once you've installed Node and NPM, you can install your front end dependencies by running:
 
 ```bash
 npm install
@@ -79,7 +83,7 @@ In your project's root directory.
 This will install all the dependencies necessary to build the front end.
 
 It will also generate a `package-lock.json` file.
-It is recommended that you add this file to source control for consistency across installations.
+**It is recommended that you add this file to source control for consistency across installations.**
 
 ## Building in Development
 
