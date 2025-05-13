@@ -87,24 +87,12 @@ It will also generate a `package-lock.json` file.
 
 ## Building in Development
 
-Whenever you make modifications to the front-end files you will need to run
-the following command to rebuild the compiled JS bundles and CSS files:
+The development set up is slightly different between Vite and Webpack.
+For details see these links:
 
-```bash
-npm run dev
-```
+- [Vite in Development](./vite.md#vite-in-development)
+- [Webpack in Development](./webpack.md#development-with-webpack)
 
-You can also set it up to watch for changes by running:
-
-```bash
-npm run dev-watch
-```
-
-or in Docker:
-
-```
-make npm-watch
-```
 
 ## Building for production
 
