@@ -1,16 +1,22 @@
-The Front End
-======================
+Overview
+========
+
+*This page documents the front end files that are integrated into Django.
+See [the standalone front end docs](/experimental/react-front-end.md) for the separate React front end.*
 
 ## Architecture
 
-Pegasus's front-end architecture is a hybrid model, with a standalone front-end codebase
-that is compiled and served inside Django templates.
+Pegasus's front-end architecture is a hybrid model, with a front-end codebase
+that is compiled and used directly in Django templates via Django's static files infrastructure.
 
-The front end uses [Babel](https://babeljs.io/) and [Webpack](https://webpack.js.org/) to
-compile the front-end code into bundle files that can be referenced using Django's
-static file system, as represented in the diagram below.
+There are two setups, one built on top of Webpack, and a more modern one built on top of Vite.
+The architecture of these is very similar, just built on different tools.
 
-![Build Pipeline](images/js-pipeline-with-django.png)
+Big picture, the front end consists of a build tool ([Webpack](https://webpack.js.org/) or [Vite](https://vite.dev/))
+and a compiler ([Babel](https://babeljs.io/) or [esbuild](https://esbuild.github.io/)) which compiles the front-end code into bundle
+files that can be referenced using Django's static file system, as represented in the diagram below.
+
+![Build Pipeline](/images/js-pipeline-with-django.png)
 
 Pegasus's styles use either the [Tailwind](https://tailwindcss.com/),  [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS frameworks,
 and building the CSS files is included as part of the front-end build pipeline.
@@ -19,6 +25,20 @@ For more details on CSS in Pegasus, see the [CSS documentation](/css/).
 **For a much more detailed overview of the rationale behind this architecture,
 and the details of the set up see the [Modern JavaScript for Django Developers](https://www.saaspegasus.com/guides/modern-javascript-for-django-developers/)
 series.**
+
+## Choosing a front end build tool
+
+Pegasus currently lets you choose between Webpack and Vite as the primary build tool for your front end.
+Choosing is relatively simple: **if you don't know what you want, use Vite**.
+
+Vite is faster, more modern, and includes a number of features not supported by webpack, including:
+
+1. Hot Module Replacement (HMR)---a development feacture that lets code changes in your front end files automatically
+   update without a full-page reload.
+2. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
+   code dependencies. This leads to less redundant JavaScript and faster page loads.
+
+The main reason to choose Webpack is if you are already using it and don't want to switch tools.
 
 ## Front-end files
 
