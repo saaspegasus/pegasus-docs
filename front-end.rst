@@ -1,7 +1,7 @@
 Front End
 =========
 
-The Pegasus front end is documented here.
+This section provides details on the Pegasus front end.
 
 .. toctree::
 
