@@ -5,7 +5,11 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.5
 
-**Added the option to use Vite as a bundler instead of Webpack.**
+This is a feature release with a few big updates:
+
+### Use Vite instead of Webpack
+
+This release adds the option to use [Vite](https://vite.dev/) as a bundler instead of Webpack.
 Vite is a modern build tool that adds a few key benefits over the Webpack build system:
 
 1. It is much faster than Webpack.
@@ -16,11 +20,19 @@ Vite is a modern build tool that adds a few key benefits over the Webpack build 
 
 See the overhauled [front end documentation](/front-end.rst) and [Vite-specific guidance](/front-end/vite.md) for more details.
 
+### Gitlab CI support
+
+You can now run CI on Gitlab in addition to Github.
+Gitlab's CI will run your tests, linting, and build / type-check your front end files.
+
+Thanks to Paolo and Simon for contributing to this feature.
+
+### Complete changelog
+
+**Changes related to Vite affecting all projects**
 - `window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).
   - Affected files include: `app.js` (`window.SiteJS.app`), `pegasus.js` (`window.SiteJS.pegasus`)
   - Imports in those files were also renamed to avoid namespace confilcts.
-
-Other front end cleanup related to the Vite update
 - Updated all JavaScript files using JSX to have a `.jsx` extension.
 - Removed legacy Vue2 code and imports from the Vue example.
 - Removed unused imports shadcn components.
@@ -28,13 +40,16 @@ Other front end cleanup related to the Vite update
 - Changed CSS imports in JavaScript files from `require` to `import`.
 - Updated the standalone front end to run on port 5174 to not conflict with the default vite port.
 - Fixed a few small React warnings/issues in the AI chat app. 
+- Removed no longer needed `vue-template-compiler` dependency.
 
+**Other changes**
+
+- **Added "Gitlab" as an option for CI.**
 - **Upgraded all Python packages to the latest versions, including Django 5.2.**
 - **Upgraded all npm packages to the latest versions.**
-- Removed no longer needed `vue-template-compiler` dependency.
-- Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.
+- **Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.**
 - Added explicit width and height to some svgs to slightly improve styling when CSS is not present.
-
+- Made minor updates to AI rules files.
 
 ## Version 2025.4.4
 
