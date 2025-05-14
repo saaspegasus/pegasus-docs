@@ -27,6 +27,9 @@ Gitlab's CI will run your tests, linting, and build / type-check your front end 
 
 Thanks to Paolo and Simon for contributing to this feature.
 
+### Deprecating Bootstrap Material Theme
+
+
 ### Complete changelog
 
 **Changes related to Vite affecting all projects**
@@ -50,6 +53,7 @@ Thanks to Paolo and Simon for contributing to this feature.
 - **Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.**
 - Added explicit width and height to some svgs to slightly improve styling when CSS is not present.
 - Made minor updates to AI rules files.
+- Use the new `ACCOUNT_SIGNUP_FIELDS` setting to configure sign up.
 
 ## Version 2025.4.4
 
