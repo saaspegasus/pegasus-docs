@@ -50,7 +50,7 @@ require('./styles/site-bootstrap.scss');
 window.bootstrap = require('bootstrap');
 ```
 
-After [rebuilding the front end](/front-end.md) you can then call bootstrap in a Django template like this:
+After [rebuilding the front end](/front-end/overview.md) you can then call bootstrap in a Django template like this:
 
 ```django
 {% block page_js %}

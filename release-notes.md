@@ -2406,7 +2406,6 @@ This is a large maintenance release with many improvements and a few new feature
 - **Added the option to remove compiled static files at Pegasus build time.**
   If checked, your Pegasus build will not include any static files, and they will be added to the `.gitignore` file.
   This is useful to check after you have set up static file builds as part of a CI/CD pipeline.
-  [More here](front-end.md#long-term-best-practices).
 - **Added optional support for enabling Django's [admin docs](https://docs.djangoproject.com/en/4.2/ref/contrib/admin/admindocs/#module-django.contrib.admindocs)
   via a new project setting.**
 - Added improved Docker support for ARM / Mac M2 architectures, via a new project build option.
@@ -2869,7 +2868,7 @@ The subscriptions UI was updated to use Alpine, and more features will move to A
 
 ### Documentation
 
-- **Added write up about [the front end files](front-end.md#providing-site-wide-javascript).**
+- **Added write up about [the front end files](/front-end/design-patterns.md).**
 - **Added write up about managing [test vs live Stripe products](subscriptions.md#stripe-in-production)**
 - **Improved the [internationalization/translation docs](internationalization.md).**
 - **Added [a cookbook for how to enable auto-formatting on your existing project](cookbooks.md#migrating-to-auto-formatted-code).**
