@@ -191,11 +191,11 @@ docker run --network host --rm -it stripe/stripe-cli listen \
 Then you can set up your webhook endpoint by running:
 
 ```bash
-./manage.py bootstrap_development_webhooks --secret <your_secret>
+./manage.py bootstrap_dev_webhooks --secret <your_secret>
 ```
 
 This will create a webhook endpoint for `djstripe` in your application.
-The `bootstrap_development_webhooks` will also output a stripe command you can then use to listen for webhooks.
+The `bootstrap_dev_webhooks` will also output a stripe command you can then use to listen for webhooks.
 
 It will look something like this, with the `<uuid>` replaced by your own webhook endpoint's ID:
 
