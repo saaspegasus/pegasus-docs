@@ -15,4 +15,5 @@ Read on for help on choosing a CSS theme, and documentation on working with CSS 
    css/pegasus-css
    css/tailwind
    css/bootstrap
+   css/material
    css/bulma
