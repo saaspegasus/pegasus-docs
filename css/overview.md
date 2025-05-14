@@ -15,7 +15,13 @@ Below are screenshots of the app in each of the four themes:
 
 **Tailwind CSS:**
 
-![Tailwind Home](/images/css/tailwind-home.png)
+Light mode:
+
+![Tailwind Home](/images/css/tailwind-home-light.png)
+
+Dark mode:
+
+![Tailwind Home (Dark Mode)](/images/css/tailwind-home-dark.png)
 
 **Bootstrap Default Theme:**
 
@@ -31,6 +37,3 @@ copies of the codebase to try out different ones.
 **Bootstrap Material Theme (Deprecated):**
 
 ![Material Home](/images/css/material-home.png)
-
-You can also watch [this video](https://www.youtube.com/watch?v=WwcowKrwCl0) for more details.
-
