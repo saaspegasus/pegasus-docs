@@ -4,7 +4,7 @@ CSS source files live in the `assets/styles` folder, and are compiled into the `
 Some Pegasus styles are written using [Sass](https://sass-lang.com/), which provides many benefits
 and features on top of traditional CSS.
 
-**Modifying CSS requires having a functional [front-end build setup](/front-end/).**
+**Modifying CSS requires having a functional [front-end build setup](/front-end/overview.md).**
 
 All versions of Pegasus contain two main sets of styles:
 

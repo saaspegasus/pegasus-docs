@@ -98,15 +98,15 @@ The exact way to do this will vary by deployment platform.
 
 The front-end files that ship with Pegasus are the developer-friendly versions.
 In production, these should be optimized.
+Most Pegasus deployment configurations will handle this automatically for you, but if you need to handle it yourself,
+follow the guidance below.
 
-First you should add the compiled files to your `.gitignore` as described in the [front end docs](../front-end.md#long-term-best-practices).
+First you should add the compiled files to your `.gitignore` as described in the [front end docs](/front-end/overview.md).
 Then, as part of your CI/CD deployment process, you should build the bundle files directly on your production server 
 (using `npm install && npm run build`).
 
 This will ensure that the latest, optimized version of the front-end code is always deployed
 as part of your production environment.
-
-The platform-specific docs have some guidance on setting this up where possible.
 
 ## Update other configuration options
 

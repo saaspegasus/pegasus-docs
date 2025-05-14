@@ -65,7 +65,7 @@ npm run dev
 ```
 
 Note: your Django backend must also be running for the front end to work,
-and you must also [build your Django front end](front-end.md) for styles to work.
+and you must also [build your Django front end](/front-end/overview.md) for styles to work.
 
 ## Authentication
 
