@@ -27,10 +27,31 @@ Gitlab's CI will run your tests, linting, and build / type-check your front end 
 
 Thanks to Paolo and Simon for contributing to this feature.
 
+### Retiring the Bootstrap Material Theme
+
+**The material theme for Bootstrap has been deprecated.**
+This means that the theme will be in maintenance-only mode, and support will eventually be dropped (probably in 6-12 months).
+Existing projects can continue using the theme, but new projects should not, and new Pegasus features will eventually
+not be developed and tested on the theme.
+
+The reason for this is that several Pegasus customers have complained about the lack of documentation and support for
+this theme from its maintainer, Creative Tim.
+Additionally, their process around updating the theme has entailed releasing large, poorly-documented updates
+which have been difficult for me to incorporate back into Pegasus.
+
+While the theme *looks* great, from a developer experience perspective has not been easy to work with,
+and rather than continue to provide this negative developer experience to Pegasus users, or spend a lot of my own
+time maintaining support for the theme with opaque documentation and poor standards, I have made the difficult decision
+to drop support for it.
+
+If you would like help migrating off this theme, you can reach out via standard support channels and I'll do my best to assist.
+
 ### Complete changelog
 
-**Changes related to Vite affecting all projects**
-- `window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).
+**Changes related to Vite support**
+
+- **Added Vite as an option for your front end build system. See [the docs](/front-end/overview.md) for details.**
+- **`window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).**
   - Affected files include: `app.js` (`window.SiteJS.app`), `pegasus.js` (`window.SiteJS.pegasus`)
   - Imports in those files were also renamed to avoid namespace confilcts.
 - Updated all JavaScript files using JSX to have a `.jsx` extension.
@@ -38,18 +59,23 @@ Thanks to Paolo and Simon for contributing to this feature.
 - Removed unused imports shadcn components.
 - Removed leading tilde ("~" character) from CSS imports in various places.
 - Changed CSS imports in JavaScript files from `require` to `import`.
-- Updated the standalone front end to run on port 5174 to not conflict with the default vite port.
 - Fixed a few small React warnings/issues in the AI chat app. 
 - Removed no longer needed `vue-template-compiler` dependency.
+- **Updated the standalone front end to run on port 5174 to not conflict with the default vite port.**
 
-**Other changes**
-
+**Other Changes**
 - **Added "Gitlab" as an option for CI.**
+- **Deprecated the Material Bootstrap theme.**
 - **Upgraded all Python packages to the latest versions, including Django 5.2.**
 - **Upgraded all npm packages to the latest versions.**
 - **Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.**
-- Added explicit width and height to some svgs to slightly improve styling when CSS is not present.
+- Added explicit width and heigh- **Updated the standalone front end to run on port 5174 to not conflict with the default vite port.**
+t to some svgs to slightly improve styling when CSS is not present.
 - Made minor updates to AI rules files.
+- Use the new `ACCOUNT_SIGNUP_FIELDS` setting to configure sign up fields and removed usages of deprecated allauth fields.
+- Removed `project_settings` from the `project_meta` context processor. This was previously only used to pass
+  the now-deprecated `ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE` setting to sign up templates. The sign up templates
+  now render the second password field based on the form value.
 
 ## Version 2025.4.4
 
@@ -156,7 +182,7 @@ Details:
 
 - **Upgraded dj-stripe to version 2.9**
 - **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
-  See [the updated subscription webhooks documentation](./subscriptions.md#webhooks) for more details.
+  See [the updated subscription webhooks documentation](/subscriptions.md#webhooks) for more details.
 - Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
 - Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
 - Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
@@ -1117,7 +1143,7 @@ and updates Django to version 5.1.
 
 ### Documentation
 
-- Improved the documentation on [customizing the Material Bootstrap theme](./css/bootstrap.md#customizing-the-material-theme).
+- Improved the documentation on [customizing the Material Bootstrap theme](./css/material.md).
 - Added documentation for [deploying multiple apps to the same VPS with Kamal](./deployment/kamal.md#cookbooks).
 
 ### Upgrading
@@ -2380,7 +2406,6 @@ This is a large maintenance release with many improvements and a few new feature
 - **Added the option to remove compiled static files at Pegasus build time.**
   If checked, your Pegasus build will not include any static files, and they will be added to the `.gitignore` file.
   This is useful to check after you have set up static file builds as part of a CI/CD pipeline.
-  [More here](front-end.md#long-term-best-practices).
 - **Added optional support for enabling Django's [admin docs](https://docs.djangoproject.com/en/4.2/ref/contrib/admin/admindocs/#module-django.contrib.admindocs)
   via a new project setting.**
 - Added improved Docker support for ARM / Mac M2 architectures, via a new project build option.
@@ -2843,7 +2868,7 @@ The subscriptions UI was updated to use Alpine, and more features will move to A
 
 ### Documentation
 
-- **Added write up about [the front end files](front-end.md#providing-site-wide-javascript).**
+- **Added write up about [the front end files](/front-end/design-patterns.md).**
 - **Added write up about managing [test vs live Stripe products](subscriptions.md#stripe-in-production)**
 - **Improved the [internationalization/translation docs](internationalization.md).**
 - **Added [a cookbook for how to enable auto-formatting on your existing project](cookbooks.md#migrating-to-auto-formatted-code).**
