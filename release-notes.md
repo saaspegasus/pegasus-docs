@@ -182,7 +182,7 @@ Details:
 
 - **Upgraded dj-stripe to version 2.9**
 - **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
-  See [the updated subscription webhooks documentation](./subscriptions.md#webhooks) for more details.
+  See [the updated subscription webhooks documentation](/subscriptions.md#webhooks) for more details.
 - Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
 - Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
 - Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
@@ -1143,7 +1143,7 @@ and updates Django to version 5.1.
 
 ### Documentation
 
-- Improved the documentation on [customizing the Material Bootstrap theme](./css/bootstrap.md#customizing-the-material-theme).
+- Improved the documentation on [customizing the Material Bootstrap theme](./css/material.md).
 - Added documentation for [deploying multiple apps to the same VPS with Kamal](./deployment/kamal.md#cookbooks).
 
 ### Upgrading
