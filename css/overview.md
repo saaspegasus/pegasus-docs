@@ -11,7 +11,11 @@ deprecated theme based on Creative Tim's [Material Kit](https://www.creative-tim
 and [Material Dashboard](https://www.creative-tim.com/product/material-dashboard) products (not recommended).
 
 The look and feel of the site is slightly different for each framework, but the overall layout is the same.
-Below are screenshots of the app in each of the four themes:
+Below are screenshots of the app in each of the four themes.
+
+*If you're not sure which framework you want to use, you can change the setting on your project and download multiple
+copies of the codebase to try out different ones.*
+
 
 **Tailwind CSS:**
 
@@ -30,9 +34,6 @@ Dark mode:
 **Bulma:**
 
 ![Bulma Home](/images/css/bulma-home.png)
-
-If you're not sure which framework you want to use, you can change the setting on your project and download multiple
-copies of the codebase to try out different ones.
 
 **Bootstrap Material Theme (Deprecated):**
 
