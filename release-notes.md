@@ -5,9 +5,9 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.5
 
-This is a feature release with a few big updates:
+This release has a few big updates:
 
-### Use Vite instead of Webpack
+### Use Vite instead of Webpack for building the front end
 
 This release adds the option to use [Vite](https://vite.dev/) as a bundler instead of Webpack.
 Vite is a modern build tool that adds a few key benefits over the Webpack build system:
@@ -18,14 +18,20 @@ Vite is a modern build tool that adds a few key benefits over the Webpack build 
 3. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
    code dependencies. This leads to less redundant JavaScript and faster page loads.
 
-See the overhauled [front end documentation](/front-end.rst) and [Vite-specific guidance](/front-end/vite.md) for more details.
+You can watch the video below for a walkthrough of these benefits and how they work in the new setup.
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/qVwRygtffiw" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+You can also see the overhauled [front end documentation](/front-end/overview.md) and [Vite-specific guidance](/front-end/vite.md) for more details.
 
 ### Gitlab CI support
 
 You can now run CI on Gitlab in addition to Github.
 Gitlab's CI will run your tests, linting, and build / type-check your front end files.
 
-Thanks to Paolo and Simon for contributing to this feature.
+Thanks to Paolo and Simon for contributing to this feature!
 
 ### Retiring the Bootstrap Material Theme
 
@@ -34,23 +40,19 @@ This means that the theme will be in maintenance-only mode, and support will eve
 Existing projects can continue using the theme, but new projects should not, and new Pegasus features will eventually
 not be developed and tested on the theme.
 
-The reason for this is that several Pegasus customers have complained about the lack of documentation and support for
+Dropping support for this theme was a difficult decision.
+The main reason it was made is that several Pegasus customers have complained about the lack of documentation and support for
 this theme from its maintainer, Creative Tim.
-Additionally, their process around updating the theme has entailed releasing large, poorly-documented updates
-which have been difficult for me to incorporate back into Pegasus.
+Additionally, their process around updating the theme has involved releasing large, poorly-documented updates
+which have been difficult to incorporate back into Pegasus.
 
-While the theme *looks* great, from a developer experience perspective has not been easy to work with,
-and rather than continue to provide this negative developer experience to Pegasus users, or spend a lot of my own
-time maintaining support for the theme with opaque documentation and poor standards, I have made the difficult decision
-to drop support for it.
-
-If you would like help migrating off this theme, you can reach out via standard support channels and I'll do my best to assist.
+If you would like help migrating off this theme, you can reach out via standard support channels.
 
 ### Complete changelog
 
 **Changes related to Vite support**
 
-- **Added Vite as an option for your front end build system. See [the docs](/front-end/overview.md) for details.**
+- **Added Vite as an option for your front end build system. See [the front end](/front-end/overview.md) and [vite-specific docs](/front-end/vite.md) for details.**
 - **`window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).**
   - Affected files include: `app.js` (`window.SiteJS.app`), `pegasus.js` (`window.SiteJS.pegasus`)
   - Imports in those files were also renamed to avoid namespace confilcts.
@@ -64,18 +66,20 @@ If you would like help migrating off this theme, you can reach out via standard 
 - **Updated the standalone front end to run on port 5174 to not conflict with the default vite port.**
 
 **Other Changes**
-- **Added "Gitlab" as an option for CI.**
+- **Added "Gitlab" as an option for CI.** (Thanks Paolo and Simon!)
 - **Deprecated the Material Bootstrap theme.**
 - **Upgraded all Python packages to the latest versions, including Django 5.2.**
 - **Upgraded all npm packages to the latest versions.**
 - **Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.**
-- Added explicit width and heigh- **Updated the standalone front end to run on port 5174 to not conflict with the default vite port.**
-t to some svgs to slightly improve styling when CSS is not present.
+- Added explicit width and height to some svgs to slightly improve styling when CSS is not present.
 - Made minor updates to AI rules files.
 - Use the new `ACCOUNT_SIGNUP_FIELDS` setting to configure sign up fields and removed usages of deprecated allauth fields.
-- Removed `project_settings` from the `project_meta` context processor. This was previously only used to pass
+- **Removed `project_settings` from the `project_meta` context processor.** This was previously only used to pass
   the now-deprecated `ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE` setting to sign up templates. The sign up templates
   now render the second password field based on the form value.
+
+*May 15, 2025*
+
 
 ## Version 2025.4.4
 
