@@ -12,10 +12,15 @@ that is compiled and used directly in Django templates via Django's static files
 There are two setups, one built on top of Webpack, and a more modern one built on top of Vite.
 The architecture of these is very similar, just built on different tools.
 
-Big picture, the front end consists of a build tool ([Webpack](https://webpack.js.org/) or [Vite](https://vite.dev/))
-and a compiler ([Babel](https://babeljs.io/) or [esbuild](https://esbuild.github.io/)) which compiles the front-end code into bundle
+Big picture, the front end consists of a build tool ([Vite](https://vite.dev/) or [Webpack](https://webpack.js.org/))
+and a compiler ([esbuild](https://esbuild.github.io/) or [Babel](https://babeljs.io/)) which compiles the front-end code into bundle
 files that can be referenced using Django's static file system, as represented in the diagram below.
 
+**Vite**
+
+![Vite Build Pipeline](/images/js-pipeline-with-django-vite.png)
+
+**Webpack**
 ![Build Pipeline](/images/js-pipeline-with-django.png)
 
 Pegasus's styles use either the [Tailwind](https://tailwindcss.com/),  [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS frameworks,
@@ -28,7 +33,7 @@ series.**
 
 ## Choosing a front end build tool
 
-Pegasus currently lets you choose between Webpack and Vite as the primary build tool for your front end.
+Pegasus currently lets you choose between Vite and Webpack as the primary build tool for your front end.
 Choosing is relatively simple: **if you don't know what you want, use Vite**.
 
 Vite is faster, more modern, and includes a number of features not supported by webpack, including:
@@ -39,6 +44,7 @@ Vite is faster, more modern, and includes a number of features not supported by 
    code dependencies. This leads to less redundant JavaScript and faster page loads.
 
 The main reason to choose Webpack is if you are already using it and don't want to switch tools.
+See [this video](https://www.youtube.com/watch?v=qVwRygtffiw) for more on the benefits of Vite over Webpack.
 
 ## Front-end files
 
@@ -83,7 +89,7 @@ In your project's root directory.
 This will install all the dependencies necessary to build the front end.
 
 It will also generate a `package-lock.json` file.
-**It is recommended that you add this file to source control for consistency across installations.**
+**It is recommended that you add the `package-lock.json` to source control for consistency across installations.**
 
 ## Building in Development
 
@@ -127,7 +133,7 @@ npm run type-check
 Or in Docker:
 
 ```
-npm run type-check-watch
+make npm-type-check
 ```
 
 Type checks will also automatically run on new pull requests if you have enabled Github Actions on your project.
