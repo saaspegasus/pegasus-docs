@@ -3,6 +3,13 @@ Migrating from Webpack to Vite
 
 This page describes how to migrate your project from Webpack to Vite.
 
+There is also a video walkthrough of the process here:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/QQj6I9G548Y" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+
 ## 1. Upgrade your project to 2025.5
 
 First upgrade your project to 2025.5 [according to the normal process](/upgrading.md).
