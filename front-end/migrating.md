@@ -10,7 +10,15 @@ Do *not* change your bundler setting at this stage.
 
 Do normal testing and verification that everything is working with Webpack on version 2025.5.
 
-## 2. Change your bundler setting from "Webpack" to "Vite"
+## 2. React only: Rename all `.js` files using JSX to `.jsx`
+
+Vite is stricter than Webpack about file extensions, so any file that uses JSX syntax (i.e. React code),
+needs to be in a file with a `.jsx` extension.
+
+After changing the extensions of your files you may need to tweak your JavaScript imports.
+You'll also need to modify your `webpack.config.js` file if any referenced files have changed.
+
+## 3. Change your bundler setting from "Webpack" to "Vite" and do another Pegasus upgrade
 
 Next, in your project settings, change the bundler to "Vite" and perform another upgrade.
 
@@ -19,7 +27,7 @@ build commands, and built-in CSS / JavaScript bundles.
 
 During this step *do not delete your `webpack.config.js` file*, as you'll want to reference it for the next step.
 
-## 3. Add your custom CSS / JavaScript exports to your vite config
+## 4. Add your custom CSS / JavaScript exports to your vite config
 
 Next find the `entry` section of your project's `webpack.config.js` that configures your exported bundle files.
 It will look something like this, though the exact files listed will depend on your project settings:
@@ -58,7 +66,7 @@ The section that you need to modify will look something like this:
 
 You should update this in the same pattern with any changes you have made to your webpack config.
 
-## 4. Update your front end file references in templates
+## 5. Update your front end file references in templates
 
 Finally, update any Django templates you had that imported bundle files.
 Specifically, reference that look something like this:
@@ -82,7 +90,7 @@ Note that this uses the *source* file path instead of the bundle file.
 You will also need to add `{% load django_vite %}` to the top of the template.
 And if the flie uses React you'll also need to add the `{% vite_react_refresh %}` tag to the `page_js` section.
 
-## 5. Update Webpack libraries
+## 6. Update Webpack libraries
 
 *Most projects won't need to do this.*
 
@@ -106,7 +114,7 @@ window.SiteJS.library = {
 }
 ```
 
-## 6. Rebuild and run your front end
+## 7. Rebuild and run your front end
 
 Finally, rebuild and run your front end, according to the [vite docs](/front-end/vite.md):
 
@@ -116,5 +124,6 @@ npm run dev
 ```
 
 And confirm everything is working as expected.
+Once everything is working as expected, you can delete your `webpack.config.js` file.
 
 If you run into any issues during the migration, reach out via standard support channels.
