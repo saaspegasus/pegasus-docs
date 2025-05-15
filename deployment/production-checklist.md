@@ -74,7 +74,7 @@ Some functionality, like user profile pictures, requires saving user-uploaded fi
 In development these are saved to the file system, but in most production environments the file system
 is not usable for it. Instead, you need to set up an external storage to handle these.
 
-There is guidance on configuring media files in the [settings and configuration docs](../configuration.md#storing-media-files).
+There is guidance on configuring media files in the [settings and configuration docs](/configuration.md#storing-media-files).
 
 The most common choice of external storage is [Amazon S3](https://aws.amazon.com/s3/),
 though many cloud providers have their own S3-compatible options, e.g. [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces).
