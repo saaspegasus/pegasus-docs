@@ -10,3 +10,4 @@ This section provides details on the Pegasus front end.
    front-end/webpack
    front-end/design-patterns
    front-end/troubleshooting
+   front-end/migrating

@@ -78,6 +78,10 @@ If you would like help migrating off this theme, you can reach out via standard 
   the now-deprecated `ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE` setting to sign up templates. The sign up templates
   now render the second password field based on the form value.
 
+### Upgrading
+
+For help switching from Webpack to Vite, see [the Webpack to Vite migration guide](/front-end/migrating.md).
+
 *May 15, 2025*
 
 
