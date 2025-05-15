@@ -165,6 +165,18 @@ Go to [http://localhost:8000](http://localhost:8000) and you should see the defa
 
 ![Landing Page](images/pegasus-landing-page.png)
 
+### Run / build the front end
+
+If you're using Vite, or you didn't include static files with your build, you will also need to set up your front end.
+
+The basic steps are:
+
+1. Install node/npm.
+2. Run `npm install`
+3. Run `npm run dev`
+
+For more details, see the [front end docs](./front-end/overview.md).
+
 ## Post-installation steps
 
 Once up and running, you'll want to review these common next-steps.

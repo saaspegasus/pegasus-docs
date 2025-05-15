@@ -3,6 +3,88 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.5
+
+This release has a few big updates:
+
+### Use Vite instead of Webpack for building the front end
+
+This release adds the option to use [Vite](https://vite.dev/) as a bundler instead of Webpack.
+Vite is a modern build tool that adds a few key benefits over the Webpack build system:
+
+1. It is much faster than Webpack.
+2. Hot Module Replacement (HMR)---a development feature that lets code changes in your front end files automatically
+   update without a full-page reload.
+3. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
+   code dependencies. This leads to less redundant JavaScript and faster page loads.
+
+You can watch the video below for a walkthrough of these benefits and how they work in the new setup.
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/qVwRygtffiw" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+You can also see the overhauled [front end documentation](/front-end/overview.md) and [Vite-specific guidance](/front-end/vite.md) for more details.
+
+### Gitlab CI support
+
+You can now run CI on Gitlab in addition to Github.
+Gitlab's CI will run your tests, linting, and build / type-check your front end files.
+
+Thanks to Paolo and Simon for contributing to this feature!
+
+### Retiring the Bootstrap Material Theme
+
+**The material theme for Bootstrap has been deprecated.**
+This means that the theme will be in maintenance-only mode, and support will eventually be dropped (probably in 6-12 months).
+Existing projects can continue using the theme, but new projects should not, and new Pegasus features will eventually
+not be developed and tested on the theme.
+
+Dropping support for this theme was a difficult decision.
+The main reason it was made is that several Pegasus customers have complained about the lack of documentation and support for
+this theme from its maintainer, Creative Tim.
+Additionally, their process around updating the theme has involved releasing large, poorly-documented updates
+which have been difficult to incorporate back into Pegasus.
+
+If you would like help migrating off this theme, you can reach out via standard support channels.
+
+### Complete changelog
+
+**Changes related to Vite support**
+
+- **Added Vite as an option for your front end build system. See [the front end](/front-end/overview.md) and [vite-specific docs](/front-end/vite.md) for details.**
+- **`window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).**
+  - Affected files include: `app.js` (`window.SiteJS.app`), `pegasus.js` (`window.SiteJS.pegasus`)
+  - Imports in those files were also renamed to avoid namespace confilcts.
+- Updated all JavaScript files using JSX to have a `.jsx` extension.
+- Removed legacy Vue2 code and imports from the Vue example.
+- Removed unused imports shadcn components.
+- Removed leading tilde ("~" character) from CSS imports in various places.
+- Changed CSS imports in JavaScript files from `require` to `import`.
+- Fixed a few small React warnings/issues in the AI chat app. 
+- Removed no longer needed `vue-template-compiler` dependency.
+- **Updated the standalone front end to run on port 5174 to not conflict with the default vite port.**
+
+**Other Changes**
+- **Added "Gitlab" as an option for CI.** (Thanks Paolo and Simon!)
+- **Deprecated the Material Bootstrap theme.**
+- **Upgraded all Python packages to the latest versions, including Django 5.2.**
+- **Upgraded all npm packages to the latest versions.**
+- **Updated all `blocktranslate` tags to use the `trimmed` option for easier translation.**
+- Added explicit width and height to some svgs to slightly improve styling when CSS is not present.
+- Made minor updates to AI rules files.
+- Use the new `ACCOUNT_SIGNUP_FIELDS` setting to configure sign up fields and removed usages of deprecated allauth fields.
+- **Removed `project_settings` from the `project_meta` context processor.** This was previously only used to pass
+  the now-deprecated `ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE` setting to sign up templates. The sign up templates
+  now render the second password field based on the form value.
+
+### Upgrading
+
+For help switching from Webpack to Vite, see [the Webpack to Vite migration guide](/front-end/migrating.md).
+
+*May 15, 2025*
+
+
 ## Version 2025.4.4
 
 This is another minor release:
@@ -108,7 +190,7 @@ Details:
 
 - **Upgraded dj-stripe to version 2.9**
 - **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
-  See [the updated subscription webhooks documentation](./subscriptions.md#webhooks) for more details.
+  See [the updated subscription webhooks documentation](/subscriptions.md#webhooks) for more details.
 - Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
 - Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
 - Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
@@ -1069,7 +1151,7 @@ and updates Django to version 5.1.
 
 ### Documentation
 
-- Improved the documentation on [customizing the Material Bootstrap theme](./css/bootstrap.md#customizing-the-material-theme).
+- Improved the documentation on [customizing the Material Bootstrap theme](./css/material.md).
 - Added documentation for [deploying multiple apps to the same VPS with Kamal](./deployment/kamal.md#cookbooks).
 
 ### Upgrading
@@ -2332,7 +2414,6 @@ This is a large maintenance release with many improvements and a few new feature
 - **Added the option to remove compiled static files at Pegasus build time.**
   If checked, your Pegasus build will not include any static files, and they will be added to the `.gitignore` file.
   This is useful to check after you have set up static file builds as part of a CI/CD pipeline.
-  [More here](front-end.md#long-term-best-practices).
 - **Added optional support for enabling Django's [admin docs](https://docs.djangoproject.com/en/4.2/ref/contrib/admin/admindocs/#module-django.contrib.admindocs)
   via a new project setting.**
 - Added improved Docker support for ARM / Mac M2 architectures, via a new project build option.
@@ -2795,7 +2876,7 @@ The subscriptions UI was updated to use Alpine, and more features will move to A
 
 ### Documentation
 
-- **Added write up about [the front end files](front-end.md#providing-site-wide-javascript).**
+- **Added write up about [the front end files](/front-end/design-patterns.md).**
 - **Added write up about managing [test vs live Stripe products](subscriptions.md#stripe-in-production)**
 - **Improved the [internationalization/translation docs](internationalization.md).**
 - **Added [a cookbook for how to enable auto-formatting on your existing project](cookbooks.md#migrating-to-auto-formatted-code).**

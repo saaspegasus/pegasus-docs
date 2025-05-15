@@ -56,7 +56,7 @@ module.exports = {
 }
 ```
 
-After changing these values you will have to [rebuild your front end](../front-end.md#building-in-development).
+After changing these values you will have to [rebuild your front end](/front-end/overview.md).
 
 Finally, you will also have to update the default themes in your `settings.py`:
 
@@ -235,5 +235,5 @@ After doing that, if they are still not showing up, be sure that you have hard-r
 You can also disable browser caching when devtools are open by following these instructions
 [for Chrome](https://stackoverflow.com/a/23944114/8207) or [for Firefox](https://stackoverflow.com/a/48027947/8207).
 
-If you are building your front end in Docker, be sure to also read the troubleshooting section of the [front end documentation](../front-end.md)
+If you are building your front end in Docker, be sure to also read the troubleshooting section of the [front end documentation](/front-end/overview.md)
 for potential issues with cross-platform compatibility.
