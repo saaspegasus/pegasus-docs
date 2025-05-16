@@ -3,6 +3,16 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.5.1
+
+This is a minor bugfix release on top of 2025.5.
+
+- Removed bad reference to Modals in `site.js`. Thanks Jacob for reporting!
+- Fixed Python Celery setup in `build_celery.sh` when using `uv` (Render deployments only). Thanks Jacob for reporting!
+- Fixed issue with the shadcn dashboard caused by a missing `{% vite_react_refresh %}` tag. Thanks Shoaib for reporting!
+
+*May 16, 2025*
+
 ## Version 2025.5
 
 This release has a few big updates:
