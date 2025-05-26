@@ -3,6 +3,13 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.5.2
+
+- Removed unused `.babelrc` file if not building with Webpack.
+- **Added support for JetBrains / PyCharm Junie AI rules files.**
+- Automatically confirm user emails when they create accounts through the invitation acceptance workflow,
+  since they can only get the invitation URL from the email link. 
+
 ## Version 2025.5.1
 
 This is a minor bugfix release on top of 2025.5.
