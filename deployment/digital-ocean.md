@@ -19,15 +19,17 @@ This can be done from inside App Platform, or by following [this link](https://c
 
 Once you've configured the prerequisites, deploying is just a few steps.
 
-If you are planning to use Celery or Redis, first create your Redis cluster.
-In the command below, replace `<your-project>` with the values from `deploy/app-spec.yaml`.
+If you are planning to use Celery or Redis (Valkey), first create your Database cluster.
+The easiest way to do this is in Digital Ocean Dashboard.
 
-```
-doctl databases create <your-project>-redis --engine redis --num-nodes 1 --version 7 --region <your-region>
-```
+Navigate to [Databases --> New](https://cloud.digitalocean.com/databases/new), and choose
+"Valkey".
+
+It's recommended to name this database `<your-project>-redis`.
 
 Next edit the `/deploy/app-spec.yaml` file. In particular, make sure to set your Github repository and branch.
 If you aren't using Celery, you can remove the sections related to redis, and the celery-worker.
+If you are using Redis/Valkey, the cluster name must match what you chose when you created the Database.
 
 Finally, run `doctl apps create --spec deploy/app-spec.yaml`
 
