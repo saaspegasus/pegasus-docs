@@ -88,7 +88,7 @@ on your Flower instance, and use a [reverse proxy](https://flower.readthedocs.io
 
 ### Configuration
 
-By default, Celery Beat will store the schedule in a shelve database file. When running in a production environment and especially in a containerized environment, you should use persistent storage to store the schedule. Pegasus is pre-configured to store the schedule in the Pegasus database using `django-celery-beat`.
+By default, Celery Beat will store the schedule in file on the filesystem. When running in a production environment and especially in a containerized environment, you should use persistent storage to store the schedule. Pegasus is pre-configured to store the schedule in the Pegasus database using [`django-celery-beat`.](https://django-celery-beat.readthedocs.io/en/latest/).
 
 You can place the schedule task definitions in the `SCHEDULED_TASKS` setting in your `settings.py` file and then run the `bootstrap_celery_tasks` management command to create the tasks in the database.
 
@@ -120,6 +120,10 @@ If you want to bootstrap the tasks automatically during you application deploy p
 
 To run Celery Beat in development:
 
+*With Docker:*
+
+If you are using the local dockerized setup with docker compose, then Celery Beat will already be running as part of the `celery` service.
+
 *With uv:*
 
 ```shell
@@ -130,7 +134,7 @@ uv run celery -A {{ project_name }} worker -l info --beat
 uv run celery -A {{ project_name }} beat -l info
 ```
 
-Note that if you run Celery Beat as a standalone process, you will need to ensure that the Celery worker is running separately. This is because Celery Beat is responsible for scheduling tasks, while the worker executes them.
+Note that if you run Celery Beat as a standalone process, you will need to ensure that the Celery worker is running separately. This is because Celery Beat is responsible for scheduling tasks while the worker executes them.
 
 #### Production Setup
 
