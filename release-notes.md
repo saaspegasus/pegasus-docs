@@ -3,6 +3,29 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.6
+
+- Fix `target-version` in `pyproject.toml` to match the currently recommended Python 3.12. Thanks Finbar for reporting!
+- Fixed a bug where group chat avatars were incorrectly styled on Tailwind builds.
+  Added a new `pg-avatar` CSS class to handle this. 
+- Fixed email verification emails when `ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True`.
+  Thanks Justin for reporting and helping with the fix! 
+- Fixed the default value of `FRONTEND_ADDRESS` in `settings.py` to point to "http://localhost:5174" (instead of port 5173)
+- Added a private storage backend, for storing private files on S3-compatible storage backends.
+- **Added a digital download example to the ecommerce application.**
+  You can now associate a file with ecommerce products and only people who have purchased the product will be able to access it.
+- **Added an optional Claude Code Github workflow**. When enabled, you can mention @claude on a Github pull request
+  or issue to trigger a Claude Code update.
+- Api keys associated with inactive users will no longer pass permission checks. Thanks Brennan for the suggestion!
+- Front end updates
+  - Updated the front end CSS to build the files directly in the front end (and import relevant files from the Django app),
+    rather than including the built Django CSS files directly.
+  - Added tailwindcss, the typography plugin, and daisyui as explicit dependencies (and plugins) to the front end to enable the above change.
+  - Removed unnecessary default styles from `index.css`.
+  - Updated front end to use aliases for the "assets" directory. Also updated typescript config to handle this.
+  - Updated vite.config.ts to fix various build issues if the parent `node_modules` isn't available. 
+  - Added default settings for `CSRF_COOKIE_DOMAIN` and `SESSION_COOKIE_DOMAIN` which are needed by the front end in production.
+
 ## Version 2025.5.2
 
 - Removed unused `.babelrc` file if not building with Webpack.
