@@ -54,6 +54,15 @@ file for Claude to use.
 
 Additionally, the MCP setup will be saved to `.mcp.json` and should be automatically discovered by claude.
 
+### The Github Workflow file
+
+You can also optionally enable a Github workflow file for Claude.
+When this is enabled, you will be able to mention @claude on any Github issue or pull request to trigger a claude code update.
+
+In order for this to work, you will have to add an `ANTHROPIC_API_KEY` to your repository secrets.
+You can learn more in the [Claude code docs](https://docs.anthropic.com/en/docs/claude-code/github-actions)
+and [Github secrets docs](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
+
 ## Other tools
 
 If you're using a different tool, it is recommended to choose one of the two above when building your project
