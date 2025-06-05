@@ -5,33 +5,67 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.6
 
+This release focused on hardening the Celery set up, improving production support for the standalone React front end,
+improving AI development tooling, and expanding the ecommerce application.
+
+### Celery improvements
+
+- Celery periodic tasks can now be configured via `settings.SCHEDULED_TASKS` and synchronized with a new management command
+  (`./manage.py bootstrap_celery_tasks`). The previous migration files that created celery periodic tasks have been removed.
+- The Celery gunicorn worker pool changed from the default of 'prefork' to 'gevent' in production, and the concurrency was increased.
+  This should be a more scalable default set up for most projects, though may need to be changed for projects that are heavily compute-bound.
+- Because of the above change, a separate worker for Celery Beat has been added to all production deploy environments
+  (because beat can't be run with the gevent pool).
+
+### AI-Coding improvements
+
+- **Added an optional Claude Code Github workflow**. When enabled, you can mention @claude on a Github pull request
+  or issue to trigger a Claude Code update.
+- **Added optional support for JetBrains / PyCharm Junie AI rules files.**
+- Edited and expanded the AI rules files based on various user feedback (thanks to many who have contributed to this).
+- Updated the [Celery documentation](./celery.md) to reflect these changes.
+
+### Standalone front end improvements
+
+These updates affect the [standalone React front end](./experimental/react-front-end.md).
+
+- Updated the front end CSS to build the files directly in the front end (and import relevant files from the Django app),
+  rather than including the built Django CSS files directly.
+- Added tailwindcss, the typography plugin, and daisyui as explicit dependencies (and plugins) to the front end to enable the above change.
+- Removed unnecessary default styles from `index.css`.
+- Updated front end to use aliases for the "assets" directory. Also updated typescript config to handle this.
+- Updated vite.config.ts to fix various build issues if the parent `node_modules` isn't available. 
+- Added default settings for `CSRF_COOKIE_DOMAIN` and `SESSION_COOKIE_DOMAIN` which are needed by the front end in production.
+- Updated Kamal's `deploy.yml` to include default values for the above settings.
+- Added initial documentation on [deploying the standalone front end to production](./experimental/react-front-end.md#deployment).
+
+### Other updates
+
+- **Added a digital download example to the ecommerce application.**
+  You can now associate a file with ecommerce products and only people who have purchased the product will be able to access it.
+  - Also added tests for this workflow.
+- Added a private storage backend, for storing private files on S3-compatible storage backends (used by the above).
 - Fix `target-version` in `pyproject.toml` to match the currently recommended Python 3.12. Thanks Finbar for reporting!
+- Allow overriding `CSRF_COOKIE_DOMAIN`, `CORS_ALLOWED_ORIGINS`, and `SESSION_COOKIE_DOMAIN` via environment variables.
+  This is necessary when deploying the standalone front end.
 - Fixed a bug where group chat avatars were incorrectly styled on Tailwind builds.
   Added a new `pg-avatar` CSS class to handle this. 
 - Fixed email verification emails when `ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True`.
   Thanks Justin for reporting and helping with the fix! 
-- Fixed the default value of `FRONTEND_ADDRESS` in `settings.py` to point to "http://localhost:5174" (instead of port 5173)
-- Added a private storage backend, for storing private files on S3-compatible storage backends.
-- **Added a digital download example to the ecommerce application.**
-  You can now associate a file with ecommerce products and only people who have purchased the product will be able to access it.
-- **Added an optional Claude Code Github workflow**. When enabled, you can mention @claude on a Github pull request
-  or issue to trigger a Claude Code update.
-- Api keys associated with inactive users will no longer pass permission checks. Thanks Brennan for the suggestion!
-- Front end updates
-  - Updated the front end CSS to build the files directly in the front end (and import relevant files from the Django app),
-    rather than including the built Django CSS files directly.
-  - Added tailwindcss, the typography plugin, and daisyui as explicit dependencies (and plugins) to the front end to enable the above change.
-  - Removed unnecessary default styles from `index.css`.
-  - Updated front end to use aliases for the "assets" directory. Also updated typescript config to handle this.
-  - Updated vite.config.ts to fix various build issues if the parent `node_modules` isn't available. 
-  - Added default settings for `CSRF_COOKIE_DOMAIN` and `SESSION_COOKIE_DOMAIN` which are needed by the front end in production.
-
-## Version 2025.5.2
-
+- Fixed the default values of `FRONTEND_ADDRESS` and related values in `settings.py` and `.env` files to point to "http://localhost:5174"
+  (instead of port 5173).
+- Api keys associated with inactive users will no longer pass API permission checks. Thanks Brennan for the suggestion!
 - Removed unused `.babelrc` file if not building with Webpack.
-- **Added support for JetBrains / PyCharm Junie AI rules files.**
 - Automatically confirm user emails when they create accounts through the invitation acceptance workflow,
   since they can only get the invitation URL from the email link. 
+
+
+
+### Upgrading
+
+If your project has existing migration files that create celery tasks (e.g. `/apps/subscriptions/migrations/0001_celery_tasks.py`),
+you should leave them in your repository to prevent issues running future migrations.
+The tasks themselves are unaffected, since they live in the database.
 
 ## Version 2025.5.1
 
