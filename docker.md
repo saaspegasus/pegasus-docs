@@ -69,14 +69,14 @@ The Docker configuration is primarily in `docker-compose.yml`.
 Depending on your project settings, there are several containers that might be running.
 These are outlined in the table below:
 
-| Container Name | Purpose                               | Included                                                         |
-|----------------|---------------------------------------|------------------------------------------------------------------|
-| `pg`           | Runs  Postgres (primary Database)     | Always                                                           |
-| `redis`        | Runs Redis (Cache and Celery Broker)  | Always                                                           |
-| `web`          | Runs Django                           | Always                                                           |
-| `vite`         | Runs Vite (for CSS/JavaScript assets) | If [building with Vite](./front-end/vite.md)                     |
-| `celery`       | Runs Celery (for background tasks)    | If [Celery is enabled](./celery.md)                              |
-| `frontend`     | Runs the React Front End              | If [the front end is enabled](./experimental/react-front-end.md) |
+| Container Name | Purpose                               | Included                                                                    |
+|----------------|---------------------------------------|-----------------------------------------------------------------------------|
+| `pg`           | Runs  Postgres (primary Database)     | Always                                                                      |
+| `redis`        | Runs Redis (Cache and Celery Broker)  | Always                                                                      |
+| `web`          | Runs Django                           | Always                                                                      |
+| `vite`         | Runs Vite (for CSS/JavaScript assets) | If [building with Vite](./front-end/vite.md)                                |
+| `celery`       | Runs Celery (for background tasks)    | If [Celery is enabled](./celery.md)                                         |
+| `frontend`     | Runs the React Front End              | If [the standalone front end is enabled](./experimental/react-front-end.md) |
 
 
 ### Settings
