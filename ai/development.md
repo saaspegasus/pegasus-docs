@@ -63,6 +63,12 @@ In order for this to work, you will have to add an `ANTHROPIC_API_KEY` to your r
 You can learn more in the [Claude code docs](https://docs.anthropic.com/en/docs/claude-code/github-actions)
 and [Github secrets docs](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
 
+## Working with Junie
+
+[Junie](https://www.jetbrains.com/junie/) is the coding assistant built by JetBrains (makers of PyCharm).
+If you enable the Junie integration, your rules will be collapsed into a single, organized `.junie/guidelines.md`
+file for Junie to use.
+
 ## Other tools
 
 If you're using a different tool, it is recommended to choose one of the two above when building your project
