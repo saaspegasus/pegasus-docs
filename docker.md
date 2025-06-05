@@ -51,12 +51,14 @@ including starting your containers, performing database operations, and building
 You can run `make` to list helper functions, and you can view the source
 of the `Makefile` file in case you need to add to it or run any once-off commands.
 
-For example, you can run management commands in containers using the same method 
-used in the `Makefile`. E.g.
+Most of the commands you might need to run in your project will involve running something like:
 
 ```
-docker compose exec web python manage.py createsuperuser
+docker compose exec <container> <command>
 ```
+
+The `Makefile` has many example of these you can refer to if you need to run a specific command against
+a specific container.
 
 ## Architecture and how it works
 
