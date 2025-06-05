@@ -23,8 +23,8 @@ Read on for details!
 ### AI-Coding improvements
 
 - **Added an optional Claude Code Github workflow**. When enabled, you can mention @claude on a Github pull request
-  or issue to trigger a Claude Code update.
-- **Added optional support for JetBrains / PyCharm Junie AI rules files.**
+  or issue to trigger a Claude Code update. Learn more [in the docs here](./ai/development.md#the-github-workflow-file).
+- **Added optional support for JetBrains / PyCharm Junie AI rules files.** [Docs](./ai/development.md#working-with-junie)
 - Edited and expanded the AI rules files based on various user feedback (thanks to many who have contributed to this).
 - Updated the [Celery documentation](./celery.md) to reflect these changes.
 
