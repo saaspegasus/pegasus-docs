@@ -144,7 +144,7 @@ This will configure the [`HEADLESS_FRONTEND_URLS` setting](https://docs.allauth.
 
 You will need to deploy your Django backend using any of the [standard deployment methods](../deployment/overview.md).
 
-The front end can be deployed anywhere that can hots static sites, including Cloudflare Pages, Netlify, or S3.
+The front end can be deployed anywhere that can host static sites, including Cloudflare Pages, Netlify, or S3.
 
 Here is a rough guide for deploying to Cloudflare Pages:
 
