@@ -51,12 +51,14 @@ including starting your containers, performing database operations, and building
 You can run `make` to list helper functions, and you can view the source
 of the `Makefile` file in case you need to add to it or run any once-off commands.
 
-For example, you can run management commands in containers using the same method 
-used in the `Makefile`. E.g.
+Most of the commands you might need to run in your project will involve running something like:
 
 ```
-docker compose exec web python manage.py createsuperuser
+docker compose exec <container> <command>
 ```
+
+The `Makefile` has many example of these you can refer to if you need to run a specific command against
+a specific container.
 
 ## Architecture and how it works
 
@@ -64,8 +66,18 @@ docker compose exec web python manage.py createsuperuser
 
 The Docker configuration is primarily in `docker-compose.yml`.
 
-There are four containers that start: a Postgres database, a Redis instance (for caching and use as a Celery broker),
-a web container running your Django process, and a Celery container for background jobs.
+Depending on your project settings, there are several containers that might be running.
+These are outlined in the table below:
+
+| Container Name | Purpose                               | Included                                                         |
+|----------------|---------------------------------------|------------------------------------------------------------------|
+| `pg`           | Runs  Postgres (primary Database)     | Always                                                           |
+| `redis`        | Runs Redis (Cache and Celery Broker)  | Always                                                           |
+| `web`          | Runs Django                           | Always                                                           |
+| `vite`         | Runs Vite (for CSS/JavaScript assets) | If [building with Vite](./front-end/vite.md)                     |
+| `celery`       | Runs Celery (for background tasks)    | If [Celery is enabled](./celery.md)                              |
+| `frontend`     | Runs the React Front End              | If [the front end is enabled](./experimental/react-front-end.md) |
+
 
 ### Settings
 
