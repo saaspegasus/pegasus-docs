@@ -3,6 +3,80 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.6
+
+This release hardens the production Celery set up, expands AI-development tooling,
+improves production support for the standalone React front end,
+and extends the ecommerce application.
+
+Read on for details!
+
+### Celery improvements
+
+- Celery periodic tasks can now be configured via `settings.SCHEDULED_TASKS` and synchronized with a new management command
+  (`./manage.py bootstrap_celery_tasks`). The previous migration files that created celery periodic tasks have been removed.
+- The Celery gunicorn worker pool changed from the default of 'prefork' to 'gevent' in production, and the concurrency was increased.
+  This should be a more scalable setup for most projects, though may need to be changed for projects that are heavily CPU-bound.
+- Because of the above change, a separate worker for Celery Beat has been added to all production deploy environments
+  (because beat can't be run with the gevent pool).
+
+### AI-Coding improvements
+
+- **Added an optional Claude Code Github workflow**. When enabled, you can mention @claude on a Github pull request
+  or issue to trigger a Claude Code update. Learn more [in the docs here](./ai/development.md#the-github-workflow-file).
+- **Added optional support for JetBrains / PyCharm Junie AI rules files.** [Docs](./ai/development.md#working-with-junie)
+- Edited and expanded the AI rules files based on various user feedback (thanks to many who have contributed to this).
+- Updated the [Celery documentation](./celery.md) to reflect these changes.
+
+### Standalone front end improvements
+
+These updates affect the [standalone React front end](./experimental/react-front-end.md).
+
+- Updated the front end CSS to build the files directly in the front end (and import relevant files from the Django app in `index.css`),
+  rather than including the built Django CSS files directly.
+  - Some required Tailwind CSS files in the `assets` directory will be included if you use the standalone front end even
+    if you build for a different framework.
+- Added tailwindcss, the typography plugin, and daisyui as explicit dependencies (and plugins) to the front end to enable the above change.
+- Upgraded all JavaScript dependencies in the front end.
+- Removed unnecessary default styles from `index.css`.
+- Updated front end to use aliases for the "assets" directory. Also updated `tsconfig.json` to handle this.
+- Updated `vite.config.ts` to fix various build issues if the parent `node_modules` isn't available.
+- Fixed the default values of `FRONTEND_ADDRESS` and related values in `settings.py` and `.env` files to point to "http://localhost:5174"
+  (instead of port 5173).
+- Added `CSRF_COOKIE_DOMAIN`, `CORS_ALLOWED_ORIGINS`, and `SESSION_COOKIE_DOMAIN` to `settings.py` using environment variables.
+  These must be customized when deploying the standalone front end.
+- Updated Kamal's `deploy.yml` to include default values for the above settings.
+- Added initial documentation on [deploying the standalone front end to production](./experimental/react-front-end.md#deployment).
+
+### Other updates
+
+- **Added a digital download example to the ecommerce application.**
+  You can now associate a file with ecommerce products and only people who have purchased the product will be able to access it.
+  - Also added tests for this workflow.
+- Added a private storage backend, for storing private files on S3-compatible storage backends (used by the above).
+- Upgraded most Python dependencies to their latest versions. 
+- Fix `target-version` in `pyproject.toml` to match the currently recommended Python 3.12. Thanks Finbar for reporting!
+- Fixed a bug where group chat avatars were incorrectly styled on Tailwind builds.
+  Added a new `pg-avatar` CSS class to handle this. 
+- Digital ocean deployment updates:
+  - Switched Redis to Valkey, and upgraded it to version 8.
+  - Upgraded Postgres to version 17.
+  - Updated the [Digital Ocean deployment docs](./deployment/digital-ocean.md) to reflect the latest changes.
+- Fixed email verification emails when `ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True`.
+  Thanks Justin for reporting and helping with the fix!
+- Removed default font-weight styling from `email_template_base.html`. 
+- Api keys associated with inactive users will no longer pass API permission checks. Thanks Brennan for the suggestion!
+- Removed unused `.babelrc` file if not building with Webpack.
+- Automatically confirm user emails when they create accounts through the invitation acceptance workflow,
+  since they can only get the invitation URL from the email link. 
+
+
+### Upgrading
+
+If your project has existing migration files that create celery tasks (e.g. `/apps/subscriptions/migrations/0001_celery_tasks.py`),
+you should leave them in your repository to prevent issues running future migrations.
+The tasks themselves are unaffected, since they live in the database.
+
 ## Version 2025.5.1
 
 This is a minor bugfix release on top of 2025.5.

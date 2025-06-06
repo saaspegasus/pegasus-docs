@@ -140,6 +140,54 @@ go to your Django application or your React front end.
 To use the React front end's pages for these workflows, you can set `USE_HEADLESS_URLS = True` in your settings or environment variables.
 This will configure the [`HEADLESS_FRONTEND_URLS` setting](https://docs.allauth.org/en/dev/headless/configuration.html) to work with the built-in front end.
 
+## Deployment
+
+Big picture, you should deploy the standalone front end and Django backend separately,
+and use different subdomains to point to them. The most common set up is to deploy the front end
+to either "mydomain.com" or "www.mydomain.com", and then deploy the backend to "app.mydomain.com" or
+"platform.mydomain.com".
+
+### The Django Backend
+
+You will need to deploy your Django backend using any of the [standard deployment methods](../deployment/overview.md).
+
+In addition to a standard deployment, you will specifically need to set the following additional settings,
+by overriding them in your environment variables or a production settings file:
+
+- `FRONTEND_ADDRESS`: Your front end's full URL, e.g. "https://www.mydomain.com"
+- `CORS_ALLOWED_ORIGINS`: Full URLs of both your frontend and backend addresses, e.g.  "https://www.mydomain.com,https://app.mydomain.com"
+- `CSRF_COOKIE_DOMAIN`: All domains and subdomains, e.g. ".mydomain.com" (note the leading "."). 
+- `SESSION_COOKIE_DOMAIN`: Same as `CSRF_COOKIE_DOMAIN`.
+
+### The React Frontend
+
+The frontend can be deployed anywhere that hosts static sites, including Cloudflare Pages, Netlify, or S3.
+
+The basic steps for deployment are to run `npm run build` and then serve the output directory as a static site.
+
+In addition, the following environment variables need to be set during build. Do not include trailing slashes:
+
+- `VITE_APP_BASE_URL`: Your django backend url, e.g. "https://app.mydomain.com"
+- `VITE_ALLAUTH_BASE_URL`: The full allauth base route for your backend, e.g. "https://app.mydomain.com/_allauth/browser/v1" 
+
+Each static site host has their own way of configuring the above setup.
+Below are quick example instructions for deploying the front end on Cloudflare Pages:
+
+1. In the Cloudflare dashboard, visit "Workers & Pages" and click "Create"
+2. Under "pages", select the option to connect a Github repository.
+3. Pick your Pegasus Github repository. You may have to authenticate and provide access permissions.
+4. Fill in the following settings:
+    1. Build command: `npm run build`
+    2. Build output directory: `dist`
+    3. Root directory: `frontend`
+    4. Add the following environment variables. *Note that the URLs should not end in slashes.*
+        1. `VITE_APP_BASE_URL: https://<your Django backend URL>`
+        2. `VITE_ALLAUTH_BASE_URL: https://<your Django backend URL>/_allauth/browser/v1`
+        3. `NODE_VERSION: 22.13.0`
+        4. `NPM_VERSION: 11.3.0`
+5. Click "Save and Deploy"
+6. After the initial deployment you can add a custom domain to your front end. 
+
 ## Known Limitations
 
 This is an experimental feature meant to provide a starting point for building a standalone React front end against your Pegasus app.
@@ -150,7 +198,6 @@ Here are some of the larger limitations:
 - Only a very limited subset of Pegasus functionality is available in the front end.
 - The front end styles only support Tailwind CSS.
 - Internationalization (translations) are not supported.
-- There is not yet any guidance/support for production deployment of the front end.
 
 ## Troubleshooting
 

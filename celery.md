@@ -81,3 +81,65 @@ If you'd like to use Flower in development, add the following to the `services` 
 
 In production, you will likely want to run Flower behind a private VPN, or [set up authentication](https://flower.readthedocs.io/en/latest/auth.html)
 on your Flower instance, and use a [reverse proxy](https://flower.readthedocs.io/en/latest/reverse-proxy.html) to expose it.
+
+## Scheduled Tasks with Celery Beat
+
+[Celery Beat](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html) is a scheduler that triggers tasks at regular intervals, which can be used to run periodic tasks like daily reports, or sending scheduled notifications.
+
+### Configuration
+
+By default, Celery Beat will store the schedule in file on the filesystem. When running in a production environment and especially in a containerized environment, you should use persistent storage to store the schedule. Pegasus is pre-configured to store the schedule in the Pegasus database using [`django-celery-beat`.](https://django-celery-beat.readthedocs.io/en/latest/).
+
+You can place the schedule task definitions in the `SCHEDULED_TASKS` setting in your `settings.py` file and then run the `bootstrap_celery_tasks` management command to create the tasks in the database.
+
+```python
+from celery.schedules import crontab
+
+SCHEDULED_TASKS = {
+    'example-task-every-morning': {
+        'task': '{{ project_name }}.tasks.example_task',
+        'schedule': crontab(hour=7, minute=0),  # Run every day at 7:00 AM
+    },
+    'another-example-every-hour': {
+        'task': '{{ project_name }}.tasks.another_example',
+        'schedule': 3600.0,  # Run every hour (in seconds)
+        'args': (16, 16),  # Arguments to pass to the task
+    },
+}
+```
+
+```shell
+python manage.py bootstrap_celery_tasks --remove-stale
+```
+
+This will create or update the tasks in the database and remove any stale tasks that are no longer defined in `SCHEDULED_TASKS`.
+
+If you want to bootstrap the tasks automatically during you application deploy process you can do so by running the bootstrap command alongside the Django migration command.
+
+### Running Celery Beat
+
+To run Celery Beat in development:
+
+*With Docker:*
+
+If you are using the local dockerized setup with docker compose, then Celery Beat will already be running as part of the `celery` service.
+
+*With uv:*
+
+```shell
+# Alongside the Celery worker, you can run Celery Beat
+uv run celery -A {{ project_name }} worker -l info --beat
+
+# AS a dedicated process
+uv run celery -A {{ project_name }} beat -l info
+```
+
+Note that if you run Celery Beat as a standalone process, you will need to ensure that the Celery worker is running separately. This is because Celery Beat is responsible for scheduling tasks while the worker executes them.
+
+#### Production Setup
+
+In production, you can run Celery Beat as a separate process. You must ensure that there is only ever one Celery Beat process running at a time to avoid multiple instances of the same task being scheduled.
+
+It's also important to note that you can not run Celery Beat in the same process as a worker that is using the `gevent` pool. 
+
+For more information, see the [Celery Beat documentation](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html).
