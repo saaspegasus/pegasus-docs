@@ -198,7 +198,6 @@ Here are some of the larger limitations:
 - Only a very limited subset of Pegasus functionality is available in the front end.
 - The front end styles only support Tailwind CSS.
 - Internationalization (translations) are not supported.
-- There is not yet any guidance/support for production deployment of the front end.
 
 ## Troubleshooting
 
