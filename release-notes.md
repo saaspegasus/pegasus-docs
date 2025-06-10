@@ -19,6 +19,7 @@ Read on for details!
   This should be a more scalable setup for most projects, though may need to be changed for projects that are heavily CPU-bound.
 - Because of the above change, a separate worker for Celery Beat has been added to all production deploy environments
   (because beat can't be run with the gevent pool).
+- Updated the [Celery documentation](./celery.md) to reflect these changes.
 
 ### AI-Coding improvements
 
@@ -26,7 +27,6 @@ Read on for details!
   or issue to trigger a Claude Code update. Learn more [in the docs here](./ai/development.md#the-github-workflow-file).
 - **Added optional support for JetBrains / PyCharm Junie AI rules files.** [Docs](./ai/development.md#working-with-junie)
 - Edited and expanded the AI rules files based on various user feedback (thanks to many who have contributed to this).
-- Updated the [Celery documentation](./celery.md) to reflect these changes.
 
 ### Standalone front end improvements
 
@@ -46,7 +46,7 @@ These updates affect the [standalone React front end](./experimental/react-front
 - Added `CSRF_COOKIE_DOMAIN`, `CORS_ALLOWED_ORIGINS`, and `SESSION_COOKIE_DOMAIN` to `settings.py` using environment variables.
   These must be customized when deploying the standalone front end.
 - Updated Kamal's `deploy.yml` to include default values for the above settings.
-- Added initial documentation on [deploying the standalone front end to production](./experimental/react-front-end.md#deployment).
+- **Added initial documentation on [deploying the standalone front end to production](./experimental/react-front-end.md#deployment).**
 
 ### Other updates
 
@@ -58,7 +58,7 @@ These updates affect the [standalone React front end](./experimental/react-front
 - Fix `target-version` in `pyproject.toml` to match the currently recommended Python 3.12. Thanks Finbar for reporting!
 - Fixed a bug where group chat avatars were incorrectly styled on Tailwind builds.
   Added a new `pg-avatar` CSS class to handle this. 
-- Digital ocean deployment updates:
+- Made some updates Digital Ocean deployments:
   - Switched Redis to Valkey, and upgraded it to version 8.
   - Upgraded Postgres to version 17.
   - Updated the [Digital Ocean deployment docs](./deployment/digital-ocean.md) to reflect the latest changes.
@@ -76,6 +76,8 @@ These updates affect the [standalone React front end](./experimental/react-front
 If your project has existing migration files that create celery tasks (e.g. `/apps/subscriptions/migrations/0001_celery_tasks.py`),
 you should leave them in your repository to prevent issues running future migrations.
 The tasks themselves are unaffected, since they live in the database.
+
+*June 10, 2025*
 
 ## Version 2025.5.1
 
