@@ -65,7 +65,7 @@ set `request.team` and `request.team_membership` based on the current request. I
 the team as follows:
 
 * From the `team_slug` in the request path if available
-* From the the current session if available
+* From the current session if available
 * From the user's list of teams if available
 
 If the `team_slug` is available from the request path but it does not match a team that the user has access to 

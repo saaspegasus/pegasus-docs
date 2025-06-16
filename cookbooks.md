@@ -40,7 +40,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 It's recommended to do this in two steps:
 
-1. [Upgrade your project](./upgrading.md) to the latest Pegasus version, keeping your pacakge manager as "pip-tools".
+1. [Upgrade your project](./upgrading.md) to the latest Pegasus version, keeping your package manager as "pip-tools".
    Merge all conflicts and ensure your project is working properly on this version.
 2. Then, change the package manager from pip-tools to uv in your project settings and do another upgrade/pull request.
 

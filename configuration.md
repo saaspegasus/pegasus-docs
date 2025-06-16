@@ -126,7 +126,7 @@ that is what you should put in.
 Pegasus is setup to use [django-anymail](https://github.com/anymail/django-anymail) to send email
 via Amazon SES, Mailgun, Postmark, and a variety of other email providers.
 
-To use one of these email backends, change the the email backend in `settings.py` to:
+To use one of these email backends, change the email backend in `settings.py` to:
 
 ```python
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
@@ -162,7 +162,7 @@ See [Sending email](https://docs.djangoproject.com/en/stable/topics/email/) in t
 
 ## User Sign Up
 
-The sign up workflow is managed by [django-allauth](https://www.intenct.nl/projects/django-allauth/)
+The sign up workflow is managed by [django-allauth](https://allauth.org/)
 with a sensible set of defaults and templates.
 
 ### Social logins

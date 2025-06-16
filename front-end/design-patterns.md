@@ -87,7 +87,7 @@ window.DataTable = DataTable;
 Then you can access the `DataTable` object from any page:
 
 ```javascript
-// initialize the the table with id "mytable" 
+// initialize the table with id "mytable" 
 const dataTable = new DataTable("#mytable", {
    searchable: true,
    fixedHeight: true,

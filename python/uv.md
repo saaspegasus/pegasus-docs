@@ -41,7 +41,7 @@ make build
 make restart
 ```
 
-The `make requiements` command can also be used to sync your `uv.lock` file and rebuild / restart your containers.
+The `make requirements` command can also be used to sync your `uv.lock` file and rebuild / restart your containers.
 
 #### Upgrading a package
 
