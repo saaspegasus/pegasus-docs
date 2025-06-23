@@ -5,6 +5,10 @@ import starlight from '@astrojs/starlight';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://docs.saaspegasus.com/',
+	redirects: {
+		'/api-keys': '/apis',
+		'/using-virtualenvs': '/python/',
+	},
 	integrations: [
 		starlight({
 			title: 'Pegasus',
