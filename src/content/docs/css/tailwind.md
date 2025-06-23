@@ -31,7 +31,7 @@ Or in Docker:
 make npm-watch
 ```
 
-See the [front-end docs](/front-end) for more information about working with these files.
+See the [front-end docs](/front-end/overview) for more information about working with these files.
 
 ## Customization
 

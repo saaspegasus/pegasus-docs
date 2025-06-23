@@ -49,7 +49,7 @@ The API docs will look something like this:
 
 ## API Clients
 
-As part of the [front end](/front-end/), Pegasus ships with an API client that can be used to interact with your project's APIs.
+As part of the [front end](/front-end/overview), Pegasus ships with an API client that can be used to interact with your project's APIs.
 **This client is automatically generated from your APIs and should not be modified by hand.**
 
 You can find the source code of the API client(s) in the `api-client` folder in your project's root directory.

@@ -4475,7 +4475,7 @@ Instructions on upgrading can be found on the ["upgrading" page](/upgrading).
 
 - Remove `package-lock.json` from Pegasus for improved compatibility across NPM / OS versions.
   It is recommended to run `npm install` and then check in the resulting `package-lock.json` file to source control.
-  More details can be found in the [front end docs](/front-end).
+  More details can be found in the [front end docs](/front-end/overview).
 - Switch some styling from Sass variables to CSS variables (e.g. colors) for compatibility with multiple CSS frameworks
 - Add a `site-base.sass` file for base Pegasus styles that aren't dependent on any CSS framework.
 - Fix issue with `PlanSerializer` and `dj-stripe` version 2.4.1
