@@ -3,9 +3,6 @@ title: Webpack-Specific Instructions
 description: Webpack-Specific Instructions
 ---
 
-Webpack-Specific Instructions
-=============================
-
 ## Development with Webpack
 
 Whenever you make modifications to the front-end files you will need to run

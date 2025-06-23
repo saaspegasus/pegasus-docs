@@ -5,8 +5,6 @@ sidebar:
   order: 2
 ---
 
-# CSS File Structure
-
 CSS source files live in the `assets/styles` folder, and are compiled into the `static/css` folder.
 Some Pegasus styles are written using [Sass](https://sass-lang.com/), which provides many benefits
 and features on top of traditional CSS.

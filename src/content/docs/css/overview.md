@@ -5,9 +5,6 @@ sidebar:
   order: 1
 ---
 
-Choosing a CSS Theme
-====================
-
 There are four CSS themes available in Pegasus.
 
 **If you don't know which one you want, we recommend TailwindCSS.**

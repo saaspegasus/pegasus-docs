@@ -3,8 +3,6 @@ title: Settings and Configuration
 description: Settings and configuration details you can change inside Pegasus
 ---
 
-# Settings and Configuration
-
 This section describes some of the settings and configuration details you can change inside Pegasus.
 
 ## Settings and environment files

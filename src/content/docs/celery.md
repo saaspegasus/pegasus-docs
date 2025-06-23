@@ -3,8 +3,6 @@ title: Celery
 description: Distributed task queue for running background tasks
 ---
 
-# Celery
-
 [Celery](https://docs.celeryq.dev/) is a distributed task queue used to run background tasks.
 
 It is required by several Pegasus features, including:

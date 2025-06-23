@@ -3,9 +3,6 @@ title: How to connect a marketplace app to a Pegasus project
 description: How to connect a marketplace app to a Pegasus project
 ---
 
-How to connect a marketplace app to a Pegasus project
-=====================================================
-
 Follow these steps to connect a marketplace app to a Pegasus project.
 We'll do this for [scriv], but the process should be the same for other apps built on Pegasus.
 

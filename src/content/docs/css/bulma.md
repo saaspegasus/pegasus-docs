@@ -3,8 +3,6 @@ title: Bulma
 description: Bulma
 ---
 
-# Bulma
-
 Bulma is readily customizable via [Sass variables](https://bulma.io/documentation/customize/variables/).
 Any of the variables used by Bulma can be changed by modifying the `assets/styles/site-bulma.scss` file.
 

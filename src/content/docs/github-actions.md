@@ -3,9 +3,6 @@ title: Using Github Actions
 description: Using Github Actions
 ---
 
-Using Github Actions
-====================
-
 [GitHub Actions](https://github.com/features/actions) allows you to automate your software workflows.
 Pegasus apps optionally ship with Github actions support for a few things to build off.
 

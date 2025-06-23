@@ -3,8 +3,6 @@ title: LLMs and Chat
 description: LLMs and Chat
 ---
 
-# LLMs and Chat
-
 Pegasus comes with an optional Chat UI for interacting with LLMs.
 This section covers how it works and the various supported options.
 

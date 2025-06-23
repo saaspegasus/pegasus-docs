@@ -3,8 +3,6 @@ title: Forms
 description: Forms
 ---
 
-# Forms
-
 Pegasus ships with some extensions to Django forms to integrate with different CSS frameworks
 and add some extensions.
 

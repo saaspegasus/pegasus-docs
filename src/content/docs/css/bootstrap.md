@@ -3,8 +3,6 @@ title: Bootstrap
 description: Bootstrap
 ---
 
-# Bootstrap
-
 There are two Bootstrap themes, both of which use Bootstrap version 5.
 
 ## Choosing your theme

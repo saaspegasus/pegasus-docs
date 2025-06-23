@@ -3,8 +3,6 @@ title: Feature Flags
 description: Feature Flags
 ---
 
-# Feature Flags
-
 [Waffle][waffle] is the top library for managing feature flags in Django. Pegasus includes configuration
 for using Waffle with or without teams.
 

@@ -3,9 +3,6 @@ title: Wagtail CMS
 description: Wagtail CMS
 ---
 
-Wagtail CMS
-===========
-
 [Wagtail](https://wagtail.org/) is a powerful CMS (Content Management System) built on top of Django.
 You can use it to create rich websites that can be edited directly via an authoring admin interface without writing any code.
 It's great for creating marketing sites, blogs, and other mostly-static content.

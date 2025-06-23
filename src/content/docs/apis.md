@@ -3,8 +3,6 @@ title: APIs
 description: Rich ecosystem of APIs for your app's front end and third-party developers
 ---
 
-# APIs
-
 Pegasus comes with a rich ecosystem of APIs that can used by your app's front end as well as exposed to third-party developers.
 
 ## APIs in Pegasus

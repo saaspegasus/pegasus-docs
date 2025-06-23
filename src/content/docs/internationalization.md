@@ -3,8 +3,6 @@ title: Internationalization
 description: Internationalization
 ---
 
-# Internationalization
-
 Pegasus supports internationalization via built-in support for timezones and language translations.
 To enable timezone and multi-language support, you must select the "use internationalization" option
 in your project settings.

@@ -3,8 +3,6 @@ title: Troubleshooting
 description: Troubleshooting
 ---
 
-# Troubleshooting
-
 Below are some common issues related to deployment, and how to fix them.
 
 ### Page displaying a 400 Bad Request error page

@@ -5,8 +5,6 @@ sidebar:
   order: 2
 ---
 
-# Production checklist
-
 The following are some recommendations for deploying production Pegasus applications.
 
 ## Run the Django deployment checklist

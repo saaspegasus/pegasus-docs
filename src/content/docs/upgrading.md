@@ -3,8 +3,6 @@ title: Upgrading and Changing your Project Settings
 description: Upgrading and Changing your Project Settings
 ---
 
-# Upgrading and Changing your Project Settings
-
 There are several ways to update your Pegasus project.
 These methods can be used to upgrade your project to a new Pegasus version, or when changing
 anything in your project configuration.

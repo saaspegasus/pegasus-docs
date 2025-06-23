@@ -3,9 +3,6 @@ title: Working with Scriv
 description: Working with Scriv
 ---
 
-Working with Scriv
-==================
-
 ## Deployment
 
 Out of the box, Scriv is set up to deploy to fly.io via the standard SaaS Pegasus setup.

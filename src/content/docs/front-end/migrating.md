@@ -5,9 +5,6 @@ sidebar:
   order: 4
 ---
 
-Migrating from Webpack to Vite
-==============================
-
 This page describes how to migrate your project from Webpack to Vite.
 
 There is also a video walkthrough of the process here:

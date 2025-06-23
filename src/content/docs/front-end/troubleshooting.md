@@ -3,9 +3,6 @@ title: Troubleshooting
 description: Troubleshooting
 ---
 
-Troubleshooting
-===============
-
 ## Changes are not being picked when running `make npm-watch` in a Docker container
 
 Some Docker configurations do not properly pick up file-system changes across operating systems.

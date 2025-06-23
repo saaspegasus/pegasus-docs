@@ -3,8 +3,6 @@ title: Getting Started
 description: Everything you need to start your first Pegasus project
 ---
 
-# Getting Started
-
 Here's everything you need to start your first Pegasus project.
 
 ## Watch the video

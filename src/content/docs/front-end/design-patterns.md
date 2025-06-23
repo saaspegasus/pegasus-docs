@@ -5,9 +5,6 @@ sidebar:
   order: 2
 ---
 
-Front End Design Patterns
-=========================
-
 This section provides guidance on common front end tasks.
 
 ## Providing site-wide JavaScript

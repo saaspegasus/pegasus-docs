@@ -3,9 +3,6 @@ title: Using Teams
 description: Using Teams
 ---
 
-Using Teams
-===========
-
 Teams are designed to provide sandboxes for groups of users collaborating on single project.
 Users can join one or more teams, invite other users to their teams, and give different team members different roles.
 

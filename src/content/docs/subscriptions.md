@@ -3,9 +3,6 @@ title: Subscriptions
 description: Subscriptions
 ---
 
-Subscriptions
-=============
-
 ## Overview
 
 Subscriptions in Pegasus have three components which must all be setup in order for them to work correctly.

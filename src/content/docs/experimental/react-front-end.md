@@ -3,9 +3,6 @@ title: Standalone React Front End
 description: Standalone React Front End
 ---
 
-Standalone React Front End
-==========================
-
 *Added in version 2024.4. Expanded in version 2025.4.1.*
 
 SaaS Pegasus's default React integration is based on a hybrid-model for reasons

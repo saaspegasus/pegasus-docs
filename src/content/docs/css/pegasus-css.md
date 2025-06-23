@@ -5,8 +5,6 @@ sidebar:
   order: 3
 ---
 
-# Pegasus CSS
-
 In addition to your app's CSS, Pegasus also ships with its own set of CSS classes to provide compatibility
 across different frameworks.
 These classes are typically proxies for similar classes provided by the underlying frameworks themselves,

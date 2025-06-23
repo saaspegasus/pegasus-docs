@@ -3,9 +3,6 @@ title: Async and Websocket Support
 description: Async and Websocket Support
 ---
 
-Async and Websocket Support
-===========================
-
 As of version 2023.10, Pegasus provides support [asynchronous support](https://docs.djangoproject.com/en/stable/topics/async/),
 as well as support for websockets via the [channels library](https://channels.readthedocs.io/).
 

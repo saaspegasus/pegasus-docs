@@ -3,8 +3,6 @@ title: AI Integrations for Development
 description: AI Integrations for Development
 ---
 
-# AI Integrations for Development
-
 As of version 2025.4, Pegasus includes tooling for integrating with AI-powered coding assistants and tools.
 These will be constantly edited, expanded on, and improved as the community is able to provide more feedback on them.
 
@@ -81,4 +79,3 @@ and then copy the files to wherever your tool expects them.
 Choose "Cursor" if you want the rules files split up, and "Claude" if you prefer a single rules file.
 
 Also, if you'd like support or help configuring a different tool, email support@saaspegasus.com and let me know! 
-

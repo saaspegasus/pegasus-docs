@@ -3,8 +3,6 @@ title: Automating Deployment to Cloud Run using GitHub Actions
 description: Guide to automate deployment to Google Cloud Run using GitHub Actions
 ---
 
-# Automating Deployment to Cloud Run using GitHub Actions
-
 __*The following guide was contributed by Daan Vielen, a member of the Pegasus community.
 Any questions or issues using it should be directed to the #deployment channel of the community Slack.*__
 

@@ -5,9 +5,6 @@ sidebar:
   order: 3
 ---
 
-Vite-Specific Instructions
-===========================
-
 ## Vite architecture overview
 
 The Vite integration with Django is managed by [`django-vite`](https://github.com/MrBin99/django-vite).

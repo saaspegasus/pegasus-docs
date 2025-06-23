@@ -5,9 +5,6 @@ sidebar:
   order: 1
 ---
 
-Front End Overview
-==================
-
 *This page documents the front end files that are integrated into Django.
 See [the standalone front end docs](/experimental/react-front-end) for the separate React front end.*
 

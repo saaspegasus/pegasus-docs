@@ -3,9 +3,6 @@ title: The Material Theme (deprecated)
 description: The Material Theme (deprecated)
 ---
 
-The Material Theme (deprecated)
-===============================
-
 **This theme has been deprecated.**
 
 This means that the theme is in maintenance-only mode, and support will be dropped by the end of 2025.

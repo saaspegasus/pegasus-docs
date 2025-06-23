@@ -3,8 +3,6 @@ title: GitHub Integration
 description: Connect your Pegasus projects directly to GitHub for streamlined workflow
 ---
 
-# GitHub Integration
-
 As of February, 2024 you can connect your Pegasus projects directly to GitHub instead of downloading them as a zip file.
 This makes for a more streamlined workflow---especially when changing or upgrading your project.
 

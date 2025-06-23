@@ -3,8 +3,6 @@ title: Customizations
 description: The basics of customizing Pegasus to meet your application's needs
 ---
 
-# Customizations
-
 This page outlines the basics of customizing Pegasus to meet your application's needs.
 
 ## Personalize your landing page

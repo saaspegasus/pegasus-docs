@@ -3,8 +3,6 @@ title: Cookbooks
 description: Cookbooks
 ---
 
-# Cookbooks
-
 Step-by-step guides to some different things you might want to do with Pegasus.
 
 ## Use the Django Admin UI

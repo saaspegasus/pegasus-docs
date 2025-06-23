@@ -5,8 +5,6 @@ sidebar:
   order: 4
 ---
 
-# Tailwind CSS
-
 Pegasus supports [Tailwind CSS](https://tailwindcss.com/) (Version 4) and it is the recommended CSS framework for most projects.
 
 ## Demo and Overview
