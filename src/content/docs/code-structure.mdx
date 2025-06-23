@@ -3,33 +3,35 @@ title: Pegasus's Code Structure
 description: Pegasus's Code Structure
 ---
 
+import { FileTree } from '@astrojs/starlight/components';
+
 # Pegasus's Code Structure
 
 ## Overall structure
 
 This is the overall structure of a new Pegasus project:
 
-```
-{{project_name}}/
-├── {{project_name}}
-├── apps
-│   ├── subscriptions
-│   ├── teams
-│   ├── users
-│   ├── utils
-│   └── web
-├── pegasus
-│   ├── apps
-├── assets
-│   ├── javascript
-│   └── styles
-├── requirements
-└── static
-    ├── css
-    ├── images
-    └── js
-├── templates
-```
+<FileTree>
+- \{\{project_name\}\}/
+  - \{\{project_name\}\}/
+  - apps
+    - subscriptions/
+    - teams/
+    - users/
+    - utils/
+    - web/
+  - pegasus
+    - apps/
+  - assets
+    - javascript/
+    - styles/
+  - requirements/
+  - static
+    - css/
+    - images/
+    - js/
+  - templates/
+</FileTree>
 
 The first three directories are Python modules while the remaining ones are not.
 
