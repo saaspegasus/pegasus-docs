@@ -27,13 +27,13 @@ but it does mean that **your Vite server must be running at all times during dev
 
 To run your Vite server and serve your front end files you should run:
 
-```shell
+```bash
 npm run dev
 ```
 
 Or in Docker:
 
-```shell
+```bash
 make npm-dev
 ```
 This command will also automatically refresh your front end whenever any changes are made. 
@@ -42,14 +42,14 @@ This command will also automatically refresh your front end whenever any changes
 
 To add CSS / JS files to Django templates you can use the `vite_asset` template tag from django-vite:
 
-```shell
+```bash
 {% load django_vite %}
 {% vite_asset '<path to your asset>' %}
 ```
 
 If you are using React you also need to add the `vite_react_refresh` tag to get HMR working:
 
-```shell
+```bash
 {% load django_vite %}
 {% vite_react_refresh %}
 {% vite_asset '<path to your React asset>' %}
@@ -60,7 +60,7 @@ If you are using React you also need to add the `vite_react_refresh` tag to get 
 The [django-vite docs](https://github.com/MrBin99/django-vite) provide details about the vite configuration.
 Here is the relevant declaration from `settings.py`:
 
-```shell
+```bash
 DJANGO_VITE = {
     "default": {
         "dev_mode": env.bool("DJANGO_VITE_DEV_MODE", default=DEBUG),

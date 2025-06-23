@@ -51,7 +51,7 @@ To run models like Mixtral or Llama3, you will need to run an [Ollama](https://o
 
 1. [Download](https://ollama.com/download) and run Ollama or use the Docker [image](https://hub.docker.com/r/ollama/ollama)
 2. Download the model you want to run:
-   ```shell
+   ```bash
    ollama pull llama3
    # or with docker
    docker exec -it ollama ollama pull llama3

@@ -228,7 +228,7 @@ For more information see [Kamal commands](https://kamal-deploy.org/docs/commands
 If the `kamal setup` command fails it should print out the error it got. Once you've resolved it,
 you may need to set up the services individually instead of re-running it. You can do that with the commands below:
 
-```shell
+```bash
 # rebuild the PostgreSQL container
 kamal accessory reboot postgres
 
@@ -247,7 +247,7 @@ kamal deploy
 
 If deploy continues to fail, check the logs of your docker container, using:
 
-```shell
+```bash
 kamal app logs
 ```
 
@@ -396,7 +396,7 @@ We'll also add this user to the `docker` group so that Kamal can run docker comm
 
 First login to your server as a user with root access. Then run the following commands:
 
-```shell
+```bash
 sudo adduser kamal --disabled-password
 sudo adduser kamal --add_extra_groups docker
 ```
@@ -404,7 +404,7 @@ sudo adduser kamal --add_extra_groups docker
 Next, add your SSH key to the `kamal` user's `authorized_keys` file so you can login without a password.
 If you need to generate an SSH key you can [follow these steps](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server):
 
-```shell
+```bash
 sudo mkdir -p /home/kamal/.ssh
 sudo cp ~/.ssh/authorized_keys /home/kamal/.ssh/authorized_keys
 sudo chown -R kamal:kamal /home/kamal/.ssh
@@ -412,7 +412,7 @@ sudo chown -R kamal:kamal /home/kamal/.ssh
 
 Next, test the login works. Exit out of your server and on your *local machine* run:
 
-```shell
+```bash
 ssh kamal@<ip-address>
 ```
 
@@ -420,7 +420,7 @@ If you've set everything up properly the `kamal` user should be able to login wi
 
 Once you're logged in, as a final test, ensure the `kamal` user can run docker commands by running:
 
-```shell
+```bash
 docker run hello-world
 ```
 

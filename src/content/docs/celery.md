@@ -112,7 +112,7 @@ SCHEDULED_TASKS = {
 }
 ```
 
-```shell
+```bash
 python manage.py bootstrap_celery_tasks --remove-stale
 ```
 
@@ -130,7 +130,7 @@ If you are using the local dockerized setup with docker compose, then Celery Bea
 
 *With uv:*
 
-```shell
+```bash
 # Alongside the Celery worker, you can run Celery Beat
 uv run celery -A {{ project_name }} worker -l info --beat
 

@@ -53,14 +53,14 @@ LANGUAGES = [
 The second step is to create the translations folder for the language.
 This can be done by running:
 
-```shell
+```bash
 python ./manage.py makemessages -l [new lang code] --ignore node_modules --ignore venv
 ```
 
 Or in Docker:
 
 
-```shell
+```bash
 docker compose exec web python manage.py makemessages -l [new lang code] --ignore node_modules --ignore venv
 ```
 
@@ -103,7 +103,7 @@ See the [Wagtail docs](wagtail.md#internationalization).
 After you've marked text for translation, you'll need to update your language files.
 This can be done by running:
 
-```shell
+```bash
 python ./manage.py makemessages --all --ignore node_modules --ignore venv
 python ./manage.py makemessages -d djangojs --all --ignore node_modules --ignore venv
 ```
@@ -134,7 +134,7 @@ The above lines will replace "My Team" with "Mon Équipe" whenever the French la
 After editing any message (.po) file, you will have to compile the messages for the updates to show up in your app.
 This can be done by:
 
-```shell
+```bash
 python ./manage.py compilemessages
 ```
 

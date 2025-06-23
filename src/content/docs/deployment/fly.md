@@ -23,7 +23,7 @@ the region to suit your needs, but it should be consistent throughout the comman
 
 1. Create your app in Fly.io
 
-```shell
+```bash
 $ fly launch --dockerfile Dockerfile.web \
       --dockerignore-from-gitignore \
       --no-deploy \
@@ -76,7 +76,7 @@ If not, see the "Troubleshooting" section below.
 <!----
 2. Create the app database
 
-    ```shell
+    ```bash
     $ fly postgres create --name {app-name}-db --region ord
     
     # ? Select Organization: My Org
@@ -85,7 +85,7 @@ If not, see the "Troubleshooting" section below.
 
 3. Attach the DB to your app
 
-    ```shell
+    ```bash
     $ fly postgres attach {app-name}-db -a {app-name}
     
     Postgres cluster {app-name}-db is now attached to {app-name}
@@ -95,7 +95,7 @@ If not, see the "Troubleshooting" section below.
 
 4. Create the Redis instance
     
-    ```shell
+    ```bash
     $ fly redis create --name {app-name}-redis --region ord
     
     ? Select Organization: My Org (my_org)
@@ -110,7 +110,7 @@ If not, see the "Troubleshooting" section below.
 
     Using the Redis URL from the command above run:
 
-    ```shell
+    ```bash
     $ fly secrets set REDIS_URL={url}
     ```
 
@@ -120,7 +120,7 @@ If not, see the "Troubleshooting" section below.
 You are now ready to deploy your app.
 You can do this by running:
 
-```shell
+```bash
 $ fly deploy
 ```
 
@@ -143,7 +143,7 @@ following the examples in these files.
 
 Secrets are managed in Fly.io via the web UI or on the command line using the CLI:
 
-```shell
+```bash
 $ fly secrets set MY_VAR=secret_value
 ```
 
@@ -151,7 +151,7 @@ $ fly secrets set MY_VAR=secret_value
 
 You can one-off commands via a shell:
 
-```shell
+```bash
 $ fly ssh console
 
 app $ ./code/manage.py [command]

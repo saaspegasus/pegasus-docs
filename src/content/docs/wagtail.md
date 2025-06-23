@@ -27,7 +27,7 @@ If you want to try Wagtail make sure you enable the "Use Wagtail" option in the 
 
 After you set up your application run:
 
-```shell
+```bash
 ./manage.py bootstrap_content
 ```
 
