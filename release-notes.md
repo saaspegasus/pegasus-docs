@@ -3,6 +3,15 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.6.1
+
+This is a hotfix release which addresses two minor issues:
+
+- Fix `make npm-install` and `make npm-uninstall` commands when using vite as a bundler. Thanks Matt for reporting!
+- Fix broken dark mode behavior on Tailwind when attempting to disable it. Thanks Wik for the report and fix!
+
+*June 23, 2025*
+
 ## Version 2025.6
 
 This release hardens the production Celery set up, expands AI-development tooling,
