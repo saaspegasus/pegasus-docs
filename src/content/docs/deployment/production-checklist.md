@@ -59,7 +59,7 @@ Ensure that you have configured the following variables (if you are using them):
 - If you're using Mailchimp, set `MAILCHIMP_API_KEY` and `MAILCHIMP_LIST_ID`.
 - If you're using Health Checks, set `HEALTH_CHECK_TOKENS`.
 
-Refer to your [chosen platform's documentation](/deployment.rst) for details on how to set environment variables in that platform.
+Refer to your [chosen platform's documentation](/deployment/overview) for details on how to set environment variables in that platform.
 
 ## Sync Stripe data
 
@@ -71,7 +71,7 @@ python manage.py bootstrap_subscriptions
 
 to initialize your subscription data.
 
-See your [chosen platform's documentation](/deployment.rst) for how to run one-off commands.
+See your [chosen platform's documentation](/deployment/overview) for how to run one-off commands.
 
 ## Set up media files
 

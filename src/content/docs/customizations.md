@@ -45,7 +45,7 @@ All of Pegasus's CSS frameworks are designed to be customized to your needs.
 You can set specific colors or override the themes entirely.
 
 How styles are customized depends on the CSS framework.
-For more information, see the individual page for your framework in [the CSS docs](/css.rst)
+For more information, see the individual page for your framework in [the CSS docs](/css/overview)
 
 ## Javascript
 

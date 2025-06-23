@@ -7,7 +7,7 @@ description: Using Docker in Development
 
 Pegasus optionally includes support for [Docker](https://www.docker.com/) during development.
 The Docker development setup can also be used as a foundation for deploying to containerized platforms.
-See [our deployment page](/deployment) for more details.
+See [our deployment page](/deployment/overview) for more details.
 
 ## Prerequisites
 

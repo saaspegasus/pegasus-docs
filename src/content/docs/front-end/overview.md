@@ -30,7 +30,7 @@ files that can be referenced using Django's static file system, as represented i
 
 Pegasus's styles use either the [Tailwind](https://tailwindcss.com/),  [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS frameworks,
 and building the CSS files is included as part of the front-end build pipeline.
-For more details on CSS in Pegasus, see the [CSS documentation](/css).
+For more details on CSS in Pegasus, see the [CSS documentation](/css/overview).
 
 **For a much more detailed overview of the rationale behind this architecture,
 and the details of the set up see the [Modern JavaScript for Django Developers](https://www.saaspegasus.com/guides/modern-javascript-for-django-developers/)

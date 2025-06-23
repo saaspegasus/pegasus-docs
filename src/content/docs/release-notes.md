@@ -1385,7 +1385,7 @@ to [`litellm`](https://docs.litellm.ai/docs/). Reasons for this change include:
   as a native Python library with a cleaner API.
 
 Litellm can still be used with all common AI models, including OpenAI, Anthropic/Claude, and local models
-(via ollama). For details on getting started with `litellm` see the updated [AI documentation](/ai).
+(via ollama). For details on getting started with `litellm` see the updated [AI documentation](/ai/llms).
 
 ### Formatting and linting now use Ruff
 
@@ -1539,7 +1539,7 @@ with the [`llm` library](https://github.com/simonw/llm). This lets you run the c
 against any supported model---including the Anthropic family (Claude 3), and local models like Llama 3.
 
 Additionally, the image generation demo now supports Dall-E-3 and Stable Diffusion 3.
-For complete details, see the new [AI documentation](/ai).
+For complete details, see the new [AI documentation](/ai/images).
 
 ### Health Checks
 
@@ -2756,7 +2756,7 @@ Smaller updates in this release are below.
 
 #### Documentation
 
-- Overhauled the documentation on working with [virtual environments](/python) and made
+- Overhauled the documentation on working with [virtual environments](/python/packages) and made
   `venv` the default recommendation over `virtualenv`.
 
 ### Upgrading / breaking changes
@@ -3426,7 +3426,7 @@ See the updated [Tailwind docs](/css/tailwind) for more information and customiz
 - Increased margins between buttons and forms/controls in a few templates.
 - Improved styling of the default email management page.
 - Upgraded several NPM packages to the latest versions including Bootstrap version to 5.2.
-- Overhauled [CSS docs](/css).
+- Overhauled [CSS docs](/css/overview).
 - Mark `help_text` as safe in form_tags (allows adding links and other HTML to your help text)
 - Add trailing slash to urls in `apps/web/urls.py`.
 - Updated default CI configuration to build all pull requests (was previously all pull requests to `main` only)
@@ -4301,7 +4301,7 @@ and a few small features and fixes.
 - Update `django` from `3.2` to `3.2.3`
 - Remove unused `kombu` dependencies from requirements.
 
-**Changes affecting [experimental features](/experimental) only:**
+**Changes affecting [experimental features](/experimental/react-front-end) only:**
 
 - Slightly improved styling of Tailwind sign up page
 
@@ -4339,11 +4339,11 @@ Details are below:
 - Set base URL in React object demo from Django
 - Fix doc strings of npm-related `make` commands
 - Extract logic for getting CoreAPI JavaScript client to a shared function
-- Add support for celery workers to Digital Ocean deployments (and [updated docs](/deployment))
+- Add support for celery workers to Digital Ocean deployments (and [updated docs](/deployment/digital-ocean))
 - Add `make dbshell` docker command to get a database shell
 - Remove some tailwind files that were accidentally included in non-tailwind builds
 
-**Changes affecting [experimental features](/experimental) only:**
+**Changes affecting [experimental features](/experimental/react-front-end) only:**
 
 - Improve Tailwind styling of examples, teams and other built-in pages
 - Add `@tailwind/forms` plug in for improved form styling
@@ -4370,7 +4370,7 @@ updates to the experimental TailwindCSS support:
 - Update generated `README` with better Docker instructions
 - Use double quotes for description and name settings to reduce issues with apostrophes
 
-Changes affecting [experimental features](/experimental) only:
+Changes affecting [experimental features](/experimental/react-front-end) only:
 
 - Properly support for using PurgeCSS with Tailwind
 - Include (purged) Tailwind bundle files with Pegasus
@@ -4395,7 +4395,7 @@ This is a minor maintenance release with a few small changes and fixes.
 
 This release adds support for the [Bootstrap CSS framework](https://getbootstrap.com/) and includes several changes
 to how the CSS files are structured in Pegasus.
-See the new [CSS documentation](/css) for an overview of the new structure.
+See the new [CSS documentation](/css/overview) for an overview of the new structure.
 
 Major changes:
 
@@ -4428,7 +4428,7 @@ Minor changes:
 ## Version 0.12.1
 
 This release continues the overhaul of the Pegasus CSS and templates to include experimental support for
-the Bootstrap CSS framework. Details on using Bootstrap [can be found here](/experimental).
+the Bootstrap CSS framework. Details on using Bootstrap [can be found here](/experimental/react-front-end).
 
 Changes affecting everyone:
 
@@ -4462,7 +4462,7 @@ This release is a set of changes laying the groundwork for future Pegasus improv
 
 **Experimental support for Tailwind CSS**
 
-More details can be found in the [Tailwind documentation](/experimental).
+More details can be found in the [Tailwind documentation](/experimental/react-front-end).
 
 *Note: this feature is not yet fully supported and is in an experimental pre-release.*
 
@@ -4570,7 +4570,7 @@ Additional updates:
 ## Version 0.10.3
 
 This release adds native support for deploying to Heroku using Docker containers.
-More details can be found in the new [deployment guide](/deployment).
+More details can be found in the new [deployment guide](/deployment/overview).
 
 Additional minor updates:
 
@@ -4590,7 +4590,7 @@ More details can be found in the new [Docker documentation](/docker).
 ## Version 0.10.1
 
 This release adds [Heroku](https://www.heroku.com/) deployment support.
-More details can be found in the new [deployment guide](/deployment).
+More details can be found in the new [deployment guide](/deployment/overview).
 
 *Oct 26, 2020*
 

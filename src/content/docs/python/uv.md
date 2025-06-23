@@ -3,9 +3,6 @@ title: Working with Python Packages (uv)
 description: Working with Python Packages (uv)
 ---
 
-Working with Python Packages (uv)
-=================================
-
 Recent versions of Pegasus use [uv](https://docs.astral.sh/uv/) to manage Python packages.
 It provides all the functionality of `pip-tools` while being much faster and offering more flexibility
 and features.

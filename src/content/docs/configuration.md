@@ -309,7 +309,7 @@ This should trigger an exception which will be logged by Sentry.
 
 ## OpenAI and LLMs
 
-For help configuring LLMs and AIs, see the [AI docs](/ai).
+For help configuring LLMs and AIs, see the [AI docs](/ai/llms).
 
 ## Celery
 

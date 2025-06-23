@@ -3,9 +3,6 @@ title: Working with Python Packages (pip-tools)
 description: Working with Python Packages (pip-tools)
 ---
 
-Working with Python Packages (pip-tools)
-========================================
-
 Pegasus uses [pip tools](https://github.com/jazzband/pip-tools) to manage Python dependencies.
 This allows for more explicit dependency management than a standard `requirements.txt` file.
 

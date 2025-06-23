@@ -3,9 +3,6 @@ title: Environment Setup
 description: Environment Setup
 ---
 
-Environment Setup
-=================
-
 ## Choosing between Docker and native Python
 
 You can either run Python in a Docker container or natively on your development machine,
