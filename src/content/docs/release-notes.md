@@ -4301,7 +4301,7 @@ and a few small features and fixes.
 - Update `django` from `3.2` to `3.2.3`
 - Remove unused `kombu` dependencies from requirements.
 
-**Changes affecting [experimental features](/experimental/react-front-end) only:**
+**Changes affecting [experimental features](/experimental/) only:**
 
 - Slightly improved styling of Tailwind sign up page
 
@@ -4343,7 +4343,7 @@ Details are below:
 - Add `make dbshell` docker command to get a database shell
 - Remove some tailwind files that were accidentally included in non-tailwind builds
 
-**Changes affecting [experimental features](/experimental/react-front-end) only:**
+**Changes affecting [experimental features](/experimental/) only:**
 
 - Improve Tailwind styling of examples, teams and other built-in pages
 - Add `@tailwind/forms` plug in for improved form styling
@@ -4370,7 +4370,7 @@ updates to the experimental TailwindCSS support:
 - Update generated `README` with better Docker instructions
 - Use double quotes for description and name settings to reduce issues with apostrophes
 
-Changes affecting [experimental features](/experimental/react-front-end) only:
+Changes affecting [experimental features](/experimental/) only:
 
 - Properly support for using PurgeCSS with Tailwind
 - Include (purged) Tailwind bundle files with Pegasus
@@ -4428,7 +4428,7 @@ Minor changes:
 ## Version 0.12.1
 
 This release continues the overhaul of the Pegasus CSS and templates to include experimental support for
-the Bootstrap CSS framework. Details on using Bootstrap [can be found here](/experimental/react-front-end).
+the Bootstrap CSS framework. Details on using Bootstrap [can be found here](/css/bootstrap).
 
 Changes affecting everyone:
 
@@ -4462,7 +4462,7 @@ This release is a set of changes laying the groundwork for future Pegasus improv
 
 **Experimental support for Tailwind CSS**
 
-More details can be found in the [Tailwind documentation](/experimental/react-front-end).
+More details can be found in the [Tailwind documentation](/css/tailwind).
 
 *Note: this feature is not yet fully supported and is in an experimental pre-release.*
 
