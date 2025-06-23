@@ -1,2 +1,7 @@
 _build
 venv
+.venv
+dist
+node_modules
+.astro
+.idea
