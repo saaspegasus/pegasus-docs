@@ -10,5 +10,5 @@ They have not officially supported by Pegasus, but many people have found them u
 
 ## Topics
 
-- [Google Cloud GitHub Actions](../deployment/google-cloud-github-actions)
-- [Digital Ocean Spaces](./digital-ocean-spaces)
+- [Google Cloud GitHub Actions](/deployment/google-cloud-github-actions)
+- [Digital Ocean Spaces](/community/digital-ocean-spaces)

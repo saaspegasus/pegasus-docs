@@ -11,5 +11,5 @@ Information on working with marketplace applications can be found here.
 
 ## Topics
 
-- [Connecting](./connecting)
-- [Scriv](./scriv)
+- [Connecting](/marketplace/connecting)
+- [Scriv](/marketplace/scriv)

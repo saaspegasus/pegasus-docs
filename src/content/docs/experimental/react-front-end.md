@@ -107,7 +107,7 @@ export default function Profile() {
 ```
 ## Backend API access
 
-The front end uses the [same api client](apis.md#api-clients) as the backend / hybrid model.
+The front end uses the [same api client](/apis/#api-clients) as the backend / hybrid model.
 The API client is installed as a local npm package.
 
 Authentication is handled via sessions and does not require any additional configuration.

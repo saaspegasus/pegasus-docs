@@ -14,7 +14,7 @@ If you created your project with Github, you should be able to make any changes 
 and then create a pull request with the updated code from the "Download" page.
 
 If you did not create your project with the Github you can still use this method.
-First follow the instructions for [connecting an existing project to Github](github.md#connecting-an-existing-project-to-github).
+First follow the instructions for [connecting an existing project to Github](/github/#connecting-an-existing-project-to-github).
 After completing that step, you should be able to submit updates to your project via pull request, just like above.
 
 You can watch a demo of this set up here:

@@ -105,7 +105,7 @@ And if the flie uses React you'll also need to add the `{% vite_react_refresh %}
 
 *Most projects won't need to do this.*
 
-If you have added any code that relies on [Pegasus's `SiteJS` library](/front-end/design-patterns.md#using-the-sitejs-library)
+If you have added any code that relies on [Pegasus's `SiteJS` library](/front-end/design-patterns/#using-the-sitejs-library)
 you will need to update it to explicitly expose itself on the window object.
 
 In the associated JavaScript file (in this case `library.js`), you need to change something like:

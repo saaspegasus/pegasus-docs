@@ -45,7 +45,7 @@ support@saaspegasus.com and I'm happy to help!
 
 In addition to the above platforms, you can use Pegasus's Kamal deployment support to deploy
 your application onto any Linux server, using Docker containers. For more information on deploying to a VPS,
-see the [kamal deployment documentation](/kamal).
+see the [kamal deployment documentation](/deployment/kamal).
 
 ## Other options
 

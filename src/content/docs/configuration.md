@@ -453,7 +453,7 @@ as an optional package. This section describes how the feature is configured in 
 
 The `django-debug-toolbar` package is placed in the `dev-requirements.txt` file which means it will only
 be available in dev environments. Should you wish to use it in a production environment you will need
-to add it to your `prod-requirements.in` file and [re-build](customizations.md#python-packages) your `prod-requirements.txt` file.
+to add it to your `prod-requirements.in` file and [re-build](/python/setup) your `prod-requirements.txt` file.
 
 By default, the toolbar is enabled in development environments via the `ENABLE_DEBUG_TOOLBAR` setting 
 in your `.env` file(s). You can change this setting in any environment to turn it on/off.

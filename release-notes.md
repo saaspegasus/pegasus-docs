@@ -19,13 +19,13 @@ Read on for details!
   This should be a more scalable setup for most projects, though may need to be changed for projects that are heavily CPU-bound.
 - Because of the above change, a separate worker for Celery Beat has been added to all production deploy environments
   (because beat can't be run with the gevent pool).
-- Updated the [Celery documentation](./celery.md) to reflect these changes.
+- Updated the [Celery documentation](/celery) to reflect these changes.
 
 ### AI-Coding improvements
 
 - **Added an optional Claude Code Github workflow**. When enabled, you can mention @claude on a Github pull request
-  or issue to trigger a Claude Code update. Learn more [in the docs here](./ai/development.md#the-github-workflow-file).
-- **Added optional support for JetBrains / PyCharm Junie AI rules files.** [Docs](./ai/development.md#working-with-junie)
+  or issue to trigger a Claude Code update. Learn more [in the docs here](ai/development/#the-github-workflow-file).
+- **Added optional support for JetBrains / PyCharm Junie AI rules files.** [Docs](/ai/development#working-with-junie)
 - Edited and expanded the AI rules files based on various user feedback (thanks to many who have contributed to this).
 
 ### Standalone front end improvements
@@ -1127,7 +1127,7 @@ on top of the e-commerce demo.
 - Improved the navigation and use of breadcrumbs in the demo UI.
 - **See upgrade notes for information about migrating previous data to the new set up.**
 
-See also: the updated [Payments docs](./payments.md).
+See also: the updated [Payments docs](./payments).
 
 ### Other Changes
 

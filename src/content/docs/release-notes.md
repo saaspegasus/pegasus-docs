@@ -29,8 +29,8 @@ Read on for details!
 ### AI-Coding improvements
 
 - **Added an optional Claude Code Github workflow**. When enabled, you can mention @claude on a Github pull request
-  or issue to trigger a Claude Code update. Learn more [in the docs here](./ai/development.md#the-github-workflow-file).
-- **Added optional support for JetBrains / PyCharm Junie AI rules files.** [Docs](./ai/development.md#working-with-junie)
+  or issue to trigger a Claude Code update. Learn more [in the docs here](/ai/development/#the-github-workflow-file).
+- **Added optional support for JetBrains / PyCharm Junie AI rules files.** [Docs](/ai/development/#working-with-junie)
 - Edited and expanded the AI rules files based on various user feedback (thanks to many who have contributed to this).
 
 ### Standalone front end improvements
@@ -51,7 +51,7 @@ These updates affect the [standalone React front end](/experimental/react-front-
 - Added `CSRF_COOKIE_DOMAIN`, `CORS_ALLOWED_ORIGINS`, and `SESSION_COOKIE_DOMAIN` to `settings.py` using environment variables.
   These must be customized when deploying the standalone front end.
 - Updated Kamal's `deploy.yml` to include default values for the above settings.
-- **Added initial documentation on [deploying the standalone front end to production](./experimental/react-front-end.md#deployment).**
+- **Added initial documentation on [deploying the standalone front end to production](/experimental/react-front-end/#deployment).**
 
 ### Other updates
 
@@ -281,13 +281,13 @@ Details:
 
 - **Upgraded dj-stripe to version 2.9**
 - **Webhook endpoints now need to be configured in the database instead of having a single global endpoint.**
-  See [the updated subscription webhooks documentation](/subscriptions.md#webhooks) for more details.
+  See [the updated subscription webhooks documentation](/subscriptions/#webhooks) for more details.
 - Updated webhook handling for subscriptions and ecommerce purchases to be compatible with the above model.
 - Added a `bootstrap_dev_webhooks` management command to help set up `djstripe` webhooks for development.
 - Added `apps.utils` to `settings.INSTALLED_APPS` so that management commands inside it are picked up.
 - Removed the no-longer used `DJSTRIPE_WEBHOOK_SECRET` setting and environment variable.
 - Upgraded `stripe` to version `11.6` (there is [a bug with djstripe and the latest `12.0` release](https://github.com/dj-stripe/dj-stripe/issues/2153))
-- Updated the [subscription docs](/subscriptions.md#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
+- Updated the [subscription docs](/subscriptions/#webhooks) to reflect the latest changes for setting up webhooks in dev and production.
 
 ### Ruff linting updates
 
@@ -375,7 +375,7 @@ revert these changes back to `0012_2_8`.
 The most recent dj-stripe has disabled the global webhook support in favor of database-backed webhooks.
 These are more versatile, secure, and easier to set up, but require a migration from the previous set up.
 
-To migrate your webhooks, follow the instructions to set up a new webhook endpoint from the [subscriptions docs](./subscriptions.md#webhooks-in-production)
+To migrate your webhooks, follow the instructions to set up a new webhook endpoint from the [subscriptions docs](/subscriptions/#webhooks-in-production)
 and then delete your previous webhook endpoint.
 There is a complete walkthrough of this process in the video above.
 **If you fail to do this your webhooks will stop working in production.**
@@ -461,7 +461,7 @@ build times, simplified tooling, automatic content detection, and more.
 
 Tailwind and DaisyUI were upgraded using the associated guides ([Tailwind](https://tailwindcss.com/docs/upgrade-guide),
 [DaisyUI](https://daisyui.com/docs/upgrade/)).
-There is also an [upgrade guide for Pegasus apps](./css/tailwind.md#upgrading-from-tailwind-3-to-4).
+There is also an [upgrade guide for Pegasus apps](/css/tailwind/#upgrading-from-tailwind-3-to-4).
 
 Here's a detailed breakdown of the changes:
 
@@ -524,7 +524,7 @@ Here's a detailed breakdown of the changes:
 
 ### Upgrading
 
-See the [Tailwind upgrade guide](./css/tailwind.md#upgrading-from-tailwind-3-to-4) for details on upgrading
+See the [Tailwind upgrade guide](/css/tailwind/#upgrading-from-tailwind-3-to-4) for details on upgrading
 existing Tailwind projects.
 
 *Mar 26, 2025*
@@ -553,7 +553,7 @@ This is a maintenance release with a number of upgrades and fixes.
 ### Added
 
 - **You can now configure the Github integration to push your Pegasus code to a subdirectory of the repository.**
-  [More details in the updated Github docs here](./github.md#pushing-pegasus-code-to-a-subdirectory-in-your-repository).
+  [More details in the updated Github docs here](/github/#pushing-pegasus-code-to-a-subdirectory-in-your-repository).
   Thanks to Simon for helping with this, and Aaron, Bernard, Danil, and Arno for suggesting it!
 - Added a `429.html` error template.
   
@@ -831,7 +831,7 @@ If you spot any issues in the docs, get in touch!
 
 ### Upgrading
 
-To migrate an existing project to `uv` see [this guide](./cookbooks.md#migrating-from-pip-tools-to-uv).
+To migrate an existing project to `uv` see [this guide](/cookbooks/#migrating-from-pip-tools-to-uv).
 
 If your application was already using social logins defined in the database, the new settings-based declaration will
 conflict and cause errors on social login.
@@ -939,7 +939,7 @@ It's now easier than ever to change your project's theme.
 Each project now supports a default light and dark theme which will be used throughout the site.
 The default themes need only be changed in `tailwind.config.js`, and `settings.py` and everything else is taken care of.
 
-See the updated [tailwind theme documentation](./css/tailwind.md#changing-your-themes) for more details.
+See the updated [tailwind theme documentation](/css/tailwind/#changing-your-themes) for more details.
 
 ### New shadcn integration and demo dashboard
 
@@ -954,7 +954,7 @@ It uses the same colors as the DaisyUI theme, and will update when you change yo
 and has many interactive components.
 However, it is not connected to any backend data—it is just a UI example.
 
-Read more in the [shadcn docs here](./css/tailwind.md#shadcn).
+Read more in the [shadcn docs here](/css/tailwind/#shadcn).
 
 ### New flowbite integration and demo component page
 
@@ -965,7 +965,7 @@ If you enable this setting, flowbite will automatically be installed and you can
 flowbite components into any Django template.
 The reference page has an example of a few of these components.
 
-Read more in the [flowbite docs here](./css/tailwind.md#flowbite).
+Read more in the [flowbite docs here](/css/tailwind/#flowbite).
 
 ### Other updates
 
@@ -1243,7 +1243,7 @@ and updates Django to version 5.1.
 ### Documentation
 
 - Improved the documentation on [customizing the Material Bootstrap theme](/css/material).
-- Added documentation for [deploying multiple apps to the same VPS with Kamal](./deployment/kamal.md#cookbooks).
+- Added documentation for [deploying multiple apps to the same VPS with Kamal](/deployment/kamal/#cookbooks).
 
 ### Upgrading
 
@@ -1303,7 +1303,7 @@ This is a maintenance release with many small updates and fixes.
   [More on this concept here](https://adamj.eu/tech/2024/06/23/django-test-pending-migrations/).
 - **Added an example landing page to Tailwind builds, based largely on [Scriv's landing page](https://scriv.ai/).**
 - Added `TURNSTILE_KEY` and `TURNSTILE_SECRET` to Kamal's default secrets.
-- Added a section on configuring static files to the [production checklist](./deployment/production-checklist.md#check-your-static-file-setup).
+- Added a section on configuring static files to the [production checklist](/deployment/production-checklist/#check-your-static-file-setup).
 
 ### Changed
 
@@ -1348,7 +1348,7 @@ This is a maintenance release with many small updates and fixes.
 ### Upgrade Notes
 
 - If you had **not** been using auto-formatting until now, you should first follow the instructions for
-[migrating to auto-formatted code](./cookbooks.md#migrating-to-auto-formatted-code) prior to upgrading to this release.
+[migrating to auto-formatted code](/cookbooks/#migrating-to-auto-formatted-code) prior to upgrading to this release.
 Otherwise you will likely get a lot of formatting-related merge conflicts when trying to upgrade.
   - If you already enabled auto-formatting (most projects), you don't need to do anything.
 - If you had previously configured allauth social applications in the database *and* in your settings file,
@@ -1406,7 +1406,7 @@ Many of these bots target seemingly-innocuous functionality like sign up and pas
 This version includes a few updates to help combat these bots.
 First, you can now easily add [Cloudflare turnstile](https://www.cloudflare.com/products/turnstile/) to your sign up forms,
 which will present the user with a captcha and should help reduce bot sign-ups.
-See [the turnstile documentation](./configuration.md#turnstile) for information on setting this up.
+See [the turnstile documentation](/configuration/#turnstile) for information on setting this up.
 
 Additionally, the `ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS` setting has been set to `False` by default.
 This prevents "forgot password" and "magic link" emails from being sent out to unknown accounts.
@@ -1423,7 +1423,7 @@ Below is the complete set of changes in this release.
 #### Added
 
 - **Added configurable captcha support on sign up pages, using [Cloudflare turnstile](https://www.cloudflare.com/products/turnstile/).**
-  See [the turnstile documentation](./configuration.md#turnstile) for more information on setting this up. (Thanks Troy, Jacob, Robert and others for suggesting.)
+  See [the turnstile documentation](/configuration/#turnstile) for more information on setting this up. (Thanks Troy, Jacob, Robert and others for suggesting.)
 - Added API views for two-factor authentication, and to change the logged-in user's password. (Thanks Finbar for suggesting!)
 - Add UI to tell users they need a verified email address prior to setting up two-factor auth.
   - Also added a `has_verified_email` helper class to the `CustomUser` model.
@@ -1551,7 +1551,7 @@ and Celery workers and returns a non-200 response code if there are any identifi
 These endpoints can be connected to a monitoring tool like [StatusCake](https://www.statuscake.com/)
 or [Uptime Robot](https://uptimerobot.com/) so that you can be alerted whenever your site is having issues.
 
-See the section on [monitoring](./deployment/production-checklist.md#set-up-monitoring) in the
+See the section on [monitoring](/deployment/production-checklist/#set-up-monitoring) in the
 production checklist for more information.
 
 ### Allauth updates
@@ -1562,7 +1562,7 @@ which enabled several useful changes.
 The first is a "sign in by email code" option which can be used in addition to the standard
 username/password and social option.
 Users can request a code be sent to their registered email and can then use that to login.
-See [the magic code documentation](./configuration.md#enabling-sign-in-by-email-code) to enable/disable this.
+See [the magic code documentation](/configuration/#enabling-sign-in-by-email-code) to enable/disable this.
 
 The second is using the recent [multi-factor authentication](https://docs.allauth.org/en/latest/mfa/index.html)
 support added to allauth in favor of the third-party `django-allauth-2fa` library.
@@ -1580,7 +1580,7 @@ The complete release notes are below:
   terms in the codebase itself (previously they were only documented on the [terms page](https://www.saaspegasus.com/terms/)).
   For more information you can see the new [license page](https://www.saaspegasus.com/license/).
 - **Added support for "magic-code login", where a user can login to the site by requesting a code to their email address.**
-  [Documentation.](./configuration.md#enabling-sign-in-by-email-code)
+  [Documentation.](/configuration/#enabling-sign-in-by-email-code)
 - **Google cloud run builds now support Redis.** For details, see the [updated documentation](/deployment/google-cloud).
   (Thanks Forrest for suggesting!)
 - Added a `custom.mk` file where you can add additional `make` targets without worrying about future Pegasus upgrades.
@@ -1781,7 +1781,7 @@ Pegasus now optionally includes API endpoints for registering, authenticating an
 This provides all the pieces needed to make your Pegasus application a backend to a standalone front end,
 for example a React or Next.js SPA, or a mobile application.
 
-You can read more about this feature in the [Authentication API documentation](apis.md#authentication-apis).
+You can read more about this feature in the [Authentication API documentation](/apis/#authentication-apis).
 
 ### Standalone React (Vite) Front End (Experimental)
 
@@ -1893,7 +1893,7 @@ as well as an overhaul of the Google Cloud deployment support and many small upd
 
 You can now create and upgrade your projects directly on Github!
 This is a much smoother experience than the previous zip file model (which is still available).
-You can also connect an existing project to Github by following the [instructions here](upgrading.md#connecting-an-existing-project-to-github).
+You can also connect an existing project to Github by following the [instructions here](/github/#connecting-an-existing-project-to-github).
 
 For more details see the screencast below,
 and the updated [Getting Started](/getting-started) and [Upgrading](/upgrading) pages.
@@ -1979,14 +1979,14 @@ Details:
 - **Upgraded all JavaScript dependencies to their latest versions.**
 - Upgraded all Github actions to use latest versions.
 - Simplified the process for building the front end API client with Docker (thanks Finbar for the pointer!).
-  [Api client docs](apis.md#generating-the-api-client) have been updated as well.
+  [Api client docs](/apis/#generating-the-api-client) have been updated as well.
 - Update links to all Django documentation to link to the latest stable release, instead of a specific version.
 - Fixed a schema warning for the user signups dashboard API.
 - Update link to the guide to celery progress bars to the new blog post url.
 - Simplified the process of setting up your ecommerce config to a new management command: `./manage.py bootstrap_ecommerce`.
   - Also refactored related code to be shared between ecommerce and subscriptions.
 - Added `subscription_is_active` helper function, to remove duplicate code that was running the same check.
-  Also updated [the documentation](payments.md#set-up-your-development-environment).
+  Also updated [the documentation](/payments/#set-up-your-development-environment).
 - Fixed a bug where if you marked a subscription to be canceled at the period end and weren't running webhooks,
   the subscription page would crash.
 - Added `staff_member_required` decorator to all superuser-only views, to ensure that the user is also active,
@@ -2231,7 +2231,7 @@ and supporting work for the above.
   - Related: Added `websocket_reverse` and `websocket_absolute_url` helper functions and tests.
   - Related: Added `.pg-message-sender` helper CSS class.
   - Related: If building with async your app will use `asgi` instead of `wsgi`.
-- **Added the E-Commerce example application via a new build option.** [Documentation](/payment).
+- **Added the E-Commerce example application via a new build option.** [Documentation](/payments).
 - **Added the admin dashboard.**
   - Related: Added an admin-only user signup API
 - Added a `pg-link` helper class to style links (especially on Tailwind and Material builds).
@@ -2244,7 +2244,7 @@ and supporting work for the above.
 
 - **Added the `feature_gate_check` and `get_feature_gate_check` helper functions,
   for more fine-grained control of feature gate checking.**
-  See the updated [feature-gating documentation](subscriptions.md#feature-gating) for more information.
+  See the updated [feature-gating documentation](/subscriptions/#feature-gating) for more information.
   - Related: Modified the `active_subscription_required` decorator to use this function.
 - Reduced number of DB queries made when provisioning a subscription.
 - Made subscription provisioning an atomic action to reduce race conditions between Stripe Checkout callbacks and webhooks.
@@ -2366,8 +2366,8 @@ There were also several smaller improvements.
 - **Upgraded nearly all Python packages to their latest versions.**
   `django-allauth` was not upgraded, due to it having a large release just a few days ago.
 - **Upgraded all JavaScript packages to their latest versions.**
-- **Subscriptions: official support for multiple currencies ([docs](subscriptions.md#supporting-multiple-currencies)) (Stripe pricing-table only)**
-- **Subscriptions: official support for free trials ([docs](subscriptions.md#free-trials))**
+- **Subscriptions: official support for multiple currencies ([docs](/subscriptions/#supporting-multiple-currencies)) (Stripe pricing-table only)**
+- **Subscriptions: official support for free trials ([docs](/subscriptions/#free-trials))**
 - **Subscriptions: Overhauled the [Subscriptions documentation](/subscriptions) to make it clearer, and add the new pricing UI setting.**
 - Subscriptions: Moved the `checkout_success` endpoint to be a global `confirm` endpoint instead
   of a team-specific endpoint.
@@ -2443,7 +2443,7 @@ adds dark mode on Tailwind builds, and has the usual smaller updates and fixes.
 
 - **First class support for marketing email lists.** You can now select a platform (Mailchimp, ConvertKit, Email Octopus, or none),
   and your build will be customized for that platform, including settings/environment variables, and automatically subscribing
-  new sign ups to your email list (if properly configured). See the updated [mailing list documentation](configuration.md#mailing-list)
+  new sign ups to your email list (if properly configured). See the updated [mailing list documentation](/configuration/#mailing-list)
   for more details.
 - Added a management command to send test emails: `./manage.py send_test_email cory@example.com`.
   Useful when troubleshooting/changing how your server sends email.
@@ -2455,7 +2455,7 @@ adds dark mode on Tailwind builds, and has the usual smaller updates and fixes.
 - Added tests for `get_next_unique_slug` (including testing the new functionality).
 - Added view tests for the signup process with various edge-cases around team names.Docker
 - Added a `Makefile` target, and documentation for rebuilding the API client with Docker.
-  [Documentation](apis.md#generating-the-api-client) (Big thanks to Finbar for helping on this)
+  [Documentation](/apis/#generating-the-api-client) (Big thanks to Finbar for helping on this)
 
 ### Fixed
 
@@ -2752,7 +2752,7 @@ Smaller updates in this release are below.
 
 - Removed internal subscriptions API endpoints from the generated API documentation and API clients.
   If you'd like to keep these, you can remove the `exclude=True` line from the `extend_schema` declaration
-  in `subscriptions/views/api_views.py`, and then [rebuild the API client](apis.md#generating-the-api-client).
+  in `subscriptions/views/api_views.py`, and then [rebuild the API client](/apis/#generating-the-api-client).
 
 #### Documentation
 
@@ -2765,7 +2765,7 @@ Smaller updates in this release are below.
   This is recommended, since V1 is being removed from Docker Desktop soon.
 - There are no known breaking changes related to the Python and Node upgrades, but it is recommended to upgrade
   your projects if you haven't already.
-  You may need to [rebuild your Python requirements](python.md#working-with-requirements)
+  You may need to [rebuild your Python requirements](/python/packages/#working-with-requirements)
   on older versions to get backports packages.
 
 
@@ -2880,22 +2880,22 @@ These are the biggest changes:
 Pegasus will (optionally) now auto-format your Python code using [black](https://black.readthedocs.io).
 In addition to formatting, Pegasus now ships with [pre-commit hooks](https://pre-commit.com)---which you
 can install to ensure your code matches the expected format---and adds format checks to your Github actions CI.
-Much more detail can be found in the new [code formatting docs](code-structure.md#code-formatting).
+Much more detail can be found in the new [code formatting docs](/code-structure/#code-formatting).
 This option is enabled by default for new projects, and it's recommended that all existing Pegasus projects upgrade to this format,
 as it will make future merges/upgrades much easier.
-Guidance on upgrading [can be found here](cookbooks.md#migrating-to-auto-formatted-code).
+Guidance on upgrading [can be found here](/cookbooks/#migrating-to-auto-formatted-code).
 
 ### S3 production media support
 
 You can now use S3 to store your project's production media with just a few lines of configuration.
 To use S3, enable the "Use S3 for storing public media files" option in your project's configuration, and then
-follow the new [S3 media documentation](configuration.md#setting-up-s3-media-storage).
+follow the new [S3 media documentation](/configuration/#setting-up-s3-media-storage).
 
 ### Django debug toolbar
 
 Pegasus now (optionally) ships with the popular [django-debug-toolbar](https://github.com/jazzband/django-debug-toolbar) package.
 You can enable this option in your project configuration, and it will be enabled by default in development
-environments and turned off in production. More details in [the documentation](configuration.md#django-debug-toolbar).
+environments and turned off in production. More details in [the documentation](/configuration/#django-debug-toolbar).
 
 ### Alpine.js support
 
@@ -2907,9 +2907,9 @@ The subscriptions UI was updated to use Alpine, and more features will move to A
 
 ### Added
 
-- **Added pre-commit/black support, as described above and in the [code formatting docs](code-structure.md#code-formatting)**
-- **Added django-debug-toolbar, as described above and in [the `debug-toolbar` documentation](configuration.md#django-debug-toolbar)**
-- **Added S3 media support, as described above and in the [S3 media documentation](configuration.md#setting-up-s3-media-storage).**
+- **Added pre-commit/black support, as described above and in the [code formatting docs](/code-structure/#code-formatting)**
+- **Added django-debug-toolbar, as described above and in [the `debug-toolbar` documentation](/configuration/#django-debug-toolbar)**
+- **Added S3 media support, as described above and in the [S3 media documentation](/configuration/#setting-up-s3-media-storage).**
 - **Added Alpine.js as a top-level JavaScript dependency, included on all pages.**
 - **Added `dev-requirements.in` and `dev-requirements.txt`, for requirements that should only be installed in development
   (e.g. `pip-tools`, `debug-toolbar`, `black`, etc.**
@@ -2968,9 +2968,9 @@ The subscriptions UI was updated to use Alpine, and more features will move to A
 ### Documentation
 
 - **Added write up about [the front end files](/front-end/design-patterns).**
-- **Added write up about managing [test vs live Stripe products](subscriptions.md#stripe-in-production)**
+- **Added write up about managing [test vs live Stripe products](/subscriptions/#stripe-in-production)**
 - **Improved the [internationalization/translation docs](/internationalization).**
-- **Added [a cookbook for how to enable auto-formatting on your existing project](cookbooks.md#migrating-to-auto-formatted-code).**
+- **Added [a cookbook for how to enable auto-formatting on your existing project](/cookbooks/#migrating-to-auto-formatted-code).**
 
 *March 3, 2023*
 
@@ -3012,7 +3012,7 @@ the ability to build without the Pegasus examples, and small changes and fixes.
 ### Upgrading
 
 If you don't want to upgrade Django to 4.1 this upgrade *should* be backwards compatible.
-Pin the Django version to 3.2.x in your requirements file and [rebuild requirements](python.md#working-with-requirements).
+Pin the Django version to 3.2.x in your requirements file and [rebuild requirements](/python/packages/#working-with-requirements).
 
 *Feb 1, 2023*
 
@@ -3282,7 +3282,7 @@ This release adds two-factor authentication, and has a number of smaller improve
 
 - **Two-factor authentication.** Users can now set up two-factor authentication on their account (using Google Authenticator or similar),
   and will be required to enter a token to login. This is configured from the user's profile page.
-  More [documentation here](./configuration.md#two-factor-authentication).
+  More [documentation here](/configuration/#two-factor-authentication).
 
 ### Changed
 
@@ -3336,7 +3336,7 @@ Major related changes:
 - **Attach team models to the request in middleware instead of view decorator.**
   This means that `request.team` will be available on every request, so team navigation will be available
   even on pages like a user profile that are not team-specific.
-  For details see the updated [teams middleware docs](teams.md#middleware),
+  For details see the updated [teams middleware docs](/teams/#middleware),
   as well as the upgrade notes below.
 - Added tests for the above middleware, and updated other tests to be compatible with it.
 - Added a context processor so that `team` is always available in the template context.
@@ -3409,7 +3409,7 @@ See the updated [Tailwind docs](/css/tailwind) for more information and customiz
 
 ### Other Additions
 
-- **Pegasus now ships with a default, customizable logging configuration.** [Documentation](configuration.md#logging).
+- **Pegasus now ships with a default, customizable logging configuration.** [Documentation](/configuration/#logging).
 - Added several new helper CSS classes, including `pg-content` (for content), `pg-columns-reversed` (for reversed columns),
  `pg-align-items-center` (a flexbox utility), and various `pg-text-` classes for coloring text.
 
@@ -3549,7 +3549,7 @@ Complete release notes are below:
 - **Pegasus now supports Wagtail! [Documentation](/wagtail).** There are a fair number of changes to support this work, most
   of which are only relevant if you enable wagtail support. The main ones includ a new `content` app, a large number of new Python package dependencies
   (all stemming from `wagtail`), and some updates to the site navigation.
-- **Pegasus now generates a sitemap for you.** [Documentation](page-metadata.md#sitemaps).
+- **Pegasus now generates a sitemap for you.** [Documentation](/page-metadata/#sitemaps).
 - **Responsive HTML email templates were added for the default email confirmation and password reset emails.**
 - Add `get_protocol` helper function to return the string "http" or "https" depending on `settings.USE_HTTPS_IN_ABSOLUTE_URLS`
 
@@ -3589,7 +3589,7 @@ The release also many small fixes and improvements.
 
 - **Re-use the Stripe `Customer` object when a User has multiple subscriptions / payments (by saving it on the User model).
   This prevents users from having to re-enter their cards multiple times.**
-- **Added an `active_subscription_required` decorator for easier subscription feature-gating. [Docs](using-the-active-subscription-required-decorator)**
+- **Added an `active_subscription_required` decorator for easier subscription feature-gating. [Docs](/subscriptions/#using-the-active_subscription_required-decorator)**
 - **Added a periodic task to sync subscriptions with Stripe every day when per-seat billing is enabled.**
 - Added a slug field to `ProductMetadata` to be able to uniquely refer to products in code.
 - Added `sync_subscription_model_with_stripe` helper function (logic was previously only in `sync_subscriptions` management command)
@@ -3690,7 +3690,7 @@ and some Docker development improvements.
 
 - Added [page metadata documentation](/page-metadata) for working with project / page metadata (e.g. page titles).
 - Updated the [upgrading documentation](/upgrading) to recommend a branch-based approach.
-- Updated the [Sentry documentation](configuration.md#sentry) with the new setup and testing instructions.
+- Updated the [Sentry documentation](/configuration/#sentry) with the new setup and testing instructions.
 
 *April 22, 2022*
 
@@ -3781,7 +3781,7 @@ This version unofficially supports Django 4.0, however still ships with 3.2.12.
 
 This is due to one issue with the `dj-stripe` dependency [generating migration files](https://github.com/dj-stripe/dj-stripe/pull/1607)
 that may cause migration problems across multiple Pegasus environments (e.g. dev and prod, or two developer machines).
-This is a very similar issue to the one described in the [0.14.2 release notes](v-0-14-2).
+This is a very similar issue to the one described in the [0.14.2 release notes](/release-notes/#version-0142).
 
 If you wish to use Django 4.0, update the pinned version to 4.0.2 (or latest) in your `requirements.txt` file after downloading Pegasus,
 and all should work.
@@ -3869,7 +3869,7 @@ You can find a 6-minute overview of the feature in this video:
 </div>
 
 The implementation is customizable and can also be used by non-team builds with some additional configuration.
-See [the updated Subscription documentation](subscriptions.md#per-unit--per-seat-billing)
+See [the updated Subscription documentation](/subscriptions/#per-unit--per-seat-billing)
 for an overview of this functionality, and bear in mind that it's a little complicated with several moving parts!
 
 There were many code changes to support this work-as well as future planned improvements to the subscriptions module.
@@ -3882,7 +3882,7 @@ Also please note the announcement of a few features that will be removed soon!
 
 ### Added
 
-- **Support for per-unit / per-seat billing. See [the docs on using this](subscriptions.md#per-unit--per-seat-billing)**
+- **Support for per-unit / per-seat billing. See [the docs on using this](/subscriptions/#per-unit--per-seat-billing)**
 - `SubscriptionSerializer` class for including Subscription objects in APIs
 - Management command and logic to sync subscriptions when team membership changes (useful for per-seat billing workflows)
 - APIs for creating Stripe checkout and portal sessions and returning the URL to be used by JavaScript front ends
@@ -4032,7 +4032,7 @@ Additionally, there are bug fixes and code-related improvements throughout the t
 Finally, there were minor updates to other functionality:
 
 - Bootstrap JavaScript is now built and used from the local install instead of using a pinned CDN. (Bootstrap builds only)
-- Extract Mailchimp mailing list logic to its own module and add [mailing list documentation](configuration.md#mailing-list).
+- Extract Mailchimp mailing list logic to its own module and add [mailing list documentation](/configuration/#mailing-list).
 - Fix quirks in HTMX example when back-end validation fails.
 - Minor cleanup of HTMX example code.
 - Rename `payments` and `tasks` view modules to `payments_views` and `tasks_views`.

@@ -26,7 +26,7 @@ See the [Docker documentation](/docker) to set up your development environment w
 
 Docker environments support using uv or pip-tools as a package manager. Uv is recommended.
 For help adding and removing Python packages after setup, see the documentation for
-[uv](/uv) or [pip-tools](/packages).
+[uv](/python/uv) or [pip-tools](/python/packages).
 
 ## Using uv
 

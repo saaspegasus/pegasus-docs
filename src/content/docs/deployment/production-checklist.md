@@ -23,7 +23,6 @@ and update the relevant settings where necessary.
 
 *Note: The "unable to guess serializer" warnings are safe to ignore, and will be fixed in a future version of Pegasus.*
 
-(set-your-allowed-hosts)=
 ## Set your `ALLOWED_HOSTS`
 
 In your app's `settings_production.py` be sure to update the [`ALLOWED_HOSTS` setting](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts)
@@ -40,11 +39,11 @@ Failure to do this opens up your site to more HTTP host header attacks.
 ## Update your Django Site
 
 In order for absolute URLs and JavaScript API clients to work, your Django site should match your application's domain.
-See the documentation on [absolute URLs](../configuration.md#absolute-urls) to do this.
+See the documentation on [absolute URLs](/configuration/#absolute-urls) to do this.
 
 ## Set up email
 
-If you haven't already, you'll want to set up your site to [send email](../configuration.md#sending-email)
+If you haven't already, you'll want to set up your site to [send email](/configuration/#sending-email)
 
 ## Make sure your secrets are set
 
@@ -79,7 +78,7 @@ Some functionality, like user profile pictures, requires saving user-uploaded fi
 In development these are saved to the file system, but in most production environments the file system
 is not usable for it. Instead, you need to set up an external storage to handle these.
 
-There is guidance on configuring media files in the [settings and configuration docs](/configuration.md#storing-media-files).
+There is guidance on configuring media files in the [settings and configuration docs](/configuration/#storing-media-files).
 
 The most common choice of external storage is [Amazon S3](https://aws.amazon.com/s3/),
 though many cloud providers have their own S3-compatible options, e.g. [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces).
@@ -144,7 +143,7 @@ These URLs can then be connected to a monitoring tool to ensure that only your m
 
 ## Double-check your language settings
 
-Make sure your [internationalization settings](../internationalization/) are correct, and you don't have
+Make sure your [internationalization settings](/internationalization/) are correct, and you don't have
 any extra languages in `settings.LANGUAGES` that you don't currently support.
 This is especially important if you are using Wagtail, as links to pages in unsupported languages
 may error or return the wrong results.
@@ -160,7 +159,7 @@ The issues mentioned in the documentation mostly impact non-Docker deployments.
 ### Switching from `psycopg2-binary` to `psycopg2`
 
 1. In `requirements/requirements.in`, replace `psycopg2-binary` with `psycopg2`
-2. [Re-build](../customizations.md#python-packages) your requirement TXT files
+2. [Re-build](/python/packages/) your requirement TXT files
 
 If you are using the Dockerfiles shipped with Pegasus you should not need to make any changes
 however if you are running your Pegasus app directly on a VM you will need to make sure the

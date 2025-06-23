@@ -100,8 +100,8 @@ It will also generate a `package-lock.json` file.
 The development set up is slightly different between Vite and Webpack.
 For details see these links:
 
-- [Vite in Development](./vite.md#vite-in-development)
-- [Webpack in Development](./webpack.md#development-with-webpack)
+- [Vite in Development](/front-end/vite/#vite-in-development)
+- [Webpack in Development](/front-end/webpack/#development-with-webpack)
 
 
 ## Building for production

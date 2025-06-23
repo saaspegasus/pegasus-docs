@@ -74,5 +74,5 @@ If the user does *not* have access to the product, the decorator will redirect t
 Like subscriptions, it's recommended to use webhooks to ensure you receive all updates from Stripe.
 For the e-commerce store, the only required webhook is `checkout.session.completed`.
 
-Follow [the subscriptions documentation](subscriptions.md#webhooks) to set
+Follow [the subscriptions documentation](/subscriptions/#webhooks) to set
 up webhooks in development and production.

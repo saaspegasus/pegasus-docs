@@ -11,6 +11,6 @@ Read on for details about using AI with Pegasus.
 
 ## Topics
 
-- [Development](./development)
-- [LLMs](./llms) 
-- [Images](./images)
+- [Development](/ai/development)
+- [LLMs](/ai/llms) 
+- [Images](/ai/images)

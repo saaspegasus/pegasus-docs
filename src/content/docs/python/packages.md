@@ -108,4 +108,4 @@ Behind the scenes this will:
 2. Rebuild your containers (installing the new packages).
 3. Restart your containers.
  
-For more information, see the [docker documentation](docker.md#updating-python-packages).
+For more information, see the [docker documentation](/docker/#updating-python-packages).
