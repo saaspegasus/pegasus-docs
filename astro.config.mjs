@@ -15,6 +15,9 @@ export default defineConfig({
 			plugins: [starlightLinksValidator({
 				errorOnLocalLinks: false,
 			})],
+			components: {
+				Footer: './src/components/Footer.astro',
+			},
 			title: 'Pegasus',
 			description: 'Documentation for SaaS Pegasus - the Django SaaS boilerplate',
 			social: [
@@ -25,8 +28,8 @@ export default defineConfig({
 				}
 			],
 			customCss: [
-				// Add custom analytics and any additional styling if needed
-			],
+        './src/styles/custom.css',
+      ],
 			head: [
 				// Google Analytics
 				{

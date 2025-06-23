@@ -1,0 +1,4 @@
+scriv-chat {
+  /* TODO: This doesn't actually work to make the button clickable */
+  --scriv-z-index: 1000;
+}
