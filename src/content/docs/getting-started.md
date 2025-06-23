@@ -24,7 +24,7 @@ Then, [create a new project on saaspegasus.com](https://www.saaspegasus.com/proj
 following the prompts and filling in whatever configuration options you want to use for your new project.
 Make sure that the "license" field at the bottom is set.
 
-Once you're done, [connect your project to Github](github.md) or download your project's source code as a zip file.
+Once you're done, [connect your project to Github](/github) or download your project's source code as a zip file.
 
 **Note: it's recommended to use the Github integration which will make future upgrades and changes to your project
 easier to manage.**
@@ -85,7 +85,7 @@ You should see your project files, including a `manage.py` file.
 
 There are several ways of setting up your Python environment.
 
-See [this page](./python/setup.md) for information on choosing an option and setting up your environment.
+See [this page](/python/setup) for information on choosing an option and setting up your environment.
 
 ### Install package requirements
 
@@ -179,7 +179,7 @@ The basic steps are:
 2. Run `npm install`
 3. Run `npm run dev`
 
-For more details, see the [front end docs](./front-end/overview.md).
+For more details, see the [front end docs](/front-end/overview).
 
 ## Post-installation steps
 

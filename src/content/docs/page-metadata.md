@@ -58,5 +58,5 @@ As of version 2022.6, Pegasus will automatically generate a basic [sitemap](http
 Out of the box, the sitemap will only contain your application's homepage, but can be readily extended by adding
 URLs in `apps/web/sitemaps.py`.
 
-If you have [enabled Wagtail](/wagtail/), your sitemap will also include any content managed by Wagtail.
+If you have [enabled Wagtail](/wagtail), your sitemap will also include any content managed by Wagtail.
 Make sure you [properly set the hostname in your Wagtail site](https://docs.wagtail.org/en/stable/reference/contrib/sitemaps.html#setting-the-hostname).

@@ -187,7 +187,7 @@ You can then use the provided tokens to authenticate users from your mobile app 
 The authentication set up is largely based on [this guide](https://testdriven.io/blog/django-rest-authjs/#authentication-app).
 
 A complete end-to-end example that uses the API authentication feature in a React SPA can be found
-in the experimental [standalone front end](experimental/react-front-end.md).
+in the experimental [standalone front end](/experimental/react-front-end).
 
 ## API Keys
 

@@ -125,7 +125,7 @@ $ fly deploy
 ```
 
 In a few minutes your app should be live!
-**After deploying, review the [production checklist](/deployment/production-checklist.md) for a list
+**After deploying, review the [production checklist](/deployment/production-checklist) for a list
 of common next steps**.
 
 In particular, make sure add your app URL to the `ALLOWED_HOSTS` variable in your environment/settings as well as in the

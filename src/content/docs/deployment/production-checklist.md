@@ -106,7 +106,7 @@ In production, these should be optimized.
 Most Pegasus deployment configurations will handle this automatically for you, but if you need to handle it yourself,
 follow the guidance below.
 
-First you should add the compiled files to your `.gitignore` as described in the [front end docs](/front-end/overview.md).
+First you should add the compiled files to your `.gitignore` as described in the [front end docs](/front-end/overview).
 Then, as part of your CI/CD deployment process, you should build the bundle files directly on your production server 
 (using `npm install && npm run build`).
 
@@ -115,7 +115,7 @@ as part of your production environment.
 
 ## Update other configuration options
 
-See [the configuration page](/configuration.md) for a larger list of options,
+See [the configuration page](/configuration) for a larger list of options,
 including social login, sign up flow changes, analytics, logging, adding captchas, and so on.
 
 ## Set up monitoring
@@ -144,7 +144,7 @@ These URLs can then be connected to a monitoring tool to ensure that only your m
 
 ## Double-check your language settings
 
-Make sure your [internationalization settings](../internationalization.md) are correct, and you don't have
+Make sure your [internationalization settings](../internationalization/) are correct, and you don't have
 any extra languages in `settings.LANGUAGES` that you don't currently support.
 This is especially important if you are using Wagtail, as links to pages in unsupported languages
 may error or return the wrong results.

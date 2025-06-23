@@ -75,4 +75,4 @@ This Chat UI supports streaming responses for OpenAI models, and is the recommen
 
 If you build without asynchronous functionality enabled, the chat UI will instead use Celery and polling.
 The React version of the chat UI also uses Celery and polling.
-This means that [Celery must be running](../celery.md) to get responses from the LLM.
+This means that [Celery must be running](/celery) to get responses from the LLM.

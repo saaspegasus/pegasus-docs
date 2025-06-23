@@ -80,7 +80,7 @@ git push heroku main
 
 You can also configure Heroku to automatically build from a branch of your git repository.
 
-**After deploying, review the [production checklist](/deployment/production-checklist.md) for a list
+**After deploying, review the [production checklist](/deployment/production-checklist) for a list
 of common next steps**
 
 ### Setting environment variables

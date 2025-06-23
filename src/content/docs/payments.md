@@ -28,7 +28,7 @@ Additionally, make sure each product includes at least one Price.
 
 ### Set up your development environment
 
-Setting up your development is similar to the [process for subscriptions](./subscriptions.md), but has fewer steps.
+Setting up your development is similar to the [process for subscriptions](/subscriptions), but has fewer steps.
 
 1. If you haven't already, update the `STRIPE_*` variables in `settings.py` or in your os environment variables to match
    the keys from Stripe. See [this page](https://stripe.com/docs/keys) to find your API keys.

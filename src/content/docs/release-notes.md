@@ -24,7 +24,7 @@ Read on for details!
   This should be a more scalable setup for most projects, though may need to be changed for projects that are heavily CPU-bound.
 - Because of the above change, a separate worker for Celery Beat has been added to all production deploy environments
   (because beat can't be run with the gevent pool).
-- Updated the [Celery documentation](./celery.md) to reflect these changes.
+- Updated the [Celery documentation](/celery) to reflect these changes.
 
 ### AI-Coding improvements
 
@@ -35,7 +35,7 @@ Read on for details!
 
 ### Standalone front end improvements
 
-These updates affect the [standalone React front end](./experimental/react-front-end.md).
+These updates affect the [standalone React front end](/experimental/react-front-end).
 
 - Updated the front end CSS to build the files directly in the front end (and import relevant files from the Django app in `index.css`),
   rather than including the built Django CSS files directly.
@@ -66,7 +66,7 @@ These updates affect the [standalone React front end](./experimental/react-front
 - Made some updates Digital Ocean deployments:
   - Switched Redis to Valkey, and upgraded it to version 8.
   - Upgraded Postgres to version 17.
-  - Updated the [Digital Ocean deployment docs](./deployment/digital-ocean.md) to reflect the latest changes.
+  - Updated the [Digital Ocean deployment docs](/deployment/digital-ocean) to reflect the latest changes.
 - Fixed email verification emails when `ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True`.
   Thanks Justin for reporting and helping with the fix!
 - Removed default font-weight styling from `email_template_base.html`. 
@@ -115,7 +115,7 @@ You can watch the video below for a walkthrough of these benefits and how they w
     <iframe src="https://www.youtube.com/embed/qVwRygtffiw" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
 </div>
 
-You can also see the overhauled [front end documentation](/front-end/overview.md) and [Vite-specific guidance](/front-end/vite.md) for more details.
+You can also see the overhauled [front end documentation](/front-end/overview) and [Vite-specific guidance](/front-end/vite) for more details.
 
 ### Gitlab CI support
 
@@ -143,7 +143,7 @@ If you would like help migrating off this theme, you can reach out via standard 
 
 **Changes related to Vite support**
 
-- **Added Vite as an option for your front end build system. See [the front end](/front-end/overview.md) and [vite-specific docs](/front-end/vite.md) for details.**
+- **Added Vite as an option for your front end build system. See [the front end](/front-end/overview) and [vite-specific docs](/front-end/vite) for details.**
 - **`window.SiteJS` is now populated explicitly in JavaScript files (in addition to webpack's library support, which does not work with Vite builds).**
   - Affected files include: `app.js` (`window.SiteJS.app`), `pegasus.js` (`window.SiteJS.pegasus`)
   - Imports in those files were also renamed to avoid namespace confilcts.
@@ -171,7 +171,7 @@ If you would like help migrating off this theme, you can reach out via standard 
 
 ### Upgrading
 
-For help switching from Webpack to Vite, see [the Webpack to Vite migration guide](/front-end/migrating.md).
+For help switching from Webpack to Vite, see [the Webpack to Vite migration guide](/front-end/migrating).
 
 *May 15, 2025*
 
@@ -241,7 +241,7 @@ In addition, the following fixes and code updates were made:
 
 ### API authentication and Standalone front end updates
 
-The [Standalone React Front end](./experimental/react-front-end.md) underwent a major overhaul. Importantly, it now uses
+The [Standalone React Front end](/experimental/react-front-end) underwent a major overhaul. Importantly, it now uses
 [allauth headless](https://docs.allauth.org/en/dev/headless/index.html) instead of a custom `dj-rest-auth` and custom
 authentication APIs.
 
@@ -269,7 +269,7 @@ Details:
     - Changed `ProtectedRoute` to `AuthenticatedRoute`.
     - Added templates and components for various new authentication workflows (email confirmation, password reset, etc.).
     - Added an `ACCOUNT_USER_DISPLAY` setting.
-  - Updated [the standalone front end docs](./experimental/react-front-end.md) to reflect the latest setup.
+  - Updated [the standalone front end docs](/experimental/react-front-end) to reflect the latest setup.
 
 ### Djstripe upgrade and webhook updates
 
@@ -349,7 +349,7 @@ To help with this, I recorded a video walkthrough of myself upgrading one of my 
 
 #### Authentication APIs
 
-If you were using Pegasus's [standalone React front end](./experimental/react-front-end.md) then your setup should work
+If you were using Pegasus's [standalone React front end](/experimental/react-front-end) then your setup should work
 out of the box after upgrading.
 
 If you were using the `dj-rest-auth` app and previous authentication APIs in a different way, then you will need to either:
@@ -407,7 +407,7 @@ This release adds a suite of rules files that can be used with Cursor, Claude Co
 It also adds an MCP configuration for interfacing with your development database and controlling a web browser.
 These options are configurable via new project settings.
 
-Watch a demo below, or check out the new [AI tool docs](/ai/development.md).
+Watch a demo below, or check out the new [AI tool docs](/ai/development).
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
     <iframe src="https://www.youtube.com/embed/o3VrQFdvVQ8" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
@@ -506,7 +506,7 @@ Here's a detailed breakdown of the changes:
 - Standalone front end updates:
   - **Removed tailwind entirely from the standalone front end CSS.**
     The standalone front end currently gets its css from the same built file as the Django app.
-- Updated the [Tailwind Documentation](/css/tailwind.md) to reflect the V4 changes.
+- Updated the [Tailwind Documentation](/css/tailwind) to reflect the V4 changes.
 
 ### Other Updates
 
@@ -603,7 +603,7 @@ This is a maintenance release with a number of upgrades and fixes.
 
 ### Documentation
 
-- Added [a community guide on using Digital Ocean Spaces](./community/digital-ocean-spaces.md) (alongside Amazon SES).
+- Added [a community guide on using Digital Ocean Spaces](/community/digital-ocean-spaces) (alongside Amazon SES).
   Thanks Neil and Finbar for the contribution!
 
 
@@ -730,7 +730,7 @@ Other changes included in this release are below.
 **Python / Node updates**
 
 You may need to manually modify your dev/production environment to upgrade to Python 3.12 and Node 22.
-If you're using Docker, this should happen automatically by following the [upgrade process](./upgrading.md).
+If you're using Docker, this should happen automatically by following the [upgrade process](/upgrading).
 
 Pegasus apps should still run on Python 3.11 / Node 20, but will no longer be extensively tested on those versions
 moving forwards.
@@ -808,7 +808,7 @@ The main benefits of using uv are:
 - Speed. (It's so fast we put it twice.)
 
 There will be a longer write up about uv released very soon, but in the meantime you can review the updated
-[python documentation](./python/setup.md) and new [uv documentation](./python/uv.md).
+[python documentation](/python/setup) and new [uv documentation](/python/uv).
 
 The rest of the docs have been updated to accommodate uv, 
 though it's possible there are some places that were missed.
@@ -981,7 +981,7 @@ Read more in the [flowbite docs here](./css/tailwind.md#flowbite).
   now redundant. This improves theming support when themes heavily modify the base color. (Tailwind builds only)
 - Added equals signs to  `ENV` declarations in production Docker files, for consistency. (Thanks Denis for suggesting!)
 - Slightly improved the styling of the e-commerce app.
-- Overhauled the [Tailwind CSS documentation](./css/tailwind.md).
+- Overhauled the [Tailwind CSS documentation](/css/tailwind).
 
 **Updates to the CLI ([release notes](https://github.com/saaspegasus/pegasus-cli/releases))**
 
@@ -1037,7 +1037,7 @@ In addition, there were a few changes that affect projects that aren't using Kam
 - `apps.web.locale_middleware` was moved to `apps.web.middleware.locale`
 - `docker_startup.sh` was moved from the `deploy` folder to the project root.
 
-The [Kamal documentation](./deployment/kamal.md) has been updated to reflect these changes.
+The [Kamal documentation](/deployment/kamal) has been updated to reflect these changes.
 
 ### Other fixes
 
@@ -1132,7 +1132,7 @@ on top of the e-commerce demo.
 - Improved the navigation and use of breadcrumbs in the demo UI.
 - **See upgrade notes for information about migrating previous data to the new set up.**
 
-See also: the updated [Payments docs](./payments.md).
+See also: the updated [Payments docs](/payments).
 
 ### Other Changes
 
@@ -1242,7 +1242,7 @@ and updates Django to version 5.1.
 
 ### Documentation
 
-- Improved the documentation on [customizing the Material Bootstrap theme](./css/material.md).
+- Improved the documentation on [customizing the Material Bootstrap theme](/css/material).
 - Added documentation for [deploying multiple apps to the same VPS with Kamal](./deployment/kamal.md#cookbooks).
 
 ### Upgrading
@@ -1269,7 +1269,7 @@ This is a maintenance release which upgrades HTMX to version 2.0 and fixes a han
   that was causing new Digital Ocean deployments to fail.
   (Thanks Panagiotis for reporting!)
 - Switched the default celery pool to [solo](https://docs.celeryq.dev/en/stable/internals/reference/celery.concurrency.solo.html) in development,
-  to fix issues running on Windows. See [updated docs](./celery.md).
+  to fix issues running on Windows. See [updated docs](/celery).
 - Updated in-app help hint to recommend running `./manage.py bootstrap_ecommerce` instead of `./manage.py djstripe_sync_models price`.
 
 ### Upgrading
@@ -1385,7 +1385,7 @@ to [`litellm`](https://docs.litellm.ai/docs/). Reasons for this change include:
   as a native Python library with a cleaner API.
 
 Litellm can still be used with all common AI models, including OpenAI, Anthropic/Claude, and local models
-(via ollama). For details on getting started with `litellm` see the updated [AI documentation](./ai.md).
+(via ollama). For details on getting started with `litellm` see the updated [AI documentation](/ai).
 
 ### Formatting and linting now use Ruff
 
@@ -1490,7 +1490,7 @@ Below is the complete set of changes in this release.
 
 #### Standalone front end
 
-The following changes affect the experimental [standalone front end](./experimental/react-front-end.md):
+The following changes affect the experimental [standalone front end](/experimental/react-front-end):
 
 - **The standalone React front end now supports two-factor-authentication.**
 - Improve the UI when you have login issues in the standalone React front end.
@@ -1518,7 +1518,7 @@ Thanks Finbar for reporting!
 
 ## Version 2024.5.1
 
-This is a hotfix release that fixes issues running the [experimental React frontend](./experimental/react-front-end.md)
+This is a hotfix release that fixes issues running the [experimental React frontend](/experimental/react-front-end)
 in Docker. Thanks Mohamed for reporting this!
 
 - Fix `api-client` path in the frontend docker container and add to `optimizeDeps` in vite config.
@@ -1539,7 +1539,7 @@ with the [`llm` library](https://github.com/simonw/llm). This lets you run the c
 against any supported model---including the Anthropic family (Claude 3), and local models like Llama 3.
 
 Additionally, the image generation demo now supports Dall-E-3 and Stable Diffusion 3.
-For complete details, see the new [AI documentation](./ai.md).
+For complete details, see the new [AI documentation](/ai).
 
 ### Health Checks
 
@@ -1581,7 +1581,7 @@ The complete release notes are below:
   For more information you can see the new [license page](https://www.saaspegasus.com/license/).
 - **Added support for "magic-code login", where a user can login to the site by requesting a code to their email address.**
   [Documentation.](./configuration.md#enabling-sign-in-by-email-code)
-- **Google cloud run builds now support Redis.** For details, see the [updated documentation](./deployment/google-cloud.md).
+- **Google cloud run builds now support Redis.** For details, see the [updated documentation](/deployment/google-cloud).
   (Thanks Forrest for suggesting!)
 - Added a `custom.mk` file where you can add additional `make` targets without worrying about future Pegasus upgrades.
   (Thanks John for proposing this!)
@@ -1791,7 +1791,7 @@ built with React, [Vite](https://vitejs.dev/) and [React Router](https://reactro
 The demo application includes sign up and login workflows, helper components to manage authentication and
 protected routes, and a port of the employee demo application (using the same code as the Pegasus version).
 
-You can watch a demo below and learn more about it in [the React front end documentation](experimental/react-front-end.md).
+You can watch a demo below and learn more about it in [the React front end documentation](/experimental/react-front-end).
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
     <iframe src="https://www.youtube.com/embed/8CcTs2SdMLk" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
@@ -1896,7 +1896,7 @@ This is a much smoother experience than the previous zip file model (which is st
 You can also connect an existing project to Github by following the [instructions here](upgrading.md#connecting-an-existing-project-to-github).
 
 For more details see the screencast below,
-and the updated [Getting Started](/getting-started.md) and [Upgrading](/upgrading.md) pages.
+and the updated [Getting Started](/getting-started) and [Upgrading](/upgrading) pages.
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
     <iframe src="https://www.youtube.com/embed/5PLO79rb--A" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
@@ -1916,7 +1916,7 @@ were in the `.gitignore` file):
 The Google Cloud deployment support has been completely overhauled and brought in line with other deployment plastforms.
 These are the major changes (affecting Google Cloud deployments only):
 
-- Updated the Google Cloud set up and [setup documentation](/deployment/google-cloud.md) based on the latest Google guide.
+- Updated the Google Cloud set up and [setup documentation](/deployment/google-cloud) based on the latest Google guide.
 - Google Cloud now uses the same Dockerfile as other deployment options.
 - Google Cloud now uses whitenoise for Static files, the same as other deployment options.
   It still uses Google Cloud Storage for media files.
@@ -1951,9 +1951,9 @@ These are the major changes (affecting Google Cloud deployments only):
 
 ### Documentation updates
 
-- Overhauled [Google Cloud setup docs](deployment/google-cloud.md).
-- Added Github instructions to [upgrading documentation](upgrading.md).
-- Added Github instructions to [getting started](getting-started.md).
+- Overhauled [Google Cloud setup docs](/deployment/google-cloud).
+- Added Github instructions to [upgrading documentation](/upgrading).
+- Added Github instructions to [getting started](/getting-started).
 
 *Feb 21, 2024*
 
@@ -2002,7 +2002,7 @@ Details:
 
 This is a minor/hotfix release that fixes a few issues related to fly.io deployments due to changes
 in the default values used by fly.
-It also updates the [fly documentation](/deployment/fly.md) to use the latest `flyctl` workflow for launching
+It also updates the [fly documentation](/deployment/fly) to use the latest `flyctl` workflow for launching
 new applications.
 
 *Thanks to Naveed for reporting this.*
@@ -2044,7 +2044,7 @@ This is a minor/hotfix release with some small updates/fixes to the group chat U
 
 This hotfix release changes the `multiarch` value in Kamal deploys to `true`, which fixes errors when
 deploying from Mac / Windows machines to Linux servers (thanks Luis for reporting).
-There was also an overhaul of the [Kamal docs](/deployment/kamal.md).
+There was also an overhaul of the [Kamal docs](/deployment/kamal).
 
 If you want the hotfix without upgrading, you can just set `multiarch: true` in the `builder` section of your `deploy.yml` file.
 
@@ -2064,7 +2064,7 @@ Below are the complete release notes:
 
 ### Added
 
-- **Added support for deploying to any linux server using the new Kamal deployment option. [Documentation](/deployment/kamal/).**
+- **Added support for deploying to any linux server using the new Kamal deployment option. [Documentation](/deployment/kamal).**
 - **Added first-class support for "login with Github."**
 - Added a basic `.dockerignore` file.
 - Added an optional argument to `make npm-install` for installing individual packages, and added a `make npm-uninstall` target
@@ -2192,7 +2192,7 @@ and an admin user dashboard.
 
 Pegasus now supports asynchronous Django and Websockets.
 Included is an example group chat application that leverages these capabilities.
-Watch the video below for more details, or see the new [async / websocket documentation](async.md):
+Watch the video below for more details, or see the new [async / websocket documentation](/async):
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
     <iframe src="https://www.youtube.com/embed/J1hma14whz4" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
@@ -2204,7 +2204,7 @@ The previous Stripe Payments example has been converted into a full-blown E-Comm
 You can manage your products in Stripe and sync them to your application with a few lines of configuration.
 Customers can purchase specific items and everything is linked to your Stripe dashboard.
 
-Watch the video for more details, or see the new [E-Commerce documentation](payments.md)::
+Watch the video for more details, or see the new [E-Commerce documentation](/payments)::
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
     <iframe src="https://www.youtube.com/embed/S4LlQtGD1jc" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
@@ -2226,18 +2226,18 @@ and supporting work for the above.
 
 ### Added
 
-- **Added asynchronous and websocket support via a new build option.** [Documentation](async.md).
+- **Added asynchronous and websocket support via a new build option.** [Documentation](/async).
   - **Related: Added the group chat example application if you enable asynchronous support.**
   - Related: Added `websocket_reverse` and `websocket_absolute_url` helper functions and tests.
   - Related: Added `.pg-message-sender` helper CSS class.
   - Related: If building with async your app will use `asgi` instead of `wsgi`.
-- **Added the E-Commerce example application via a new build option.** [Documentation](payments.md).
+- **Added the E-Commerce example application via a new build option.** [Documentation](/payment).
 - **Added the admin dashboard.**
   - Related: Added an admin-only user signup API
 - Added a `pg-link` helper class to style links (especially on Tailwind and Material builds).
   Also applied this style to a few places.
 - Added basic tests for some of the example views.
-- Added an example of customizing existing DaisyUI themes to the [Tailwind docs](css/tailwind.md).
+- Added an example of customizing existing DaisyUI themes to the [Tailwind docs](/css/tailwind).
 - Added `absolute_url` template tag for generating full URLs in e.g. email templates, and added tests for it.
 
 ### Changed
@@ -2291,7 +2291,7 @@ and supporting work for the above.
 ### Upgrade Notes
 
 - To migrate an existing application to use asynchronous / websockets, you will have to set `DEBUG` in your
-  production *environment* (not `settings_production.py`). More information in the [async documentation](async.md).
+  production *environment* (not `settings_production.py`). More information in the [async documentation](/async).
 
 *Oct 4, 2023*
 
@@ -2332,7 +2332,7 @@ can be made directly within Stripe.
 
 The pricing table option opens up a number of new billing options, including multi-currency support
 and free trials, though it does not support per-unit billing very well.
-For complete details, see the [updated subscription documentation](subscriptions.md).
+For complete details, see the [updated subscription documentation](/subscriptions).
 
 ### Wagtail Enhancements
 
@@ -2368,7 +2368,7 @@ There were also several smaller improvements.
 - **Upgraded all JavaScript packages to their latest versions.**
 - **Subscriptions: official support for multiple currencies ([docs](subscriptions.md#supporting-multiple-currencies)) (Stripe pricing-table only)**
 - **Subscriptions: official support for free trials ([docs](subscriptions.md#free-trials))**
-- **Subscriptions: Overhauled the [Subscriptions documentation](subscriptions.md) to make it clearer, and add the new pricing UI setting.**
+- **Subscriptions: Overhauled the [Subscriptions documentation](/subscriptions) to make it clearer, and add the new pricing UI setting.**
 - Subscriptions: Moved the `checkout_success` endpoint to be a global `confirm` endpoint instead
   of a team-specific endpoint.
 - Subscriptions: Improved display of subscription price line items when using metered billing.
@@ -2556,7 +2556,7 @@ This is a minor release with some form updates and a bugfix for material Bootstr
   a field based on the value of another field, rendering field values in labels, and changing the style of
   a field based on its value.
   The example is available at [http://localhost:8000/pegasus/forms/alpine/](http://localhost:8000/pegasus/forms/alpine/).
-- Added [documentation on forms](forms.md) in Pegasus.
+- Added [documentation on forms](/forms) in Pegasus.
 - Added `.pg-bg-danger` and `.pg-bg-success` helper classes for setting success/danger background colors.
 
 ### Fixed
@@ -2756,7 +2756,7 @@ Smaller updates in this release are below.
 
 #### Documentation
 
-- Overhauled the documentation on working with [virtual environments](python.md) and made
+- Overhauled the documentation on working with [virtual environments](/python) and made
   `venv` the default recommendation over `virtualenv`.
 
 ### Upgrading / breaking changes
@@ -2967,9 +2967,9 @@ The subscriptions UI was updated to use Alpine, and more features will move to A
 
 ### Documentation
 
-- **Added write up about [the front end files](/front-end/design-patterns.md).**
+- **Added write up about [the front end files](/front-end/design-patterns).**
 - **Added write up about managing [test vs live Stripe products](subscriptions.md#stripe-in-production)**
-- **Improved the [internationalization/translation docs](internationalization.md).**
+- **Improved the [internationalization/translation docs](/internationalization).**
 - **Added [a cookbook for how to enable auto-formatting on your existing project](cookbooks.md#migrating-to-auto-formatted-code).**
 
 *March 3, 2023*
@@ -3031,7 +3031,7 @@ Happy holidays!
 ### Changed
 
 - **Updated usage of `.env` files. Python environments now use `.env`, docker uses `.env.docker`, and the example
-  was renamed from `.env.dev.example` to `.env.example`. [Details here](configuration.md).** See upgrade notes.
+  was renamed from `.env.dev.example` to `.env.example`. [Details here](/configuration).** See upgrade notes.
 - **Invitations can now only be accepted from the email address that was invited.** See upgrade notes.
 - Blog posts in wagtail are now listed in descending order (by date)
 - Optimized the `Dockerfile.dev` so that requirements are installed prior to copying the complete source code of the project.
@@ -3116,7 +3116,7 @@ There are a number of big updates in this release.
 ### Feature: Feature flag support
 
 Pegasus now supports using feature flags with waffle.
-For full details, see the new [feature flag documentation](flags.md).
+For full details, see the new [feature flag documentation](/flags).
 
 Included in the implementation:
 
@@ -3144,12 +3144,12 @@ Supporting/related work:
 ### Feature: Render deployment option
 
 Pegasus now officially supports deploying to [Render](https://render.com/).
-See the new [Render deploy documentation](deployment/render.md).
+See the new [Render deploy documentation](/deployment/render).
 
 ### Feature: Fly.io deployment option
 
 Pegasus now officially supports deploying to [fly.io](https://fly.io/).
-See the new [Fly.io deploy documentation](deployment/fly.md).
+See the new [Fly.io deploy documentation](/deployment/fly).
 
 ### Feature + Cleanup: Subscription updates
 
@@ -3319,7 +3319,7 @@ Here is a quick demo:
 This includes support for text localization in Python, Django templates, JavaScript and Wagtail.
 Translations can be set anonymously (via a cookie) or based on the logged-in user's selected language.
 
-See the new [Internationalization docs](internationalization.md) for more information.
+See the new [Internationalization docs](/internationalization) for more information.
 
 Major related changes:
 
@@ -3405,7 +3405,7 @@ Some of the larger changes to the Tailwind functionality include:
 - Added modal dialogs to the team deletion and membership removal workflows (team builds only).
 - Removed many no-longer-used classes form `site-tailwind.css`.
 
-See the updated [Tailwind docs](/css/tailwind/) for more information and customization options.
+See the updated [Tailwind docs](/css/tailwind) for more information and customization options.
 
 ### Other Additions
 
@@ -3426,7 +3426,7 @@ See the updated [Tailwind docs](/css/tailwind/) for more information and customi
 - Increased margins between buttons and forms/controls in a few templates.
 - Improved styling of the default email management page.
 - Upgraded several NPM packages to the latest versions including Bootstrap version to 5.2.
-- Overhauled [CSS docs](/css/).
+- Overhauled [CSS docs](/css).
 - Mark `help_text` as safe in form_tags (allows adding links and other HTML to your help text)
 - Add trailing slash to urls in `apps/web/urls.py`.
 - Updated default CI configuration to build all pull requests (was previously all pull requests to `main` only)
@@ -3487,7 +3487,7 @@ Some of the larger updates (for which there were also code changes to make them 
 
 This release removed the deprecated CoreAPI-based API schemas and JavaScript client and replaced it with OpenApi3 schemas
 (using [drf-spectacular](https://drf-spectacular.readthedocs.io/)) and generated client code.
-For more information on using APIs in your Pegasus app, see the new [API docs](/apis/).
+For more information on using APIs in your Pegasus app, see the new [API docs](/apis).
 
 Details related to this change:
 
@@ -3500,7 +3500,7 @@ Details related to this change:
 - Removed no-longer-needed `assets/javascript/teams/api.js`.
 - Removed no-longer-needed `app.Api` from the front end code.
 - Added `openapitools.json` to `.gitignore`
-- Added [documentation related to these changes](/apis/).
+- Added [documentation related to these changes](/apis).
 
 ### Other Additions
 
@@ -3546,7 +3546,7 @@ Complete release notes are below:
 
 ### Added
 
-- **Pegasus now supports Wagtail! [Documentation](/wagtail/).** There are a fair number of changes to support this work, most
+- **Pegasus now supports Wagtail! [Documentation](/wagtail).** There are a fair number of changes to support this work, most
   of which are only relevant if you enable wagtail support. The main ones includ a new `content` app, a large number of new Python package dependencies
   (all stemming from `wagtail`), and some updates to the site navigation.
 - **Pegasus now generates a sitemap for you.** [Documentation](page-metadata.md#sitemaps).
@@ -3688,8 +3688,8 @@ and some Docker development improvements.
 
 ### Documentation
 
-- Added [page metadata documentation](/page-metadata/) for working with project / page metadata (e.g. page titles).
-- Updated the [upgrading documentation](/upgrading/) to recommend a branch-based approach.
+- Added [page metadata documentation](/page-metadata) for working with project / page metadata (e.g. page titles).
+- Updated the [upgrading documentation](/upgrading) to recommend a branch-based approach.
 - Updated the [Sentry documentation](configuration.md#sentry) with the new setup and testing instructions.
 
 *April 22, 2022*
@@ -3700,11 +3700,11 @@ The main feature of this release is [Github Actions](https://github.com/features
 Pegasus projects can now (optionally) run back end tests and build the front end automatically on Github.
 
 This should work automatically for all projects out-of-the-box.
-See [the documentation](/github-actions/) for more details.
+See [the documentation](/github-actions) for more details.
 
 ### Added
 
-- [Github Actions support](/github-actions/).
+- [Github Actions support](/github-actions).
 
 ### Changed
 
@@ -3810,7 +3810,7 @@ It mostly undoes a small handful of changes from the 0.21 release.
 ## Version 0.21
 
 This release has one major feature: API Keys.
-You can get an overview in this 2-minute video or check out [the documentation](/apis/) for details.
+You can get an overview in this 2-minute video or check out [the documentation](/apis) for details.
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
     <iframe src="https://www.youtube.com/embed/ivL10Y5P5L0" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
@@ -3820,7 +3820,7 @@ There are also a number of smaller fixes and upgrades.
 
 ### Added
 
-- API Key support! See the new [API key documentation](/apis/) for details.
+- API Key support! See the new [API key documentation](/apis) for details.
 - Example `DJSTRIPE_WEBHOOK_SECRET` to `.env.dev` file for local Docker deployments
 
 ### Package upgrades
@@ -4084,7 +4084,7 @@ Additionally, two view mixin classes, `LoginAndTeamRequiredMixin` and `TeamAdmin
 which can be used to easily create class-based model views on Team models.
 A test suite for these mixins was also added.
 
-More details can be found in the [Teams documentation](/teams/).
+More details can be found in the [Teams documentation](/teams).
 
 *A big thanks to Peter Cherna, who's [Pegasus example apps](https://github.com/pcherna/pegasus-example-apps/)
 was a big inspiration for this example.*
@@ -4366,7 +4366,7 @@ This is a minor release primarily focusing on an improved Docker experience and
 updates to the experimental TailwindCSS support:
 
 - Update development `Dockerfile` from `alpine` to `buster` and install front-end dependencies.
-- Add `Makefile` with self-documenting targets for various common operations ([see docs](/docker/))
+- Add `Makefile` with self-documenting targets for various common operations ([see docs](/docker))
 - Update generated `README` with better Docker instructions
 - Use double quotes for description and name settings to reduce issues with apostrophes
 
@@ -4395,7 +4395,7 @@ This is a minor maintenance release with a few small changes and fixes.
 
 This release adds support for the [Bootstrap CSS framework](https://getbootstrap.com/) and includes several changes
 to how the CSS files are structured in Pegasus.
-See the new [CSS documentation](/css/) for an overview of the new structure.
+See the new [CSS documentation](/css) for an overview of the new structure.
 
 Major changes:
 
@@ -4543,7 +4543,7 @@ This release is a grab-bag of fixes and upgrades based on recent feedback.
 ## Version 0.10.5
 
 This release adds native support for deploying to Digital Ocean app platform.
-See the [deployment guide](deployment/digital-ocean.md) for details.
+See the [deployment guide](/deployment/digital-ocean) for details.
 
 Additional updates:
 
@@ -4556,7 +4556,7 @@ Additional updates:
 ## Version 0.10.4
 
 This release adds experimental native support for deploying to Google Cloud Run.
-More details can be found in the [deployment guide](deployment/google-cloud.md).
+More details can be found in the [deployment guide](/deployment/google-cloud).
 
 Additional updates:
 
@@ -4570,7 +4570,7 @@ Additional updates:
 ## Version 0.10.3
 
 This release adds native support for deploying to Heroku using Docker containers.
-More details can be found in the new [deployment guide](/deployment/).
+More details can be found in the new [deployment guide](/deployment).
 
 Additional minor updates:
 
@@ -4583,14 +4583,14 @@ Additional minor updates:
 ## Version 0.10.2
 
 This release adds support for using [Docker](https://www.docker.com/) in development.
-More details can be found in the new [Docker documentation](/docker/).
+More details can be found in the new [Docker documentation](/docker).
 
 *Oct 28, 2020*
 
 ## Version 0.10.1
 
 This release adds [Heroku](https://www.heroku.com/) deployment support.
-More details can be found in the new [deployment guide](/deployment/).
+More details can be found in the new [deployment guide](/deployment).
 
 *Oct 26, 2020*
 
@@ -4685,7 +4685,7 @@ Supported operations and configurations include upgrading and downgrading subscr
 subscription cancellations (both immediately, and at period end), and subscription
 renewals.
 
-Additional documentation can be found in the [subscription docs](/subscriptions/).
+Additional documentation can be found in the [subscription docs](/subscriptions).
 
 Details and other changes:
 

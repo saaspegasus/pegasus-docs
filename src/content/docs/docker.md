@@ -7,7 +7,7 @@ description: Using Docker in Development
 
 Pegasus optionally includes support for [Docker](https://www.docker.com/) during development.
 The Docker development setup can also be used as a foundation for deploying to containerized platforms.
-See [our deployment page](/deployment/) for more details.
+See [our deployment page](/deployment) for more details.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ The easiest way to do that is via [these instructions](https://stackoverflow.com
 ## Getting Started
 
 First set up your Pegasus project with Docker enabled and using Postgres as a database
-following the [getting started guide](/getting-started/).
+following the [getting started guide](/getting-started).
 
 ### Enter the project directory
 
@@ -79,9 +79,9 @@ These are outlined in the table below:
 | `pg`           | Runs  Postgres (primary Database)     | Always                                                                      |
 | `redis`        | Runs Redis (Cache and Celery Broker)  | Always                                                                      |
 | `web`          | Runs Django                           | Always                                                                      |
-| `vite`         | Runs Vite (for CSS/JavaScript assets) | If [building with Vite](./front-end/vite.md)                                |
-| `celery`       | Runs Celery (for background tasks)    | If [Celery is enabled](./celery.md)                                         |
-| `frontend`     | Runs the React Front End              | If [the standalone front end is enabled](./experimental/react-front-end.md) |
+| `vite`         | Runs Vite (for CSS/JavaScript assets) | If [building with Vite](/front-end/vite)                                |
+| `celery`       | Runs Celery (for background tasks)    | If [Celery is enabled](/celery)                                         |
+| `frontend`     | Runs the React Front End              | If [the standalone front end is enabled](/experimental/react-front-end) |
 
 
 ### Settings

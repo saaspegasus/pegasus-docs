@@ -38,7 +38,7 @@ $body-color: #00008B;  // change main text to blue
 ```
 
 **You'll have to run `npm run dev` to see the changes take.**
-For more details on building the CSS files, see the [front end documentation](/front-end/).
+For more details on building the CSS files, see the [front end documentation](/front-end).
 
 The [Bootstrap documentation](https://getbootstrap.com/docs/5.0/customize/sass/) has much more detail
 on customizing your theme!
@@ -55,7 +55,7 @@ require('./styles/site-bootstrap.scss');
 window.bootstrap = require('bootstrap');
 ```
 
-After [rebuilding the front end](/front-end/overview.md) you can then call bootstrap in a Django template like this:
+After [rebuilding the front end](/front-end/overview) you can then call bootstrap in a Django template like this:
 
 ```jinja
 {% block page_js %}

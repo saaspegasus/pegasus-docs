@@ -8,7 +8,7 @@ description: Feature Flags
 [Waffle][waffle] is the top library for managing feature flags in Django. Pegasus includes configuration
 for using Waffle with or without teams.
 
-If you are using [Teams](/teams.md) then the Waffle flags can be turned on based on the user or the team.
+If you are using [Teams](/teams) then the Waffle flags can be turned on based on the user or the team.
 If you are not using Teams then flags only apply to users.
 
 [waffle]: https://waffle.readthedocs.io/en/stable/
@@ -41,7 +41,7 @@ Flags may be used in views, templates, JavaScript and more. For full details see
 
 ## Usage with *Teams*
 
-If you are using [Teams](/teams.md), Pegasus ships with a [custom flag model][custom-model] which allows you
+If you are using [Teams](/teams), Pegasus ships with a [custom flag model][custom-model] which allows you
 to activate flags on a per-team basis in addition to the other default options.
 
 [custom-model]: https://waffle.readthedocs.io/en/stable/types/flag.html#custom-flag-models

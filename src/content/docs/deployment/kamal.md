@@ -156,7 +156,7 @@ at the configured domain. You're done!
 
 ### Post-deployment steps
 
-Once you've gotten everything set up, head on over to the [production checklist](./production-checklist.md) and
+Once you've gotten everything set up, head on over to the [production checklist](/production-checklist) and
 run through everything there.
 In particular, you will have to set up media files using an external service like S3.
 

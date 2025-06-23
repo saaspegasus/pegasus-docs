@@ -46,7 +46,7 @@ Once your app is live, you should restrict access to your Redis/Valkey instance,
 in the Digital Ocean console and setting your app as a "trusted source" and saving.
 Failure to do this may result in your app's data and infrastructure being exposed to the public.
 
-**After deploying, review the [production checklist](/deployment/production-checklist.md) for a list
+**After deploying, review the [production checklist](/deployment/production-checklist) for a list
 of common next steps**.
 
 ### Settings and Secrets

@@ -27,11 +27,11 @@ overview on choosing a deployment strategy.
 Pegasus ships with configuration files to deploy to select platforms out-of-the-box.
 The officially supported platforms are:
 
-- [Render](/deployment/render/) (Python-based)
-- [Fly](/deployment/fly/) (Docker-based)
-- [Heroku](/deployment/heroku/) (Python or Docker)
-- [Digital Ocean App Platform](/deployment/digital-ocean/) (Docker-based)
-- [Google Cloud Run](/deployment/google-cloud/) (Docker-based)
+- [Render](/deployment/render) (Python-based)
+- [Fly](/deployment/fly) (Docker-based)
+- [Heroku](/deployment/heroku) (Python or Docker)
+- [Digital Ocean App Platform](/deployment/digital-ocean) (Docker-based)
+- [Google Cloud Run](/deployment/google-cloud) (Docker-based)
 
 Render and Fly are comparable, and are the recommended options for staging sites or MVPs,
 since they are easy to set up and have a generous free tier.
@@ -43,7 +43,7 @@ support@saaspegasus.com and I'm happy to help!
 
 In addition to the above platforms, you can use Pegasus's Kamal deployment support to deploy
 your application onto any Linux server, using Docker containers. For more information on deploying to a VPS,
-see the [kamal deployment documentation](./kamal.md).
+see the [kamal deployment documentation](/kamal).
 
 ## Other options
 
@@ -58,7 +58,7 @@ Pegasus user [Artem Gordinskiy](https://artem.cool/) has documented his experien
 [migrating Pegasus apps from Kamal to Coolify](https://artem.cool/blog/coolify-django/) (another open-source, self-hosted PaaS).
 
 
-Pegasus's [Docker support](/docker/) can be used as a basis for other production environments
+Pegasus's [Docker support](/docker) can be used as a basis for other production environments
 that supports container---for example, Google Kubernetes Engine and Amazon ECS.
 
 Please reach out in the Pegasus Slack `#deployment` channel for any help on this!

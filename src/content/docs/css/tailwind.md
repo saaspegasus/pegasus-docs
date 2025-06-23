@@ -61,7 +61,7 @@ module.exports = {
 }
 ```
 
-After changing these values you will have to [rebuild your front end](/front-end/overview.md).
+After changing these values you will have to [rebuild your front end](/front-end/overview).
 
 Finally, you will also have to update the default themes in your `settings.py`:
 
@@ -172,7 +172,7 @@ It's recommended to follow the following steps to upgrade your project to Tailwi
 
 1. Read through the [Tailwind Upgrade Notes](https://tailwindcss.com/docs/upgrade-guide) and confirm you're ready to
    upgrade from a browser support perspective.
-2. Do a [normal Pegasus upgrade](/upgrading.md) of your project to Version 2025.3 or later.
+2. Do a [normal Pegasus upgrade](/upgrading) of your project to Version 2025.3 or later.
 2. Merge all conflicts as carefully as you can.
 3. Rebuild your front end (`npm install`, `npm run dev`).
 4. Run your app.
@@ -240,5 +240,5 @@ After doing that, if they are still not showing up, be sure that you have hard-r
 You can also disable browser caching when devtools are open by following these instructions
 [for Chrome](https://stackoverflow.com/a/23944114/8207) or [for Firefox](https://stackoverflow.com/a/48027947/8207).
 
-If you are building your front end in Docker, be sure to also read the troubleshooting section of the [front end documentation](/front-end/overview.md)
+If you are building your front end in Docker, be sure to also read the troubleshooting section of the [front end documentation](/front-end/overview)
 for potential issues with cross-platform compatibility.

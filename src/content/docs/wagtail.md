@@ -95,7 +95,7 @@ LANGUAGES = WAGTAIL_CONTENT_LANGUAGES = [
 Full details on Wagtail localization can be found in the Wagtail [documentation][2].
 
 Details on the Pegasus configuration for internationalization can be found on the
-[internationalization](internationalization.md) page.
+[internationalization](/internationalization) page.
 
 [1]: https://docs.wagtail.org/en/stable/advanced_topics/i18n.html#translation-workflow
 [2]: https://docs.wagtail.org/en/stable/advanced_topics/i18n.html

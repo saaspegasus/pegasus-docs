@@ -23,11 +23,11 @@ You can pick either of these and then switch if you run into problems.
 
 ## Using Docker
 
-See the [Docker documentation](/docker.md) to set up your development environment with Docker.
+See the [Docker documentation](/docker) to set up your development environment with Docker.
 
 Docker environments support using uv or pip-tools as a package manager. Uv is recommended.
 For help adding and removing Python packages after setup, see the documentation for
-[uv](./uv.md) or [pip-tools](./packages.md).
+[uv](/uv) or [pip-tools](/packages).
 
 ## Using uv
 

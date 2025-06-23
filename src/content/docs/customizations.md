@@ -51,4 +51,4 @@ For more information, see the individual page for your framework in [the CSS doc
 
 The project uses a webpack build pipeline to compile the javascript files.
 
-For more details on how it works see the [front-end documentation](/front-end/).
+For more details on how it works see the [front-end documentation](/front-end).

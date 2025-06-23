@@ -25,7 +25,7 @@ Once you've logged into Render you can create your app as follows:
 This will kick off the process to create your PostgreSQL database and Redis instances as well
 as deploy your web application (configured in your project's `render.yaml` file).
 
-**After deploying, review the [production checklist](/deployment/production-checklist.md) for a list
+**After deploying, review the [production checklist](/deployment/production-checklist) for a list
 of common next steps**
 
 ### Build Script

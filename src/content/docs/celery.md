@@ -19,7 +19,7 @@ option---added in version 2025.1---in your project settings.
 
 ## Quick Start
 
-**If you're using [Docker in development](/docker/) then Celery should automatically be configured and running.
+**If you're using [Docker in development](/docker) then Celery should automatically be configured and running.
 The instructions in this section are for running Celery outside of Docker.**
 
 The easiest way to get going in development is to [download and install Redis](https://redis.io/download) 

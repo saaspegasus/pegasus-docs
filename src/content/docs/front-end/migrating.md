@@ -17,7 +17,7 @@ There is also a video walkthrough of the process here:
 
 ## 1. Upgrade your project to 2025.5
 
-First upgrade your project to 2025.5 [according to the normal process](/upgrading.md).
+First upgrade your project to 2025.5 [according to the normal process](/upgrading).
 Do *not* change your bundler setting at this stage.
 
 Do normal testing and verification that everything is working with Webpack on version 2025.5.
@@ -128,7 +128,7 @@ window.SiteJS.library = {
 
 ## 7. Rebuild and run your front end
 
-Finally, rebuild and run your front end, according to the [vite docs](/front-end/vite.md):
+Finally, rebuild and run your front end, according to the [vite docs](/front-end/vite):
 
 ```
 npm install

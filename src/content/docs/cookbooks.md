@@ -45,7 +45,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 It's recommended to do this in two steps:
 
-1. [Upgrade your project](./upgrading.md) to the latest Pegasus version, keeping your package manager as "pip-tools".
+1. [Upgrade your project](/upgrading) to the latest Pegasus version, keeping your package manager as "pip-tools".
    Merge all conflicts and ensure your project is working properly on this version.
 2. Then, change the package manager from pip-tools to uv in your project settings and do another upgrade/pull request.
 
@@ -129,7 +129,7 @@ As of February, 2023 all Pegasus projects have the option to auto-format your Py
 
 To migrate a project from non-formatted to formatted code, you can go through the following steps:
 
-1. First, do a full Pegasus upgrade to the version you want to update to, as described [here](./upgrading.md).
+1. First, do a full Pegasus upgrade to the version you want to update to, as described [here](/upgrading).
    **Do *not* check the "autoformat" checkbox yet.**
 2. Next, run the formatting tools on your project's `main` branch: 
    1. Install ruff: `pip install ruff`
@@ -143,6 +143,6 @@ To migrate a project from non-formatted to formatted code, you can go through th
 ## Delete Pegasus Examples
 
 You can remove the Pegasus examples by unchecking the "Include Examples" checkbox
-on your project page and re-downloading (or [upgrading](upgrading.md)) your codebase.
+on your project page and re-downloading (/or [upgrading](/upgrading)) your codebase.
 
 For earlier versions you can use [these instructions](https://github.com/saaspegasus/pegasus-docs/blob/1becc2cb8f86738eeba85c9faddb15f69b8ad7bc/cookbooks.md#delete-pegasus-examples).

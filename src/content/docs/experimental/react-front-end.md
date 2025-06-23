@@ -70,7 +70,7 @@ npm run dev
 ```
 
 Note: your Django backend must also be running for the front end to work,
-and you must also [build your Django front end](/front-end/overview.md) for styles to work.
+and you must also [build your Django front end](/front-end/overview) for styles to work.
 
 ## Authentication
 
@@ -154,7 +154,7 @@ to either "mydomain.com" or "www.mydomain.com", and then deploy the backend to "
 
 ### The Django Backend
 
-You will need to deploy your Django backend using any of the [standard deployment methods](../deployment/overview.md).
+You will need to deploy your Django backend using any of the [standard deployment methods](/deployment/overview).
 
 In addition to a standard deployment, you will specifically need to set the following additional settings,
 by overriding them in your environment variables or a production settings file:

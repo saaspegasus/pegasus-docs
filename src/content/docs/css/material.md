@@ -36,7 +36,7 @@ $primary-gradient: #2e7676;
 $primary-gradient-state: #2e7676;
 ```
 
-You will also have to [build your front end](/front-end/overview.md) to see the changes.
+You will also have to [build your front end](/front-end/overview) to see the changes.
 
 Material has more customization options than the default theme, which can be found in the [Material Dashboard documentation](https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard).
 The theme files live in the `assets/material-dashboard` folder.
@@ -61,4 +61,3 @@ Pegasus doesn't ship with the Material theme JavaScript built in. If you would l
 ```
 
 After completing these steps, the Material Kit JavaScript functionality should work.
-
