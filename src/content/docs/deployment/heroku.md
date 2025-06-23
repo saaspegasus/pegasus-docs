@@ -29,7 +29,7 @@ additional requirements/settings needed for the Heroku platform.
 After building and setting up Heroku you will also need to configure Heroku to
 deploy with containers by running:
 
-```
+```bash
 heroku stack:set container
 ```
 
@@ -40,7 +40,7 @@ To tell Heroku to use it, set the `DJANGO_SETTINGS_MODULE` config var to `{ proj
 This can be done in the "settings" tab of your Heroku application (you may need to click to reveal the Config vars)
 or in the CLI using the following command (replacing the `project_slug` with your app name):
 
-```
+```bash
 heroku config:set DJANGO_SETTINGS_MODULE={ project_slug }.settings_production
 ```
 
@@ -48,7 +48,7 @@ heroku config:set DJANGO_SETTINGS_MODULE={ project_slug }.settings_production
 
 Similar to setting the Django Settings, you should disable DEBUG mode in your Heroku config:
 
-```
+```bash
 heroku config:set DEBUG=False
 ```
 
@@ -56,7 +56,7 @@ heroku config:set DEBUG=False
 
 To set up your Postgres database, first enable the addon in the UI or by running:
 
-```
+```bash
 heroku addons:create heroku-postgresql
 ```
 
@@ -65,7 +65,7 @@ Database migrations should be handled automatically by Heroku.
 If you want to use Redis as a cache or to use Celery, you will need to install [the Heroku Redis addon](https://elements.heroku.com/addons/heroku-redis)
 from the UI or by running:
 
-```
+```bash
 heroku addons:create heroku-redis
 ```
 
@@ -74,7 +74,7 @@ heroku addons:create heroku-redis
 Both builds can be deployed using Heroku's standard git integration.
 After you've connected your project's git repository to Heroku, just run:
 
-```
+```bash
 git push heroku main
 ```
 
@@ -87,13 +87,13 @@ of common next steps**
 
 To set environment variables run:
 
-```
+```bash
 heroku config:set {variable_name}={ value }
 ```
 
 e.g.
 
-```
+```bash
 heroku config:set SECRET_KEY={some long randomly generated text}
 ```
 
@@ -112,7 +112,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 You can run once-off commands using the `heroku` CLI. E.g.
 
-```
+```bash
 heroku run python manage.py bootstrap_subscriptions
 ```
 
@@ -135,7 +135,7 @@ The Heroku environment supports Celery out-of-the-box.
 
 Additionally, you may need to run the following command to initialize a Celery worker:
 
-```
+```bash
 heroku ps:scale worker=1
 ```
 

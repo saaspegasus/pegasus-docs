@@ -133,7 +133,7 @@ or anywhere else on your system.
 
 To activate/use the environment run:
 
-```
+```bash
 source /path/to/environment/bin/activate
 ```
 
@@ -156,7 +156,7 @@ and the `/path/to/environment` with wherever you want to set up the environment.
 
 Like with `venv`, to activate the environment run:
 
-```
+```bash
 source /path/to/environment/bin/activate
 ```
 
@@ -178,7 +178,7 @@ mkvirtualenv -p python3.12 {{ project_name }}
 
 Then to activate the environment you use:
 
-```
+```bash
 workon {{ project_name }}
 ```
 

@@ -17,13 +17,13 @@ run the following command, being sure to replace the email address with the one 
 
 **Docker:**
 
-```
+```bash
 docker compose exec web python ./manage.py promote_user_to_superuser yourname@example.com
 ```
 
 **Native:**
 
-```
+```bash
 python ./manage.py promote_user_to_superuser yourname@example.com
 ``` 
 

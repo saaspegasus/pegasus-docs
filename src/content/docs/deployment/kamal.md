@@ -89,7 +89,7 @@ giving it the default permissions of Read, Write, Delete.
 Finally, we can set everything up to deploy our production application with Kamal.
 If you have a Ruby environment available, you can install Kamal globally with:
 
-```
+```bash
 gem install kamal
 ```
 
@@ -174,7 +174,7 @@ You can add settings here, and use environment variables to manage any secrets, 
 throughout the file. 
 If you modify `settings_production.py` (or any other code) you will need to run:
 
-```
+```bash
 kamal deploy
 ```
 
@@ -190,7 +190,7 @@ You can see examples of this for variables like `DATABASE_URL` in those two file
 
 Once you modify your environment variable files you will need to run:
 
-```
+```bash
 kamal deploy
 ```
 
@@ -201,13 +201,13 @@ To update the variables on the server and redeploy the app.
 The easiest way to run one-off commands on your server is to use the `kamal app exec` command.
 For example:
 
-```
+```bash
 kamal app exec -r web 'python manage.py bootstrap_subscriptions'
 ```
 
 If you want an interactive SSH-style shell you can run:
 
-```
+```bash
 kamal app exec -i bash
 ```
 
@@ -215,7 +215,7 @@ You should now have a shell where you can run any Python/`manage.py` command.
 
 You can also get a database shell by running:
 
-```
+```bash
 kamal accessory exec postgres -i 'psql -h localhost -p 5432 -U <youruser>' --reuse
 ```
 
@@ -307,7 +307,7 @@ Here is one way to get a database dump of your server:
 
 First you can run the following command to save a database dump to the *host* machine:
 
-```
+```bash
 kamal accessory exec postgres 'pg_dump -h localhost -p 5432 -U <your_app_user> <your_app_db_name> > db_dump.sql' --reuse
 ```
 
@@ -315,7 +315,7 @@ This should create a file on the *host* machine at `/home/kamal/db_dump.sql`.
 
 If you want to copy this file locally, you can run:
 
-```
+```bash
 scp kamal@yourapp.com:db_dump.sql ./
 ```
 
@@ -325,37 +325,37 @@ Note: you may want to zip or gzip this file first if you have a large database.
 
 To restore a database you first put the backup file on the host:
 
-```
+```bash
 scp ./db_dump.sql kamal@yourapp.com:
 ```
 
 Then create the DB:
 
-```
+```bash
 kamal accessory exec postgres 'createdb -h localhost -p 5432 -U <your_app_user> <your_app_db_name>' --reuse
 ```
 
 After that you will need to login to the *host* machine:
 
-```
+```bash
 ssh kamal@yourapp.com
 ```
 
 And copy the database dump onto the DB machine.
 Run `docker ps` to get the container id of the DB machine. Then run: 
 
-```
+```bash
 docker cp db_dump.sql <CONTAINER ID>:/tmp/db_dump.sql
 ```
 
 Finally, login to the DB container:
 
-```
+```bash
 docker exec -it <CONTAINER ID> /bin/bash
 ```
 
 And restore the data:
-```
+```bash
 psql -h localhost -p 5432 -U <your_app_user> <your_app_db_name> < /tmp/db_dump.sql
 ```
 

@@ -120,7 +120,7 @@ In a new Pegasus installation, the OpenAPI3 `schema.yml` will be available at th
 If you plan to use the `schema.yml` file in production, it is more efficient to create it once and serve it as a static file.
 This can be done by running:
 
-```
+```bash
 ./manage.py spectacular --file static/api-schema.yml
 ```
 
@@ -136,13 +136,13 @@ The [typescript-fetch](https://openapi-generator.tech/docs/generators/typescript
 
 To generate your API client natively, first install the `openapi-generator-cli` (this library also requires `java`):
 
-```
+```bash
 npm install @openapitools/openapi-generator-cli -g
 ```
 
 Then run it as follows:
 
-```
+```bash
 openapi-generator-cli generate -i http://localhost:8000/api/schema/ -g typescript-fetch -o ./api-client/
 ```
 
@@ -153,7 +153,7 @@ value with any URL or file system reference to your `schema.yml` file.
 
 You can also generate your API client with docker to avoid having to install Java by running:
 
-```
+```bash
 make build-api-client
 ```
 
@@ -163,7 +163,7 @@ while your server is running. You should see the files in `api-client` get updat
 
 After re-creating the API client, you'll have to rebuild your front end:
 
-```
+```bash
 npm run dev
 ```
 
@@ -233,7 +233,7 @@ The easiest way to test API key functionality is to use a tool like [curl](https
 
 The following command can be used to test a user-based API key with a default Pegasus installation:
 
-```
+```bash
 curl http://localhost:8000/pegasus/employees/api/employees/ -H "Authorization: Api-Key <your-api-key>"
 ```
 

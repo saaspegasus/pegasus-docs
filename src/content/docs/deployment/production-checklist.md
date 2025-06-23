@@ -65,7 +65,7 @@ Refer to your [chosen platform's documentation](/deployment.rst) for details on 
 
 After setting up your Stripe variables per above, you'll want to run:
 
-```
+```bash
 python manage.py bootstrap_subscriptions
 ```
 

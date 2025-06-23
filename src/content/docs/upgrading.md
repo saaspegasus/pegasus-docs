@@ -53,7 +53,7 @@ in your repository and create a new branch from there.
 
 After finding and checking out the initial commit, run:
 
-```
+```bash
 git branch pegasus
 git checkout pegasus
 ```
@@ -122,7 +122,7 @@ Now return to your main branch in your application's repository.
 First, use [git-apply](https://git-scm.com/docs/git-apply) to apply the patch.
 The recommended command to run is:
 
-```
+```bash
 git apply --ignore-space-change --ignore-whitespace --reject /path/to/<patchname>.patch
 ```
 
@@ -151,7 +151,7 @@ sign indicating an addition.
 
 In this example, the type annotations were added to the function signature:
 
-```
+```bash
 -def is_member(user, team):
 +def is_member(user: CustomUser, team: apps.teams.models.Team) -> bool:
 ```
@@ -171,7 +171,7 @@ Enabling this feature will make future merges much smoother as each conflict wil
 The easiest way to ensure rerere is enabled is to use the Github integration.
 If that's not possible, you can enable it locally by running:
 
-```
+```bash
 $ git config --global rerere.enabled true
 ```
 
@@ -227,7 +227,7 @@ You will also need to rebuild your front end if you've made any changes there (`
 
 If you are using docker you can use the 'upgrade' make target to do this:
 
-```
+```bash
 make upgrade
 ```
 

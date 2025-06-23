@@ -21,13 +21,13 @@ Because TailwindCSS only includes the styles found in your HTML / JavaScript fil
 your CSS files any time you add new styles/components to your templates.
 The easiest way to do this is by running (after installing Node packages):
 
-```
+```bash
 npm run dev-watch
 ```
 
 Or in Docker:
 
-```
+```bash
 make npm-watch
 ```
 

@@ -78,7 +78,7 @@ You can see an example with HTMX (version 2023.2 and later) or Alpine.js (versio
 As an example, if you want to add [simple-datatables](https://github.com/fiduswriter/simple-datatables) to your project,
 first install it:
 
-```
+```bash
 npm install simple-datatables
 ```
 

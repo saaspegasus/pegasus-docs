@@ -567,7 +567,7 @@ There are two recommended workarounds to this:
 
 Run:
 
-```
+```bash
 python manage.py makemigrations web --empty`
 ```
 

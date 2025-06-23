@@ -26,13 +26,13 @@ following the [getting started guide](/getting-started/).
 
 ### Enter the project directory
 
-```
+```bash
 cd {{ project_name }}
 ```
 
 ### Run the initialization script
 
-```python
+```bash
 make init
 ```
 
@@ -58,7 +58,7 @@ of the `Makefile` file in case you need to add to it or run any once-off command
 
 Most of the commands you might need to run in your project will involve running something like:
 
-```
+```bash
 docker compose exec <container> <command>
 ```
 
@@ -108,18 +108,18 @@ the pattern used in the `Makefile`.
 
 For example, to bootstrap Stripe subscriptions, run:
 
-```
+```bash
 docker compose exec web python manage.py bootstrap_subscriptions
 ```
 
 Or to promote a user to superuser, run: 
-```
+```bash
 docker compose exec web python manage.py promote_user_to_superuser me@example.com
 ```
 
 You can also use the `make manage` command, passing in `ARGS` like so:
 
-```
+```bash
 make manage ARGS='promote_user_to_superuser me@example.com'
 ```
 
@@ -132,7 +132,7 @@ your containers.
 
 The easiest way to add new packages is to add them to `requirements.in` and then run:
 
-```
+```bash
 make requirements
 ``` 
 
@@ -145,7 +145,7 @@ You can use debug tools like `pdb` or `ipdb` by enabling service ports.
 
 This can be done by running your web container with the following:
 
-```
+```bash
 docker compose run --service-ports web
 ```
 

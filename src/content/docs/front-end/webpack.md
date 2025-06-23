@@ -23,7 +23,7 @@ npm run dev-watch
 
 or in Docker:
 
-```
+```bash
 make npm-watch
 ```
 

@@ -86,7 +86,7 @@ npm install
 
 or in Docker:
 
-```
+```bash
 make npm-install
 ```
 
@@ -115,7 +115,7 @@ npm run build
 
 or in Docker:
 
-```
+```bash
 make npm-build
 ```
 
@@ -131,13 +131,13 @@ build pipeline.
 The build pipeline does *not* explicitly do type checking.
 To do type checking you can run:
 
-```
+```bash
 npm run type-check
 ```
 
 Or in Docker:
 
-```
+```bash
 make npm-type-check
 ```
 

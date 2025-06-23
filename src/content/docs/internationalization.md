@@ -110,7 +110,7 @@ python ./manage.py makemessages -d djangojs --all --ignore node_modules --ignore
 
 Or in Docker:
 
-```
+```bash
 make translations
 ```
 

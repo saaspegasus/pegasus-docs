@@ -61,7 +61,7 @@ room_ws_url = websocket_absolute_url(websocket_reverse("ws_group_chat", args=[ro
 
 You can then use the websocket URL in a template/JavaScript like this:
 
-```
+```js
 const chatSocket = new WebSocket({{ room_ws_url}});
 chatSocket.onmessage = function(e) {
   // handle message 

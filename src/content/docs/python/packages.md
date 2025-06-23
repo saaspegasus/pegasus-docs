@@ -81,7 +81,7 @@ From there you can install the new dependencies, as [described below](#installin
 If you're running Python natively, you can install your packages with the following command.
 Run this after activating your virtual environment:
 
-```
+```bash
 pip install -r requirements/requirements.txt
 ```
 
@@ -90,7 +90,7 @@ This means that any time you want to change your installed new packages, you hav
 
 You can do this by running
 
-```
+```bash
 docker compose build
 ```
 
@@ -101,7 +101,7 @@ Confusingly, running `pip install` or `docker compose exec web pip install` does
 Pegasus ships with a convenience target for rebuilding requirements with Docker.
 Any time you make changes to a `requirements.in` file you can run it with:
 
-```
+```bash
 make requirements
 ```
 

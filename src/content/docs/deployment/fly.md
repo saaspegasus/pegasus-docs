@@ -183,13 +183,13 @@ If you do not see one, it is not properly connected/attach.
 
 If you need to create a new database, you can run:
 
-```
+```bash
 fly postgres create --name {your-app-db}
 ```
 
 And you can (re-)attach a database to an app by running:
 
-```
+```bash
 fly postgres attach {your-app-db} -a {your-app-name}
 ```
 
@@ -203,6 +203,6 @@ Error: timeout reached waiting for health checks to pass for machine 28749e0b443
 
 You can try re-deploying with a higher timeout. For example, try running:
 
-```
+```bash
 flyctl deploy --wait-timeout 5m
 ```

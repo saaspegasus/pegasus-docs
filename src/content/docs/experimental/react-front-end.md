@@ -47,13 +47,13 @@ And here are some technical details:
 The front end lives in the `/frontend` folder of your project.
 To set it up for the first time, first go into the directory:
 
-```
+```bash
 cd frontend
 ```
 
 And install npm packages:
 
-```
+```bash
 npm install
 ```
 
@@ -65,7 +65,7 @@ cp .env.example .env
 
 Then run the dev server:
 
-```
+```bash
 npm run dev
 ```
 

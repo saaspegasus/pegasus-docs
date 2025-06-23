@@ -15,7 +15,7 @@ you should instead use the utilities in the `form_tags` module.
 
 To use it, first include `form_tags` in any Django template file:  
 
-```
+```django
 {% load form_tags %}
 ```
 

@@ -84,7 +84,7 @@ This will redeploy the app.
 
 Then, in the digital ocean app platform console run:
 
-```
+```bash
 env | grep AWS
 ```
 

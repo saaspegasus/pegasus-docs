@@ -39,7 +39,7 @@ It is highly recommended to use git for source control.
 If you created your project on Github, you can use `git clone` to get the code.
 Get your git URL from the Github page and then run the following command, swapping in your user account and project id:
 
-```
+```bash
 git clone https://github.com/user/project-id.git
 ```
 
@@ -48,7 +48,7 @@ git clone https://github.com/user/project-id.git
 If you chose to use a zip file instead, unzip it to a folder where you want to do your development and then manually
 initialize your repository:
 
-```
+```bash
 git init
 git add .
 git commit -am "initial project creation"
@@ -56,7 +56,7 @@ git commit -am "initial project creation"
 
 It is also recommended to create a `pegasus` branch at this time for future upgrades.
 
-```
+```bash
 git branch pegasus
 ```
 
@@ -75,7 +75,7 @@ If you're using Docker you can skip this section.
 
 ### Enter the project directory
 
-```
+```bash
 cd {{ project_name }}
 ```
 
@@ -91,7 +91,7 @@ See [this page](./python/setup.md) for information on choosing an option and set
 
 With `uv`:
 
-```
+```bash
 # with uv
 uv sync
 # or if using pip tools
@@ -104,7 +104,7 @@ Note: if you have issues installing `psycopg2`, try installing the dependencies 
 
 On Macs you may also need to follow the instructions from [this thread](https://stackoverflow.com/a/58722268/8207). And specifically, run:
 
-```
+```bash
 brew reinstall openssl
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 ```

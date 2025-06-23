@@ -386,7 +386,7 @@ All Pegasus code should be updated to pass the new ruff linting configuration, b
 might cause build failures on code that has been added/modified.
 Many fixes can be automated by running:
 
-```
+```bash
 (uv run) ruff check --fix --unsafe-fixes
 ```
 
@@ -995,13 +995,13 @@ Read more in the [flowbite docs here](./css/tailwind.md#flowbite).
 If you're using Docker the `make upgrade` command won't work out-of-the-box due to the change
 in how requirements files are managed. You will first have to rebuild your containers with:
 
-```
+```bash
 make build
 ```
 
 or
 
-```
+```bash
 docker compose build
 ```
 
@@ -1279,12 +1279,12 @@ If you were loading HTMX extensions in your own templates, you will have to upgr
 
 Before:
 
-```
+```html
 <script src="https://unpkg.com/htmx.org/dist/ext/ws.js" defer></script>
 ```
 
 After:
-```
+```html
 <script src="https://unpkg.com/htmx-ext-ws@2.0.0/ws.js" defer></script>
 ```
 
@@ -1633,7 +1633,7 @@ The complete release notes are below:
 
 If you are using two-factor authentication you must run:
 
-```
+```bash
 python manage.py migrate_allauth_2fa
 ```
 
@@ -3085,7 +3085,7 @@ If you wish to preserve the previous behavior that allowed accepting an invitati
 
 to:
 
-```
+```django
     {% render_text_input form.email %}
 ```
 
@@ -3259,7 +3259,7 @@ Next, create and run migrations:
 
 Next you need to move the `Customer` from the user to their team. You can do this by running:
 
-```
+```bash
 ./manage.py migrate_customers_to_teams
 ```
 
@@ -4638,7 +4638,7 @@ Other minor updates:
 Upgrading:
 
 **Existing Pegasus users will need to upgrade the installer to run this.**
-```
+```bash
 pip install --upgrade pegasus-installer>=0.0.2
 ```
 
