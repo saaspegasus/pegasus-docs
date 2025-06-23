@@ -1,6 +1,8 @@
 ---
 title: Vite-Specific Instructions
 description: Vite-Specific Instructions
+sidebar:
+  order: 3
 ---
 
 Vite-Specific Instructions

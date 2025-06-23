@@ -1,6 +1,8 @@
 ---
 title: Choosing a CSS Theme
 description: Choosing a CSS Theme
+sidebar:
+  order: 1
 ---
 
 Choosing a CSS Theme

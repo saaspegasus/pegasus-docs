@@ -1,6 +1,8 @@
 ---
 title: Migrating from Webpack to Vite
 description: Migrating from Webpack to Vite
+sidebar:
+  order: 4
 ---
 
 Migrating from Webpack to Vite

@@ -1,6 +1,8 @@
 ---
 title: Pegasus CSS
 description: Pegasus CSS
+sidebar:
+  order: 3
 ---
 
 # Pegasus CSS

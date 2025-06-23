@@ -1,6 +1,8 @@
 ---
 title: Tailwind CSS
 description: Tailwind CSS
+sidebar:
+  order: 4
 ---
 
 # Tailwind CSS

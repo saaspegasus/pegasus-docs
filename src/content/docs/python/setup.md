@@ -1,6 +1,8 @@
 ---
 title: Environment Setup
 description: Environment Setup
+sidebar:
+  order: 1
 ---
 
 ## Choosing between Docker and native Python

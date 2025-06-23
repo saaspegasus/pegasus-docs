@@ -1,6 +1,8 @@
 ---
 title: Production checklist
 description: Production checklist
+sidebar:
+  order: 2
 ---
 
 # Production checklist

@@ -1,6 +1,8 @@
 ---
 title: Front End Design Patterns
 description: Front End Design Patterns
+sidebar:
+  order: 2
 ---
 
 Front End Design Patterns

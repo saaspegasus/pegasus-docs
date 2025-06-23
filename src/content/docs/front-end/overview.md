@@ -1,6 +1,8 @@
 ---
 title: Front End Overview
 description: Front End Overview
+sidebar:
+  order: 1
 ---
 
 Front End Overview

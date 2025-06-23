@@ -1,6 +1,8 @@
 ---
 title: CSS File Structure
 description: CSS File Structure
+sidebar:
+  order: 2
 ---
 
 # CSS File Structure

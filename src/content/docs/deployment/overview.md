@@ -1,6 +1,8 @@
 ---
 title: Deployment Overview
 description: Deployment Overview
+sidebar:
+  order: 1
 ---
 
 ## Deployment Overview
