@@ -3085,7 +3085,7 @@ If you wish to preserve the previous behavior that allowed accepting an invitati
 
 to:
 
-```django
+```jinja
     {% render_text_input form.email %}
 ```
 

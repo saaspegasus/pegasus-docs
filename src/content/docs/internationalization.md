@@ -80,7 +80,7 @@ def my_view(request):
 See the [Django docs](https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#internationalization-in-python-code) for more.
 
 **In Django templates:**
-```django
+```jinja
 {% load i18n %}
 <title>{% translate "This is the title." %}</title>
 ```
