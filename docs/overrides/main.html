@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <!-- Scriv chat integration -->
+  <script type="module" src="https://unpkg.com/scriv-chat@0.2.0/dist/scriv-chat/scriv-chat.esm.js"></script>
+  <style>
+    scriv-chat {
+      /* Ensure the button is clickable */
+      z-index: 1000;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+  <!-- Scriv Chat Widget -->
+  <scriv-chat visible="false" team="pegasus" bot="pegasus-docs" button-text="Ask a question"></scriv-chat>
+{% endblock %}

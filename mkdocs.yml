@@ -1,0 +1,153 @@
+site_name: Pegasus
+site_description: Documentation for SaaS Pegasus - the Django SaaS boilerplate
+site_url: https://docs.saaspegasus.com/
+repo_url: https://github.com/saaspegasus/pegasus-docs
+repo_name: saaspegasus/pegasus-docs
+
+theme:
+  name: material
+  favicon: assets/favicon.ico
+  logo: assets/hero.png
+  custom_dir: docs/overrides
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - redirects:
+      redirect_maps:
+        'api-keys.md': 'apis.md'
+        'using-virtualenvs.md': 'python/index.md'
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/saaspegasus/pegasus-docs
+      name: GitHub
+  analytics:
+    provider: google
+    property: UA-94102737-10
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - GitHub Integration: github.md
+  - Customizations: customizations.md
+  - Configuration: configuration.md
+  - Code Structure: code-structure.md
+  - Python:
+    - python/index.md
+    - Setup: python/setup.md
+    - Packages: python/packages.md
+    - UV: python/uv.md
+  - Front End:
+    - front-end/overview.md
+    - Design Patterns: front-end/design-patterns.md
+    - Migrating: front-end/migrating.md
+    - Vite: front-end/vite.md
+    - Webpack: front-end/webpack.md
+    - Troubleshooting: front-end/troubleshooting.md
+  - CSS:
+    - css/overview.md
+    - File Structure: css/file-structure.md
+    - Bootstrap: css/bootstrap.md
+    - Bulma: css/bulma.md
+    - Material: css/material.md
+    - Tailwind: css/tailwind.md
+    - Pegasus CSS: css/pegasus-css.md
+  - Page Metadata: page-metadata.md
+  - Docker: docker.md
+  - Teams: teams.md
+  - Subscriptions: subscriptions.md
+  - Payments: payments.md
+  - Forms: forms.md
+  - APIs: apis.md
+  - AI:
+    - ai/index.md
+    - Development: ai/development.md
+    - Images: ai/images.md
+    - LLMs: ai/llms.md
+  - Internationalization: internationalization.md
+  - Wagtail: wagtail.md
+  - Feature Flags: flags.md
+  - Celery: celery.md
+  - Async Support: async.md
+  - Deployment:
+    - deployment/overview.md
+    - Production Checklist: deployment/production-checklist.md
+    - Digital Ocean: deployment/digital-ocean.md
+    - Fly: deployment/fly.md
+    - Google Cloud: deployment/google-cloud.md
+    - Google Cloud GitHub Actions: deployment/google-cloud-github-actions.md
+    - Heroku: deployment/heroku.md
+    - Kamal: deployment/kamal.md
+    - Render: deployment/render.md
+    - Troubleshooting: deployment/troubleshooting.md
+  - GitHub Actions: github-actions.md
+  - Cookbooks: cookbooks.md
+  - Experimental:
+    - experimental/index.md
+    - React Front End: experimental/react-front-end.md
+  - Upgrading: upgrading.md
+  - Community:
+    - community/index.md
+    - Digital Ocean Spaces: community/digital-ocean-spaces.md
+  - Marketplace:
+    - marketplace/index.md
+    - Connecting: marketplace/connecting.md
+    - Scriv: marketplace/scriv.md
+  - Release Notes: release-notes.md
+  - Templates: templates.md

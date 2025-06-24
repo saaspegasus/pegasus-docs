@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pegasus-docs"
+version = "0.1.0"
+description = "Documentation for SaaS Pegasus - the Django SaaS boilerplate"
+authors = [
+    {name = "SaaS Pegasus", email = "support@saaspegasus.com"},
+]
+dependencies = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.4.0",
+    "mkdocs-redirects",
+    "mkdocs-minify-plugin",
+    "pymdown-extensions",
+    "pillow",
+    "cairosvg",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mkdocs-livereload",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "mkdocs-livereload",
+]
