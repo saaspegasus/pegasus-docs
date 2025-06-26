@@ -3,6 +3,19 @@ Version History and Release Notes
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.6.2
+
+This hotfix release addresses two minor issues in the 2025.6 release:
+
+- Remove breaking reference to `.babelrc` in `Dockerfile.web` on Vite builds.
+  This was causing deployments to fail on some Docker-based platforms.
+- Always add `gevent` dependency to production requirements if using celery.
+  This fixes an issue running celery in production on certain deployment platforms.
+
+Thanks Justin and Eugene for the bug reports!
+
+*June 25, 2025*
+
 ## Version 2025.6.1
 
 This is a hotfix release which addresses two minor issues:
