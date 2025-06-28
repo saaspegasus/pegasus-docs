@@ -168,22 +168,21 @@ If you're unsure if you introduced breaking changes it is worth testing any func
 
 ## Authentication APIs
 
-*Added in version 2024.3.*
+*Added in version 2024.3. Changed in 2025.4.1*
 
 If you enable the "Use Authentication APIs" checkbox in your project, Pegasus will generate a set of API
 endpoints for registering and logging in users.
 These endpoints can be used to integrate your backend with single page applications (SPAs) and mobile apps.
 
-Under the hood, Pegasus uses [dj-rest-auth](https://dj-rest-auth.readthedocs.io/en/latest/) for these endpoints.
-The integration code can be found in the `apps.authentication` app, which is largely a wrapper around `dj-rest-auth`.
+Under the hood, Pegasus uses [allauth headless](https://docs.allauth.org/en/dev/headless/openapi-specification/) for these endpoints.
 
-If you enable this feature, it will also enable JWT Authentication for your application, using 
-[Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/).
-You can then use the provided tokens to authenticate users from your mobile app / SPA.
-The authentication set up is largely based on [this guide](https://testdriven.io/blog/django-rest-authjs/#authentication-app).
+This feature uses Django's session-based authentication by default---which works great for single page apps---though
+it is possible to add in JWT or another token-based authentication scheme to better support mobile applications.
 
 A complete end-to-end example that uses the API authentication feature in a React SPA can be found
 in the experimental [standalone front end](experimental/react-front-end.md).
+This example includes React/API-based sign up, login, password reset, two-factor authentication, email confirmation
+and more.
 
 ## API Keys
 
