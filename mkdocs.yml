@@ -84,64 +84,65 @@ extra:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - GitHub Integration: github.md
-  - Customizations: customizations.md
-  - Configuration: configuration.md
-  - Code Structure: code-structure.md
-  - Python:
-    - python/index.md
-    - Setup: python/setup.md
-    - Packages: python/packages.md
-    - UV: python/uv.md
-  - Front End:
-    - front-end/overview.md
-    - Design Patterns: front-end/design-patterns.md
-    - Migrating: front-end/migrating.md
-    - Vite: front-end/vite.md
-    - Webpack: front-end/webpack.md
-    - Troubleshooting: front-end/troubleshooting.md
-  - CSS:
-    - css/overview.md
-    - File Structure: css/file-structure.md
-    - Bootstrap: css/bootstrap.md
-    - Bulma: css/bulma.md
-    - Material: css/material.md
-    - Tailwind: css/tailwind.md
-    - Pegasus CSS: css/pegasus-css.md
-  - Page Metadata: page-metadata.md
-  - Docker: docker.md
-  - Teams: teams.md
-  - Subscriptions: subscriptions.md
-  - Payments: payments.md
-  - Forms: forms.md
-  - APIs: apis.md
-  - AI:
-    - ai/index.md
-    - Development: ai/development.md
-    - Images: ai/images.md
-    - LLMs: ai/llms.md
-  - Internationalization: internationalization.md
-  - Wagtail: wagtail.md
-  - Feature Flags: flags.md
-  - Celery: celery.md
-  - Async Support: async.md
-  - Deployment:
-    - deployment/overview.md
-    - Production Checklist: deployment/production-checklist.md
-    - Digital Ocean: deployment/digital-ocean.md
-    - Fly: deployment/fly.md
-    - Google Cloud: deployment/google-cloud.md
-    - Google Cloud GitHub Actions: deployment/google-cloud-github-actions.md
-    - Heroku: deployment/heroku.md
-    - Kamal: deployment/kamal.md
-    - Render: deployment/render.md
-    - Troubleshooting: deployment/troubleshooting.md
-  - GitHub Actions: github-actions.md
-  - Cookbooks: cookbooks.md
-  - Experimental:
-    - experimental/index.md
-    - React Front End: experimental/react-front-end.md
-  - Upgrading: upgrading.md
+  - Project Setup:
+    - code-structure.md
+    - Python:
+      - Setup: python/setup.md
+      - Packages: python/packages.md
+      - UV: python/uv.md
+  - Reference:
+    - github.md
+    - customizations.md
+    - configuration.md
+    - page-metadata.md
+    - docker.md
+    - teams.md
+    - subscriptions.md
+    - payments.md
+    - forms.md
+    - apis.md
+    - internationalization.md
+    - wagtail.md
+    - flags.md
+    - celery.md
+    - async.md
+    - github-actions.md
+    - templates.md
+    - upgrading.md
+    - Front End:
+      - front-end/overview.md
+      - Design Patterns: front-end/design-patterns.md
+      - Migrating: front-end/migrating.md
+      - Vite: front-end/vite.md
+      - Webpack: front-end/webpack.md
+      - Troubleshooting: front-end/troubleshooting.md
+    - CSS:
+      - css/overview.md
+      - File Structure: css/file-structure.md
+      - Bootstrap: css/bootstrap.md
+      - Bulma: css/bulma.md
+      - Material: css/material.md
+      - Tailwind: css/tailwind.md
+      - Pegasus CSS: css/pegasus-css.md
+    - AI:
+      - ai/index.md
+      - Development: ai/development.md
+      - Images: ai/images.md
+      - LLMs: ai/llms.md
+    - Deployment:
+      - deployment/overview.md
+      - Production Checklist: deployment/production-checklist.md
+      - Digital Ocean: deployment/digital-ocean.md
+      - Fly: deployment/fly.md
+      - Google Cloud: deployment/google-cloud.md
+      - Google Cloud GitHub Actions: deployment/google-cloud-github-actions.md
+      - Heroku: deployment/heroku.md
+      - Kamal: deployment/kamal.md
+      - Render: deployment/render.md
+      - Troubleshooting: deployment/troubleshooting.md
+    - Experimental:
+      - experimental/index.md
+      - React Front End: experimental/react-front-end.md
   - Community:
     - community/index.md
     - Digital Ocean Spaces: community/digital-ocean-spaces.md
@@ -149,5 +150,8 @@ nav:
     - marketplace/index.md
     - Connecting: marketplace/connecting.md
     - Scriv: marketplace/scriv.md
-  - Release Notes: release-notes.md
-  - Templates: templates.md
+  - Release Notes:
+    - release-notes.md
+    - upgrading.md
+  - Cookbooks:
+    - cookbooks.md
