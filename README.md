@@ -4,14 +4,14 @@ Documentation for [SaaS Pegasus: the Django SaaS Boilerplate](https://www.saaspe
 
 The latest docs can be found at [docs.saaspegasus.com](https://docs.saaspegasus.com/).
 
-This project uses [Astro](https://astro.build/) with [Starlight](https://starlight.astro.build/) for documentation.
+This project uses [MkDocs](https://www.mkdocs.org/) with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) for documentation.
 
 ## Installation
 
-Install dependencies using npm:
+Install MkDocs and dependencies:
 
 ```bash
-npm install
+uv sync
 ```
 
 ## Building Docs
@@ -19,7 +19,7 @@ npm install
 To build docs run:
 
 ```bash
-npm run build
+uv run mkdocs build
 ```
 
 ## Viewing docs locally
@@ -27,16 +27,16 @@ npm run build
 You can serve your docs locally with auto-reload:
 
 ```bash
-npm run dev
+uv run mkdocs serve
 ```
 
-The docs will be visible at [http://localhost:4321](http://localhost:4321).
+The docs will be visible at [http://localhost:8000](http://localhost:8000).
 
 ## Project Structure
 
-- Documentation content in `src/content/docs/` (Markdown files)
-- Configuration in `astro.config.mjs`
-- Built docs go to `dist/` directory (not committed to repo)
+- Documentation content in `docs/` (Markdown files)
+- Configuration in `mkdocs.yml`
+- Built docs go to `site/` directory (not committed to repo)
 
 ## Deployment
 
