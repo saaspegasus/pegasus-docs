@@ -8,7 +8,7 @@ export default defineConfig({
 	site: 'https://docs.saaspegasus.com/',
 	redirects: {
 		'/api-keys': '/apis',
-		'/using-virtualenvs': '/python/',
+		'/using-virtualenvs': '/python/setup/',
 	},
 	integrations: [
 		starlight({
