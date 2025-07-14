@@ -5,6 +5,8 @@ sidebar:
   order: 1
 ---
 
+import PythonVersion from '../../../components/PythonVersion.astro';
+
 ## Choosing between Docker and native Python
 
 You can either run Python in a Docker container or natively on your development machine,
@@ -94,12 +96,12 @@ The following are other options---which are typically recommended for developers
 who are already familiar with Python and one of these choices.
 
 Unlike `docker` and `uv`, most of these require having Python installed on your machine,
-so if you haven't already, first install Python version {{default_python_version}}+:
+so if you haven't already, first install Python version <PythonVersion/>+:
 
-- On Mac and windows you can [download Python {{default_python_version}} installers from here](https://www.python.org/downloads/).
+- On Mac and windows you can [download Python <PythonVersion/> installers from here](https://www.python.org/downloads/).
 - On Ubuntu it's recommended to [use the deadsnakes repo](https://www.debugpoint.com/install-python-3-12-ubuntu/).
 
-*Note: running on older Python versions may work, but {{default_python_version}} is what's tested and supported.*
+*Note: running on older Python versions may work, but <PythonVersion/> is what's tested and supported.*
 
 After installing Python, set up your virtual environment through one of the following methods:
 
@@ -112,8 +114,8 @@ Check your specific IDE's docs for guidance on how to do this.
 - [Virtual environments in VS Code](https://code.visualstudio.com/docs/python/environments)
 - [Virtual environments in PyCharm](https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html)
 
-**Be sure to choose Python {{default_python_version}} when setting up your virtual environment.**
-If you don't see {{default_python_version}} as an option, you may need to install it first.
+**Be sure to choose Python <PythonVersion/> when setting up your virtual environment.**
+If you don't see <PythonVersion/> as an option, you may need to install it first.
 
 #### Using venv
 
