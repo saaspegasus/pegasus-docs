@@ -67,14 +67,17 @@ export default defineConfig({
 				{
 					label: 'Python',
 					autogenerate: { directory: 'python' },
+					collapsed: true,
 				},
 				{
 					label: 'Front End',
 					autogenerate: { directory: 'front-end' },
+					collapsed: true,
 				},
 				{
 					label: 'CSS',
 					autogenerate: { directory: 'css' },
+					collapsed: true,
 				},
 				{ label: 'Page Metadata', slug: 'page-metadata' },
 				{ label: 'Docker', slug: 'docker' },
@@ -86,6 +89,7 @@ export default defineConfig({
 				{
 					label: 'AI',
 					autogenerate: { directory: 'ai' },
+					collapsed: true,
 				},
 				{ label: 'Internationalization', slug: 'internationalization' },
 				{ label: 'Wagtail', slug: 'wagtail' },
@@ -95,21 +99,25 @@ export default defineConfig({
 				{
 					label: 'Deployment',
 					autogenerate: { directory: 'deployment' },
+					collapsed: true,
 				},
 				{ label: 'GitHub Actions', slug: 'github-actions' },
 				{ label: 'Cookbooks', slug: 'cookbooks' },
 				{
 					label: 'Experimental',
 					autogenerate: { directory: 'experimental' },
+					collapsed: true,
 				},
 				{ label: 'Upgrading', slug: 'upgrading' },
 				{
 					label: 'Community',
 					autogenerate: { directory: 'community' },
+					collapsed: true,
 				},
 				{
 					label: 'Marketplace',
 					autogenerate: { directory: 'marketplace' },
+					collapsed: true,
 				},
 				{ label: 'Release Notes', slug: 'release-notes' },
 			],
