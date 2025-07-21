@@ -18,9 +18,9 @@ To modify the default landing page, you can edit the `./templates/web/landing_pa
 Another good option is to use a paid or open-source alternative for your marketing content.
 Some recommended places to get marketing templates include:
 
+- **Tailwind**: [Tailwind UI](https://tailwindui.com/), [Flowbite](https://flowbite.com/).
 - **Bootstrap**: [Official themes](https://themes.getbootstrap.com/), [other free recommendations](https://dev.to/bootstrap/bootstrap-5-templates-91p).
 - **Bootstrap (Material)**: [Material Kit Pro](https://www.creative-tim.com/product/material-kit-pro)
-- **Tailwind**: [Tailwind UI](https://tailwindui.com/), [Flowbite](https://flowbite.com/).
 
 ## Update the logged-in experience
 
