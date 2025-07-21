@@ -12,11 +12,21 @@ hero:
     alt: A glittering, brightly colored logo
     file: ../../assets/images/hero.png
   actions:
-    - text: Get Started
-      link: /getting-started/
-      icon: right-arrow
-      variant: primary
     - text: Buy a license
       link: https://www.saaspegasus.com/
       icon: external
+      attrs:
+        target: _blank
 ---
+
+import { CardGrid } from '@astrojs/starlight/components';
+import { LinkCard } from '@astrojs/starlight/components';
+
+### Quicklinks
+
+<CardGrid>
+  <LinkCard title="Get Started" href="/getting-started/" />
+  <LinkCard title="Customization" href="/customizations/" />
+  <LinkCard title="Configuration" href="/configuration/" />
+  <LinkCard title="Project Structure" href="/code-structure/" />
+</CardGrid>
