@@ -1,6 +1,8 @@
 ---
 title: Working with Python Packages (uv)
 description: Working with Python Packages (uv)
+sidebar:
+  order: 2
 ---
 
 Recent versions of Pegasus use [uv](https://docs.astral.sh/uv/) to manage Python packages.
