@@ -303,4 +303,4 @@ See `settings_production.py` for examples of using these secrets in your setting
 #### Automating Deployment to Cloud Run using GitHub Actions
 
 If you would like to automate your Google Cloud deployment so it is deployed on every push to Github,
-you can refer to this community guide: [Automating Deployment to Cloud Run using GitHub Actions](/deployment/google-cloud-github-actions/)
+you can refer to this community guide: [Automating Deployment to Cloud Run using GitHub Actions](/community/google-cloud-github-actions/)
