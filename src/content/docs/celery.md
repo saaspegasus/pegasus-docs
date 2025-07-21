@@ -25,13 +25,13 @@ The easiest way to get going in development is to [download and install Redis](h
 
 *With uv:*
 
-```python
+```bash
 uv run celery -A {{ project_name }} worker -l info --pool=solo
 ```
 
 *With standard Python:*
 
-```python
+```bash
 celery -A {{ project_name }} worker -l info --pool=solo
 ```
 
@@ -47,7 +47,7 @@ Celery 4.x [no longer officially supports Windows](https://docs.celeryq.dev/en/4
 
 To use the `gevent` pool, change the concurrency pool implementation to ``gevent`` instead.
 
-``` console
+```bash
 pip install gevent
 celery -A {{ project_name }} worker -l info -P gevent
 ```

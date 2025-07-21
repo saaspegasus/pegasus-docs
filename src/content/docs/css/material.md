@@ -53,7 +53,7 @@ Pegasus doesn't ship with the Material theme JavaScript built in. If you would l
 2. Copy it into your Django static directory. For example, to `<project_root>/static/js`
 3. Add it to the `<head>` section of your `base.html` template (or wherever you want to use it):
 
-```html
+```jinja
 <script src="{% static 'js/material-kit.min.js'%}"></script>
 ```
 

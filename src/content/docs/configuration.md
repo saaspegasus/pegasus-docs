@@ -48,7 +48,7 @@ This can lead to confusing behavior.
 
 For example, if in your `.env` file you have this line:
 
-```
+```dotenv
 SOME_VALUE=''
 ```
 
@@ -196,7 +196,7 @@ Additionally, see the resources below.
 the trailing slash for the "Authorized redirect URLs" is required. For example, assuming you are developing locally,
 it should be set to exactly `http://localhost:8000/accounts/google/login/callback/`.
 2. Set the resulting client id and secret key in the `.env` file in the root of your project.
-```
+```dotenv
     GOOGLE_CLIENT_ID="actual client id from the google console"
     GOOGLE_SECRET_ID="actual secret id from the google console"
 ```
@@ -417,7 +417,7 @@ credentials for writing data to the bucket.
 
 Once you have done the S3 setup (see below), you can update your `.env` file as follows:
 
-```python
+```dotenv
 USE_S3_MEDIA=True
 AWS_ACCESS_KEY_ID=<IAM user's access key>
 AWS_SECRET_ACCESS_KEY=<IAM user's secret key>
@@ -458,6 +458,6 @@ to add it to your `prod-requirements.in` file and [re-build](/python/setup) your
 By default, the toolbar is enabled in development environments via the `ENABLE_DEBUG_TOOLBAR` setting 
 in your `.env` file(s). You can change this setting in any environment to turn it on/off.
 
-```
+```dotenv
 ENABLE_DEBUG_TOOLBAR=True
 ```

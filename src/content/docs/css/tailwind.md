@@ -65,7 +65,7 @@ After changing these values you will have to [rebuild your front end](/front-end
 
 Finally, you will also have to update the default themes in your `settings.py`:
 
-```
+```python
 LIGHT_THEME = "cupcake"
 DARK_THEME = "night"
 ```

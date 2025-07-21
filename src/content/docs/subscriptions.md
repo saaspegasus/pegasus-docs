@@ -208,7 +208,7 @@ stripe listen \
 
 Or in Docker:
 
-```
+```bash
 docker run --network host --rm -it stripe/stripe-cli listen \
   --forward-to  localhost:8000/stripe/webhook/<uuid>/ \
   --api-key sk_test_<your_key>

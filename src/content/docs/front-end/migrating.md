@@ -82,7 +82,7 @@ You should update this in the same pattern with any changes you have made to you
 Finally, update any Django templates you had that imported bundle files.
 Specifically, reference that look something like this:
 
-```html
+```jinja
 {% block page_js %}
   <script src="{% static 'js/app-bundle.js' %}" defer></script>
 {% endblock %}
@@ -90,7 +90,7 @@ Specifically, reference that look something like this:
 
 Will need to be updated to:
 
-```html
+```jinja
 {% block page_js %}
   {% vite_asset 'assets/javascript/app.js' %}
 {% endblock %}
@@ -129,7 +129,7 @@ window.SiteJS.library = {
 
 Finally, rebuild and run your front end, according to the [vite docs](/front-end/vite):
 
-```
+```bash
 npm install
 npm run dev
 ```

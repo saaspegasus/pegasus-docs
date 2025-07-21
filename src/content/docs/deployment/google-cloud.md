@@ -26,7 +26,7 @@ on your development machine. Follow [the google installation guide](https://clou
 After you install the `gcloud` SDK you will also need to authenticate your account [as described here](https://cloud.google.com/docs/authentication/provide-credentials-adc).
 In particular, you will need to run:
 
-```
+```bash
 gcloud auth login
 gcloud init
 ```
@@ -57,7 +57,7 @@ To set the project as the default for future commands.
 As per [step 3 of the Google guide](https://codelabs.developers.google.com/codelabs/cloud-run-django#2), run the following command
 to enable the services needed for your application.
 
-```
+```bash
 gcloud services enable \
   run.googleapis.com \
   sql-component.googleapis.com \

@@ -143,7 +143,7 @@ The `is_member_of` filter can be used to check team membership, and the `is_admi
 to check if _a_ user is a team admin. For example, the following will show only if the logged in user
 is an admin of the associated team:
 
-```html
+```jinja
 {% load team_tags %}
 {% if team and request.user|is_admin_of:team %}
   <p>You're an admin of {{team.name}}.</p>

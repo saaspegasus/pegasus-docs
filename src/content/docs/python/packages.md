@@ -37,7 +37,7 @@ To remove a package, remove it from `requirements/requirements.in`.
 
 After finishing your edits, rebuild your `requirements.txt` file by running:
 
-```
+```bash
 # native version
 pip-compile requirements/requirements.in
 
@@ -63,7 +63,7 @@ make pip-complie ARGS="--upgrade-package django"
 
 To upgrade *all* packages, you can run:
 
-```
+```bash
 # native version
 pip-compile --upgrade requirements/requirements.in
 

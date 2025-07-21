@@ -41,14 +41,14 @@ This command will also automatically refresh your front end whenever any changes
 
 To add CSS / JS files to Django templates you can use the `vite_asset` template tag from django-vite:
 
-```bash
+```jinja
 {% load django_vite %}
 {% vite_asset '<path to your asset>' %}
 ```
 
 If you are using React you also need to add the `vite_react_refresh` tag to get HMR working:
 
-```bash
+```jinja
 {% load django_vite %}
 {% vite_react_refresh %}
 {% vite_asset '<path to your React asset>' %}
@@ -59,7 +59,7 @@ If you are using React you also need to add the `vite_react_refresh` tag to get 
 The [django-vite docs](https://github.com/MrBin99/django-vite) provide details about the vite configuration.
 Here is the relevant declaration from `settings.py`:
 
-```bash
+```python
 DJANGO_VITE = {
     "default": {
         "dev_mode": env.bool("DJANGO_VITE_DEV_MODE", default=DEBUG),

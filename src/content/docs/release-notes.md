@@ -3079,7 +3079,7 @@ If you wish to preserve the previous behavior that allowed accepting an invitati
 
 2. In `templates/account/signup.html` make the email field editable by changing the following line
 
-```html
+```jinja
     <input type="hidden" name="{{ form.email.name }}" value="{{ invitation.email }}"/>
 ```
 

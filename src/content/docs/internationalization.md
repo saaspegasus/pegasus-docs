@@ -138,7 +138,7 @@ python ./manage.py compilemessages
 
 Or in Docker:
 
-```
+```bash
 make translations
 ```
 

@@ -45,7 +45,7 @@ In Pegasus versions after 2022.4 you can also override the title directly in a t
 
 For example:
 
-```html
+```jinja
 {% block page_title %}This title will be used instead of the Pegasus versions{% endblock %}
 ```
 

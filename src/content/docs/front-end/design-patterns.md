@@ -27,7 +27,7 @@ like this:
 
 Vite:
 
-```html
+```jinja
 {% load django_vite %}
 {% block page_js %}
   {% vite_asset 'assets/javascript/app.js' %}
@@ -36,7 +36,7 @@ Vite:
 
 Webpack:
 
-```html
+```jinja
 {% load static %}
 {% block page_js %}
   <script src="{% static 'js/app-bundle.js' %}"></script>
@@ -106,7 +106,7 @@ however has shifted to providing this functionality by directly updating the `wi
 If you'd like to add utility functions to sitewide JavaScript, you can update this object in any front end file.
 For example in `app.js` we add modal functionality as follows:
 
-```bash
+```javascript
 import { Modals as AppModals } from './web/modals';
 
 // Ensure SiteJS global exists

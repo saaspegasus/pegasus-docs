@@ -56,7 +56,7 @@ First, follow the github instructions to merge your project on your local machin
 branch and merging the main branch into it.
 You will have to update the command below with the exact branch name of the pull request created by Pegasus:
 
-```
+```bash
 git fetch origin
 git checkout pegasus-<version>-<timestamp>
 git merge main
