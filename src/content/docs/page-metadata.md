@@ -1,6 +1,6 @@
 ---
 title: Project/Page Metadata and SEO
-description: Project/Page Metadata and SEO
+description: Configure SEO metadata, page titles, social sharing tags, and XML sitemaps for better search engine optimization and discoverability.
 ---
 
 Pegasus comes with some built in tools and best-practices for setting page-level metadata (e.g. title, image URL, etc.).

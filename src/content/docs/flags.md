@@ -1,6 +1,6 @@
 ---
 title: Feature Flags
-description: Feature Flags
+description: Implement feature flags with Django Waffle to control feature rollouts, A/B testing, and user-specific or team-based feature access.
 ---
 
 [Waffle][waffle] is the top library for managing feature flags in Django. Pegasus includes configuration

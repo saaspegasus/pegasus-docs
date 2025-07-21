@@ -1,6 +1,6 @@
 ---
 title: Image Models
-description: Image Models
+description: Generate images with AI models including DALL-E-2, DALL-E-3, and Stability AI using OpenAI and Stability AI API keys in your Django application.
 ---
 
 Pegasus includes an optional example app for generating images with multiple different models,

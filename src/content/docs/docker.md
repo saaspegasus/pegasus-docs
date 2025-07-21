@@ -1,6 +1,6 @@
 ---
 title: Using Docker in Development
-description: Using Docker in Development
+description: Set up Django development environment with Docker Compose including PostgreSQL, Redis, Celery, and debugging configuration.
 ---
 
 Pegasus optionally includes support for [Docker](https://www.docker.com/) during development.

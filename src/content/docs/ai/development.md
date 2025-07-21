@@ -1,6 +1,6 @@
 ---
 title: AI Integrations for Development
-description: AI Integrations for Development
+description: Set up AI-powered coding assistants with Cursor, Claude Code, and Junie, including rules files and MCP tools for enhanced Pegasus development workflow.
 ---
 
 As of version 2025.4, Pegasus includes tooling for integrating with AI-powered coding assistants and tools.

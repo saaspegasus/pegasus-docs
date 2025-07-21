@@ -1,6 +1,6 @@
 ---
 title: Celery
-description: Distributed task queue for running background tasks
+description: Set up Celery distributed task queues with Redis for background tasks, scheduled jobs, and async processing in Pegasus applications.
 ---
 
 [Celery](https://docs.celeryq.dev/) is a distributed task queue used to run background tasks.

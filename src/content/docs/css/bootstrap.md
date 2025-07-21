@@ -1,6 +1,6 @@
 ---
 title: Bootstrap
-description: Bootstrap
+description: Customize Bootstrap 5 themes in Pegasus with Sass variables, JavaScript integration, and Material Kit alternatives for responsive web design.
 ---
 
 There are two Bootstrap themes, both of which use Bootstrap version 5.

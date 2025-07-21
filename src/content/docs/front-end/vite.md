@@ -1,6 +1,6 @@
 ---
 title: Vite-Specific Instructions
-description: Vite-Specific Instructions
+description: Configure Vite with django-vite for fast development server, Hot Module Replacement, and seamless Django template integration.
 sidebar:
   order: 3
 ---

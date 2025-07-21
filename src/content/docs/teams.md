@@ -1,6 +1,6 @@
 ---
 title: Using Teams
-description: Using Teams
+description: Build multi-tenant applications with team-based data models, role-based permissions, and collaborative user management features.
 ---
 
 Teams are designed to provide sandboxes for groups of users collaborating on single project.

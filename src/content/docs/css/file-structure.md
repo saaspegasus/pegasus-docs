@@ -1,6 +1,6 @@
 ---
 title: CSS File Structure
-description: CSS File Structure
+description: Understand Pegasus CSS file organization with framework-independent styles and framework-specific overrides compiled from assets to static directories.
 sidebar:
   order: 2
 ---

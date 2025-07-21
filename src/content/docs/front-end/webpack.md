@@ -1,6 +1,6 @@
 ---
 title: Webpack-Specific Instructions
-description: Webpack-Specific Instructions
+description: Use Webpack for Django front-end builds with dev-watch mode, bundle compilation, and static file management for JavaScript and CSS assets.
 ---
 
 ## Development with Webpack

@@ -1,6 +1,6 @@
 ---
 title: Production checklist
-description: Production checklist
+description: Essential Pegasus production setup checklist covering security settings, email configuration, static files, media storage, and monitoring for live applications.
 sidebar:
   order: 2
 ---

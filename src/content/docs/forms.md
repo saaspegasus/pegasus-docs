@@ -1,6 +1,6 @@
 ---
 title: Forms
-description: Forms
+description: Render Django forms with CSS framework integration, dynamic Alpine.js functionality, and custom template tags for better UX.
 ---
 
 Pegasus ships with some extensions to Django forms to integrate with different CSS frameworks

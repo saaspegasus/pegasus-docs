@@ -1,6 +1,6 @@
 ---
 title: Choosing a CSS Theme
-description: Choosing a CSS Theme
+description: Compare TailwindCSS, Bootstrap, Bulma, and Material Design themes with screenshots, features, and recommendations for Django projects.
 sidebar:
   order: 1
 ---

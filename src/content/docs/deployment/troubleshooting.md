@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-description: Troubleshooting
+description: Resolve common Django deployment issues including 400 Bad Request errors, broken styles, API client problems, and misconfigured absolute URLs.
 ---
 
 Below are some common issues related to deployment, and how to fix them.

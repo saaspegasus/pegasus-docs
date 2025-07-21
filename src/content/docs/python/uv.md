@@ -1,6 +1,6 @@
 ---
 title: Working with Python Packages (uv)
-description: Working with Python Packages (uv)
+description: Fast Python package management with uv using pyproject.toml and uv.lock files for adding, removing, and upgrading dependencies efficiently.
 sidebar:
   order: 2
 ---

@@ -1,6 +1,6 @@
 ---
 title: Using Digital Ocean Spaces for Django Media (in addition to AWS services)
-description: Using Digital Ocean Spaces for Django Media (in addition to AWS services)
+description: Configure Digital Ocean Spaces for Django media storage while using AWS SES for email, with detailed deployment settings for django-storages.
 ---
 
 __*The following guide was contributed by Neil Bartlett and Finbar, members of the Pegasus community.

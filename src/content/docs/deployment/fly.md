@@ -1,6 +1,6 @@
 ---
 title: Fly.io
-description: Fly.io
+description: Container-based Django deployment to Fly.io with PostgreSQL, Upstash Redis, and automated database migrations using Docker and flyctl CLI.
 ---
 
 ## Fly.io

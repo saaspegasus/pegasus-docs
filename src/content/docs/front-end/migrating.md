@@ -1,6 +1,6 @@
 ---
 title: Migrating from Webpack to Vite
-description: Migrating from Webpack to Vite
+description: Step-by-step guide to migrate Pegasus projects from Webpack to Vite bundler with React JSX file extensions and template updates.
 sidebar:
   order: 4
 ---

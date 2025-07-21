@@ -1,6 +1,6 @@
 ---
 title: Digital Ocean
-description: Digital Ocean
+description: Deploy Pegasus apps to Digital Ocean App Platform using Docker containers with PostgreSQL, Redis, and Celery support for scalable SaaS applications.
 ---
 
 ## Digital Ocean

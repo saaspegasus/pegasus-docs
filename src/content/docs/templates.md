@@ -1,6 +1,6 @@
 ---
 title: Information about Templates
-description: Information about Templates
+description: Overview of Django template structure and organization in Pegasus projects for building consistent user interfaces.
 ---
 
 *This documentation is a work in progress*

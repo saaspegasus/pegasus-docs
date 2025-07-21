@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-description: Troubleshooting
+description: Fix Docker cross-platform file watching issues with webpack polling configuration for Windows and other development environments.
 ---
 
 ## Changes are not being picked when running `make npm-watch` in a Docker container

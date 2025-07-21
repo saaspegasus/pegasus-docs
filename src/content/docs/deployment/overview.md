@@ -1,6 +1,6 @@
 ---
 title: Deployment Overview
-description: Deployment Overview
+description: Compare Django deployment options including VPS, PaaS platforms like Heroku and Render, Docker containers, and Kubernetes for SaaS applications.
 sidebar:
   order: 1
 ---

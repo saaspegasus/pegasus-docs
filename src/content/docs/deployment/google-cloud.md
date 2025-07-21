@@ -1,6 +1,6 @@
 ---
 title: Google Cloud
-description: Google Cloud
+description: Deploy Pegasus projects to Google Cloud Run with Cloud SQL PostgreSQL, Redis, Secret Manager, and Google Cloud Storage for production applications.
 ---
 
 ## Google Cloud

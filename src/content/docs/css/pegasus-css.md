@@ -1,6 +1,6 @@
 ---
 title: Pegasus CSS
-description: Pegasus CSS
+description: Cross-framework CSS classes with pg- prefixes for consistent styling across Bootstrap, TailwindCSS, and Bulma using Sass @extend and @apply.
 sidebar:
   order: 3
 ---

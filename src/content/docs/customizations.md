@@ -1,6 +1,6 @@
 ---
 title: Customizations
-description: The basics of customizing Pegasus to meet your application's needs
+description: Customize landing pages, navigation, styles, and JavaScript in your Pegasus application with popular CSS frameworks.
 ---
 
 This page outlines the basics of customizing Pegasus to meet your application's needs.

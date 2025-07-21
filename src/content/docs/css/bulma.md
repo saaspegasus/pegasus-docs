@@ -1,6 +1,6 @@
 ---
 title: Bulma
-description: Bulma
+description: Customize Bulma CSS framework using Sass variables for colors, typography, and styling in your Pegasus application.
 ---
 
 Bulma is readily customizable via [Sass variables](https://bulma.io/documentation/customize/variables/).

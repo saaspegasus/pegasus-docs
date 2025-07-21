@@ -1,6 +1,6 @@
 ---
 title: The Material Theme (deprecated)
-description: The Material Theme (deprecated)
+description: Legacy Material Design theme based on Creative Tim's Material Kit and Dashboard, now deprecated with maintenance-only support until 2025.
 ---
 
 **This theme has been deprecated.**

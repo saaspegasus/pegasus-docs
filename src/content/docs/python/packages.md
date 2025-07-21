@@ -1,6 +1,6 @@
 ---
 title: Working with Python Packages (pip-tools)
-description: Working with Python Packages (pip-tools)
+description: Manage Python dependencies with pip-tools using requirements.in files, pip-compile commands, and Docker container rebuilds for package management.
 ---
 
 Pegasus uses [pip tools](https://github.com/jazzband/pip-tools) to manage Python dependencies.

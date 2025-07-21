@@ -1,6 +1,6 @@
 ---
 title: Version History and Release Notes
-description: Version History and Release Notes
+description: Complete changelog and version history for SaaS Pegasus Django boilerplate with detailed feature updates and migration guides.
 ---
 
 Version History and Release Notes

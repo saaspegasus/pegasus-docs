@@ -1,6 +1,6 @@
 ---
 title: Upgrading and Changing your Project Settings
-description: Upgrading and Changing your Project Settings
+description: Upgrade Pegasus projects to new versions using GitHub integration, git branches, or patch files with conflict resolution strategies.
 ---
 
 There are several ways to update your Pegasus project.
