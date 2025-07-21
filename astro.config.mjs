@@ -10,6 +10,7 @@ export default defineConfig({
 		'/api-keys': '/apis',
 		'/using-virtualenvs': '/python/setup/',
 	},
+	prefetch: true,
 	integrations: [
 		starlight({
 			plugins: [starlightLinksValidator({
