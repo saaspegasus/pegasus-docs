@@ -58,12 +58,23 @@ export default defineConfig({
       title: 'Pegasus',
       description: 'Documentation for SaaS Pegasus - the Django SaaS boilerplate',
       favicon: '/favicon.svg',
+      logo: {
+        src: './src/assets/images/hero.png',
+      },
+      editLink: {
+        baseUrl: 'https://github.com/saaspegasus/pegasus-docs/edit/main/',
+      },
       social: [
         {
           icon: 'github',
           label: 'GitHub',
           href: 'https://github.com/saaspegasus/pegasus-docs'
-        }
+        },
+        {
+          icon: 'x.com',
+          label: 'x.com',
+          href: 'https://x.com/saaspegasus'
+        },
       ],
       customCss: [
         './src/styles/custom.css',
