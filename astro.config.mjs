@@ -16,6 +16,7 @@ export default defineConfig({
 		'/deployment/': '/deployment/overview/',
 		'/experimental/': '/experimental/react-front-end/',
 		'/community/': '/community/digital-ocean-spaces/',
+		'/deployment/google-cloud-github-actions/': '/community/google-cloud-github-actions/',
 	},
 	prefetch: true,
 	integrations: [
