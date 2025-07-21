@@ -3,6 +3,8 @@ title: E-Commerce / Payments
 description: E-Commerce / Payments
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 # E-Commerce / Payments
 
 Pegasus (version 2023.9.1 and up) includes an out-of-the-box E-Commerce/Payments demo.
@@ -30,9 +32,10 @@ Additionally, make sure each product includes at least one Price.
 
 Setting up your development is similar to the [process for subscriptions](/subscriptions), but has fewer steps.
 
-1. If you haven't already, update the `STRIPE_*` variables in `settings.py` or in your os environment variables to match
-   the keys from Stripe. See [this page](https://stripe.com/docs/keys) to find your API keys.
+<Steps>
+1. If you haven't already, update the `STRIPE_*` variables in `settings.py` or in your os environment variables to match the keys from Stripe. See [this page](https://stripe.com/docs/keys) to find your API keys.
 2. Run `python manage.py bootstrap_ecommerce` to sync your Stripe products and prices to your local database.
+</Steps>
 
 Once you've done this, login and click on the e-commerce tab in the navigation, and you should see your store.
 

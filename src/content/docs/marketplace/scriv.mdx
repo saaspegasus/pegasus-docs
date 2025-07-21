@@ -3,6 +3,8 @@ title: Working with Scriv
 description: Working with Scriv
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 ## Deployment
 
 Out of the box, Scriv is set up to deploy to fly.io via the standard SaaS Pegasus setup.
@@ -32,8 +34,10 @@ You can find the source code and more information in the
 
 To publish your own version of the chat widget, you can do the following:
 
+<Steps>
 1. Customize the chat widget by modifying `components/scriv-chat/src/components/scriv-chat/scriv-chat.tsx`.
    1. Edit the `SCRIV` variable to match your own site.
    2. Modify the "Powered by" section at the bottom.
 2. Replace `scriv-chat` with your own package name in `components/scriv-chat/package.json`, and modify any other relevant variables.
 3. Publish the package, by getting set up on [npmjs.com](https://www.npmjs.com/) and then running `npm publish`.
+</Steps>

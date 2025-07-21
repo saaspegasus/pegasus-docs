@@ -3,6 +3,8 @@ title: Wagtail CMS
 description: Wagtail CMS
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 [Wagtail](https://wagtail.org/) is a powerful CMS (Content Management System) built on top of Django.
 You can use it to create rich websites that can be edited directly via an authoring admin interface without writing any code.
 It's great for creating marketing sites, blogs, and other mostly-static content.
@@ -47,11 +49,13 @@ type should be "Blog page".
 
 You can add new blog posts by following these steps:
 
+<Steps>
 1. Open the Wagtail admin at the `/cms/` url.
 2. In the sidebar, click on "Pages" and then the arrow (>) next to "Welcome to your content area!", then click on "Blog".
 3. On the Blog page, click "add child page" and choose the "Blog page" option.
 4. Fill in the details of your blog post
 5. On the bottom of the page, click the up arrow (^), and click "Publish".
+</Steps>
 
 ## Customizing Wagtail
 

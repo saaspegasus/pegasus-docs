@@ -5,6 +5,8 @@ sidebar:
   order: 4
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 Pegasus supports [Tailwind CSS](https://tailwindcss.com/) (Version 4) and it is the recommended CSS framework for most projects.
 
 ## Demo and Overview
@@ -170,12 +172,14 @@ If you have any problems with the migration, send a message in the community Sla
 
 It's recommended to follow the following steps to upgrade your project to Tailwind 4:
 
+<Steps>
 1. Read through the [Tailwind Upgrade Notes](https://tailwindcss.com/docs/upgrade-guide) and confirm you're ready to
    upgrade from a browser support perspective.
 2. Do a [normal Pegasus upgrade](/upgrading) of your project to Version 2025.3 or later.
 2. Merge all conflicts as carefully as you can.
 3. Rebuild your front end (`npm install`, `npm run dev`).
 4. Run your app.
+</Steps>
 
 At this point, your project should be running on Tailwind 4,
 though you should review the sections below for additional steps.

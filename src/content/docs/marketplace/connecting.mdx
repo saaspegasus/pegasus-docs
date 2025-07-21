@@ -3,6 +3,8 @@ title: How to connect a marketplace app to a Pegasus project
 description: How to connect a marketplace app to a Pegasus project
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 Follow these steps to connect a marketplace app to a Pegasus project.
 We'll do this for [scriv], but the process should be the same for other apps built on Pegasus.
 
@@ -17,10 +19,12 @@ You can also refer to [this screenshot](/images/scriv-pegasus-config.png) for ho
 
 Next, connect your Pegasus project to your Github repository:
 
+<Steps>
 1. From the project page, select "Get Code".
 2. On the "Push to Github" tab, click "Add a repo".
 3. Set the owner and name to the fork you created above. This should be your existing fork of Scriv, not a new repository.
 4. Click "Add Repo".
+</Steps>
 
 You will be prompted to authenticate with Github.
 If you haven't already, you should set that up according to [the Github guide](https://docs.saaspegasus.com/github/#connecting-your-account).

@@ -3,6 +3,8 @@ title: Settings and Configuration
 description: Settings and configuration details you can change inside Pegasus
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 This section describes some of the settings and configuration details you can change inside Pegasus.
 
 ## Settings and environment files
@@ -178,8 +180,10 @@ to configure things on the other side.
 These steps can sometimes be a bit involved and vary by platform.
 But will generally entail two steps:
 
+<Steps>
 1. Creating a new application / client on the service you want to use.
 2. Adding the credentials to your environment (`.env`) file.
+</Steps>
 
 See the Google guide below for an example you can follow.
 
@@ -191,15 +195,17 @@ Additionally, see the resources below.
 
 #### Google OAuth Specific instructions
 
+<Steps>
 1. Register the application with google by following just the "App registration" section
 [here](https://docs.allauth.org/en/latest/socialaccount/providers/google.html). Note that
 the trailing slash for the "Authorized redirect URLs" is required. For example, assuming you are developing locally,
 it should be set to exactly `http://localhost:8000/accounts/google/login/callback/`.
 2. Set the resulting client id and secret key in the `.env` file in the root of your project.
-```dotenv
+    ```dotenv
     GOOGLE_CLIENT_ID="actual client id from the google console"
     GOOGLE_SECRET_ID="actual secret id from the google console"
-```
+    ```
+</Steps>
 
 #### Other Social Setup Guides
 

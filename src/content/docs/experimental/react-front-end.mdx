@@ -3,6 +3,8 @@ title: Standalone React Front End
 description: Standalone React Front End
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 *Added in version 2024.4. Expanded in version 2025.4.1.*
 
 SaaS Pegasus's default React integration is based on a hybrid-model for reasons
@@ -175,20 +177,24 @@ In addition, the following environment variables need to be set during build. Do
 Each static site host has their own way of configuring the above setup.
 Below are quick example instructions for deploying the front end on Cloudflare Pages:
 
+<Steps>
 1. In the Cloudflare dashboard, visit "Workers & Pages" and click "Create"
 2. Under "pages", select the option to connect a Github repository.
 3. Pick your Pegasus Github repository. You may have to authenticate and provide access permissions.
 4. Fill in the following settings:
+    <Steps>
     1. Build command: `npm run build`
     2. Build output directory: `dist`
     3. Root directory: `frontend`
     4. Add the following environment variables. *Note that the URLs should not end in slashes.*
-        1. `VITE_APP_BASE_URL: https://<your Django backend URL>`
-        2. `VITE_ALLAUTH_BASE_URL: https://<your Django backend URL>/_allauth/browser/v1`
-        3. `NODE_VERSION: 22.13.0`
-        4. `NPM_VERSION: 11.3.0`
+        * `VITE_APP_BASE_URL: https://<your Django backend URL>`
+        * `VITE_ALLAUTH_BASE_URL: https://<your Django backend URL>/_allauth/browser/v1`
+        * `NODE_VERSION: 22.13.0`
+        * `NPM_VERSION: 11.3.0`
+    </Steps>
 5. Click "Save and Deploy"
 6. After the initial deployment you can add a custom domain to your front end. 
+</Steps>
 
 ## Known Limitations
 

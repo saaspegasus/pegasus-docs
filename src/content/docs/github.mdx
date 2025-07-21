@@ -3,6 +3,8 @@ title: GitHub Integration
 description: Connect your Pegasus projects directly to GitHub for streamlined workflow
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 As of February, 2024 you can connect your Pegasus projects directly to GitHub instead of downloading them as a zip file.
 This makes for a more streamlined workflow---especially when changing or upgrading your project.
 
@@ -135,9 +137,10 @@ currently must be *disabled* in order to use the Github integration.
 
 To check and disable this setting:
 
+<Steps>
 1. Go to your [Github email settings](https://github.com/settings/emails)
 2. Scroll down to where it says "Keep my email addresses private".
 3. If that option is checked, ensure that the "Block command line pushes that expose my email" option
    below it is *not* checked.
-4. If that option is *not* checked, then it is a different problem. You are welcome to reach out
-   directly for support
+4. If that option is *not* checked, then it is a different problem. You are welcome to reach out directly for support
+</Steps>

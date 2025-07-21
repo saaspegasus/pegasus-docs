@@ -5,6 +5,8 @@ sidebar:
   order: 2
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 This section provides guidance on common front end tasks.
 
 ## Providing site-wide JavaScript
@@ -63,12 +65,14 @@ But feel free to do something differently!
 To make a library available on every page, you can follow these steps.
 Note: there are many ways to do this, but this is the way it's currently handled in Pegasus.
 
+<Steps>
 1. Install the library via `npm install <library>`.
 2. Create a javascript file for the library in `assets/javascript`.
 3. Expose the library via the library's instructions. E.g. `window.library = require('library')`.
    This step will vary based on the library.
 4. Import the library in your `site.js` or `app.js` file (see above for the distinction).
 5. Rebuild your front end.
+</Steps>
 
 You can see an example with HTMX (version 2023.2 and later) or Alpine.js (version 2023.3 and later).
 

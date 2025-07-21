@@ -3,6 +3,8 @@ title: Cookbooks
 description: Cookbooks
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 Step-by-step guides to some different things you might want to do with Pegasus.
 
 ## Use the Django Admin UI
@@ -43,9 +45,11 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 It's recommended to do this in two steps:
 
+<Steps>
 1. [Upgrade your project](/upgrading) to the latest Pegasus version, keeping your package manager as "pip-tools".
    Merge all conflicts and ensure your project is working properly on this version.
 2. Then, change the package manager from pip-tools to uv in your project settings and do another upgrade/pull request.
+</Steps>
 
 At this point you will likely have conflicts in your requirements files, but hopefully nowhere else.
 See the next sections for resolving these.
@@ -127,16 +131,22 @@ As of February, 2023 all Pegasus projects have the option to auto-format your Py
 
 To migrate a project from non-formatted to formatted code, you can go through the following steps:
 
+<Steps>
 1. First, do a full Pegasus upgrade to the version you want to update to, as described [here](/upgrading).
    **Do *not* check the "autoformat" checkbox yet.**
-2. Next, run the formatting tools on your project's `main` branch: 
+2. Next, run the formatting tools on your project's `main` branch:
+   <Steps>
    1. Install ruff: `pip install ruff`
    2. Run ruff linting `ruff check --extend-exclude migrations --line-length 120 . --fix`
    3. Run ruff formatting: `ruff format --line-length 120 .`
+   </Steps>
 3. Commit the result:
+   <Steps>
    1. `git add .`
    2. `git commit -m "apply formatting changes"`
+   </Steps>
 4. Finally, check the "autoformat" box on your Pegasus project, and do *another* upgrade according to the same process.
+</Steps>
 
 ## Delete Pegasus Examples
 

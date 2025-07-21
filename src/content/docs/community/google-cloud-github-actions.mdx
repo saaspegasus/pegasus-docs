@@ -3,6 +3,8 @@ title: Automating Deployment to Cloud Run using GitHub Actions
 description: Guide to automate deployment to Google Cloud Run using GitHub Actions
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 __*The following guide was contributed by Daan Vielen, a member of the Pegasus community.
 Any questions or issues using it should be directed to the #deployment channel of the community Slack.*__
 
@@ -10,11 +12,13 @@ This guide walks you through setting up a GitHub Action to automatically deploy 
 
 ## What You'll Do:
 
+<Steps>
 1. Create two Google Cloud service accounts with appropriate permissions: one for deployments and one for running the application.
 2. Store GCP credentials and configuration in GitHub Secrets.
 3. Write the deployment workflow that triggers upon successful completion of the test workflow.
 4. Use Artifact Registry for storing your Docker images.
 5. Clearly distinguish between the deployment service account (DEPLOY_SERVICE_ACCOUNT) and the service account used to run the Cloud Run application (SERVICE_ACCOUNT). This distinction ensures security by limiting each service account's access to only the necessary resources.
+</Steps>
 
 ---
 
@@ -98,9 +102,11 @@ This will generate a JSON key file (cloud-run-deployer-key.json). Save this file
 
 ## **Step 2: Store GCP Credentials in GitHub Secrets**
 
+<Steps>
 1. Go to your GitHub repository.
 2. Navigate to **Settings** > **Secrets and variables** > **Actions**.
 3. Click **New repository secret** and add the following secrets:
+</Steps>
 
 - **GCP_DEPLOY_SA_KEY**: The content of your cloud-run-deployer-key.json file. Copy the entire contents of the JSON file.
 - **DEPLOY_SERVICE_ACCOUNT**: The service account that will **deploy the Cloud Run application**.
@@ -120,67 +126,69 @@ Now that the test workflow is in place and runs successfully, we’ll create a d
 
 In this deployment workflow, we will use the `DEPLOY_SERVICE_ACCOUNT` environment variable in both shell commands and GitHub Actions.
 
+<Steps>
 1. In your GitHub repository, create the following directory structure:
 
-```bash
-.github/
-  workflows/
-```
+    ```bash
+    .github/
+      workflows/
+    ```
 
 2. Inside the workflows folder, create a file named deploy.yml and add the following content:
 
-```yaml
-name: Deploy to Cloud Run
-
-on:
-  workflow_run:
-    workflows: ["Run Django Tests"]
-    types: [completed]
-    branches: [main]
-
-jobs:
-  on-success:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_DEPLOY_SA_KEY }}
-
-      - name: Configure Google Cloud
-        run: |
-          gcloud config set project ${{ secrets.GCP_PROJECT }}
-          gcloud config set run/region ${{ secrets.REGION }}
-          gcloud config set account ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
-
-      - name: Authenticate Docker to push images to Artifact Registry
-        run: |
-          gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
-
-      - name: Build Docker image
-        run: |
-          docker build -t ${{ secrets.IMAGE_URL }} . -f Dockerfile.web --platform linux/amd64
-
-      - name: Push Docker image to Artifact Registry
-        run: |
-          docker push ${{ secrets.IMAGE_URL }}
-
-      - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy ${{ secrets.CLOUDRUN_NAME }} \
-            --region ${{ secrets.REGION }} \
-            --update-env-vars DJANGO_SETTINGS_MODULE=agenda.settings_production \
-            --image ${{ secrets.IMAGE_URL }} \
-            --set-cloudsql-instances ${{ secrets.DATABASE_ADDRESS }} \
-            --set-secrets APPLICATION_SETTINGS=${{ secrets.APPLICATION_SETTINGS }} \
-            --service-account ${{ secrets.SERVICE_ACCOUNT }} \
-            --allow-unauthenticated
-```
+    ```yaml
+    name: Deploy to Cloud Run
+    
+    on:
+      workflow_run:
+        workflows: ["Run Django Tests"]
+        types: [completed]
+        branches: [main]
+    
+    jobs:
+      on-success:
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        runs-on: ubuntu-latest
+    
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+    
+          - name: Authenticate with Google Cloud
+            uses: google-github-actions/auth@v1
+            with:
+              credentials_json: ${{ secrets.GCP_DEPLOY_SA_KEY }}
+    
+          - name: Configure Google Cloud
+            run: |
+              gcloud config set project ${{ secrets.GCP_PROJECT }}
+              gcloud config set run/region ${{ secrets.REGION }}
+              gcloud config set account ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
+    
+          - name: Authenticate Docker to push images to Artifact Registry
+            run: |
+              gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
+    
+          - name: Build Docker image
+            run: |
+              docker build -t ${{ secrets.IMAGE_URL }} . -f Dockerfile.web --platform linux/amd64
+    
+          - name: Push Docker image to Artifact Registry
+            run: |
+              docker push ${{ secrets.IMAGE_URL }}
+    
+          - name: Deploy to Cloud Run
+            run: |
+              gcloud run deploy ${{ secrets.CLOUDRUN_NAME }} \
+                --region ${{ secrets.REGION }} \
+                --update-env-vars DJANGO_SETTINGS_MODULE=agenda.settings_production \
+                --image ${{ secrets.IMAGE_URL }} \
+                --set-cloudsql-instances ${{ secrets.DATABASE_ADDRESS }} \
+                --set-secrets APPLICATION_SETTINGS=${{ secrets.APPLICATION_SETTINGS }} \
+                --service-account ${{ secrets.SERVICE_ACCOUNT }} \
+                --allow-unauthenticated
+    ```
+</Steps>
 
 ---
 
@@ -188,6 +196,8 @@ jobs:
 
 Once everything is set up, test the workflow by making a change in the `main` branch or opening a pull request.
 
+<Steps>
 1. Push the changes or create a pull request targeting the `main` branch.
 2. The `test` workflow will run automatically.
 3. If the tests pass successfully, the `deploy.yml` workflow will trigger, deploying the new changes to Cloud Run.
+</Steps>

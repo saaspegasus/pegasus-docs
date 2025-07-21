@@ -21,7 +21,7 @@ For each of the commands below follow the prompts given.
 In the example below the "Chicago, Illinois (US) (ord)" region is selected. You may change
 the region to suit your needs, but it should be consistent throughout the commands.
 
-1. Create your app in Fly.io
+**Create your app in Fly.io**
 
 ```bash
 $ fly launch --dockerfile Dockerfile.web \

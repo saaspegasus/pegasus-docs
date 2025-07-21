@@ -3,6 +3,8 @@ title: Internationalization
 description: Internationalization
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 Pegasus supports internationalization via built-in support for timezones and language translations.
 To enable timezone and multi-language support, you must select the "use internationalization" option
 in your project settings.
@@ -28,9 +30,11 @@ For full documentation on localization see the [Django docs](https://docs.django
 
 Big picture there are two steps to translation:
 
+<Steps>
 1. **Define the text you want to translate (in Python, HTML, or JavaScript)**. This step happens in your project's code.
 2. **Add a translation for that text to other languages**. This step happens in your project's translation files, 
    which can be found in the `locale/<lang_code>/LC_MESSAGES/` folders (there will be one for each language).
+/Steps>
 
 ## Managing enabled languages
 

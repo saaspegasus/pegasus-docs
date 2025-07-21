@@ -3,6 +3,8 @@ title: Subscriptions
 description: Subscriptions
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 ## Overview
 
 Subscriptions in Pegasus have three components which must all be setup in order for them to work correctly.
@@ -65,6 +67,7 @@ following the [Stripe pricing table documentation](https://stripe.com/docs/payme
 
 Once you've created your billing model on Stripe, follow these instructions to set up your development environment.
 
+<Steps>
 1. Update the `STRIPE_*` variables in your project's [`.env` file](/configuration/#settings-and-environment-files)
    to match the keys from Stripe. See [this page](https://stripe.com/docs/keys) to find your API keys.
 2. Run `./manage.py bootstrap_subscriptions`. If things are set up correctly,
@@ -73,13 +76,15 @@ Once you've created your billing model on Stripe, follow these instructions to s
    This step will also automatically update your API keys in the Django admin, as
    described in [dj-stripe's instructions](https://dj-stripe.dev/api_keys/#adding-new-api-keys).
 3. Next, if you are *not* using the Stripe embedded pricing table:
+   <Steps>
    1. Paste the `ACTIVE_PRODUCTS` output from the previous step into `apps/subscriptions/metadata.py`
       overriding what is there. Update any other details you want, for example,
       the "description" and "features" fields.
    2. Optionally edit the `ACTIVE_PLAN_INTERVALS` variable in `apps/subscriptions/metadata.py`
       if you don't plan to include both monthly and annual offerings.
-4. Alternatively, if you *are* using the Stripe embedded pricing table:
-   1. Set the `STRIPE_PRICING_TABLE_ID` variable in your settings/environment to the pricing table ID you created in Stripe.
+   </Steps>
+4. Alternatively, if you *are* using the Stripe embedded pricing table set the `STRIPE_PRICING_TABLE_ID` variable in your settings/environment to the pricing table ID you created in Stripe.
+</Steps>
 
 Now login and click the "Subscription" tab in the navigation. 
 If you've set things up correctly you should see a page that looks like this
@@ -416,8 +421,10 @@ You can also trigger it manually via a management command `./manage.py sync_subs
 
 To ensure this command works properly, you must implement two pieces of business logic:
 
+<Steps>
 1. You must update the billing model's `billing_details_last_changed` field any time the number of units has change.
 2. You must override the `get_quantity` function on your billing model to tell Stripe how many units it contains.
+</Steps>
 
 **If you use Teams with per-seat billing this will be automatically handled for you by default.**
 All you have to do is run the management command or connect it to a periodic task.
@@ -475,9 +482,11 @@ you will want to switch to the live account.
 
 This entails:
 
+<Steps>
 1. Setting `STRIPE_LIVE_MODE` to `True` in your settings/environment.
 2. Populating `STRIPE_LIVE_PUBLIC_KEY` and `STRIPE_LIVE_SECRET_KEY` in your environment.
 3. Updating your `ACTIVE_PRODUCTS` to support both test and live mode (see below)
+</Steps>
 
 ### Managing Test and Live Stripe Products
 
