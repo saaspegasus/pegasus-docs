@@ -9,6 +9,13 @@ export default defineConfig({
 	redirects: {
 		'/api-keys': '/apis',
 		'/using-virtualenvs': '/python/setup/',
+		'/python/': '/python/setup/',
+		'/front-end/': '/front-end/overview/',
+		'/css/': '/css/overview/',
+		'/ai/': '/ai/development/',
+		'/deployment/': '/deployment/overview/',
+		'/experimental/': '/experimental/react-front-end/',
+		'/community/': '/community/digital-ocean-spaces/',
 	},
 	prefetch: true,
 	integrations: [
