@@ -53,7 +53,7 @@ export default defineConfig({
         }),
       ],
       components: {
-        Footer: './src/components/Footer.astro',
+        PageSidebar: './src/components/PageSidebar.astro',
       },
       title: 'Pegasus',
       description: 'Documentation for SaaS Pegasus - the Django SaaS boilerplate',
@@ -75,9 +75,6 @@ export default defineConfig({
           label: 'x.com',
           href: 'https://x.com/saaspegasus'
         },
-      ],
-      customCss: [
-        './src/styles/custom.css',
       ],
       head: [
         // Google Analytics
