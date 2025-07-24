@@ -5,8 +5,6 @@ sidebar:
   order: 1
 ---
 
-## Deployment Overview
-
 Pegasus---like Django---can be deployed on any standard cloud infrastructure.
 
 The most common ways of deploying Pegasus are:
@@ -38,7 +36,7 @@ The officially supported platforms are:
 Render and Fly are comparable, and are the recommended options for staging sites or MVPs,
 since they are easy to set up and have a generous free tier.
 
-If you would like to deploy to a platform that's not listed here, please get in touch on Slack or by emailing 
+If you would like to deploy to a platform that's not listed here, please get in touch on Slack or by emailing
 support@saaspegasus.com and I'm happy to help!
 
 ## Deployment to any VPS
@@ -56,7 +54,7 @@ Pegasus user [Mitja Martini](https://mitjamartini.com/) has documented how he [d
 application to a VPS using Dokku](https://mitjamartini.com/blog/2024/09/22/deploying-django-on-dokku/) (an
 open-source, self-hosted PaaS platform).
 
-Pegasus user [Artem Gordinskiy](https://artem.cool/) has documented his experience 
+Pegasus user [Artem Gordinskiy](https://artem.cool/) has documented his experience
 [migrating Pegasus apps from Kamal to Coolify](https://artem.cool/blog/coolify-django/) (another open-source, self-hosted PaaS).
 
 
