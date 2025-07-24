@@ -144,7 +144,7 @@ export default defineConfig({
         {label: 'Wagtail', slug: 'wagtail'},
         {label: 'Feature Flags', slug: 'flags'},
         {label: 'Celery', slug: 'celery'},
-        {label: 'Async Support', slug: 'async'},
+        {label: 'Async and Websockets', slug: 'async'},
         {
           label: 'Deployment',
           collapsed: true,
