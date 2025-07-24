@@ -16,7 +16,7 @@ APIs in Pegasus consist of three pieces:
 2. **API schemas**, created with [drf-spectacular](https://drf-spectacular.readthedocs.io/en/latest/).
    These are automatically created by your APIs, and can be used for API documentation and client generation.
    They follow the [OpenAPI 3](https://spec.openapis.org/oas/v3.1.0) specification.
-3. **API clients**, created by [OpenAPI Generator](https://openapi-generator.tech/). These can be used by developers 
+3. **API clients**, created by [OpenAPI Generator](https://openapi-generator.tech/). These can be used by developers
    to interact with your APIs. Pegasus ships with a TypeScript (JavaScript) client that is used in your app's front end
    by the parts of the app that interact with the backend APIs (e.g. JavaScript charts, and the React/Vue demos).
 </Steps>
@@ -29,7 +29,7 @@ Using the schemas and clients is optional. You can always interact with a Pegasu
 HTTP requests directly. However, using a client can greatly simplify the code you write and improve the development experience.
 Front end code in Pegasus that interacts with APIs uses it by default.
 
-Additionally, getting API docs "for free" from the schemas can be a big win if you plan to make your project's 
+Additionally, getting API docs "for free" from the schemas can be a big win if you plan to make your project's
 API third-party-developer-facing.
 
 ## API Documentation
@@ -55,7 +55,7 @@ As part of the [front end](/front-end/overview), Pegasus ships with an API clien
 
 You can find the source code of the API client(s) in the `api-client` folder in your project's root directory.
 
-*Note: In releases prior to 2024.3 the API client was in the `assets/javascript/api-client` directory.* 
+*Note: In releases prior to 2024.3 the API client was in the `assets/javascript/api-client` directory.*
 
 ### Using the API client
 
@@ -81,7 +81,7 @@ const client = new PegasusApi(apiConfig);
 ```javascript
 client.employeesList().then((result) => {
   // do something with the API result here
-  console.log('your employees are ', result.results); 
+  console.log('your employees are ', result.results);
 });
 ```
 
@@ -173,26 +173,25 @@ If you're unsure if you introduced breaking changes it is worth testing any func
 
 ## Authentication APIs
 
-*Added in version 2024.3.*
+*Added in version 2024.3. Changed in 2025.4.1*
 
 If you enable the "Use Authentication APIs" checkbox in your project, Pegasus will generate a set of API
 endpoints for registering and logging in users.
 These endpoints can be used to integrate your backend with single page applications (SPAs) and mobile apps.
 
-Under the hood, Pegasus uses [dj-rest-auth](https://dj-rest-auth.readthedocs.io/en/latest/) for these endpoints.
-The integration code can be found in the `apps.authentication` app, which is largely a wrapper around `dj-rest-auth`.
+Under the hood, Pegasus uses [allauth headless](https://docs.allauth.org/en/dev/headless/openapi-specification/) for these endpoints.
 
-If you enable this feature, it will also enable JWT Authentication for your application, using 
-[Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/).
-You can then use the provided tokens to authenticate users from your mobile app / SPA.
-The authentication set up is largely based on [this guide](https://testdriven.io/blog/django-rest-authjs/#authentication-app).
+This feature uses Django's session-based authentication by default---which works great for single page apps---though
+it is possible to add in JWT or another token-based authentication scheme to better support mobile applications.
 
 A complete end-to-end example that uses the API authentication feature in a React SPA can be found
 in the experimental [standalone front end](/experimental/react-front-end).
+This example includes React/API-based sign up, login, password reset, two-factor authentication, email confirmation
+and more.
 
 ## API Keys
 
-Pegasus supports the use of API Keys to access APIs, built on top of the 
+Pegasus supports the use of API Keys to access APIs, built on top of the
 [Django REST Framework API Key](https://florimondmanca.github.io/djangorestframework-api-key/) project.
 
 Pegasus includes the ability to create API keys, associate them with your User objects, and access APIs using the key.
@@ -221,7 +220,7 @@ You can then enable API keys for any user-specific views, by following the instr
 More complex API key permissions---for example, associating a key with a single API or a single team---can
 be created by following [these instructions](https://florimondmanca.github.io/djangorestframework-api-key/guide/#api-key-models).
 
-To enable API-key support for an `APIView`, or `ViewSet`, use the `IsAuthenticatedOrHasUserAPIKey` permission class 
+To enable API-key support for an `APIView`, or `ViewSet`, use the `IsAuthenticatedOrHasUserAPIKey` permission class
 in place of `IsAuthenticated`. This will allow either authenticated users or UserAPIKey users to access the APIs.
 In either case, the associated user object will be available as `request.user`.
 
@@ -254,7 +253,7 @@ as described in the documentation on [absolute URLs](/configuration/#absolute-ur
 
 In *development* the most common issues are:
 
-1. Your Django Site is not set up for development. Ensure the site's domain name is `localhost:8000` in your Django admin, 
+1. Your Django Site is not set up for development. Ensure the site's domain name is `localhost:8000` in your Django admin,
    [as described here](/configuration/#absolute-urls).
 2. You are loading from a mismatched domain. Be sure you are loading your browser at http://localhost:8000 and not
    http://127.0.0.1:8000. Or alternatively, if you want to use the 127.0.0.1 address, update the Django site accordingly to use that.
