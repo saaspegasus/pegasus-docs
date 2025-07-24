@@ -2,9 +2,12 @@
 title: Using Digital Ocean Spaces for Django Media (in addition to AWS services)
 description: Configure Digital Ocean Spaces for Django media storage while using AWS SES for email, with detailed deployment settings for django-storages.
 ---
+import { Aside } from '@astrojs/starlight/components';
 
-__*The following guide was contributed by Neil Bartlett and Finbar, members of the Pegasus community.
-Any questions or issues using it should be directed to the #deployment channel of the community Slack.*__
+<Aside type="note" title="Community Guide">
+The following guide was contributed by Neil Bartlett and Finbar, members of the Pegasus community.
+Any questions or issues using it should be directed to the #deployment channel of the community Slack.
+</Aside>
 
 This guide documents how to use a different media storage (in this case, Digital Ocean Spaces),
 while still using some Amazon services (in this case, SES for email), deployed to Digital Ocean App Platform.
@@ -18,7 +21,7 @@ Many of the steps would be the same when deploying to other platforms, but some 
 variables or access a shell/console would be different.
 
 Here's a detailed walkthrough:
- 
+
 [This post](https://testdriven.io/blog/django-digitalocean-spaces/) is useful but contains a lot of errors.
 So read it to get an idea of the process, but don't follow it exactly.
 
@@ -89,7 +92,7 @@ This should give the same settings as in the app-spec.
 
 The pure settings alone did not work: I had to remove the `USE_S3_MEDIA` code from `settings.py` and
 in `setting_production.py` add the equivalent but using the S3 variants of the environment variables.
-I could have just edited the stuff in `settings.py`. 
+I could have just edited the stuff in `settings.py`.
 Part of the issue is that the precedence in the `django-storages` has internal variables take precedence over env variables,
 so if there are internal variables being used they will override the `app-spec.yaml` settings.
 Also note that `AWS_S3_ADDRESSING_STYLE` is probably important to override.
