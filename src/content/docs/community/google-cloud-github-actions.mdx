@@ -3,10 +3,12 @@ title: Automating Deployment to Cloud Run using GitHub Actions
 description: Automate Pegasus deployment to Google Cloud Run using GitHub Actions with service accounts, Artifact Registry, and CI/CD pipelines.
 ---
 
-import { Steps } from '@astrojs/starlight/components';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
-__*The following guide was contributed by Daan Vielen, a member of the Pegasus community.
-Any questions or issues using it should be directed to the #deployment channel of the community Slack.*__
+<Aside type="note" title="Community Guide">
+The following guide was contributed by Daan Vielen, a member of the Pegasus community.
+Any questions or issues using it should be directed to the #deployment channel of the community Slack.
+</Aside>
 
 This guide walks you through setting up a GitHub Action to automatically deploy your Django application to Google Cloud Run when the tests pass on the `main` branch.
 
@@ -138,45 +140,45 @@ In this deployment workflow, we will use the `DEPLOY_SERVICE_ACCOUNT` environmen
 
     ```yaml
     name: Deploy to Cloud Run
-    
+
     on:
       workflow_run:
         workflows: ["Run Django Tests"]
         types: [completed]
         branches: [main]
-    
+
     jobs:
       on-success:
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
         runs-on: ubuntu-latest
-    
+
         steps:
           - name: Checkout code
             uses: actions/checkout@v3
-    
+
           - name: Authenticate with Google Cloud
             uses: google-github-actions/auth@v1
             with:
               credentials_json: ${{ secrets.GCP_DEPLOY_SA_KEY }}
-    
+
           - name: Configure Google Cloud
             run: |
               gcloud config set project ${{ secrets.GCP_PROJECT }}
               gcloud config set run/region ${{ secrets.REGION }}
               gcloud config set account ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
-    
+
           - name: Authenticate Docker to push images to Artifact Registry
             run: |
               gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
-    
+
           - name: Build Docker image
             run: |
               docker build -t ${{ secrets.IMAGE_URL }} . -f Dockerfile.web --platform linux/amd64
-    
+
           - name: Push Docker image to Artifact Registry
             run: |
               docker push ${{ secrets.IMAGE_URL }}
-    
+
           - name: Deploy to Cloud Run
             run: |
               gcloud run deploy ${{ secrets.CLOUDRUN_NAME }} \
