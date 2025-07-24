@@ -1,0 +1,226 @@
+---
+title: Standalone React Front End
+description: Build decoupled React single-page applications with Vite, session authentication, API integration, and deployment to static hosting platforms.
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="Experimental Feature">
+This feature is experimental.
+It is likely (but not guaranteed) that it will make it into a future Pegasus release.
+While in the experimental phase, it may undergo significant changes, including breaking changes.
+</Aside>
+
+*Added in version 2024.4. Expanded in version 2025.4.1.*
+
+SaaS Pegasus's default React integration is based on a hybrid-model for reasons
+[outlined here](https://www.saaspegasus.com/guides/modern-javascript-for-django-developers/client-server-architectures/#enter-the-hybrid-architecture).
+The hybrid model is still recommended for the overwhelming majority of Pegasus projects using React.
+However, there are valid reasons to run a completely separate React front---including access to dedicated tooling and libraries,
+isolating your front end and back end code, and working with AI-based tools that generate single-page applications.
+
+Pegasus experimentally ships with a decoupled front end *example* single page application that can be used as a starting point for building
+out a decoupled front end / SPA with React.
+It uses [Vite](https://vitejs.dev/) as a development server and build tool.
+
+The features it includes are:
+
+- A standalone Vite / React application.
+- Authentication via headless allauth and sessions---including sign up, login, social login, email confirmation,
+  two-factor authentication, and logout functionality.
+- A sample profile page which shows how to retrieve data from the logged in user (via the back end APIs) and display it.
+- The employee lifecycle demo that ships with Pegasus (if enabled), showing a full create, update, delete (CRUD) workflow.
+
+The standalone front end is *only available on TailwindCSS* and uses DaisyUI for styling.
+
+**The standalone is not intended to be a replacement for Pegasus's UI, but a reference example you can use
+as a starting point to build standalone, single-page-applications with Pegasus and React.**
+
+Here's a demo:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/8CcTs2SdMLk" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+
+And here are some technical details:
+
+## Running the front end
+
+*If you are using Docker, your front end should start in a separate container after running `make init`.*
+
+The front end lives in the `/frontend` folder of your project.
+To set it up for the first time, first go into the directory:
+
+```bash
+cd frontend
+```
+
+And install npm packages:
+
+```bash
+npm install
+```
+
+Create your `.env` file:
+
+```bash
+cp .env.example .env
+```
+
+Then run the dev server:
+
+```bash
+npm run dev
+```
+
+Note: your Django backend must also be running for the front end to work,
+and you must also [build your Django front end](/front-end/overview) for styles to work.
+
+## Authentication
+
+Authentication uses session-based authentication against the Django backend (previous versions of the front end used JWTs).
+The authentication implementation borrows heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project.
+In particular, the `src/lib/` and `src/allauth_auth/` folders have been copied in from that project and lightly modified to work with Pegasus.
+
+Authentication is primarily handled via *authenticated routes* and *authentication context*.
+You can see an example of how to set this up in the profile page.
+
+Any page in your application that requires login can be wrapped in the `AuthenticatedRoute` component.
+For example, like this:
+
+```jsx
+<AuthenticatedRoute>
+  <p>Hello authenticated user!</p>
+</AuthenticatedRoute>
+```
+
+Alternatively, if you make a page a child of the `<Dashboard>` component this will be automatically configured for you.
+See `main.tsx` as an example of how this is set up.
+
+When using the `AuthenticatedRoute`, if the user is not logged in they will be redirected to the login page.
+If they are logged in, they will be able to access the route, and you can assume access
+to the user object and other APIs that require login.
+
+If you want to access user data you can use the `useAuthInfo` helper function which returns an `AuthContext` context.
+Here is a simplified example taken from the Profile page:
+
+```jsx
+import { useAuthInfo } from "../../allauth_auth/hooks";
+
+export default function Profile() {
+  const { user } = useAuthInfo();
+  return <p>The user's email address is: {user?.email}</p>
+}
+```
+## Backend API access
+
+The front end uses the [same api client](/apis/#api-clients) as the backend / hybrid model.
+The API client is installed as a local npm package.
+
+Authentication is handled via sessions and does not require any additional configuration.
+Here is a basic example from the employee app demo:
+
+```jsx
+import {PegasusApi} from "api-client";
+import EmployeeApplication from "../../../../assets/javascript/pegasus/examples/react/App.jsx";
+import {getApiConfiguration} from "../../api/utils.tsx";
+
+export default function EmployeeApp() {
+  const client = new PegasusApi(getApiConfiguration());
+  return (
+    <EmployeeApplication client={client} urlBase="/dashboard/employees" />
+  );
+}
+```
+
+## Routing
+
+Routing is handled by [React Router](https://reactrouter.com/en/main).
+
+The main routes for the project are configured in `main.tsx`, and you can also include child routes
+by following the pattern used by the employee demo.
+
+## URLs in Emails
+
+Some workflows, like email confirmation and password reset, require sending the user a link to your site.
+Allauth only supports a single link for the entire application so you need to choose whether that link should
+go to your Django application or your React front end.
+
+To use the React front end's pages for these workflows, you can set `USE_HEADLESS_URLS = True` in your settings or environment variables.
+This will configure the [`HEADLESS_FRONTEND_URLS` setting](https://docs.allauth.org/en/dev/headless/configuration.html) to work with the built-in front end.
+
+## Deployment
+
+Big picture, you should deploy the standalone front end and Django backend separately,
+and use different subdomains to point to them. The most common set up is to deploy the front end
+to either "mydomain.com" or "www.mydomain.com", and then deploy the backend to "app.mydomain.com" or
+"platform.mydomain.com".
+
+### The Django Backend
+
+You will need to deploy your Django backend using any of the [standard deployment methods](/deployment/overview).
+
+In addition to a standard deployment, you will specifically need to set the following additional settings,
+by overriding them in your environment variables or a production settings file:
+
+- `FRONTEND_ADDRESS`: Your front end's full URL, e.g. "https://www.mydomain.com"
+- `CORS_ALLOWED_ORIGINS`: Full URLs of both your frontend and backend addresses, e.g.  "https://www.mydomain.com,https://app.mydomain.com"
+- `CSRF_COOKIE_DOMAIN`: All domains and subdomains, e.g. ".mydomain.com" (note the leading "."). 
+- `SESSION_COOKIE_DOMAIN`: Same as `CSRF_COOKIE_DOMAIN`.
+
+### The React Frontend
+
+The frontend can be deployed anywhere that hosts static sites, including Cloudflare Pages, Netlify, or S3.
+
+The basic steps for deployment are to run `npm run build` and then serve the output directory as a static site.
+
+In addition, the following environment variables need to be set during build. Do not include trailing slashes:
+
+- `VITE_APP_BASE_URL`: Your django backend url, e.g. "https://app.mydomain.com"
+- `VITE_ALLAUTH_BASE_URL`: The full allauth base route for your backend, e.g. "https://app.mydomain.com/_allauth/browser/v1" 
+
+Each static site host has their own way of configuring the above setup.
+Below are quick example instructions for deploying the front end on Cloudflare Pages:
+
+<Steps>
+1. In the Cloudflare dashboard, visit "Workers & Pages" and click "Create"
+2. Under "pages", select the option to connect a Github repository.
+3. Pick your Pegasus Github repository. You may have to authenticate and provide access permissions.
+4. Fill in the following settings:
+    <Steps>
+    1. Build command: `npm run build`
+    2. Build output directory: `dist`
+    3. Root directory: `frontend`
+    4. Add the following environment variables. *Note that the URLs should not end in slashes.*
+        * `VITE_APP_BASE_URL: https://<your Django backend URL>`
+        * `VITE_ALLAUTH_BASE_URL: https://<your Django backend URL>/_allauth/browser/v1`
+        * `NODE_VERSION: 22.13.0`
+        * `NPM_VERSION: 11.3.0`
+    </Steps>
+5. Click "Save and Deploy"
+6. After the initial deployment you can add a custom domain to your front end. 
+</Steps>
+
+## Known Limitations
+
+This is an experimental feature meant to provide a starting point for building a standalone React front end against your Pegasus app.
+It is *not* a complete, production-ready app, in the same way that standard Pegasus is.
+
+Here are some of the larger limitations:
+
+- Only a very limited subset of Pegasus functionality is available in the front end.
+- The front end styles only support Tailwind CSS.
+- Internationalization (translations) are not supported.
+
+## Troubleshooting
+
+**I'm getting a "URI malformed" error when I load the app.**
+
+This is likely because your `frontend/.env` file does not exist, or your `VITE_APP_BASE_URL` is not
+properly set inside it. See `frontend/.env.example` for an example `.env` file suitable for development.
+
+## Feedback
+
+If you have any feedback on this feature I would love to hear it!
+Feedback could include bug reports, feature requests, or any suggested architectural changes. 
