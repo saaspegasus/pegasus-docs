@@ -4,28 +4,40 @@ Documentation for [SaaS Pegasus: the Django SaaS Boilerplate](https://www.saaspe
 
 The latest docs can be found at [docs.saaspegasus.com](https://docs.saaspegasus.com/).
 
-This project uses [Sphinx](https://www.sphinx-doc.org/).
+This project uses [Astro](https://astro.build/) with [Starlight](https://starlight.astro.build/) for documentation.
 
 ## Installation
 
-Install using your favorite version [from Sphinx's options](https://www.sphinx-doc.org/en/master/usage/installation.html).
+Install dependencies using npm:
 
-The maintainer uses the pip version via `pip install -r requirements.txt`
+```bash
+npm install
+```
 
 ## Building Docs
 
-To build docs run `make html`.
+To build docs run:
+
+```bash
+npm run build
+```
 
 ## Viewing docs locally
 
-You can use `sphinx-autobuild` to serve your docs locally and watch for changes:
+You can serve your docs locally with auto-reload:
 
-```
-sphinx-autobuild . _build/html/ --port 8001
+```bash
+npm run dev
 ```
 
-The docs should now be visible at [http://localhost:8001](http://localhost:8001).
+The docs will be visible at [http://localhost:4321](http://localhost:4321).
+
+## Project Structure
+
+- Documentation content in `src/content/docs/` (Markdown files)
+- Configuration in `astro.config.mjs`
+- Built docs go to `dist/` directory (not committed to repo)
 
 ## Deployment
 
-Deployment is handled by Cloudflare. The latest main branch is automatically deployed via Cloudflare Pages.
+Deployment is handled by Cloudflare Pages. The latest main branch is automatically deployed.

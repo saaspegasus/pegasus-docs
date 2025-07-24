@@ -1,0 +1,11 @@
+---
+import Default from '@astrojs/starlight/components/PageSidebar.astro';
+import ScrivChat from './ScrivChat.astro';
+---
+
+<div class="page-sidebar-container">
+  <Default {...Astro.props}><slot /></Default>
+
+  <!-- Place ScrivChat inside the sidebar container to allow it to stack on top -->
+  <ScrivChat />
+</div>
