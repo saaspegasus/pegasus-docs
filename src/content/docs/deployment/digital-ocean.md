@@ -3,8 +3,6 @@ title: Digital Ocean
 description: Deploy Pegasus apps to Digital Ocean App Platform using Docker containers with PostgreSQL, Redis, and Celery support for scalable SaaS applications.
 ---
 
-## Digital Ocean
-
 Pegasus provides native support for Digital Ocean App Platform.
 To build for Digital Ocean, choose the "digital_ocean_app_platform" option when installing Pegasus.
 Then follow the steps below to deploy your app.

@@ -3,8 +3,6 @@ title: Fly.io
 description: Container-based Django deployment to Fly.io with PostgreSQL, Upstash Redis, and automated database migrations using Docker and flyctl CLI.
 ---
 
-## Fly.io
-
 Pegasus supports container-based deployment to [Fly.io](https://fly.io/).
 
 ### Prerequisites
@@ -54,7 +52,7 @@ Postgres:     <none>                 (not requested)
 Redis:        <none>                 (not requested)
 
 ? Do you want to tweak these settings before proceeding? (y/N) Yes
-``` 
+```
 
 A browser tab should open where you should add a Fly Postgres database called {app-name}-db,
 and an Upstash Redis server. You can leave the other defaults or change the machine size as you see fit.
@@ -78,7 +76,7 @@ If not, see the "Troubleshooting" section below.
 
     ```bash
     $ fly postgres create --name {app-name}-db --region ord
-    
+
     # ? Select Organization: My Org
     # ? Select configuration: Development - Single node, 1x shared CPU, 256MB RAM, 1GB disk
     ```
@@ -87,17 +85,17 @@ If not, see the "Troubleshooting" section below.
 
     ```bash
     $ fly postgres attach {app-name}-db -a {app-name}
-    
+
     Postgres cluster {app-name}-db is now attached to {app-name}
     The following secret was added to <app name>:
       DATABASE_URL=postgres://.....
     ```
 
 4. Create the Redis instance
-    
+
     ```bash
     $ fly redis create --name {app-name}-redis --region ord
-    
+
     ? Select Organization: My Org (my_org)
     ? Would you like to enable eviction? Yes
     ? Select an Upstash Redis plan Free: 100 MB Max Data Size
@@ -165,7 +163,7 @@ Fly.io.
 For alternatives see [https://fly.io/docs/app-guides/multiple-processes/](https://fly.io/docs/app-guides/multiple-processes/)
 
 [multiprocess]: https://fly.io/docs/reference/configuration/#the-processes-section
- 
+
 ### Troubleshooting
 
 **My release / migrate command is failing.**

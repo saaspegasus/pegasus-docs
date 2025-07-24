@@ -5,7 +5,6 @@ description: Deploy Pegasus to any Linux VPS using Kamal with automated SSL cert
 
 import { Steps } from '@astrojs/starlight/components';
 
-## Kamal (Deploy to any VPS)
 
 Pegasus supports container-based deployment to any Linux server using [Kamal](https://kamal-deploy.org/).
 
@@ -137,10 +136,10 @@ from the project root directory.
 ```bash
 kamal setup
 ```
- 
+
 This will perform all the tasks necessary to deploy your application
 (duplicated below from the [Kamal docs](https://kamal-deploy.org/docs/installation)):
- 
+
 - Connect to the servers over SSH (using root by default, authenticated by your SSH key).
 - Install Docker on any server that might be missing it (using get.docker.com): root access is needed via SSH for this.
 - Log into the registry both locally and remotely.
@@ -173,7 +172,7 @@ The main command you will regularly run is `kamal deploy`, which will push new r
 
 Kamal builds use the `settings_production.py` file.
 You can add settings here, and use environment variables to manage any secrets, following the pattern used
-throughout the file. 
+throughout the file.
 If you modify `settings_production.py` (or any other code) you will need to run:
 
 ```bash
@@ -253,7 +252,7 @@ If deploy continues to fail, check the logs of your docker container, using:
 kamal app logs
 ```
 
-#### Resolving `ERROR exec /bin/sh: exec format error` 
+#### Resolving `ERROR exec /bin/sh: exec format error`
 
 If you see this error on your server/logs it is likely that the architecture used to build your image is not the
 same as the one running on your server.
@@ -350,7 +349,7 @@ ssh kamal@yourapp.com
 ```
 
 And copy the database dump onto the DB machine.
-Run `docker ps` to get the container id of the DB machine. Then run: 
+Run `docker ps` to get the container id of the DB machine. Then run:
 
 ```bash
 docker cp db_dump.sql <CONTAINER ID>:/tmp/db_dump.sql

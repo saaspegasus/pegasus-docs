@@ -5,8 +5,6 @@ description: Deploy Pegasus apps to Heroku using Python buildpacks or Docker con
 
 import { Steps } from '@astrojs/starlight/components';
 
-## Heroku
-
 Pegasus supports deploying to Heroku as a standard Python application or using containers.
 
 Before getting started, first take the following steps in Heroku:
@@ -26,8 +24,8 @@ needed for the Heroku platform.
 ### Building using Heroku's Docker container support
 
 To deploy to Heroku using Docker, you should build Pegasus with the "heroku docker" deployment option.
-This will create your production `Dockerfile`, a `heroku.yml` file you can use [to build and deploy your 
-container](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml), and 
+This will create your production `Dockerfile`, a `heroku.yml` file you can use [to build and deploy your
+container](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml), and
 additional requirements/settings needed for the Heroku platform.
 
 After building and setting up Heroku you will also need to configure Heroku to
@@ -124,7 +122,7 @@ heroku run python manage.py bootstrap_subscriptions
 ### Building the front end
 
 As of Pegasus version 0.19, Heroku container builds will automatically build your front end files for you.
-You don't need to do anything to set this up. 
+You don't need to do anything to set this up.
 
 If you're using Heroku's Python support you can also configure Heroku to build your front-end files for you.
 

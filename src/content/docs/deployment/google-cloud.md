@@ -3,8 +3,6 @@ title: Google Cloud
 description: Deploy Pegasus projects to Google Cloud Run with Cloud SQL PostgreSQL, Redis, Secret Manager, and Google Cloud Storage for production applications.
 ---
 
-## Google Cloud
-
 Pegasus can be deployed to Google Cloud Run using containers.
 *This feature is in beta and Celery is not yet supported.*
 
@@ -74,7 +72,7 @@ This command takes a while to finish, but should eventually output something lik
 Operation "operations/acf.cc11852d-40af-47ad-9d59-477a12847c9e" finished successfully.
 ```
 
-*We will skip step 4 of Google's guide, since we already have a project and move on to step 5.* 
+*We will skip step 4 of Google's guide, since we already have a project and move on to step 5.*
 
 #### 4. Create the backing services.
 
@@ -294,7 +292,7 @@ to `.env.production` and uploading it to Secret Manager using:
 
 ```bash
 gcloud secrets versions add application_settings --data-file .env.production
-``` 
+```
 
 See `settings_production.py` for examples of using these secrets in your settings file.
 
