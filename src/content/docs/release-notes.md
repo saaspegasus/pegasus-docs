@@ -3,9 +3,6 @@ title: Version History and Release Notes
 description: Complete changelog and version history for SaaS Pegasus Django boilerplate with detailed feature updates and migration guides.
 ---
 
-Version History and Release Notes
-=================================
-
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
 ## Version 2025.6
@@ -59,21 +56,21 @@ These updates affect the [standalone React front end](/experimental/react-front-
   You can now associate a file with ecommerce products and only people who have purchased the product will be able to access it.
   - Also added tests for this workflow.
 - Added a private storage backend, for storing private files on S3-compatible storage backends (used by the above).
-- Upgraded most Python dependencies to their latest versions. 
+- Upgraded most Python dependencies to their latest versions.
 - Fix `target-version` in `pyproject.toml` to match the currently recommended Python 3.12. Thanks Finbar for reporting!
 - Fixed a bug where group chat avatars were incorrectly styled on Tailwind builds.
-  Added a new `pg-avatar` CSS class to handle this. 
+  Added a new `pg-avatar` CSS class to handle this.
 - Made some updates Digital Ocean deployments:
   - Switched Redis to Valkey, and upgraded it to version 8.
   - Upgraded Postgres to version 17.
   - Updated the [Digital Ocean deployment docs](/deployment/digital-ocean) to reflect the latest changes.
 - Fixed email verification emails when `ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True`.
   Thanks Justin for reporting and helping with the fix!
-- Removed default font-weight styling from `email_template_base.html`. 
+- Removed default font-weight styling from `email_template_base.html`.
 - Api keys associated with inactive users will no longer pass API permission checks. Thanks Brennan for the suggestion!
 - Removed unused `.babelrc` file if not building with Webpack.
 - Automatically confirm user emails when they create accounts through the invitation acceptance workflow,
-  since they can only get the invitation URL from the email link. 
+  since they can only get the invitation URL from the email link.
 
 
 ### Upgrading
@@ -152,7 +149,7 @@ If you would like help migrating off this theme, you can reach out via standard 
 - Removed unused imports shadcn components.
 - Removed leading tilde ("~" character) from CSS imports in various places.
 - Changed CSS imports in JavaScript files from `require` to `import`.
-- Fixed a few small React warnings/issues in the AI chat app. 
+- Fixed a few small React warnings/issues in the AI chat app.
 - Removed no longer needed `vue-template-compiler` dependency.
 - **Updated the standalone front end to run on port 5174 to not conflict with the default vite port.**
 
@@ -247,16 +244,16 @@ authentication APIs.
 
 On top of this, support for many new authentication workflows was added to the standalone front end,
 including email confirmation, password reset, and social authentication.
-The standalone front end---which is still in experimental mode---is now close-to-parity with the Django authentication system. 
+The standalone front end---which is still in experimental mode---is now close-to-parity with the Django authentication system.
 
 Details:
 
   - **Enabled and configured [allauth headless](https://docs.allauth.org/en/dev/headless/index.html)**
     (if authentication APIs are enabled or using the standalone front end).
   - **Removed `dj-rest-auth` and `djangorestframework-simplejwt` and associated setup code.
-    Auth now uses allauth headless and sessions by default.** 
+    Auth now uses allauth headless and sessions by default.**
   - **Removed the `apps/authentication` app and associated api client code.**
-  - **Updated the standalone front end to use an authentication system against allauth headless and added 
+  - **Updated the standalone front end to use an authentication system against allauth headless and added
     support for email confirmation, social authentication and password reset.**
     These changes borrow heavily from the [allauth example](https://github.com/pennersr/django-allauth/tree/main/examples/react-spa) project,
     and involve a large number of code-level changes which are not fully outlined here, though some of the larger ones are listed below:
@@ -300,7 +297,7 @@ Details:
     as well as the [UP (pyupgrade) Rules](https://docs.astral.sh/ruff/rules/#pyupgrade-up), [B (flake8-bugbear) Rules](https://docs.astral.sh/ruff/rules/#flake8-bugbear-b),
     and [SIM (flake8-simplify) rules](https://docs.astral.sh/ruff/rules/#flake8-simplify-sim), in addition to the already-enabled
     [F (Pyflakes) Rules](https://docs.astral.sh/ruff/rules/#pyflakes-f), and [I (isort) Rules](https://docs.astral.sh/ruff/rules/#isort-i).**
-  - These lead to some minor code changes, including: 
+  - These lead to some minor code changes, including:
     - Use `contextlib.suppress` in a few places instead of the previous exception handling
     - Use `raise ... from` in several places for more explicit exception handling.
     - Combined some nested if statements into single lines.
@@ -327,16 +324,16 @@ Details:
   to `ACTIVE_PRODUCTS`.
 - **Fix: Changed reference of `stripe.Invoice.upcoming` to `stripe.Invoice.create_preview` since Stripe
   [deprecated the upcoming invoice API](https://docs.stripe.com/changelog/basil/2025-03-31/invoice-preview-api-deprecations).**
-  - This fixes an issue with loading the "manage subscription" page when using the latest Stripe API version. 
+  - This fixes an issue with loading the "manage subscription" page when using the latest Stripe API version.
 - Fix: Added `DEBUG=false` to `heroku.yml` setup section, which helps enforce that debug is disabled when running `collectstatic`.
   This helps avoid "No module named 'daphne'" errors in async deployments. Thanks Abhishek for reporting!
 - Fix: The `dark_mode_selector.html` component is no longer included if you have disabled dark mode.
 - Fix: Improved chat height styling on mobile screens to avoid extra scrolling.
 - Fix: Updated the migration that creates the default Site object to also update the table sequence ID.
-  Thanks Julian and Geoff for the suggestion and help with this! 
+  Thanks Julian and Geoff for the suggestion and help with this!
 - Fix: Fixed a test case in `test_member_management` that wasn't getting properly exercised.
 - Fix: Deleted the unused `_create_api_keys_if_necessary` function in `bootstrap_subscriptions.py`
-- Fix: Fixed the hover text color of the `.pg-button-danger` CSS class styles on tailwind builds. 
+- Fix: Fixed the hover text color of the `.pg-button-danger` CSS class styles on tailwind builds.
 
 ### Upgrading
 
@@ -420,7 +417,7 @@ Watch a demo below, or check out the new [AI tool docs](/ai/development).
 
 ### Changed
 
-- Improved default file input styles. 
+- Improved default file input styles.
 - Add front end install / build to `make init`. (Thanks Jacob for reporting!)
 - Bumped `vite` used by the standalone front end to the latest version.
 - Upgraded several Python packages to their latest versions.
@@ -438,7 +435,7 @@ Watch a demo below, or check out the new [AI tool docs](/ai/development).
 A number of new features were added to [Translation Creator](https://www.saaspegasus.com/store/product/translation-creator/)
 this month. Big thanks to community member Valics who contributed the first draft of most of these updates.
 
-- **Upgraded to the latest Pegasus, including Tailwind 4 and DaisyUI 5.** 
+- **Upgraded to the latest Pegasus, including Tailwind 4 and DaisyUI 5.**
 - **Translations will now retain comments.**
 - **Added pagination, sort, and filtering to the translations view.**
 - Added the ability to delete projects and clear translations.
@@ -451,7 +448,7 @@ this month. Big thanks to community member Valics who contributed the first draf
 ## Version 2025.3
 
 This release upgrades TailwindCSS to version 4 (and DaisyUI to Version 5).
-It also has several minor updates and fixes. 
+It also has several minor updates and fixes.
 
 ### Tailwind 4 Update
 
@@ -474,11 +471,11 @@ Here's a detailed breakdown of the changes:
   - Converted some helper classes to use `@utility`
   - Changed some double quotes to single quotes and cleaned up whitespace in css files.
   - Updated various classes in templates/JavaScript files according to the migration guide,
-    e.g. `outline-none` --> `outline-hidden`, `flex-grow` --> `grow`, 
+    e.g. `outline-none` --> `outline-hidden`, `flex-grow` --> `grow`,
    `max-w-screen-xl` --> `max-w-(--breakpoint-xl)` etc.
 - DaisyUI updates:
   - **DaisyUI is now initialized as a plugin in `site-tailwind.css` instead of `tailwind.config.js`.**
-  - **Themes are also now handled in this section. The docs have been updated to reflect this.** 
+  - **Themes are also now handled in this section. The docs have been updated to reflect this.**
   - Updated Pegasus CSS color variables to use the DaisyUI 5 versions.
   - Cleaned up Tailwind form rendering tags, removed unnecessary markup, and upgraded markup to be compatible DaisyUI 5,
     e.g. removing `-bordered` classes.
@@ -556,10 +553,10 @@ This is a maintenance release with a number of upgrades and fixes.
   [More details in the updated Github docs here](/github/#pushing-pegasus-code-to-a-subdirectory-in-your-repository).
   Thanks to Simon for helping with this, and Aaron, Bernard, Danil, and Arno for suggesting it!
 - Added a `429.html` error template.
-  
+
 ### Changed
 
-- **Migrated the majority of shared style files from sass to css, and removed sass from Tailwind builds.** 
+- **Migrated the majority of shared style files from sass to css, and removed sass from Tailwind builds.**
   This makes the setup more consistent with a typical Tailwind project.
   - Removed "sass" and "sass-loader" packages from Tailwind builds.
   - Updated `webpack.config.js` on bootstrap and bulma builds to also now handle `.css` files.
@@ -595,7 +592,7 @@ This is a maintenance release with a number of upgrades and fixes.
 
 ### Removed
 
-- Removed `django_otp` dependency and configuration, which was only there to facilitate the transition 
+- Removed `django_otp` dependency and configuration, which was only there to facilitate the transition
   to `allauth.mfa`. See the release notes for [Version 2024.5](#version-20245) for more information on this change.
   - Also removed the associated `migrate_allauth_2fa` management command.
 - Removed the default user-facing messages on login/logout. You can add them back or customize them by editing the files in
@@ -671,7 +668,7 @@ It is hoped that these changes will make maintenance, upgrades, and future exten
 
 Changes affecting the AI Chat, AI Images, and Group Chat apps:
 
-- Moved app declarations for these apps to the end of `PROJECT_APPS` in `settings.py` 
+- Moved app declarations for these apps to the end of `PROJECT_APPS` in `settings.py`
 - Moved url declarations for these apps to the end of `urls.py`.
 - Moved settings and environment variables for these apps to be located together.
 - Settings for these apps are now prefixed with `AI_CHAT_` or `AI_IMAGES_`, respectively.
@@ -680,7 +677,7 @@ Changes affecting the AI Chat, AI Images, and Group Chat apps:
 - Moved chat JavaScript setup to the end of `module.exports` in `webpack.config.js`.
 - Depending on your configuration, the order of navigation tabs in the UI may change.
 - Made minor tweaks to how channels urls are set up.
-- Image logos used by the AI chat and images apps were moved to `/static../../assets/images/ai_../../assets/images/` and `/static../../assets/images/ai_../../assets/images/`, respectively. 
+- Image logos used by the AI chat and images apps were moved to `/static../../assets/images/ai_../../assets/images/` and `/static../../assets/images/ai_../../assets/images/`, respectively.
 - The declaration for these apps has moved to a new "plugins" section of `pegasus-config.yml`.
 
 ### Other Changes
@@ -697,7 +694,7 @@ Other changes included in this release are below.
 - **Upgraded nearly all Python packages to their latest versions.**
   - Added a pin to `dj-stripe<2.9` because 2.9 is not yet supported.
 - **Upgraded nearly all JavaScript packages to their latest versions.**
-  - Tailwind v4 was not upgraded as it was just released and is not yet supported. 
+  - Tailwind v4 was not upgraded as it was just released and is not yet supported.
 - **Ruff and pre-commit will now sort imports by default.** (See upgrade notes below)
   - **This also updates import sorting in a number of files.**
 - **Pre-commit now runs ruff with `--fix` enabled, which will automatically apply (but not stage) fixable errors.**
@@ -773,7 +770,7 @@ uv run ruff check --fix
 
 This is a minor hotfix release for 2024.12
 
-- **Fixed a bug where the delete workflow was broken for apps created by the Pegasus CLI on non-Tailwind builds.** 
+- **Fixed a bug where the delete workflow was broken for apps created by the Pegasus CLI on non-Tailwind builds.**
   This happened becasue the "css_framework" cli option was accidentally missing from `pegasus-config.yml`.
   Thanks Robert for reporting!
 - Updated the README instructions for setting up pre-commit hooks when using uv.
@@ -794,7 +791,7 @@ When you select uv the following changes will be made:
 
 - All requirements.in / requirements.txt files are removed.
 - Your project requirements will now be listed in your `pyproject.toml` file.
-  - Development and production dependencies will be listed under separate dependency-groups. 
+  - Development and production dependencies will be listed under separate dependency-groups.
 - Your pinned project requirements will be listed in a new `uv.lock` file.
 - Docker containers (in development and production) will use `uv` to set up and manage the Python environment.
 - A `make uv` target will be added to Docker builds to run `uv` commands in your container.
@@ -810,7 +807,7 @@ The main benefits of using uv are:
 There will be a longer write up about uv released very soon, but in the meantime you can review the updated
 [python documentation](/python/setup) and new [uv documentation](/python/uv).
 
-The rest of the docs have been updated to accommodate uv, 
+The rest of the docs have been updated to accommodate uv,
 though it's possible there are some places that were missed.
 If you spot any issues in the docs, get in touch!
 
@@ -888,7 +885,7 @@ bumps the API client version, and has a handful of other small changes and fixes
   (thanks Bernard for reporting!).
 - Fixed a bug in the group chat demo where submitting an empty room name would take you to a 404 page.
 - The `docker_startup.sh` file is no longer included if you are not using a docker-based deploy platform.
-- Updated the `config/README` file which had outdated information that predated the migration to Kamal 2. 
+- Updated the `config/README` file which had outdated information that predated the migration to Kamal 2.
   (Thanks Arno for reporting!)
 - Improved comments in the kamal `secrets` file and `.env` files. (Thanks Arno for suggesting!)
 
@@ -974,10 +971,10 @@ Read more in the [flowbite docs here](/css/tailwind/#flowbite).
   - Also updated `make pip-compile` target to use `uv`.
   - This resulted in minor changes to all `requirements.txt` files.
 - **Team invitation pages now prompt a user to log in instead of sign up if the email is associated with a known account.**
-  (Thanks Daniel for suggesting!) 
+  (Thanks Daniel for suggesting!)
 - Your configured Github username, if available, will be used in a few places instead of a default value.
   (Thanks Richard for suggesting!)
-- Added `bg-base-100` to the `<body>` tag of the base template and removed it from other components where it was 
+- Added `bg-base-100` to the `<body>` tag of the base template and removed it from other components where it was
   now redundant. This improves theming support when themes heavily modify the base color. (Tailwind builds only)
 - Added equals signs to  `ENV` declarations in production Docker files, for consistency. (Thanks Denis for suggesting!)
 - Slightly improved the styling of the e-commerce app.
@@ -1139,7 +1136,7 @@ See also: the updated [Payments docs](/payments).
 #### Added
 
 - **Added `django-htmx` and `django-template-partials` as first-class dependencies to HTMX builds.**
-  These libraries are used by the CLI and will be used for more HTMX-based functionality moving forwards. 
+  These libraries are used by the CLI and will be used for more HTMX-based functionality moving forwards.
 - Added `make manage` command to run arbitrary `manage.py` commands in a docker environment.
   E.g. `make manage ARGS='createsuperuser'`.
 - Added the ability to pass arguments to `make test` in docker. E.g. `make tests ARGS='apps.teams --keepdb'`.
