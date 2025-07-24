@@ -16,6 +16,18 @@ See below for a demo of how you can use these tools to help you with development
     <iframe src="https://www.youtube.com/embed/o3VrQFdvVQ8" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
 </div>
 
+## LLM-Friendly Documentation
+
+This documentation has llm-friendly markdown files that can be copy/pasted or linked to in any LLM
+or AI-coding assistant.
+
+There is an [llms.txt](/llms.txt) index file with further links to other files you can use,
+including the [llms-small.txt file](https://docs.saaspegasus.com/llms-small.txt)
+(a compact version of the documentation with the essentials), and the
+[llms-full.txt file](https://docs.saaspegasus.com/llms-full.txt), with the complete documentation.
+
+All llm files are formatted in markdown.
+
 ## Rules Files
 
 Pegasus ships with a set of rules files that are designed to be used with coding assistants.
