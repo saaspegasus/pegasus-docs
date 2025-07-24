@@ -55,14 +55,11 @@ export default defineConfig({
       components: {
         PageSidebar: './src/components/PageSidebar.astro',
       },
-      title: 'Pegasus',
+      title: 'SaaS Pegasus',
       description: 'Documentation for SaaS Pegasus - the Django SaaS boilerplate',
       favicon: '/favicon.svg',
       logo: {
         src: './src/assets/images/hero.png',
-      },
-      editLink: {
-        baseUrl: 'https://github.com/saaspegasus/pegasus-docs/edit/main/',
       },
       social: [
         {
@@ -107,7 +104,7 @@ export default defineConfig({
         {label: 'Getting Started', slug: 'getting-started'},
         {label: 'GitHub Integration', slug: 'github'},
         {label: 'Customizations', slug: 'customizations'},
-        {label: 'Configuration', slug: 'configuration'},
+        {label: 'Settings and Configuration', slug: 'configuration'},
         {label: 'Code Structure', slug: 'code-structure'},
         {
           label: 'Python',
@@ -116,8 +113,15 @@ export default defineConfig({
         },
         {
           label: 'Front End',
-          autogenerate: {directory: 'front-end'},
           collapsed: true,
+          items: [
+            'front-end/overview',
+            'front-end/vite',
+            'front-end/webpack',
+            'front-end/design-patterns',
+            'front-end/troubleshooting',
+            'front-end/migrating',
+          ],
         },
         {
           label: 'CSS',
@@ -128,7 +132,7 @@ export default defineConfig({
         {label: 'Docker', slug: 'docker'},
         {label: 'Teams', slug: 'teams'},
         {label: 'Subscriptions', slug: 'subscriptions'},
-        {label: 'Payments', slug: 'payments'},
+        {label: 'E-Commerce / Payments', slug: 'payments'},
         {label: 'Forms', slug: 'forms'},
         {label: 'APIs', slug: 'apis'},
         {
@@ -140,7 +144,7 @@ export default defineConfig({
         {label: 'Wagtail', slug: 'wagtail'},
         {label: 'Feature Flags', slug: 'flags'},
         {label: 'Celery', slug: 'celery'},
-        {label: 'Async Support', slug: 'async'},
+        {label: 'Async and Websockets', slug: 'async'},
         {
           label: 'Deployment',
           collapsed: true,
@@ -163,7 +167,7 @@ export default defineConfig({
           autogenerate: {directory: 'experimental'},
           collapsed: true,
         },
-        {label: 'Upgrading', slug: 'upgrading'},
+        {label: 'Upgrading and Changing Project Settings', slug: 'upgrading'},
         {
           label: 'Community',
           autogenerate: {directory: 'community'},

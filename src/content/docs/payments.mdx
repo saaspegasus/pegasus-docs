@@ -5,8 +5,6 @@ description: Build digital storefronts with Stripe integration for one-time and 
 
 import { Steps } from '@astrojs/starlight/components';
 
-# E-Commerce / Payments
-
 Pegasus (version 2023.9.1 and up) includes an out-of-the-box E-Commerce/Payments demo.
 In a few clicks you can have a fully functional digital storefront in your application,
 allowing you to collect and track one-time or recurring payments with Stripe.
@@ -44,7 +42,7 @@ Once you've done this, login and click on the e-commerce tab in the navigation, 
 ### `ProductConfiguration`
 
 What shows up in your store is controlled by the `ProductConfiguration` data model.
-You can manage these objects from the Django admin (available at 
+You can manage these objects from the Django admin (available at
 [http://localhost:8000/admin/ecommerce/productconfiguration/](http://localhost:8000/admin/ecommerce/productconfiguration/) locally).
 For example, to remove a product from the store you can uncheck "is active".
 
@@ -62,7 +60,7 @@ date of purchase, and product/price used at the time of purchase.
 
 The `@product_required` decorator can be used to restrict access to a view based on whether or not
 the logged-in user has purchased a particular product. This decorator expects a `product_slug` field
-in the URL / view with the slug of the `ProductConfiguration` object to be checked. 
+in the URL / view with the slug of the `ProductConfiguration` object to be checked.
 If the user owns the product, they will be granted access to the view.
 
 Additionally, if the user gets access, two additional field will be populated on the `request` object:

@@ -1,6 +1,8 @@
 ---
 title: AI Integrations for Development
 description: Set up AI-powered coding assistants with Cursor, Claude Code, and Junie, including rules files and MCP tools for enhanced Pegasus development workflow.
+sidebar:
+  order: 1
 ---
 
 As of version 2025.4, Pegasus includes tooling for integrating with AI-powered coding assistants and tools.
@@ -20,13 +22,13 @@ Pegasus ships with a set of rules files that are designed to be used with coding
 These rules are broken out into various sections---e.g. architecture, general guidelines,
 and guidelines for specific programming languages and frameworks.
 The rules have been custom developed for Pegasus applications and contain best-practices
-and information for building on Pegasus. 
+and information for building on Pegasus.
 
 When the tool supports it (e.g. in Cursor), these rules files will be organized and labeled in ways that
 allow for them to be automatically included in the appropriate contexts.
 
 You can edit your rules freely after downloading your project.
-They are provided as a quick way to get started. 
+They are provided as a quick way to get started.
 
 ## MCP
 
@@ -78,4 +80,4 @@ If you're using a different tool, it is recommended to choose one of the two abo
 and then copy the files to wherever your tool expects them.
 Choose "Cursor" if you want the rules files split up, and "Claude" if you prefer a single rules file.
 
-Also, if you'd like support or help configuring a different tool, email support@saaspegasus.com and let me know! 
+Also, if you'd like support or help configuring a different tool, email support@saaspegasus.com and let me know!
