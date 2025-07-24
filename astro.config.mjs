@@ -113,8 +113,15 @@ export default defineConfig({
         },
         {
           label: 'Front End',
-          autogenerate: {directory: 'front-end'},
           collapsed: true,
+          items: [
+            'front-end/overview',
+            'front-end/vite',
+            'front-end/webpack',
+            'front-end/design-patterns',
+            'front-end/troubleshooting',
+            'front-end/migrating',
+          ],
         },
         {
           label: 'CSS',
@@ -125,7 +132,7 @@ export default defineConfig({
         {label: 'Docker', slug: 'docker'},
         {label: 'Teams', slug: 'teams'},
         {label: 'Subscriptions', slug: 'subscriptions'},
-        {label: 'Payments', slug: 'payments'},
+        {label: 'E-Commerce / Payments', slug: 'payments'},
         {label: 'Forms', slug: 'forms'},
         {label: 'APIs', slug: 'apis'},
         {
