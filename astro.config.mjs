@@ -102,7 +102,6 @@ export default defineConfig({
       ],
       sidebar: [
         {label: 'Getting Started', slug: 'getting-started'},
-        {label: 'GitHub Integration', slug: 'github'},
         {label: 'Customizations', slug: 'customizations'},
         {label: 'Settings and Configuration', slug: 'configuration'},
         {label: 'Code Structure', slug: 'code-structure'},
@@ -167,16 +166,20 @@ export default defineConfig({
           autogenerate: {directory: 'experimental'},
           collapsed: true,
         },
-        {label: 'Upgrading and Changing Project Settings', slug: 'upgrading'},
         {
-          label: 'Community',
+          label: 'Community Guides',
           autogenerate: {directory: 'community'},
           collapsed: true,
         },
         {
-          label: 'Marketplace',
-          autogenerate: {directory: 'marketplace'},
+          label: 'Using Pegasus',
           collapsed: true,
+          items: [
+            'github',
+            'upgrading',
+            'marketplace/connecting',
+            'marketplace/scriv',
+          ],
         },
         {label: 'Release Notes', slug: 'release-notes'},
       ],
