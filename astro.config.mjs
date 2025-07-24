@@ -104,7 +104,7 @@ export default defineConfig({
         {label: 'Getting Started', slug: 'getting-started'},
         {label: 'GitHub Integration', slug: 'github'},
         {label: 'Customizations', slug: 'customizations'},
-        {label: 'Configuration', slug: 'configuration'},
+        {label: 'Settings and Configuration', slug: 'configuration'},
         {label: 'Code Structure', slug: 'code-structure'},
         {
           label: 'Python',
