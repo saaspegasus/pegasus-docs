@@ -130,8 +130,14 @@ export default defineConfig({
         {label: 'Page Metadata', slug: 'page-metadata'},
         {label: 'Docker', slug: 'docker'},
         {label: 'Teams', slug: 'teams'},
-        {label: 'Subscriptions', slug: 'subscriptions'},
-        {label: 'E-Commerce / Payments', slug: 'payments'},
+        {
+          label: 'Subscriptions and Payments',
+          collapsed: true,
+          items: [
+            'subscriptions',
+            'payments',
+          ]
+        },
         {label: 'Forms', slug: 'forms'},
         {label: 'APIs', slug: 'apis'},
         {
