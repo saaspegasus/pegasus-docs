@@ -167,7 +167,7 @@ export default defineConfig({
           autogenerate: {directory: 'experimental'},
           collapsed: true,
         },
-        {label: 'Upgrading', slug: 'upgrading'},
+        {label: 'Upgrading and Changing Project Settings', slug: 'upgrading'},
         {
           label: 'Community',
           autogenerate: {directory: 'community'},
