@@ -61,9 +61,6 @@ export default defineConfig({
       logo: {
         src: './src/assets/images/hero.png',
       },
-      editLink: {
-        baseUrl: 'https://github.com/saaspegasus/pegasus-docs/edit/main/',
-      },
       social: [
         {
           icon: 'github',
