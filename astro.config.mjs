@@ -55,7 +55,7 @@ export default defineConfig({
       components: {
         PageSidebar: './src/components/PageSidebar.astro',
       },
-      title: 'Pegasus',
+      title: 'SaaS Pegasus',
       description: 'Documentation for SaaS Pegasus - the Django SaaS boilerplate',
       favicon: '/favicon.svg',
       logo: {
