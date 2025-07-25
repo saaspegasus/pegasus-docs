@@ -5,6 +5,11 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Verison 2026.7
+
+- Add `require_POST` decorator to `create_api_key` view. Thanks Brennon for reporting!
+
+
 ## Version 2025.6.2
 
 This hotfix release addresses two minor issues in the 2025.6 release:
