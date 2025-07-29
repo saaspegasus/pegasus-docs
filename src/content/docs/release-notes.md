@@ -7,8 +7,33 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Verison 2026.7
 
+- **Changed how CSS files are built and imported in vite builds. This fixes the flash of unstyled content when running Vite in development.**
+  - Removed the redundant `site-<framework>.js` files and instead added the imported CSS files directly 
+    as entry points to `vite.config.ts`.
+  - Updated `base.html` to use `vite_asset_url` instead of `vite_asset` for CSS files.
 - Add `require_POST` decorator to `create_api_key` view. Thanks Brennon for reporting!
+- Fixed a bug where subscriptions tests failed due to a missing `dateutil` dependency under certain build configurations.
+  Thanks Jacob for reporting!
+- Disallow null/blank team slugs.
+- Fixed styling of allauth's "email change" template, which is used if you set `ACCOUNT_CHANGE_EMAIL = True`.
+  Thanks Finbar for the report and fix!
+- Updated the behavior of the subscription page for team non-admins so that it shows a useful message telling them
+  they aren't allowed to manage subscriptions for their team, instead of returning a generic 404.
+  Thanks Haydn for the suggestion!
+- Added `.claude/settings.local.json` to `.gitignore`.
+- Changed how email confirmation works when updating an email address to be more aligned with allauth best practices.
+- Changed the typescript module resolution strategy to "bundler", which aligns better with how Vite resolves modules in the project.
+- Changed `sentry-sdk` to `sentry-sdk[django]` and pinned the version. Thanks Ralph for suggesting!
+- Upgraded all Python packages to their latest versions.
+- Upgraded all JavaScript packages to their latest versions.
+- Updated development Docker setup to always use a separate container for Node / NPM.
+  This removes all node/npm logic from `Dockerfile.dev` and uses either `Dockerfile.vite` or `Dockerfile.webpack` for the front end.
+  - Also updated the `Makefile` to reference this new container where necessary.
 
+### Upgrade Notes
+
+If your existing project has teams with a null or blank `slug` you will have to manually change them
+to a non-null/blank value or your database migrations will not run. 
 
 ## Version 2025.6.2
 
