@@ -71,3 +71,14 @@ DJANGO_VITE = {
 This should work without modification for most projects.
 If for some reason you want to change your vite server port or base path in `vite.config.ts` you will have to make
 corresponding changes to your `django-vite` settings as per their documentation.
+
+## Production
+
+In production, the above configuration should work out of the box.
+Production builds will disable `settings.DEBUG` which will in turn disable vite's dev mode.
+
+If you need more fine-grained control, or want to test a production build, you can also explicitly
+set the `DJANGO_VITE_DEV_MODE` environment variable to `false`.
+
+You will also need to set up [Django's static file serving](https://docs.saaspegasus.com/deployment/production-checklist/#check-your-static-file-setup).
+Again, if you're using a supported Pegasus deployment mode, this should be already handled for you.
