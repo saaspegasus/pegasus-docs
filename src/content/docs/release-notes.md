@@ -29,6 +29,10 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 - Updated development Docker setup to always use a separate container for Node / NPM.
   This removes all node/npm logic from `Dockerfile.dev` and uses either `Dockerfile.vite` or `Dockerfile.webpack` for the front end.
   - Also updated the `Makefile` to reference this new container where necessary.
+- Improved the Python environment setup in `Dockerfile.dev` to be much more performant.
+  This should make Docker container rebuilds after adding/changing Python dependencies much faster.
+  - Python environments and packages are now created and installed as the django user to avoid expensive chown calls. (Thanks Jacob and Mark for the suggestion!)
+  - Uv now uses Docker's cache system consistently so that dependencies are cached by Docker across builds.
 
 ### Upgrade Notes
 
