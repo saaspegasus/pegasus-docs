@@ -5,39 +5,57 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
-## Verison 2026.7
+## Version 2026.8
 
+This is a maintenance release which improves Docker-based development,
+upgrades dependencies and addresses a number of minor issues.
+
+### Changed
+
+- **Upgraded all Python packages to their latest versions.**
+- **Upgraded all JavaScript packages to their latest versions.**
 - **Changed how CSS files are built and imported in vite builds. This fixes the flash of unstyled content when running Vite in development.**
   - Removed the redundant `site-<framework>.js` files and instead added the imported CSS files directly 
     as entry points to `vite.config.ts`.
   - Updated `base.html` to use `vite_asset_url` instead of `vite_asset` for CSS files.
-- Add `require_POST` decorator to `create_api_key` view. Thanks Brennon for reporting!
-- Fixed a bug where subscriptions tests failed due to a missing `dateutil` dependency under certain build configurations.
-  Thanks Jacob for reporting!
-- Disallow null/blank team slugs.
-- Fixed styling of allauth's "email change" template, which is used if you set `ACCOUNT_CHANGE_EMAIL = True`.
-  Thanks Finbar for the report and fix!
+- **Updated development Docker setup to always use a separate container for Node / NPM.**
+  This removes all node/npm logic from `Dockerfile.dev` and uses either `Dockerfile.vite` or `Dockerfile.webpack` for the front end.
+  - Also updated the `Makefile` to reference this new container where necessary.
+- Added a constraint to `Team.slug` so that null/blank strings are not allowed.
+- Changed `sentry-sdk` to `sentry-sdk[django]` and pinned the version. Thanks Ralph for suggesting!
+- Changed how email confirmation works when updating an email address to be more aligned with allauth best practices.
+- Changed the typescript module resolution strategy to "bundler", which aligns better with how Vite resolves modules in the project.
+- Added `.claude/settings.local.json` to `.gitignore`.
 - Updated the behavior of the subscription page for team non-admins so that it shows a useful message telling them
   they aren't allowed to manage subscriptions for their team, instead of returning a generic 404.
   Thanks Haydn for the suggestion!
-- Added `.claude/settings.local.json` to `.gitignore`.
-- Changed how email confirmation works when updating an email address to be more aligned with allauth best practices.
-- Changed the typescript module resolution strategy to "bundler", which aligns better with how Vite resolves modules in the project.
-- Changed `sentry-sdk` to `sentry-sdk[django]` and pinned the version. Thanks Ralph for suggesting!
-- Upgraded all Python packages to their latest versions.
-- Upgraded all JavaScript packages to their latest versions.
-- Updated development Docker setup to always use a separate container for Node / NPM.
-  This removes all node/npm logic from `Dockerfile.dev` and uses either `Dockerfile.vite` or `Dockerfile.webpack` for the front end.
-  - Also updated the `Makefile` to reference this new container where necessary.
-- Improved the Python environment setup in `Dockerfile.dev` to be much more performant.
-  This should make Docker container rebuilds after adding/changing Python dependencies much faster.
-  - Python environments and packages are now created and installed as the django user to avoid expensive chown calls. (Thanks Jacob and Mark for the suggestion!)
+- `./manage.py bootstrap_subscriptions` will now use Stripe's "marketing features" property of Products to generate the 
+  relevant configuration in Pegasus. Thanks Zac for suggesting!
+- `./manage.py bootstrap_subscriptions` will now only use products that have recurring pricing set when generating the Pegasus configuration.
+- The `build-api-client` make target will now delete unused files and set correct file permissions on the generated code.
+  Thanks Finbar for the contribution!
+
+### Fixed
+
+- **Improved the Python environment setup in `Dockerfile.dev` to be much more performant.
+  This should make Docker container rebuilds after adding/changing Python dependencies much faster.**
+  - Python environments and packages are now created and installed as the django user to avoid expensive chown calls. Thanks Jacob and Mark for the suggestion!
   - Uv now uses Docker's cache system consistently so that dependencies are cached by Docker across builds.
+- Added a `require_POST` decorator to `create_api_key` view so it doesn't work with GET requests. Thanks Brennon for reporting!
+- Fixed a bug where subscriptions tests failed due to a missing `dateutil` dependency under certain build configurations.
+  Thanks Jacob for reporting!
+- Fixed styling of allauth's "email change" template, which is used if you set `ACCOUNT_CHANGE_EMAIL = True`.
+  Thanks Finbar for the report and fix!
+- Fixed a bug where `./manage.py bootstrap_subscriptions` and `./manage.py bootstrap_ecommerce` sometimes had to be run
+  twice to sync all products and prices to a new installation. Thanks Zac for reporting!
+- Updated stripe API imports to remove warnings about deprecated `stripe.api_resources` packages. Thanks Cristian for reporting!
 
 ### Upgrade Notes
 
 If your existing project has teams with a null or blank `slug` you will have to manually change them
-to a non-null/blank value or your database migrations will not run. 
+to a non-null/blank value or your database migrations will not run.
+
+*August 1, 2025*
 
 ## Version 2025.6.2
 
