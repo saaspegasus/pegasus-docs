@@ -5,7 +5,7 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
-## Version 2026.8
+## Version 2025.8
 
 This is a maintenance release which improves Docker-based development,
 upgrades dependencies and addresses a number of minor issues.
