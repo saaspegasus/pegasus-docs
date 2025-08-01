@@ -21,7 +21,6 @@ upgrades dependencies and addresses a number of minor issues.
 - **Updated development Docker setup to always use a separate container for Node / NPM.**
   This removes all node/npm logic from `Dockerfile.dev` and uses either `Dockerfile.vite` or `Dockerfile.webpack` for the front end.
   - Also updated the `Makefile` to reference this new container where necessary.
-- Added a constraint to `Team.slug` so that null/blank strings are not allowed.
 - Changed `sentry-sdk` to `sentry-sdk[django]` and pinned the version. Thanks Ralph for suggesting!
 - Changed how email confirmation works when updating an email address to be more aligned with allauth best practices.
 - Changed the typescript module resolution strategy to "bundler", which aligns better with how Vite resolves modules in the project.
@@ -49,11 +48,6 @@ upgrades dependencies and addresses a number of minor issues.
 - Fixed a bug where `./manage.py bootstrap_subscriptions` and `./manage.py bootstrap_ecommerce` sometimes had to be run
   twice to sync all products and prices to a new installation. Thanks Zac for reporting!
 - Updated stripe API imports to remove warnings about deprecated `stripe.api_resources` packages. Thanks Cristian for reporting!
-
-### Upgrade Notes
-
-If your existing project has teams with a null or blank `slug` you will have to manually change them
-to a non-null/blank value or your database migrations will not run.
 
 *August 1, 2025*
 
