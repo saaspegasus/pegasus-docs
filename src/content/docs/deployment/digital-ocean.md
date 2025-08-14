@@ -28,13 +28,18 @@ The easiest way to do this is in Digital Ocean Dashboard.
 Navigate to [Databases --> New](https://cloud.digitalocean.com/databases/new), and choose
 "Valkey".
 
-It's recommended to name this database `<your-project>-redis`.
+For your database/cluster name, it is recommended to use: `<your-project>-redis` to match
+the default value expected by Pegasus.
 
 Next edit the `/deploy/app-spec.yaml` file. In particular, make sure to set your Github repository and branch.
 If you aren't using Celery, you can remove the sections related to redis, and the celery-worker.
-If you are using Redis/Valkey, the cluster name must match what you chose when you created the Database.
+If you are using Redis/Valkey, the cluster name must match what you chose when you created the Database above.
 
-Finally, run `doctl apps create --spec deploy/app-spec.yaml`
+Once you've made all the edits to the `app-spec.yaml` file you can deploy your app by run the following command:
+
+```
+doctl apps create --spec deploy/app-spec.yaml
+```
 
 That's it!
 In a few minutes your app should be online.
