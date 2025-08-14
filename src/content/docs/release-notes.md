@@ -5,30 +5,41 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.8.1
+
+- Updated the Digital Ocean deployment to use a managed database instead of a development database.
+  Development databases are no longer well-supported in app platform.
+  - Also updated the [Digital Ocean deployment docs](/deployment/digital-ocean) to reflect the latest changes.
+- Updated `.pre-commit-config.yaml` to run the latest version of `ruff` and explicitly use the `ruff-check` hook.
+- For the production `REDIS_URL`, only add `ssl_cert_reqs=none` for Heroku builds, and set it to required on Digital Ocean, which has valid certificates. Thanks Jan for the suggestion!
+
 ## Version 2025.8
 
 This is a maintenance release which improves Docker-based development,
-upgrades dependencies and addresses a number of minor issues.
+upgrades dependencies and addresses a number of minor issues reported by the community.
+
+Thanks to everyone who contributed ideas and code to this release!
 
 ### Changed
 
-- **Upgraded all Python packages to their latest versions.**
-- **Upgraded all JavaScript packages to their latest versions.**
 - **Changed how CSS files are built and imported in vite builds. This fixes the flash of unstyled content when running Vite in development.**
-  - Removed the redundant `site-<framework>.js` files and instead added the imported CSS files directly 
+  - Removed the redundant `site-<framework>.js` files and instead added the imported CSS files directly
     as entry points to `vite.config.ts`.
   - Updated `base.html` to use `vite_asset_url` instead of `vite_asset` for CSS files.
 - **Updated development Docker setup to always use a separate container for Node / NPM.**
   This removes all node/npm logic from `Dockerfile.dev` and uses either `Dockerfile.vite` or `Dockerfile.webpack` for the front end.
   - Also updated the `Makefile` to reference this new container where necessary.
+- **Upgraded all Python packages to their latest versions.**
+- **Upgraded all JavaScript packages to their latest versions.**
 - Changed `sentry-sdk` to `sentry-sdk[django]` and pinned the version. Thanks Ralph for suggesting!
-- Changed how email confirmation works when updating an email address to be more aligned with allauth best practices.
+- Changed how email confirmation works when updating an email address to be more aligned with allauth best practices,
+  and stop using a method that was removed in the latest allauth.
 - Changed the typescript module resolution strategy to "bundler", which aligns better with how Vite resolves modules in the project.
 - Added `.claude/settings.local.json` to `.gitignore`.
 - Updated the behavior of the subscription page for team non-admins so that it shows a useful message telling them
   they aren't allowed to manage subscriptions for their team, instead of returning a generic 404.
   Thanks Haydn for the suggestion!
-- `./manage.py bootstrap_subscriptions` will now use Stripe's "marketing features" property of Products to generate the 
+- `./manage.py bootstrap_subscriptions` will now use Stripe's "marketing features" property of Products to generate the
   relevant configuration in Pegasus. Thanks Zac for suggesting!
 - `./manage.py bootstrap_subscriptions` will now only use products that have recurring pricing set when generating the Pegasus configuration.
 - The `build-api-client` make target will now delete unused files and set correct file permissions on the generated code.
