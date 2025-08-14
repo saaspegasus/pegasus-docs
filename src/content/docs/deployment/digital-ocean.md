@@ -18,22 +18,36 @@ Next, install and configure the `doctl` command line tool by following [these in
 Additionally, you must connect Digital Ocean to your project's Github repository.
 This can be done from inside App Platform, or by following [this link](https://cloud.digitalocean.com/apps/github/install).
 
-### Deploying
 
-Once you've configured the prerequisites, deploying is just a few steps.
+### Set up Databases
 
-If you are planning to use Celery or Redis (Valkey), first create your Database cluster.
-The easiest way to do this is in Digital Ocean Dashboard.
+Before you can deploy you will need to set up databases for your application.
 
-Navigate to [Databases --> New](https://cloud.digitalocean.com/databases/new), and choose
-"Valkey".
+First, navigate to [Databases --> New](https://cloud.digitalocean.com/databases/new), and choose
+"PostgreSQL" and the latest version (as of this writing, v17).
 
-For your database/cluster name, it is recommended to use: `<your-project>-redis` to match
+You can leave most of the settings as-is, though feel free to change as you want.
+The smallest size should be fine for most applications getting stared.
+
+For the database cluster name it's recommended to use `<your-project>-db` to match
 the default value expected by Pegasus.
 
-Next edit the `/deploy/app-spec.yaml` file. In particular, make sure to set your Github repository and branch.
-If you aren't using Celery, you can remove the sections related to redis, and the celery-worker.
-If you are using Redis/Valkey, the cluster name must match what you chose when you created the Database above.
+If you are planning to use Celery or Redis (Valkey), you'll also have to create that Database.
+
+Repeat the process above, but choosing "Valkey" for the database type.
+For your Redis database cluster name, it is recommended to use: `<your-project>-redis` to match
+the default value expected by Pegasus.
+
+### Deploying
+
+Once you've configured the prerequisites and set up your databases, deploying is just a few steps.
+
+First, edit the `/deploy/app-spec.yaml` file. In particular, make sure to set your Github repository and branch.
+Also, if you did not use the database naming conventions above, then you will have to adjust your
+database `cluster_name` values to the ones you chose for Postgres and Redis/Valkey, respectively.
+
+If you don't need Celery, you can remove the sections related to Redis, and the workers (celery and celery-beat).
+This will substantially reduce the costs of running your app (the workers are $20/mo and Redis is $15/mo).
 
 Once you've made all the edits to the `app-spec.yaml` file you can deploy your app by run the following command:
 
@@ -45,8 +59,8 @@ That's it!
 In a few minutes your app should be online.
 You can [find and view it here](https://cloud.digitalocean.com/apps).
 
-Once your app is live, you should restrict access to your Redis/Valkey instance, by navigating to the database
-in the Digital Ocean console and setting your app as a "trusted source" and saving.
+Once your app is live, you should restrict access to your Postgres and Redis/Valkey instance,
+by navigating to each database in the Digital Ocean console and setting your app as a "trusted source" and saving.
 Failure to do this may result in your app's data and infrastructure being exposed to the public.
 
 **After deploying, review the [production checklist](/deployment/production-checklist) for a list
