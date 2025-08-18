@@ -11,6 +11,7 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
   Development databases are no longer well-supported in app platform.
   - Also updated the [Digital Ocean deployment docs](/deployment/digital-ocean) to reflect the latest changes.
 - Updated `.pre-commit-config.yaml` to run the latest version of `ruff` and explicitly use the `ruff-check` hook.
+  - Also pinned `ruff` dependency to the same minimum version.
 - For the production `REDIS_URL`, only add `ssl_cert_reqs=none` for Heroku builds, and set it to required on Digital Ocean, which has valid certificates. Thanks Jan for the suggestion!
 
 ## Version 2025.8
