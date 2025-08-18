@@ -7,6 +7,24 @@ Pegasus provides native support for Digital Ocean App Platform.
 To build for Digital Ocean, choose the "digital_ocean_app_platform" option when installing Pegasus.
 Then follow the steps below to deploy your app.
 
+### Cost
+
+Deploying a basic application to Digital Ocean App Platform can be expensive for hobby projects,
+with costs ranging from $20-$55/month on the smallest hardware options.
+
+For a basic Django application the minimum requirements will be as follows
+
+- 1 App server ($5/month)
+- 1 Postgres database ($15/month)
+
+However, if you want to use Celery the costs will increase, by adding:
+
+- 1 Celery worker ($10/month)
+- 1 Celery beat worker (if using scheduled tasks) ($10/month)
+- 1 Redis database ($15/month)
+
+*These numbers were last updated in August, 2025.*
+
 ### Prerequisites
 
 If you haven't already, create your Digital Ocean account.
