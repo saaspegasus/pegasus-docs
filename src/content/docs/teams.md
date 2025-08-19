@@ -29,22 +29,22 @@ that demonstrate additional team-based examples, including functional views, pag
 
 They are a great place to start for inspiration and getting something up and running quickly!
 
-*Note: the example apps are not officially sanctioned/supported by Pegasus---though 
+*Note: the example apps are not officially sanctioned/supported by Pegasus---though
 features from them will be continually incorporated into future releases.*
 
 ## Data Models
 
 Teams use three primary models - `apps.users.CustomUser`, `apps.teams.Team`, and `apps.teams.Membership`.
 
-The `Membership` model uses [Django's "through" support](https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField.through) 
+The `Membership` model uses [Django's "through" support](https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField.through)
 to extend the `User`/`Team` relationship with additional fields.
 
 By default, a `role` field is added to represent the `User`'s role in the `Team` (admin or member).
 
-### Team-based models 
+### Team-based models
 
 Data models that "belong" to a Team can subclass `BaseTeamModel`.
-See the example app for usage. 
+See the example app for usage.
 
 ## Team-based Views
 
@@ -70,7 +70,7 @@ the team as follows:
 * From the current session if available
 * From the user's list of teams if available
 
-If the `team_slug` is available from the request path but it does not match a team that the user has access to 
+If the `team_slug` is available from the request path but it does not match a team that the user has access to
 then the request will terminate with a 404. Apart from this the middleware does not do any validation of the
 team or the team membership. That is left to the decorators described below.
 
@@ -85,7 +85,7 @@ decorators (see below) to ensure the logged-in user can access the selected team
 Additionally, you will have to scope any data model access to the relevant Team
 in any Database/ORM queries you make inside your views.
 
-### Permission Control
+## Permission Control
 
 Pegasus includes two convenience decorators for use in team views.
 These can be found in `apps.teams.decorators`.
@@ -110,19 +110,19 @@ Or in class-based views like this:
 ```python
 @method_decorator(login_and_team_required, name='dispatch')
 class ATeamView(View):
-    # other view details go here 
+    # other view details go here
 ```
 
 If the current user does not have access to the team they will see a 404 page.
 If no user is logged in they'll be redirected to a login view, just like the `login_required` decorator.
 
-#### The `team_admin_required` decorator
+### The `team_admin_required` decorator
 
 The `team_admin_required` decorator works just like the `login_and_team_required` decorator, except
 in addition to checking team membership the role is also checked and if the user doesn't have
 "admin" access they will not be able to access the view.
 
-#### The `LoginAndTeamRequiredMixin` and `TeamAdminRequiredMixin` classes
+### The `LoginAndTeamRequiredMixin` and `TeamAdminRequiredMixin` classes
 
 These mixins provide the same functionality as the decorators, but are designed to work with Django's generic
 class-based views. They can be used like this:
@@ -153,3 +153,76 @@ is an admin of the associated team:
   <p>Sorry you don't have access to {{team.name}}.</p>
 {% endif %}
 ```
+
+### Adding Roles
+
+The permission system is designed to be simple enough to easily use, but extensible enough that you can
+customize it to match your project's needs.
+
+Here's how you can add a new role to your app:
+
+#### 1. Define the New Role in `roles.py`
+
+First, you need to add your new role constant and update the choices in `apps/teams/roles.py`:
+
+```python
+ROLE_ADMIN = 'admin'
+ROLE_MEMBER = 'member'
+ROLE_MODERATOR = 'moderator'  # Add your new role here
+
+ROLE_CHOICES = (
+    # customize roles here
+    (ROLE_ADMIN, 'Administrator'),
+    (ROLE_MEMBER, 'Member'),
+    (ROLE_MODERATOR, 'Moderator'),  # Add your new role choice here
+)
+```
+
+Technically, this is all that's needed, as this will cause the role to show up in the invitation UI
+and allow it to be used in team memberships.
+
+However, you'll probably also want to use the role in your app permissions system.
+To do that, you should also add a helper function for the new role if you want to use it in permission checks:
+
+```python
+def is_moderator(user: CustomUser, team) -> bool:
+    if not team:
+        return False
+
+    from .models import Membership
+    return Membership.objects.filter(team=team, user=user, role=ROLE_MODERATOR).exists()
+```
+
+#### 2. Update the Membership Model (if needed)
+
+The `Membership` model in `models.py` already uses `roles.ROLE_CHOICES` for its role field,
+so it will automatically pick up your new role.
+However, you might want to add a helper method to the `Membership` model:
+
+```python
+class Membership(BaseModel):
+    # ... existing code ...
+
+    def is_moderator(self) -> bool:
+        return self.role == roles.ROLE_MODERATOR
+```
+
+#### 3. Add a new decorator (if needed)
+
+If you'd like to use the role in decorators, similar to `@team_admin_required` you can do so by adding
+a new function to  `apps/teams/decorators.py`:
+
+```
+# import the and use function you created in step 1
+from .roles import is_admin, is_member, is_moderator
+
+def team_moderator_required(view_func):
+    return _get_decorated_function(view_func, is_moderator)
+```
+
+#### 4. Use the role
+
+You'll need to update any views or logic that handle role-based permissions,
+by calling the helper functions and decorators you've defined above.
+
+The specifics here will depend on the role you've added and the goals you're trying to achieve with it.
