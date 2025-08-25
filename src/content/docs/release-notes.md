@@ -7,12 +7,28 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.8.1
 
-- Updated the Digital Ocean deployment to use a managed database instead of a development database.
+The main feature update in this release is an integrated AI chat widget that can be easily embedded
+on any page of your app. This update should pave the way for future AI workflows that will be added soon.
+
+- **Added a way to add an AI chat to any page in your app.**
+  This change also included several refactors and changes that allow re-using parts of the AI code:
+  - JavaScript websocket events are now initialized in an external JavaScript file (`assets/javascript/chat/ws_initialize.ts`)
+  - Message thread component was moved to a separate template to be re-usable by the main chat page and component.
+- Change: The default system prompt is now overridden in AI chats, enabling you to easily change it in a single place.
+- **Change: The htmx websocket extension is now installed locally instead of loaded from unpkg.com.**
+- Change: Updated the Digital Ocean deployment to use a managed database instead of a development database.
   Development databases are no longer well-supported in app platform.
   - Also updated the [Digital Ocean deployment docs](/deployment/digital-ocean) to reflect the latest changes.
+- Fix: For the production `REDIS_URL`, only add `ssl_cert_reqs=none` for Heroku builds, and set it to required on Digital Ocean, which has valid certificates. Thanks Jan for the suggestion!
 - Updated `.pre-commit-config.yaml` to run the latest version of `ruff` and explicitly use the `ruff-check` hook.
   - Also pinned `ruff` dependency to the same minimum version.
-- For the production `REDIS_URL`, only add `ssl_cert_reqs=none` for Heroku builds, and set it to required on Digital Ocean, which has valid certificates. Thanks Jan for the suggestion!
+- Change: Made minor formatting changes to `user_dashboard.html`.
+- Fix: Fixed an issue with the honeypot field that caused a large horizontal scroll on the signup page.
+  - Also improved spacing on the signup forms.
+  - Thanks Finbar for the contribution!
+
+
+
 
 ## Version 2025.8
 
