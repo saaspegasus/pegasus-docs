@@ -72,11 +72,53 @@ To run models like Mixtral or Llama3, you will need to run an [Ollama](https://o
 
 ## The Chat UI
 
-The Chat UI has multiple different implementations, and the one that is used for your project will be determined by your build configuration.
+The Chat UI has multiple different implementations, and the one that is used for your project will be determined
+ by your build configuration.
 
 If you build with asynchronous functionality enabled *and* htmx then it will use a websocket-based Chat UI.
 This Chat UI supports streaming responses for OpenAI models, and is the recommended option.
+It is also currently the only option that supports the chat widget that can be embedded on any page.
 
 If you build without asynchronous functionality enabled, the chat UI will instead use Celery and polling.
 The React version of the chat UI also uses Celery and polling.
 This means that [Celery must be running](/celery) to get responses from the LLM.
+
+### The Chat widget
+
+*The chat widget is currently only available if your project is using HTMX and Async.*
+
+The chat widget is a small component that can be embedded on any page of your app.
+By default, it is included in your `app_base.html` file and will be included in any page that extends it
+(most of the logged-in pages in the app).
+
+#### Adding the chat widget to a page
+
+To add the chat widget to a page, you can follow the example in `app_base.html`.
+There are two steps:
+
+First, include the component at the end of the `<body>` tag.
+If you're extending the `base.html` file this will be at the end of the `{% block body %}` block.
+
+```jinja
+{% block body %}
+...
+{% include "chat/components/chat_overlay.html" %}
+{% endblock body %}
+```
+
+Then, add the `ws_initialize.js` in your page JavaScript:
+
+```jinja
+{% block page_js %}
+<!-- If using vite -->
+  {% vite_asset 'assets/javascript/chat/ws_initialize.ts' %}
+<!-- If using webpack -->
+  <script src="{% static 'js/chat-ws-initialize-bundle.js' %}" defer></script>
+{% endblock page_js %}
+```
+
+#### Removing the chat widget
+
+To remove the chat widget from your app, delete the lines mentioned above from your `app_base.html` file.
+
+
