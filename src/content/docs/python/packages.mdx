@@ -3,7 +3,13 @@ title: Working with Python Packages (pip-tools)
 description: Manage Python dependencies with pip-tools using requirements.in files, pip-compile commands, and Docker container rebuilds for package management.
 ---
 
-__*Using pip-tools has been deprecated in favor of uv. See [the uv docs](/python/uv) and [migration guide](/cookbooks/#migrating-from-pip-tools-to-uv).*__
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="This feature is deprecated">
+Using pip-tools has been deprecated in favor of uv.
+See [the uv docs](/python/uv) and [migration guide](/cookbooks/#migrating-from-pip-tools-to-uv).
+</Aside>
+
 
 Pegasus uses [pip tools](https://github.com/jazzband/pip-tools) to manage Python dependencies.
 This allows for more explicit dependency management than a standard `requirements.txt` file.
