@@ -7,6 +7,24 @@ Pegasus provides native support for Digital Ocean App Platform.
 To build for Digital Ocean, choose the "digital_ocean_app_platform" option when installing Pegasus.
 Then follow the steps below to deploy your app.
 
+### Cost
+
+Deploying a basic application to Digital Ocean App Platform can be expensive for hobby projects,
+with costs ranging from $20-$55/month on the smallest hardware options.
+
+For a basic Django application the minimum requirements will be as follows
+
+- 1 App server ($5/month)
+- 1 Postgres database ($15/month)
+
+However, if you want to use Celery the costs will increase, by adding:
+
+- 1 Celery worker ($10/month)
+- 1 Celery beat worker (if using scheduled tasks) ($10/month)
+- 1 Redis database ($15/month)
+
+*These numbers were last updated in August, 2025.*
+
 ### Prerequisites
 
 If you haven't already, create your Digital Ocean account.
@@ -18,30 +36,49 @@ Next, install and configure the `doctl` command line tool by following [these in
 Additionally, you must connect Digital Ocean to your project's Github repository.
 This can be done from inside App Platform, or by following [this link](https://cloud.digitalocean.com/apps/github/install).
 
+
+### Set up Databases
+
+Before you can deploy you will need to set up databases for your application.
+
+First, navigate to [Databases --> New](https://cloud.digitalocean.com/databases/new), and choose
+"PostgreSQL" and the latest version (as of this writing, v17).
+
+You can leave most of the settings as-is, though feel free to change as you want.
+The smallest size should be fine for most applications getting stared.
+
+For the database cluster name it's recommended to use `<your-project>-db` to match
+the default value expected by Pegasus.
+
+If you are planning to use Celery or Redis (Valkey), you'll also have to create that Database.
+
+Repeat the process above, but choosing "Valkey" for the database type.
+For your Redis database cluster name, it is recommended to use: `<your-project>-redis` to match
+the default value expected by Pegasus.
+
 ### Deploying
 
-Once you've configured the prerequisites, deploying is just a few steps.
+Once you've configured the prerequisites and set up your databases, deploying is just a few steps.
 
-If you are planning to use Celery or Redis (Valkey), first create your Database cluster.
-The easiest way to do this is in Digital Ocean Dashboard.
+First, edit the `/deploy/app-spec.yaml` file. In particular, make sure to set your Github repository and branch.
+Also, if you did not use the database naming conventions above, then you will have to adjust your
+database `cluster_name` values to the ones you chose for Postgres and Redis/Valkey, respectively.
 
-Navigate to [Databases --> New](https://cloud.digitalocean.com/databases/new), and choose
-"Valkey".
+If you don't need Celery, you can remove the sections related to Redis, and the workers (celery and celery-beat).
+This will substantially reduce the costs of running your app (the workers are $20/mo and Redis is $15/mo).
 
-It's recommended to name this database `<your-project>-redis`.
+Once you've made all the edits to the `app-spec.yaml` file you can deploy your app by run the following command:
 
-Next edit the `/deploy/app-spec.yaml` file. In particular, make sure to set your Github repository and branch.
-If you aren't using Celery, you can remove the sections related to redis, and the celery-worker.
-If you are using Redis/Valkey, the cluster name must match what you chose when you created the Database.
-
-Finally, run `doctl apps create --spec deploy/app-spec.yaml`
+```
+doctl apps create --spec deploy/app-spec.yaml
+```
 
 That's it!
 In a few minutes your app should be online.
 You can [find and view it here](https://cloud.digitalocean.com/apps).
 
-Once your app is live, you should restrict access to your Redis/Valkey instance, by navigating to the database
-in the Digital Ocean console and setting your app as a "trusted source" and saving.
+Once your app is live, you should restrict access to your Postgres and Redis/Valkey instance,
+by navigating to each database in the Digital Ocean console and setting your app as a "trusted source" and saving.
 Failure to do this may result in your app's data and infrastructure being exposed to the public.
 
 **After deploying, review the [production checklist](/deployment/production-checklist) for a list

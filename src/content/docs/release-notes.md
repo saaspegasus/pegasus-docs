@@ -5,30 +5,67 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.8.1
+
+The main feature update in this release is an integrated AI chat widget that can be easily embedded
+on any page of your app. This update should pave the way for future AI use cases that are in the works.
+
+- **Feature: Added a way to add an AI chat to any page in your app.**
+  See [the new documentation for using this feature](/ai/llms/#the-chat-widget).
+  This change also included some refactors and changes that allow re-using parts of the AI code:
+  - JavaScript websocket events are now initialized in an external JavaScript file (`assets/javascript/chat/ws_initialize.ts`)
+  - Message thread component was moved to a separate template to be re-usable by the main chat page and component.
+- **Change: The htmx websocket extension is now installed locally instead of loaded from unpkg.com.**
+- Change: The default system prompt is now overridden in AI chats, enabling you to easily change it in a single place.
+- Change: Chat names are now set synchronously if the initial message is short.
+- Change: Updated websocket URL names from `"ws_openai_..."` to `"ws_ai_..."` since there is no requirement to use OpenAI.
+- Change: Improved the default chat UI styles on Tailwind builds to be more comatible with DaisyUI themes.
+- Change: Updated the default claude model used to `claude-sonnet-4-20250514`
+- Change: Added default `AI_CHAT_ANTHROPIC_API_KEY` to example `.env` files.
+- Change: Made minor formatting changes to `user_dashboard.html`.
+- Change: The user-facing error message when creating an account with an existing email no longer reveals
+  that the account is already signed up (this improves privacy/security).
+  Thanks Brennon for the contribution!
+- Fix: Updated the Digital Ocean deployment to use a managed database instead of a development database.
+  Development databases are no longer well-supported in app platform.
+  - Also updated the [Digital Ocean deployment docs](/deployment/digital-ocean) to reflect the latest changes.
+- Fix: For the production `REDIS_URL`, only add `ssl_cert_reqs=none` for Heroku builds, and set it to required on Digital Ocean, which has valid certificates. Thanks Jan for the suggestion!
+- Fix: Fixed an issue with the honeypot field that caused a large horizontal scroll on the signup page on some CSS Frameworks.
+  - Also improved spacing on the signup forms.
+  - Thanks Finbar for the contribution!
+- Fix: Use Wagtail's built-in page titles and meta descriptions is the SEO fields for blog posts, if they have been set.
+  Thanks Richard for the suggestion!
+- Fix: Moved `@tailwindcss/typography` from `devDependencies` to `dependencies` in `package.json`
+- Update: Updated `.pre-commit-config.yaml` to run the latest version of `ruff` and explicitly use the `ruff-check` hook.
+  - Also pinned `ruff` dependency to the same minimum version.
+
 ## Version 2025.8
 
 This is a maintenance release which improves Docker-based development,
-upgrades dependencies and addresses a number of minor issues.
+upgrades dependencies and addresses a number of minor issues reported by the community.
+
+Thanks to everyone who contributed ideas and code to this release!
 
 ### Changed
 
-- **Upgraded all Python packages to their latest versions.**
-- **Upgraded all JavaScript packages to their latest versions.**
 - **Changed how CSS files are built and imported in vite builds. This fixes the flash of unstyled content when running Vite in development.**
-  - Removed the redundant `site-<framework>.js` files and instead added the imported CSS files directly 
+  - Removed the redundant `site-<framework>.js` files and instead added the imported CSS files directly
     as entry points to `vite.config.ts`.
   - Updated `base.html` to use `vite_asset_url` instead of `vite_asset` for CSS files.
 - **Updated development Docker setup to always use a separate container for Node / NPM.**
   This removes all node/npm logic from `Dockerfile.dev` and uses either `Dockerfile.vite` or `Dockerfile.webpack` for the front end.
   - Also updated the `Makefile` to reference this new container where necessary.
+- **Upgraded all Python packages to their latest versions.**
+- **Upgraded all JavaScript packages to their latest versions.**
 - Changed `sentry-sdk` to `sentry-sdk[django]` and pinned the version. Thanks Ralph for suggesting!
-- Changed how email confirmation works when updating an email address to be more aligned with allauth best practices.
+- Changed how email confirmation works when updating an email address to be more aligned with allauth best practices,
+  and stop using a method that was removed in the latest allauth.
 - Changed the typescript module resolution strategy to "bundler", which aligns better with how Vite resolves modules in the project.
 - Added `.claude/settings.local.json` to `.gitignore`.
 - Updated the behavior of the subscription page for team non-admins so that it shows a useful message telling them
   they aren't allowed to manage subscriptions for their team, instead of returning a generic 404.
   Thanks Haydn for the suggestion!
-- `./manage.py bootstrap_subscriptions` will now use Stripe's "marketing features" property of Products to generate the 
+- `./manage.py bootstrap_subscriptions` will now use Stripe's "marketing features" property of Products to generate the
   relevant configuration in Pegasus. Thanks Zac for suggesting!
 - `./manage.py bootstrap_subscriptions` will now only use products that have recurring pricing set when generating the Pegasus configuration.
 - The `build-api-client` make target will now delete unused files and set correct file permissions on the generated code.

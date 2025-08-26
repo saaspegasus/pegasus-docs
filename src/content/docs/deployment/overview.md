@@ -22,9 +22,15 @@ Much of the choice will also depend on the knowledge and comfort of you/your tea
 See this [Django Deployment Guide](https://www.saaspegasus.com/guides/django-deployment/) for a big-picture
 overview on choosing a deployment strategy.
 
+## Deployment to any VPS
+
+The easiest way to deploy your application to any Linux server is to use Pegasus's Kamal deployment support.
+This will deploy your application using portable, cross-platform Docker containers.
+For more information on deploying to a VPS, see the [kamal deployment documentation](/deployment/kamal).
+
 ## Officially supported PaaS platforms
 
-Pegasus ships with configuration files to deploy to select platforms out-of-the-box.
+Pegasus also ships with configuration files to deploy to select platforms out-of-the-box.
 The officially supported platforms are:
 
 - [Render](/deployment/render) (Python-based)
@@ -35,19 +41,15 @@ The officially supported platforms are:
 
 Render and Fly are comparable, and are the recommended options for staging sites or MVPs,
 since they are easy to set up and have a generous free tier.
+Digital Ocean and Heroku tend to be more expensive but have a longer track record.
+Google Cloud is the most copmlex to set up, but allows you to access Google's infrastructure.
 
 If you would like to deploy to a platform that's not listed here, please get in touch on Slack or by emailing
 support@saaspegasus.com and I'm happy to help!
 
-## Deployment to any VPS
-
-In addition to the above platforms, you can use Pegasus's Kamal deployment support to deploy
-your application onto any Linux server, using Docker containers. For more information on deploying to a VPS,
-see the [kamal deployment documentation](/deployment/kamal).
-
 ## Other options
 
-If, for whatever reason, you don't want to use the built in Kamal option to deploy to a VPS,
+If, for whatever reason, you want to deploy to a VPS but  don't want to use the built in Kamal option,
 the Django documentation provides a good overview on [how to deploy Django to your own server](https://docs.djangoproject.com/en/stable/howto/deployment/).
 
 Pegasus user [Mitja Martini](https://mitjamartini.com/) has documented how he [deploys his SaaS Pegasus
@@ -56,7 +58,6 @@ open-source, self-hosted PaaS platform).
 
 Pegasus user [Artem Gordinskiy](https://artem.cool/) has documented his experience
 [migrating Pegasus apps from Kamal to Coolify](https://artem.cool/blog/coolify-django/) (another open-source, self-hosted PaaS).
-
 
 Pegasus's [Docker support](/docker) can be used as a basis for other production environments
 that supports container---for example, Google Kubernetes Engine and Amazon ECS.
