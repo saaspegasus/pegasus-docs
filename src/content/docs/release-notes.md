@@ -12,6 +12,10 @@ the groundwork for some future use cases that are in the works.
 The main new feature related to this work is an integrated AI chat widget that can be easily embedded
 on any page of your app.
 
+**Screenshots:**
+
+![Chat Widget](../../assets/images/chat/chat-windows.png)
+
 Complete details are below.
 
 ### Added
