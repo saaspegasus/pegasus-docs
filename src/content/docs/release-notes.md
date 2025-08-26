@@ -8,27 +8,36 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 ## Version 2025.8.1
 
 The main feature update in this release is an integrated AI chat widget that can be easily embedded
-on any page of your app. This update should pave the way for future AI workflows that will be added soon.
+on any page of your app. This update should pave the way for future AI use cases that are in the works.
 
-- **Added a way to add an AI chat to any page in your app.**
-  This change also included several refactors and changes that allow re-using parts of the AI code:
+- **Feature: Added a way to add an AI chat to any page in your app.**
+  See [the new documentation for using this feature](/ai/llms/#the-chat-widget).
+  This change also included some refactors and changes that allow re-using parts of the AI code:
   - JavaScript websocket events are now initialized in an external JavaScript file (`assets/javascript/chat/ws_initialize.ts`)
   - Message thread component was moved to a separate template to be re-usable by the main chat page and component.
-- Change: The default system prompt is now overridden in AI chats, enabling you to easily change it in a single place.
 - **Change: The htmx websocket extension is now installed locally instead of loaded from unpkg.com.**
-- Change: Updated the Digital Ocean deployment to use a managed database instead of a development database.
+- Change: The default system prompt is now overridden in AI chats, enabling you to easily change it in a single place.
+- Change: Chat names are now set synchronously if the initial message is short.
+- Change: Updated websocket URL names from `"ws_openai_..."` to `"ws_ai_..."` since there is no requirement to use OpenAI.
+- Change: Improved the default chat UI styles on Tailwind builds to be more comatible with DaisyUI themes.
+- Change: Updated the default claude model used to `claude-sonnet-4-20250514`
+- Change: Added default `AI_CHAT_ANTHROPIC_API_KEY` to example `.env` files.
+- Change: Made minor formatting changes to `user_dashboard.html`.
+- Change: The user-facing error message when creating an account with an existing email no longer reveals
+  that the account is already signed up (this improves privacy/security).
+  Thanks Brennon for the contribution!
+- Fix: Updated the Digital Ocean deployment to use a managed database instead of a development database.
   Development databases are no longer well-supported in app platform.
   - Also updated the [Digital Ocean deployment docs](/deployment/digital-ocean) to reflect the latest changes.
 - Fix: For the production `REDIS_URL`, only add `ssl_cert_reqs=none` for Heroku builds, and set it to required on Digital Ocean, which has valid certificates. Thanks Jan for the suggestion!
-- Updated `.pre-commit-config.yaml` to run the latest version of `ruff` and explicitly use the `ruff-check` hook.
-  - Also pinned `ruff` dependency to the same minimum version.
-- Change: Made minor formatting changes to `user_dashboard.html`.
-- Fix: Fixed an issue with the honeypot field that caused a large horizontal scroll on the signup page.
+- Fix: Fixed an issue with the honeypot field that caused a large horizontal scroll on the signup page on some CSS Frameworks.
   - Also improved spacing on the signup forms.
   - Thanks Finbar for the contribution!
-
-
-
+- Fix: Use Wagtail's built-in page titles and meta descriptions is the SEO fields for blog posts, if they have been set.
+  Thanks Richard for the suggestion!
+- Fix: Moved `@tailwindcss/typography` from `devDependencies` to `dependencies` in `package.json`
+- Update: Updated `.pre-commit-config.yaml` to run the latest version of `ruff` and explicitly use the `ruff-check` hook.
+  - Also pinned `ruff` dependency to the same minimum version.
 
 ## Version 2025.8
 
