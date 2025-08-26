@@ -3,7 +3,13 @@ title: The Material Theme (deprecated)
 description: Legacy Material Design theme based on Creative Tim's Material Kit and Dashboard, now deprecated with maintenance-only support until 2025.
 ---
 
-**This theme has been deprecated.**
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="This feature is deprecated">
+This theme has been deprecated and is no longer actively maintained.
+It is recommended to switch to [Tailwind CSS](/css/tailwind).
+</Aside>
+
 
 This means that the theme is in maintenance-only mode, and support will be dropped by the end of 2025.
 Existing projects can continue using the theme, but new projects should not, and new Pegasus features will eventually
@@ -14,13 +20,13 @@ this theme from its maintainer, Creative Tim.
 Additionally, their process around updating the theme has entailed releasing large, poorly-documented updates
 which have been difficult for me to incorporate back into Pegasus.
 
-The following documentation is for people already using the material theme. 
+The following documentation is for people already using the material theme.
 
 ## Customizing the Material theme
 
 The customization process outlined above largely works for the Material theme as well.
 
-For example, you can change the primary color from the default magenta to a dark green by adding the 
+For example, you can change the primary color from the default magenta to a dark green by adding the
 following lines towards the top of `assets/styles/site-bootstrap.scss`:
 
 ```scss
