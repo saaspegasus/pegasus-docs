@@ -3,6 +3,8 @@ title: Working with Python Packages (pip-tools)
 description: Manage Python dependencies with pip-tools using requirements.in files, pip-compile commands, and Docker container rebuilds for package management.
 ---
 
+__*Using pip-tools has been deprecated in favor of uv. See [the uv docs](/python/uv) and [migration guide](/cookbooks/#migrating-from-pip-tools-to-uv).*__
+
 Pegasus uses [pip tools](https://github.com/jazzband/pip-tools) to manage Python dependencies.
 This allows for more explicit dependency management than a standard `requirements.txt` file.
 
@@ -43,7 +45,7 @@ pip-compile requirements/requirements.in
 
 # docker version
 make pip-compile
-``` 
+```
 
 After running this you should see the package and its dependencies added to the `requirements.txt` file.
 
@@ -107,5 +109,5 @@ Behind the scenes this will:
 1. Rebuild all your `-requirements.txt` files from your `-requirements.in` files with `uv`.
 2. Rebuild your containers (installing the new packages).
 3. Restart your containers.
- 
+
 For more information, see the [docker documentation](/docker/#updating-python-packages).
