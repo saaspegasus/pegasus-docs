@@ -88,22 +88,22 @@ This means that [Celery must be running](/celery) to get responses from the LLM.
 *The chat widget is currently only available if your project is using HTMX and Async.*
 
 The chat widget is a small component that can be embedded on any page of your app.
-By default, it is included in your `app_base.html` file and will be included in any page that extends it
-(most of the logged-in pages in the app).
+By default, it is included in your `chat_home.html` file, so you can view a demo of the widget
+from the "AI Chat" tab in your app.
 
 #### Adding the chat widget to a page
 
-To add the chat widget to a page, you can follow the example in `app_base.html`.
+To add the chat widget to a page, you can follow the example in `chat_home.html`.
 There are two steps:
 
 First, include the component at the end of the `<body>` tag.
-If you're extending the `base.html` file this will be at the end of the `{% block body %}` block.
+If you're extending the `app_base.html` file this will be at the end of the `{% block app %}` block.
 
 ```jinja
-{% block body %}
+{% block app %}
 ...
 {% include "chat/components/chat_overlay.html" %}
-{% endblock body %}
+{% endblock app %}
 ```
 
 Then, add the `ws_initialize.js` in your page JavaScript:
@@ -117,8 +117,5 @@ Then, add the `ws_initialize.js` in your page JavaScript:
 {% endblock page_js %}
 ```
 
-#### Removing the chat widget
-
-To remove the chat widget from your app, delete the lines mentioned above from your `app_base.html` file.
-
-
+If you want to add the chat widget to all pages in your app, you can add it to the `base.html` file.
+For all logged-in pages, you can add it to the `app_base.html` file.
