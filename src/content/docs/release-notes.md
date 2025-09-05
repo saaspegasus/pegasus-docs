@@ -5,6 +5,20 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.9
+
+### Agents support
+
+- Added translations markup to a few places in the chat app.
+- Added a `chat_type` field to `Chat` models to differentiate between normal and agent chats.
+- Added an `agent_type` field to `Chat` models to differentiate between different agents.
+- Added a default log config for the "pegasus" namespace.
+- Updated the ai chat app logger to use "pegasus.ai" namespace.
+
+- Added a `websocket_url` templatetag that can be used in Django templates to reverse websocket URLs.
+- Updated the Postgres MCP server to use [mcp-alchemy](https://github.com/runekaagaard/mcp-alchemy),
+  since the original Postgres MCP server is now deprecated.
+
 ## Version 2025.8.1
 
 This release is focused on improving the AI chat experience, with an eye towards laying
