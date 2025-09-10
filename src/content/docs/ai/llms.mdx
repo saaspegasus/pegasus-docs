@@ -10,26 +10,9 @@ import { Steps } from '@astrojs/starlight/components';
 Pegasus comes with an optional Chat UI for interacting with LLMs.
 This section covers how it works and the various supported options.
 
-## Choosing an LLM model
-
-You can choose between two options for your LLM chat: OpenAI and LLM (generic).
-The OpenAI option limits you to OpenAI models, but supports streaming and asynchronous API access.
-The generic "LLM" option uses the [litellm library](https://docs.litellm.ai/docs/) and can be used with many different
-models---including local ones.
-
-We recommend choosing "OpenAI" unless you know you want to use a different model.
-
-## Configuring OpenAI
-
-If you're using OpenAI, you need to set `OPENAI_API_KEY` in your environment or settings file (`.env` in development).
-You can also change the model used by setting `OPENAI_MODEL`, which defaults to `"gpt-4o"`.
-
-See [this page](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key) for help
-finding your OpenAI API key.
-
 ## Configuring LLM
 
-If you built with generic LLM support, you can configure it by setting the `LLM_MODELS` and `DEFAULT_LLM_MODEL`
+You can configure the models you want to use by setting the `LLM_MODELS` and `DEFAULT_LLM_MODEL`
 values in your `settings.py`. For example:
 
 ```python
@@ -39,7 +22,7 @@ LLM_MODELS = {
     "claude-3-opus-20240229": {"api_key": env("ANTHROPIC_API_KEY", default="")},
     "ollama_chat/llama3": {"api_base": env("OLLAMA_API_BASE", default="http://localhost:11434")},  # requires a running ollama instance
 }
-DEFAULT_LLM_MODEL = env("DEFAULT_LLM_MODEL", default="gpt4")
+DEFAULT_LLM_MODEL = env("DEFAULT_LLM_MODEL", default="gpt4o")
 ```
 
 The chat UI will use whatever is set in `DEFAULT_LLM_MODEL` out-of-the-box, but you can quickly change it
@@ -49,6 +32,7 @@ For further reading, see the documentation of the [litellm Python API](https://d
 and [litellm providers](https://docs.litellm.ai/docs/providers).
 
 ## Running open source LLMs
+
 To run models like Mixtral or Llama3, you will need to run an [Ollama](https://ollama.com/) server in a separate process.
 
 <Steps>
@@ -119,3 +103,51 @@ Then, add the `ws_initialize.js` in your page JavaScript:
 
 If you want to add the chat widget to all pages in your app, you can add it to the `base.html` file.
 For all logged-in pages, you can add it to the `app_base.html` file.
+
+## Using Agents
+
+As of version 2025.9.1, Pegasus includes a set of example agents that you can use as a foundation for building
+your own agents. These agents are built with [Pydantic AI](https://docs.pydantic-ai.com/), and include:
+
+- A weather and location lookup agent, with tools to do geo-lookups and access current weather information.
+- A chatbot to interact with employee application data models, with tools to work with employee data.
+- A chatbot to interact with system database, with MCP tool to access postgres data.
+- A tool to send emails.
+
+For more information on these agents and how they work, you can watch this video:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/Z33IBfgVbxI" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+
+### Setting the agent model and keys
+
+To change the agent model you can set the `DEFAULT_LLM_MODEL` setting in your `settings.py` file or
+environment variables / `.env` file.
+
+For a list of available models, see the [Pydantic AI documentation](https://ai.pydantic.dev/models/overview/).
+
+You will also need to set the API keys for the models you want to use in the environment,
+ according to the Pydantic AI docs.
+
+ For example, to use any OpenAI models you need to set the `OPENAI_API_KEY` environment variable.
+
+```bash
+OPENAI_API_KEY="sk-..."
+```
+
+## Choosing an LLM model (deprecated)
+
+Older versions of Pegasus allowed you to choose between two options for your LLM chat: OpenAI and LiteLLM.
+As of version 2025.9.1, all projects will now use [LiteLLM](https://docs.litellm.ai/docs/),
+which fully supports OpenAI, as well as Anthropic, Google, and local models.
+This makes it easy to use different models depending on your specific application needs.
+
+## Configuring OpenAI (deprecated)
+
+If you're using OpenAI, you need to set `OPENAI_API_KEY` in your environment or settings file (`.env` in development).
+You can also change the model used by setting `OPENAI_MODEL`, which defaults to `"gpt-4o"`.
+
+See [this page](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key) for help
+finding your OpenAI API key.

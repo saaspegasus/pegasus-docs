@@ -5,6 +5,67 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.9
+
+### Agents support
+
+The big update in this release is a set of example workflows you can use as a foundation for building
+agentic chatbots, built with Pydantic AI. These include:
+
+- Injecting the logged-in user's information into the chatbot context.
+- An agentic editing example, that allows you to use natural language to create, update, list, and delete
+  data in the employee application.
+- An MCP-based agent that allows superusers to ask questions about the applicaton database.
+
+You can learn more about these features and how they work in the following video,
+as well as the [LLM documentation](/ai/llms/):
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/Z33IBfgVbxI" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+### Changes related to agent support
+
+- **Added Pydantic AI agent applications:**
+  - Weather and location lookup agent, with tools to do geo-lookups and access current weather information.
+    You can [demo this here](https://www.saaspegasus.com/chat/chat/agent/new/)
+  - Chatbot to interact with employee application data models, with tools to work with employee data.
+    This has been added as a new example, if AI chat is enabled.
+    You can [demo this here](https://www.saaspegasus.com/pegasus/employees/objects/agent/)
+  - Chatbot to interact with system database, with MCP tool to access postgres data.
+    This has been added to the project dashboard page and is only available for superusers.
+  - Tool to send emails.
+  - Pydantic AI is now a dependency if you enable AI chat.
+- **Added a `chat_type` field to `Chat` models to differentiate between normal and agent chats.**
+- **Added an `agent_type` field to `Chat` models to differentiate between different agents.**
+- Resuming chats will use the appropriate chat/agent type.
+- Refactored how chat sessions are managed to a set of `ChatSession` helper classes that help decouple
+  chat session behavior from the websocket / consumer class.
+- Refactored `ChatConsumer` websocket handler to a base class, and extended the base class to support
+  different chat types (normal and agent)
+  - Added new consumer classes for various agent types for the built-in examples.
+
+### Other changes
+
+- **Removed the "OpenAI" chat configuration option. All AI chat functionality now uses the `litellm` module,
+   which supports OpenAI, as well as Anthropic, Google, and other models.**
+- Changed `AI_CHAT_DEFAULT_LLM_MODEL` environment variable to `DEFAULT_LLM_MODEL`
+- Updated the default LLM model to be `gpt-5-nano`.
+- Added translations markup to a few places in the chat app.
+- Added a default log config for the "pegasus" namespace.
+- Updated the ai chat app logger to use "pegasus.ai" namespace.
+- Added a `ChatMessageInline` admin class so that chat messages show up in their associated `Chat` admin pages.
+- Updated the Postgres MCP server (dev tool) to use [mcp-alchemy](https://github.com/runekaagaard/mcp-alchemy),
+  since the original Postgres MCP server is now deprecated.
+- Removed the `UserSignupStatsSerializer` and the unused `UserSignupStatsView` API view.
+- Added a `websocket_url` templatetag that can be used in Django templates to reverse websocket URLs similar
+  to how the built-in `{% url %}` tag works.
+- Extracted employee table component to a template so it can be used in multiple places.
+- Simplified Stripe product serialization when used in subscription metadata.
+- Upgraded Django to the latest version (5.2.6).
+
+*September 10, 2025*
+
 ## Version 2025.8.1
 
 This release is focused on improving the AI chat experience, with an eye towards laying
