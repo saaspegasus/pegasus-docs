@@ -50,6 +50,7 @@ Complete release notes are below:
 - **Removed the "OpenAI" chat configuration option. All AI chat functionality now uses the `litellm` module,
    which supports OpenAI, as well as Anthropic, Google, and other models.**
 - Changed `AI_CHAT_DEFAULT_LLM_MODEL` environment variable to `DEFAULT_LLM_MODEL`
+- Updated the default LLM model to be `gpt-5-nano`.
 - Added translations markup to a few places in the chat app.
 - Added a default log config for the "pegasus" namespace.
 - Updated the ai chat app logger to use "pegasus.ai" namespace.
@@ -60,9 +61,10 @@ Complete release notes are below:
 - Added a `websocket_url` templatetag that can be used in Django templates to reverse websocket URLs similar
   to how the built-in `{% url %}` tag works.
 - Extracted employee table component to a template so it can be used in multiple places.
+- Simplified Stripe product serialization when used in subscription metadata.
 - Upgraded Django to the latest version (5.2.6).
 
-
+*September 10, 2025*
 
 ## Version 2025.8.1
 
