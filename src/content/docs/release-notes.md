@@ -17,7 +17,8 @@ agentic chatbots, built with Pydantic AI. These include:
   data in the employee application.
 - An MCP-based agent that allows superusers to ask questions about the applicaton database.
 
-You can learn more about these features and how they work in the following video:
+You can learn more about these features and how they work in the following video,
+as well as the [LLM documentation](/ai/llms/):
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
     <iframe src="https://www.youtube.com/embed/Z33IBfgVbxI" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
@@ -48,6 +49,7 @@ Complete release notes are below:
 
 - **Removed the "OpenAI" chat configuration option. All AI chat functionality now uses the `litellm` module,
    which supports OpenAI, as well as Anthropic, Google, and other models.**
+- Changed `AI_CHAT_DEFAULT_LLM_MODEL` environment variable to `DEFAULT_LLM_MODEL`
 - Added translations markup to a few places in the chat app.
 - Added a default log config for the "pegasus" namespace.
 - Updated the ai chat app logger to use "pegasus.ai" namespace.
