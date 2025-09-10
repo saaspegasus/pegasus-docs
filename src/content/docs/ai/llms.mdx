@@ -121,6 +121,22 @@ For more information on these agents and how they work, you can watch this video
 </div>
 
 
+### Setting the agent model and keys
+
+To change the agent model you can set the `DEFAULT_LLM_MODEL` setting in your `settings.py` file or
+environment variables / `.env` file.
+
+For a list of available models, see the [Pydantic AI documentation](https://ai.pydantic.dev/models/overview/).
+
+You will also need to set the API keys for the models you want to use in the environment,
+ according to the Pydantic AI docs.
+
+ For example, to use any OpenAI models you need to set the `OPENAI_API_KEY` environment variable.
+
+```bash
+OPENAI_API_KEY="sk-..."
+```
+
 ## Choosing an LLM model (deprecated)
 
 Older versions of Pegasus allowed you to choose between two options for your LLM chat: OpenAI and LiteLLM.
