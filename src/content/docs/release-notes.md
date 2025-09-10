@@ -13,6 +13,7 @@ The big update in this release is a set of example workflows you can use as a fo
 agentic chatbots, built with Pydantic AI. These include:
 
 - Injecting the logged-in user's information into the chatbot context.
+- A tool use example that demonstrates a chatbot accessing live weather information for anywhere in the world.
 - An agentic editing example, that allows you to use natural language to create, update, list, and delete
   data in the employee application.
 - An MCP-based agent that allows superusers to ask questions about the applicaton database.
