@@ -24,18 +24,18 @@ as well as the [LLM documentation](/ai/llms/):
     <iframe src="https://www.youtube.com/embed/Z33IBfgVbxI" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
 </div>
 
-Complete release notes are below:
-
 ### Changes related to agent support
 
 - **Added Pydantic AI agent applications:**
   - Weather and location lookup agent, with tools to do geo-lookups and access current weather information.
+    You can [demo this here](https://www.saaspegasus.com/chat/chat/agent/new/)
   - Chatbot to interact with employee application data models, with tools to work with employee data.
     This has been added as a new example, if AI chat is enabled.
+    You can [demo this here](https://www.saaspegasus.com/pegasus/employees/objects/agent/)
   - Chatbot to interact with system database, with MCP tool to access postgres data.
-    This has been added to the project dashboard page.
+    This has been added to the project dashboard page and is only available for superusers.
   - Tool to send emails.
-  - Pydantic AI is now a dependency if you enable AI chat
+  - Pydantic AI is now a dependency if you enable AI chat.
 - **Added a `chat_type` field to `Chat` models to differentiate between normal and agent chats.**
 - **Added an `agent_type` field to `Chat` models to differentiate between different agents.**
 - Resuming chats will use the appropriate chat/agent type.

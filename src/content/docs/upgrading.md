@@ -85,7 +85,7 @@ Alternatively you may wish to do this in a new branch and then submit a pull req
 2. Merge the code (`git merge pegasus`)
 
 In the merging step you should look at the modifications being made, and you may have to manually resolve conflicts that come up.
-You may also need to run `./manage.py makemigrations` to create any database migrations that were not included with Pegasus. 
+You may also need to run `./manage.py makemigrations` to create any database migrations that were not included with Pegasus.
 
 ## Manually, using patches (if you can't use Github or branches)
 
@@ -107,7 +107,7 @@ Follow these steps to create your patch file:
 2. Upgrade your Pegasus version (or change your configuration), and download the new codebase.
 3. Copy your `.git` directory from your "clean" project in step 1 into your new project in step 2.
    E.g. `cp -r path/to/yourapp/.git path/to/newapp/`.
-4. In your new project directory, *commit all of the changes* in a single commit. 
+4. In your new project directory, *commit all of the changes* in a single commit.
 5. Create a patchfile for the commit using [git-format-patch](https://git-scm.com/docs/git-format-patch).
    The recommended command to run is `git format-patch -1 HEAD`.
 
@@ -126,12 +126,12 @@ git apply --ignore-space-change --ignore-whitespace --reject /path/to/<patchname
 
 substituting the path/name of the patchfile created above.
 
-This command will do a best-effort application of the patch. 
+This command will do a best-effort application of the patch.
 
 For each affected file:
 
 1. If updates could be applied cleanly, the file will be updated with the contents of the applied patch.
-2. If updates could not be applied cleanly, a new diff file called `<filename>.rej` will be created, showing the diff that could not be applied. 
+2. If updates could not be applied cleanly, a new diff file called `<filename>.rej` will be created, showing the diff that could not be applied.
 
 If the file was partially updated then the file will be modified *and* the remaining changes will
 be visible in the `<filename>.rej` file.
@@ -203,6 +203,7 @@ In either case, the easiest way to resolve the conflicts in these files is:
 
 1. *Merge* the source file (`pyproject.toml` or `requirements.in`).
 2. Accept all of SaaS Pegasus's proposed changes to the generated file.
+   While merging your main branch to the pegasus update branch you can run `git checkout --ours uv.lock` to achieve this.
 3. Regenerate the generated file, using `uv sync` or `pip-compile`.
 4. Manually inspect the new library versions and update them as needed.
 
