@@ -7,6 +7,22 @@ Pegasus optionally includes support for [Docker](https://www.docker.com/) during
 The Docker development setup can also be used as a foundation for deploying to containerized platforms.
 See [our deployment page](/deployment/overview) for more details.
 
+The docker setup in Pegasus can be used in two modes:
+
+**Services only**
+
+In this mode, Docker is only used to run the external services, namely PostgreSQL and Redis. The Django server, Celery and any other processes are run directly on the local machine.
+
+The benefit of this mode is that you don't need to install PostreSQL and Redis on your local machine which simplifies the setup and maintenance.
+
+This mode is ideal if you are running Linux.
+
+**Full Docker dev**
+
+In this mode, Docker is used to run all the services including Django and Celery. No processes are run directly on your local machine.
+
+This mode is ideal if you are running on Mac or Windows.
+
 ## Prerequisites
 
 You need to install [Docker](https://www.docker.com/get-started) prior to setting up your environment.
@@ -14,10 +30,32 @@ You need to install [Docker](https://www.docker.com/get-started) prior to settin
 Mac users have reported better performance on Docker using [OrbStack](https://orbstack.dev/),
 which is a Docker Desktop alternative optimized for performance.
 
-Windows users may also need to install a 3rd-party package to run `make` commands.
-The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
+If you're using the full Docker dev mode, you will benefit from having `make` installed. Windows users may also need to install a 3rd-party package to run `make` commands. The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
 
-## Getting Started
+## Services only mode
+
+The `docker-compose.yml` file will only include container definitions for PostgreSQL and Redis. To start the Docker services use:
+
+```bash
+docker-compose up -d
+
+# You can stop them using
+docker-compose down
+```
+
+The containers listed below should be running with their default ports exposed. Use `docker ps` to check.
+
+| Container Name | Purpose                              | Port |
+|----------------|--------------------------------------|------|
+| `db`           | Runs  Postgres (primary Database)    | 5432 |
+| `redis`        | Runs Redis (Cache and Celery Broker) | 6379 |
+
+
+Now proceed with the remaining setup as described in the [getting started guide](/getting-started#get-up-and-running-with-native-python). You can skip the 'Set up database (Postgres only)' step.
+
+## Full Docker dev mode
+
+All services will be run in Docker including the database, cache, Django dev server and Celery.
 
 First set up your Pegasus project with Docker enabled and using Postgres as a database
 following the [getting started guide](/getting-started).
@@ -74,7 +112,7 @@ These are outlined in the table below:
 
 | Container Name | Purpose                               | Included                                                                    |
 |----------------|---------------------------------------|-----------------------------------------------------------------------------|
-| `pg`           | Runs  Postgres (primary Database)     | Always                                                                      |
+| `db`           | Runs  Postgres (primary Database)     | Always                                                                      |
 | `redis`        | Runs Redis (Cache and Celery Broker)  | Always                                                                      |
 | `web`          | Runs Django                           | Always                                                                      |
 | `vite`         | Runs Vite (for CSS/JavaScript assets) | If [building with Vite](/front-end/vite)                                |
