@@ -15,13 +15,13 @@ In this mode, Docker is only used to run the external services, namely PostgreSQ
 
 In this mode, you don't need to install PostreSQL and Redis on your local machine, which simplifies the setup and maintenance. You also have direct access to the other dev processes which simplifies debugging and inspection.
 
-This mode is ideal if you are running Linux where it's easy to run Django and the other processes natively.
+This mode is ideal if you are running on Mac or Linux where it's easy to run Django and the other processes natively.
 
 **Full Docker dev**
 
 In this mode, Docker is used to run all the services including Django and Celery. No processes are run directly on your local machine.
 
-This mode makes development a little bit more complicated since all the processes are running inside Docker, but it is ideal if you are running on Mac or Windows where it's harder to run those processes natively.
+This mode makes development a little bit more complicated since all the processes are running inside Docker, but it is ideal if you are running on Windows where it can be harder to run those processes natively.
 
 ## Prerequisites
 
