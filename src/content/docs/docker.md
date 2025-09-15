@@ -7,21 +7,21 @@ Pegasus optionally includes support for [Docker](https://www.docker.com/) during
 The Docker development setup can also be used as a foundation for deploying to containerized platforms.
 See [our deployment page](/deployment/overview) for more details.
 
-The docker setup in Pegasus can be used in two modes:
+When configuring your Pegasus project to use Docker, you can select from two different options:
 
 **Services only**
 
 In this mode, Docker is only used to run the external services, namely PostgreSQL and Redis. The Django server, Celery and any other processes are run directly on the local machine.
 
-The benefit of this mode is that you don't need to install PostreSQL and Redis on your local machine which simplifies the setup and maintenance.
+In this mode, you don't need to install PostreSQL and Redis on your local machine, which simplifies the setup and maintenance. You also have direct access to the other dev processes which simplifies debugging and inspection.
 
-This mode is ideal if you are running Linux.
+This mode is ideal if you are running Linux where it's easy to run Django and the other processes natively.
 
 **Full Docker dev**
 
 In this mode, Docker is used to run all the services including Django and Celery. No processes are run directly on your local machine.
 
-This mode is ideal if you are running on Mac or Windows.
+This mode makes development a little bit more complicated since all the processes are running inside Docker, but it is ideal if you are running on Mac or Windows where it's harder to run those processes natively.
 
 ## Prerequisites
 
