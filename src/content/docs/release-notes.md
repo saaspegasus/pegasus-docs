@@ -10,7 +10,7 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 - Add better UI status indicator if chat websocket connection fails or is interrupted.
 - Add `created_at` / `updated_at` fields to the Employee agent tools.
 - Fixed issues in the agent tool that deletes employees to make it better handle retries and error conditions.
-
+- Fixed documentation links that were using the old format.
 
 ## Version 2025.9
 
