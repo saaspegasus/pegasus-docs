@@ -7,10 +7,26 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.9.1
 
-- Add better UI status indicator if chat websocket connection fails or is interrupted.
+This is a minor maintenance/bugfix release that upgrades packages, improves the employee agent demo,
+and addresses some minor bugfixes.
+
+Details:
+
+- **Upgraded nearly every Python package to the latest version, except a few that had compatibility issues.**
+  - Pinned dj-stripe to < 2.10, which is not yet supported.
+  - Pinned litellm to < 1.77.2 to prevent [this installation issue](https://github.com/BerriAI/litellm/issues/14762)
+- **Add better UI status indicator if chat websocket connection fails or is interrupted.**
 - Add `created_at` / `updated_at` fields to the Employee agent tools.
-- Fixed issues in the agent tool that deletes employees to make it better handle retries and error conditions.
-- Fixed documentation links that were using the old format.
+- The `delete_employee` agent tool now takes an ID instead of an `EmployeeData`.
+- Fixed issues in the agent tools that delete and update employees to better handle retries and error conditions
+  (for example, when trying to operate on an employee that doesn't exist).
+- Don't include `websocket_url` templatetag if building without async support.
+- Fixed broken documentation links in the app that were using the old docs url formats. (Thanks Sam for reporting!)
+- Fixed a bug in `fly.toml` that had extra newlines in the worker and beat commands. (Thanks Sam for reporting!)
+- The `fly.toml` file now includes a `vm` section for celerybeat if enabled. (Thanks Sam for reporting!)
+- Fixed a bug in `fly.toml` that included a worker process even if celery was disabled.
+
+*Sep 23, 2025*
 
 ## Version 2025.9
 
