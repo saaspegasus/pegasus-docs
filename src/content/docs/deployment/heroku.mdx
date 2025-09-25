@@ -18,8 +18,15 @@ Before getting started, first take the following steps in Heroku:
 ### Building using Heroku's Python support
 
 To deploy with Heroku's Python module, first set up Pegasus using the "heroku" deploy platform option.
-This will create your Heroku `Procfile`, `runtime.txt`, and additional requirements/settings files
-needed for the Heroku platform.
+This will create the necessary files for the Heroku Python buildpack.
+
+You will also need to add the `nodejs` buildpack to your application using the following command:
+
+```bash
+heroku buildpacks:add --index 1 heroku/nodejs
+```
+
+This will ensure that the front end files are built and available when the `collectstatic` command runs.
 
 ### Building using Heroku's Docker container support
 
