@@ -5,6 +5,17 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.9.2
+
+This release fixes some small bugs when deploying `uv` projects to Heroku with the Python buildpack:
+
+- Don't include `runtime.txt` for Heroku deployments that use uv
+- Include production dependencies in main `dependencies` section of `pyproject.toml` for Heroku Python builds.
+
+Thanks Norman for reporting these!
+
+*Sep 25, 2025*
+
 ## Version 2025.9.1
 
 This is a minor maintenance/bugfix release that upgrades packages, improves the employee agent demo,
