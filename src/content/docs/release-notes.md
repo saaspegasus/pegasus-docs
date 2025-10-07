@@ -5,6 +5,14 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.10
+
+- Added a url route to test the `429` (too many requests) error page.
+  Thanks Brennon for suggesting!
+- Updated the default Anthropic LLM model to Claude Sonnet 4.5.
+- Added a few more commands to the `Makefile`.
+- Removed the Material Bootstrap theme.
+
 ## Version 2025.9.2
 
 This release fixes some small bugs when deploying `uv` projects to Heroku with the Python buildpack:
