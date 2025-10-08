@@ -7,11 +7,64 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.10
 
-- Added a url route to test the `429` (too many requests) error page.
-  Thanks Brennon for suggesting!
-- Updated the default Anthropic LLM model to Claude Sonnet 4.5.
-- Added a few more commands to the `Makefile`.
-- Removed the Material Bootstrap theme.
+This release focuses on improving the developer experience of working with Pegasus.
+It has a number of changes that should make things simpler, smoother and easier.
+
+### Services-only Docker setup
+
+This release adds default "services-only" Docker setup for projects that weren't using Docker already.
+In this mode, Postgres and Redis run via Docker, but Python and Node/npm run natively.
+*This is now the recommended way to develop Pegasus applications.*
+You can read more in the updated [Docker docs](/docker).
+
+### Expanded `make` support
+
+The `Makefile` will now be included on all Pegasus builds.
+This can be used to run the app, tests, migrations, front end, and more without having to remember
+the exact commands, and can be easily customized.
+
+You can run `make` without any arguments to see the available options.
+
+### Added a `dev.sh` script to run Django and Vite/Webpack in a single command
+
+For projects not already using Docker, a `dev.sh` script was added that runs both Django and Webpack/Vite
+in a single command, handling process management for you.
+Running `make dev` will use script, though you can also run it manually via `./scripts/dev.sh`.
+
+This allows you to easily stop and start these two coupled processes together without having to fiddle
+with multiple terminals or tools like `tmux`.
+
+### Expanded README and Agents files
+
+The project's README and the various Agent files (cursor rules, CLAUDE.md, etc.) have been
+overhauled and expanded to use the `make` commands.
+This provides a simpler on-ramp both for developers and agents to run the app and the various
+supporting commands.
+
+### Deprecating configuration options
+
+The following options have been deprecated and will be removed in a future release:
+
+- **Bulma and Bootstrap CSS Frameworks have been deprecated.**
+  Tailwind will be the primary CSS framework moving forwards.
+- **Webpack has been deprecated.** Projects should [migrate to Vite](https://docs.saaspegasus.com/front-end/migrating/).
+- **SQLite has been deprecated.** While it should still work, it will no longer be QA'd,
+  and various pieces of infrastructure and documentation will assume development is done on Postgres.
+  Builds from this version onwards will include a Postgres docker setup that can be used without
+  having to install anything besides Docker.
+
+Removing these options will provide a more consistent, opinionated set of best-practices,
+that work well for nearly every project and will improve the stability and velocity of Pegasus updates.
+
+If you have any questions or concerns about migrating, don't hesitate to get in touch.
+
+### Other changes
+
+- Added a url route to test the `429` (too many requests) error page. Thanks Brennon for suggesting!
+- Updated the default Anthropic LLM model to the newly-released Claude Sonnet 4.5.
+- Expanded the README to have more details and reference many of the changes above.
+- Continued iterating on the various AI rules files.
+
 
 ## Version 2025.9.2
 
