@@ -41,6 +41,21 @@ overhauled and expanded to use the `make` commands.
 This provides a simpler on-ramp both for developers and agents to run the app and the various
 supporting commands.
 
+### Streamlined development tooling
+
+Two new packages were added to improve the developer experience:
+
+- [django-watchfiles](https://github.com/adamchainz/django-watchfiles) improves the Django dev server's
+  autoreloading behavior in several ways, making it both faster and use less system resources.
+  [Learn more here](https://adamj.eu/tech/2025/09/22/introducing-django-watchfiles/).
+- [django-browser-reload](https://github.com/adamchainz/django-browser-reload) adds automatic page
+  reloading to your browser whenever code changes.
+
+Both of these options are development features, and should have no impact on applications in production.
+They are enabled on all projects by default, but can be removed under advanced settings.
+
+Thanks to [Adam Johnson](https://adamj.eu/) for the great tools!
+
 ### Deprecating configuration options
 
 The following options have been deprecated and will be dropped in a future release.
@@ -48,10 +63,9 @@ The following options have been deprecated and will be dropped in a future relea
 - **Bulma and Bootstrap CSS Frameworks have been deprecated.**
   Tailwind will be the primary CSS framework moving forwards.
 - **Webpack has been deprecated.** Existing projects should [migrate to Vite](https://docs.saaspegasus.com/front-end/migrating/).
-- **SQLite has been deprecated.** While it should still work, it will no longer be QA'd,
+- **SQLite has been deprecated.** While it will likely still work, it will no longer be QA'd,
   and various pieces of infrastructure and documentation will assume development is done on Postgres.
-  Builds from this version onwards will include a Postgres docker setup that can be used without
-  having to install anything besides Docker.
+  Postgres can be easily run locally using the Docker services option referenced above.
 
 Removing these options will provide a more consistent, opinionated set of best-practices,
 that work well for nearly every project and will improve the stability and velocity of Pegasus updates.
