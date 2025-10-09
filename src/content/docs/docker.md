@@ -30,7 +30,9 @@ You need to install [Docker](https://www.docker.com/get-started) prior to settin
 Mac users have reported better performance on Docker using [OrbStack](https://orbstack.dev/),
 which is a Docker Desktop alternative optimized for performance.
 
-If you're using the full Docker dev mode, you will benefit from having `make` installed. Windows users may also need to install a 3rd-party package to run `make` commands. The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
+Pegasus provides a `Makefile` with convenient shortcuts to help run various Docker (and other) commands.
+Windows users may need to install a 3rd-party package to run `make` commands.
+The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
 
 ## Services only mode
 
@@ -103,7 +105,7 @@ a specific container.
 
 ## Architecture and how it works
 
-### Containers 
+### Containers
 
 The Docker configuration is primarily in `docker-compose.yml`.
 
@@ -135,7 +137,7 @@ own local environment if you are always using Docker for development.
 Python requirements are automatically installed when the container builds.
 
 However, keep in mind that if you go this route, you will need to run all commands inside the containers
-as per the instructions below. 
+as per the instructions below.
 
 ## Running once-off management commands
 
@@ -148,7 +150,7 @@ For example, to bootstrap Stripe subscriptions, run:
 docker compose exec web python manage.py bootstrap_subscriptions
 ```
 
-Or to promote a user to superuser, run: 
+Or to promote a user to superuser, run:
 ```bash
 docker compose exec web python manage.py promote_user_to_superuser me@example.com
 ```
@@ -170,7 +172,7 @@ The easiest way to add new packages is to add them to `requirements.in` and then
 
 ```bash
 make requirements
-``` 
+```
 
 Which will rebuild your `requirements.txt` file, rebuild your Docker containers,
 and then restart your app with the latest dependencies.
