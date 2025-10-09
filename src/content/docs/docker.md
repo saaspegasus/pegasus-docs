@@ -7,23 +7,25 @@ Pegasus optionally includes support for [Docker](https://www.docker.com/) during
 The Docker development setup can also be used as a foundation for deploying to containerized platforms.
 See [our deployment page](/deployment/overview) for more details.
 
+## Getting Started
+
+### Choosing a Docker Setup
+
 When configuring your Pegasus project to use Docker, you can select from two different options:
+**services-only**, and **full-Docker development**.
 
-**Services only**
-
-In this mode, Docker is only used to run the external services, namely PostgreSQL and Redis. The Django server, Celery and any other processes are run directly on the local machine.
-
+In **services-only mode**, Docker is only used to run the external services: PostgreSQL and Redis. The Django server, Celery and any other processes are run directly on the local machine.
 In this mode, you don't need to install PostreSQL and Redis on your local machine, which simplifies the setup and maintenance. You also have direct access to the other dev processes which simplifies debugging and inspection.
+The main downside of services-only mode is that it requires installing `uv` and `npm`.
 
-This mode is ideal if you are running on Mac or Linux where it's easy to run Django and the other processes natively.
+In **full-Docker** mode, Docker is used to run the services, as above, but also runs Django, npm, and Celery.
+No processes are run directly on your local machine.
+This mode makes it easier to get up and running---since all you need to install is Docker---but it can make
+development more complicated, since all the processes are running inside Docker.
 
-**Full Docker dev**
+As a rough guideline: **If you are comfortable installing and running Python and Node.js on your machine, use services-only mode. Otherwise, use full-Docker mode.**
 
-In this mode, Docker is used to run all the services including Django and Celery. No processes are run directly on your local machine.
-
-This mode makes development a little bit more complicated since all the processes are running inside Docker, but it is ideal if you are running on Windows where it can be harder to run those processes natively.
-
-## Prerequisites
+### Prerequisites
 
 You need to install [Docker](https://www.docker.com/get-started) prior to setting up your environment.
 
@@ -33,6 +35,13 @@ which is a Docker Desktop alternative optimized for performance.
 Pegasus provides a `Makefile` with convenient shortcuts to help run various Docker (and other) commands.
 Windows users may need to install a 3rd-party package to run `make` commands.
 The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
+
+### Starting your application
+
+
+
+
+
 
 ## Services only mode
 
@@ -53,7 +62,7 @@ The containers listed below should be running with their default ports exposed. 
 | `redis`        | Runs Redis (Cache and Celery Broker) | 6379 |
 
 
-Now proceed with the remaining setup as described in the [getting started guide](/getting-started#get-up-and-running-with-native-python). You can skip the 'Set up database (Postgres only)' step.
+Now proceed with the remaining setup as described in the [getting started guide](/getting-started#get-up-and-running-with-native-python). You can skip the 'Set up database' step.
 
 ## Full Docker dev mode
 
