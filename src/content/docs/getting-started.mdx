@@ -4,6 +4,7 @@ description: Complete setup guide for Pegasus projects with Docker or native Pyt
 ---
 
 import { Steps } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 
 Here's everything you need to start your first Pegasus project.
 
@@ -28,7 +29,7 @@ Once you're done, [connect your project to Github](/github) or download your pro
 
 **Note: it's recommended to use the Github integration which will make future upgrades and changes to your project
 easier to manage.**
- 
+
 ## Set up source control
 
 It is highly recommended to use git for source control.
@@ -50,7 +51,7 @@ initialize your repository:
 
 ```bash
 git init
-git add .
+git add .Building
 git commit -am "initial project creation"
 ```
 
@@ -62,16 +63,42 @@ git branch pegasus
 
 You can read [more about upgrading here](/upgrading).
 
-## Get up and running with Docker
+## Install prerequisites
 
-If you've chosen to use Docker in development (the quickest and easiest way to get up and running),
-continue to the [Docker instructions](/docker).
+The following prerequisites are needed to run the app in the recommended configuration:
+
+- [Docker](/docker#prerequisites)
+- [uv](/python/setup/#using-uv)
+- [Node and npm](/front-end/overview/#prerequisites-to-building-the-front-end)
+
+On Windows, you will also need to install `make`, which you can do by
+[following these instructions](https://stackoverflow.com/a/57042516/8207).
+
+<Aside title="Other configurations">
+- If you use Docker "full mode" you do not need to install uv or Node/npm.
+- If you do not want to use Docker for Postgres and Redis, you will need to install them separately.
+- To run Python without `uv` you'll need to follow the instructions for your own environment on
+  [this page](/python/setup#using-native--system-python-with-virtual-environments-and-pip-tools).
+</Aside>
+
+## Quick start
+
+Once you've installed the prerequisites, you can get up and running with the following commands:
+
+```bash
+make init
+make dev  # This is not required if running Docker in "full mode"
+```
+
+Open a browser and visit [http://localhost:8000](http://localhost:8000) and you should see
+your application!
 
 Then skip ahead to the [post-install steps](/getting-started/#post-installation-steps).
 
-## Get up and running with native Python
+## Manual setup
 
-If you're using the [full Docker dev mode](/docker) you can skip this section.
+The `make` quick start commands cover a lot for you.
+If you'd rather do everything manually, continue to the sections below.
 
 ### Enter the project directory
 
@@ -98,8 +125,8 @@ uv sync
 pip install -r dev-requirements.txt
 ```
 
-Note: if you have issues installing `psycopg2`, try installing the dependencies outlined in 
-[this thread](https://stackoverflow.com/questions/22938679/error-trying-to-install-postgres-for-python-psycopg2) 
+Note: if you have issues installing `psycopg2`, try installing the dependencies outlined in
+[this thread](https://stackoverflow.com/questions/22938679/error-trying-to-install-postgres-for-python-psycopg2)
 (specifically `python3-dev` and `libpq-dev`).
 
 On Macs you may also need to follow the instructions from [this thread](https://stackoverflow.com/a/58722268/8207). And specifically, run:
@@ -118,25 +145,24 @@ You can do this from the example, by running:
 cp .env.example .env
 ```
 
-### Set up database (Postgres only)
+### Set up database
 
 If you installed with Postgres, edit the `DATABASE_URL` value in `.env` with
 the appropriate username and password for connecting to your DB.
 
 You will also need to create a database for your project if you haven't already.
-Assuming that your postgres admin user is named `postgres`, and you're using identity authentication you should run:
-
-```bash
-sudo -u postgres createdb {{ project_name }}
-```
-
-Or for standard authentication:
+Assuming that your postgres admin user is named `postgres`:
 
 ```bash
 createdb -U postgres -h localhost -p 5432 {{ project_name }}
 ```
-
 Followed by the password for the postgres user.
+
+Or, using identity authentication:
+
+```bash
+sudo -u postgres createdb {{ project_name }}
+```
 
 ### Create database migrations
 
@@ -165,23 +191,21 @@ uv run manage.py runserver
 python ./manage.py runserver
 ```
 
-Go to [http://localhost:8000](http://localhost:8000) and you should see the default Pegasus landing page.
+### Build/run front end
 
-![Landing Page](../../assets/images/pegasus-landing-page.png)
-
-### Run / build the front end
-
-If you're using Vite, or you didn't include static files with your build, you will also need to set up your front end.
-
-The basic steps are:
-
-<Steps>
-1. Install node/npm.
-2. Run `npm install`
-3. Run `npm run dev`
-</Steps>
+```bash
+npm install
+npm run dev
+```
 
 For more details, see the [front end docs](/front-end/overview).
+
+### Load your app
+
+Open a browser and visit [http://localhost:8000](http://localhost:8000) and you should see
+your application!
+
+Continue to the post-installation steps below.
 
 ## Post-installation steps
 
@@ -203,24 +227,35 @@ to enable access to the Django Admin site.
 For Stripe callbacks, email links, and JavaScript API clients to work, you must make sure that you have
 [configured absolute URLs correctly](/configuration/#absolute-urls).
 
-### Set up your Stripe Subscriptions
+### Set up your Stripe subscriptions
 
 If you've installed with subscriptions, you'll want to set things up next.
 
 Head to the [subscriptions documentation](/subscriptions) and follow the steps there!
 
-### Set up Background Tasks
+### Set up background tasks
 
 For the progress bar example to work---and to run background tasks of your own---you'll need a Celery environment running.
 
 Head to [celery](/celery) and follow the steps there!
 
-## Building Your Application
+## Using the Makefile
 
-At this point, Pegasus has installed scaffolding for all of the user management, authentication, and (optionally) 
-team views and Stripe subscriptions, and given you a beautiful base UI template and clear code 
-structure to work from. 
- 
+Pegasus ships with a self-documenting `Makefile` that will run common commands for you,
+including starting your containers, performing database operations, and building your front end.
+
+You can run `make` to list helper functions, and you can view the source
+of the `Makefile` file in case you need to add to it or run any once-off commands.
+Commands are also documented in your project's AI rules files.
+
+You can add custom commands to the `Makefile` by editing `custom.mk`.
+
+## Customize your application
+
+At this point, Pegasus has installed scaffolding for all of the user management, authentication, and (optionally)
+team views and Stripe subscriptions, and given you a beautiful base UI template and clear code
+structure to work from.
+
 Now that you're up and running it's time for the fun part: building your new application!
 
 This can obviously be done however you like.
@@ -231,8 +266,8 @@ Some examples of things you might want to do next include:
 - Create a new django app and begin building out your data models in `models.py`.
   It's recommended to use the [Pegasus CLI](https://github.com/saaspegasus/pegasus-cli/) for this.
 
-For some initial pointers on where to to make Pegasus your own, head on over to the 
+For some initial pointers on where to to make Pegasus your own, head on over to the
 [Customizations Page](/customizations).
 
-For the nitty-gritty details on setting up things like email, error logging, sign up flow, analytics, and more 
+For the nitty-gritty details on setting up things like email, error logging, sign up flow, analytics, and more
 go to [Settings and Configuration](/configuration).

@@ -1,0 +1,197 @@
+---
+title: Using Docker in Development
+description: Set up Django development environment with Docker Compose including PostgreSQL, Redis, Celery, and debugging configuration.
+---
+import { Aside } from '@astrojs/starlight/components';
+
+Pegasus optionally includes support for [Docker](https://www.docker.com/) during development.
+The Docker development setup can also be used as a foundation for deploying to containerized platforms.
+See [our deployment page](/deployment/overview) for more details.
+
+## Choosing a Docker Setup
+
+When configuring your Pegasus project to use Docker, you can select from two different options:
+**services-only**, and **full-Docker development**.
+
+In **services-only mode**, Docker is only used to run the external services: PostgreSQL and Redis. The Django server, Celery and any other processes are run directly on the local machine.
+In this mode, you don't need to install PostreSQL and Redis on your local machine, which simplifies the setup and maintenance. You also have direct access to the other dev processes which simplifies debugging and inspection.
+The main downside of services-only mode is that it requires installing `uv` and `npm`.
+
+In **full-Docker** mode, Docker is used to run the services, as above, but also runs Django, npm, and Celery.
+No processes are run directly on your local machine.
+This mode makes it easier to get up and running---since all you need to install is Docker---but it can make
+development more complicated, since all the processes are running inside Docker.
+
+As a rough guideline: **If you are comfortable installing and running Python and Node.js on your machine, use services-only mode. Otherwise, use full-Docker mode.**
+
+## Install prerequisites
+
+You need to install [Docker](https://www.docker.com/get-started) prior to setting up your environment.
+
+Mac users have reported better performance on Docker using [OrbStack](https://orbstack.dev/),
+which is a Docker Desktop alternative optimized for performance.
+
+
+## Starting the application
+
+To start the Docker services, run:
+
+```bash
+make start
+```
+
+This will start the Database services (PostgreSQL and Redis) and in full-mode,
+start all the processes needed to run your application, including Django, the front end build,
+and Celery.
+
+<Aside title="make and Windows">
+Windows users may need to install a 3rd-party package to run `make` commands.
+The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
+</Aside>
+
+The first time you run the app you should run:
+
+
+```bash
+make init
+```
+
+Which will also create and run database migrations and bootstrap your application.
+
+## Architecture and how it works
+
+This section provides technical details about the Docker setup and how it works.
+
+The Docker configuration is primarily in `docker-compose.yml`, where you can inspect the configured containers.
+
+
+### Services only mode
+
+In this mode, the `docker-compose.yml` file will only include container definitions for PostgreSQL and Redis.
+The containers listed below will run with their default ports exposed. Use `docker ps` to check.
+
+| Container Name | Purpose                              | Port |
+|----------------|--------------------------------------|------|
+| `db`           | Runs  Postgres (primary Database)    | 5432 |
+| `redis`        | Runs Redis (Cache and Celery Broker) | 6379 |
+
+
+### Full Docker dev mode
+
+In this mode,  the `docker-compose.yml` file will also include containers for Django, node, and Celery.
+
+Depending on your project settings, there are several containers that might be running.
+These are outlined in the table below:
+
+| Container Name | Purpose                                  | Included                                                                |
+|----------------|------------------------------------------|-------------------------------------------------------------------------|
+| `db`           | Runs  Postgres (primary Database)        | Always                                                                  |
+| `redis`        | Runs Redis (Cache and Celery Broker)     | Always                                                                  |
+| `web`          | Runs Django                              | Always                                                                  |
+| `vite`         | Runs Vite (for CSS/JavaScript assets)    | If [building with Vite](/front-end/vite)                               |
+| `webpack`      | Runs Webpack (for CSS/JavaScript assets) | If [building with Webpack](/front-end/webpack)                          |
+| `celery`       | Runs Celery (for background tasks)       | If [Celery is enabled](/celery)                                        |
+| `frontend`     | Runs the React Front End                 | If [the standalone front end is enabled](/experimental/react-front-end) |
+
+Like above, the DB containers will expose their default ports.
+
+You can inspect the `Dockerfile`s being used in `docker-compose.yml`.
+Python containers use the `Dockerfile.dev` file.
+
+### Settings
+
+The docker environment sets environment variables using the included `.env` file.
+
+The `.env` file is automatically ignored by git, so you can put any additional secrets there.
+It generally should not be checked into source control.
+You can instead add variables to `.env.example` to show what should be included.
+
+
+## Working with full docker mode
+
+The following instructions are specific to "full" docker mode,
+where Docker is also running your application.
+
+### Python environments
+
+The Python environment is run in the containers, which means you do not need to have your
+own local environment if you are always using Docker for development.
+Python requirements are automatically installed when the container builds.
+
+However, keep in mind that if you go this route, you will need to run all commands inside the containers
+as per the instructions below.
+
+### Running once-off management commands
+
+Running commands on the server can be done using `docker compose`, by following
+the pattern used in the `Makefile`.
+
+For example, to bootstrap Stripe subscriptions, run:
+
+```bash
+docker compose exec web python manage.py bootstrap_subscriptions
+```
+
+Or to promote a user to superuser, run:
+```bash
+docker compose exec web python manage.py promote_user_to_superuser me@example.com
+```
+
+You can also use the `make manage` command, passing in `ARGS` like so:
+
+```bash
+make manage ARGS='promote_user_to_superuser me@example.com'
+```
+
+You can add any commonly used commands you want to `custom.mk` for convenience.
+
+### Updating Python packages
+
+If you add or modify anything in your `requirements.in` (and `requirements.txt`) files, you will have to rebuild
+your containers.
+
+The easiest way to add new packages is to add them to `requirements.in` and then run:
+
+```bash
+make requirements
+```
+
+Which will rebuild your `requirements.txt` file, rebuild your Docker containers,
+and then restart your app with the latest dependencies.
+
+### Debugging
+
+You can use debug tools like `pdb` or `ipdb` by enabling service ports.
+
+This can be done by running your web container with the following:
+
+```bash
+docker compose run --service-ports web
+```
+
+If you want to set up debugging with PyCharm, it's recommended to follow [this guide on the topic](https://testdriven.io/blog/django-debugging-pycharm/).
+
+## Troubleshooting
+
+### "No such file or directory" errors
+
+Some environments---especially on Windows---can have trouble finding the files on your local machine.
+This will often show up as an error like this when starting your app:
+
+```
+python: can't open file '/code/manage.py': [Errno 2] No such file or directory
+```
+
+These issues are usually related to your *disk setup*.
+For example, mounting your code on a remote filesystem or external drive to your machine.
+To fix, try running the code on the same drive where Docker Desktop is installed,
+or on your machine's default "C:" drive.
+
+You can also get around this issue by running your application natively, instead of with Docker.
+
+## Other Resources
+
+- [Dockerizing Django with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
+  provides an overview of the setup, and has additional information about using Docker in production
+- [Environment variables in Compose](https://docs.docker.com/compose/environment-variables/) is a good resource
+  on the different ways to work with environment variables in Docker
