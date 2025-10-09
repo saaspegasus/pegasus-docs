@@ -239,6 +239,17 @@ For the progress bar example to work---and to run background tasks of your own--
 
 Head to [celery](/celery) and follow the steps there!
 
+## Using the Makefile
+
+Pegasus ships with a self-documenting `Makefile` that will run common commands for you,
+including starting your containers, performing database operations, and building your front end.
+
+You can run `make` to list helper functions, and you can view the source
+of the `Makefile` file in case you need to add to it or run any once-off commands.
+Commands are also documented in your project's AI rules files.
+
+You can add custom commands to the `Makefile` by editing `custom.mk`.
+
 ## Customize your application
 
 At this point, Pegasus has installed scaffolding for all of the user management, authentication, and (optionally)
