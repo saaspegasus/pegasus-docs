@@ -80,6 +80,8 @@ If you have any questions or concerns about migrating, don't hesitate to get in 
 - Added a url route to test the `429` (too many requests) error page. Thanks Brennon for suggesting!
 - Updated the default Anthropic LLM model to the newly-released Claude Sonnet 4.5.
 - Continued iterating on the various AI rules files.
+- Overhauled the "[Gettting started](/getting-started/)" and "[Docker](/docker/)" sections of the docs
+  to reflect the latest changes.
 
 
 ## Version 2025.9.2
