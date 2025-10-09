@@ -43,11 +43,11 @@ supporting commands.
 
 ### Deprecating configuration options
 
-The following options have been deprecated and will be removed in a future release:
+The following options have been deprecated and will be dropped in a future release.
 
 - **Bulma and Bootstrap CSS Frameworks have been deprecated.**
   Tailwind will be the primary CSS framework moving forwards.
-- **Webpack has been deprecated.** Projects should [migrate to Vite](https://docs.saaspegasus.com/front-end/migrating/).
+- **Webpack has been deprecated.** Existing projects should [migrate to Vite](https://docs.saaspegasus.com/front-end/migrating/).
 - **SQLite has been deprecated.** While it should still work, it will no longer be QA'd,
   and various pieces of infrastructure and documentation will assume development is done on Postgres.
   Builds from this version onwards will include a Postgres docker setup that can be used without
@@ -64,6 +64,7 @@ If you have any questions or concerns about migrating, don't hesitate to get in 
 - Updated the default Anthropic LLM model to the newly-released Claude Sonnet 4.5.
 - Expanded the README to have more details and reference many of the changes above.
 - Continued iterating on the various AI rules files.
+- The development Postgres Docker container is now pinned to version 17.
 
 
 ## Version 2025.9.2
