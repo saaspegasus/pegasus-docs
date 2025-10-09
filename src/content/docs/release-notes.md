@@ -74,11 +74,12 @@ If you have any questions or concerns about migrating, don't hesitate to get in 
 
 ### Other changes
 
+- Postgres and Redis docker containers now expose their service ports on the host container.
+- The development Postgres Docker container is now pinned to version 17.
+- Expanded the README to have more details and reference many of the changes above.
 - Added a url route to test the `429` (too many requests) error page. Thanks Brennon for suggesting!
 - Updated the default Anthropic LLM model to the newly-released Claude Sonnet 4.5.
-- Expanded the README to have more details and reference many of the changes above.
 - Continued iterating on the various AI rules files.
-- The development Postgres Docker container is now pinned to version 17.
 
 
 ## Version 2025.9.2
