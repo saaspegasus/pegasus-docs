@@ -32,7 +32,6 @@ You need to install [Docker](https://www.docker.com/get-started) prior to settin
 Mac users have reported better performance on Docker using [OrbStack](https://orbstack.dev/),
 which is a Docker Desktop alternative optimized for performance.
 
-Pegasus provides a `Makefile` with convenient shortcuts to help run various Docker (and other) commands.
 Windows users may need to install a 3rd-party package to run `make` commands.
 The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
 
