@@ -7,8 +7,6 @@ Pegasus optionally includes support for [Docker](https://www.docker.com/) during
 The Docker development setup can also be used as a foundation for deploying to containerized platforms.
 See [our deployment page](/deployment/overview) for more details.
 
-## Getting Started
-
 ### Choosing a Docker Setup
 
 When configuring your Pegasus project to use Docker, you can select from two different options:
@@ -36,10 +34,6 @@ Windows users may need to install a 3rd-party package to run `make` commands.
 The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
 
 ### Starting your application
-
-
-
-
 
 
 ## Services only mode
