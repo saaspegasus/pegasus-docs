@@ -8,7 +8,7 @@ Pegasus optionally includes support for [Docker](https://www.docker.com/) during
 The Docker development setup can also be used as a foundation for deploying to containerized platforms.
 See [our deployment page](/deployment/overview) for more details.
 
-### Choosing a Docker Setup
+## Choosing a Docker Setup
 
 When configuring your Pegasus project to use Docker, you can select from two different options:
 **services-only**, and **full-Docker development**.
@@ -24,7 +24,7 @@ development more complicated, since all the processes are running inside Docker.
 
 As a rough guideline: **If you are comfortable installing and running Python and Node.js on your machine, use services-only mode. Otherwise, use full-Docker mode.**
 
-### Install prerequisites
+## Install prerequisites
 
 You need to install [Docker](https://www.docker.com/get-started) prior to setting up your environment.
 
@@ -32,7 +32,7 @@ Mac users have reported better performance on Docker using [OrbStack](https://or
 which is a Docker Desktop alternative optimized for performance.
 
 
-### Starting the application
+## Starting the application
 
 To start the Docker services, run:
 
@@ -58,18 +58,17 @@ make init
 
 Which will also create and run database migrations and bootstrap your application.
 
-## Services only mode
+## Architecture and how it works
 
-The `docker-compose.yml` file will only include container definitions for PostgreSQL and Redis. To start the Docker services use:
+This section provides technical details about the Docker setup and how it works.
 
-```bash
-docker-compose up -d
+The Docker configuration is primarily in `docker-compose.yml`, where you can inspect the configured containers.
 
-# You can stop them using
-docker-compose down
-```
 
-The containers listed below should be running with their default ports exposed. Use `docker ps` to check.
+### Services only mode
+
+In this mode, the `docker-compose.yml` file will only include container definitions for PostgreSQL and Redis.
+The containers listed below will run with their default ports exposed. Use `docker ps` to check.
 
 | Container Name | Purpose                              | Port |
 |----------------|--------------------------------------|------|
@@ -77,34 +76,27 @@ The containers listed below should be running with their default ports exposed. 
 | `redis`        | Runs Redis (Cache and Celery Broker) | 6379 |
 
 
-Now proceed with the remaining setup as described in the [getting started guide](/getting-started#get-up-and-running-with-native-python). You can skip the 'Set up database' step.
+### Full Docker dev mode
 
-## Full Docker dev mode
-
-All services will be run in Docker including the database, cache, Django dev server and Celery.
-
-First set up your Pegasus project with Docker enabled and using Postgres as a database
-following the [getting started guide](/getting-started).
-
-
-## Architecture and how it works
-
-### Containers
-
-The Docker configuration is primarily in `docker-compose.yml`.
+In this mode,  the `docker-compose.yml` file will also include containers for Django, node, and Celery.
 
 Depending on your project settings, there are several containers that might be running.
 These are outlined in the table below:
 
-| Container Name | Purpose                               | Included                                                                    |
-|----------------|---------------------------------------|-----------------------------------------------------------------------------|
-| `db`           | Runs  Postgres (primary Database)     | Always                                                                      |
-| `redis`        | Runs Redis (Cache and Celery Broker)  | Always                                                                      |
-| `web`          | Runs Django                           | Always                                                                      |
-| `vite`         | Runs Vite (for CSS/JavaScript assets) | If [building with Vite](/front-end/vite)                                |
-| `celery`       | Runs Celery (for background tasks)    | If [Celery is enabled](/celery)                                         |
-| `frontend`     | Runs the React Front End              | If [the standalone front end is enabled](/experimental/react-front-end) |
+| Container Name | Purpose                                  | Included                                                                |
+|----------------|------------------------------------------|-------------------------------------------------------------------------|
+| `db`           | Runs  Postgres (primary Database)        | Always                                                                  |
+| `redis`        | Runs Redis (Cache and Celery Broker)     | Always                                                                  |
+| `web`          | Runs Django                              | Always                                                                  |
+| `vite`         | Runs Vite (for CSS/JavaScript assets)    | If [building with Vite](/front-end/vite)                               |
+| `webpack`      | Runs Webpack (for CSS/JavaScript assets) | If [building with Webpack](/front-end/webpack)                          |
+| `celery`       | Runs Celery (for background tasks)       | If [Celery is enabled](/celery)                                        |
+| `frontend`     | Runs the React Front End                 | If [the standalone front end is enabled](/experimental/react-front-end) |
 
+Like above, the DB containers will expose their default ports.
+
+You can inspect the `Dockerfile`s being used in `docker-compose.yml`.
+Python containers use the `Dockerfile.dev` file.
 
 ### Settings
 
@@ -113,6 +105,12 @@ The docker environment sets environment variables using the included `.env` file
 The `.env` file is automatically ignored by git, so you can put any additional secrets there.
 It generally should not be checked into source control.
 You can instead add variables to `.env.example` to show what should be included.
+
+
+## Working with full docker mode
+
+The following instructions are specific to "full" docker mode,
+where Docker is also running your application.
 
 ### Python environments
 
@@ -123,7 +121,7 @@ Python requirements are automatically installed when the container builds.
 However, keep in mind that if you go this route, you will need to run all commands inside the containers
 as per the instructions below.
 
-## Running once-off management commands
+### Running once-off management commands
 
 Running commands on the server can be done using `docker compose`, by following
 the pattern used in the `Makefile`.
@@ -147,7 +145,7 @@ make manage ARGS='promote_user_to_superuser me@example.com'
 
 You can add any commonly used commands you want to `custom.mk` for convenience.
 
-## Updating Python packages
+### Updating Python packages
 
 If you add or modify anything in your `requirements.in` (and `requirements.txt`) files, you will have to rebuild
 your containers.
@@ -161,7 +159,7 @@ make requirements
 Which will rebuild your `requirements.txt` file, rebuild your Docker containers,
 and then restart your app with the latest dependencies.
 
-## Debugging
+### Debugging
 
 You can use debug tools like `pdb` or `ipdb` by enabling service ports.
 
