@@ -7,16 +7,16 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.10
 
-This release focuses on improving the developer experience of working with Pegasus.
-It has a number of changes that make things simpler, smoother, and more consistent,
-and make it easier for AI agents to work in Pegasus codebases.
+This release improves the developer experience of working with Pegasus.
+It has a number of changes that make things simpler, smoother, and more consistent.
+These changes also make it easier for AI agents to work in Pegasus codebases.
 
 Key changes:
 
 - All projects will default to Postgres, Vite, and Tailwind moving forwards. Other options will be slowly phased out.
 - All projects will ship with Docker containers for Postgres and Redis (you can ignore these if you want to run them separately)
 - The `Makefile` now ships with every project and includes commands for running everything you need in development.
-  These commands are available in AI rules files for AI agents.
+  These commands are also available in AI rules files for AI agents.
 - `make init` will work on all projects, and is all you need to get running (after installing prerequisites)
 - Added some dev quality-of-life tools.
 
