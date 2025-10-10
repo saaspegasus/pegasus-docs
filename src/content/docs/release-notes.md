@@ -8,7 +8,7 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 ## Version 2025.10
 
 This release focuses on improving the developer experience of working with Pegasus.
-It has a number of changes that should make things simpler and smoother.
+It has a number of changes that should make things simpler, smoother, and more consistent.
 
 Key changes:
 
