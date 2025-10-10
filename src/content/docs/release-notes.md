@@ -67,22 +67,23 @@ The following options have been deprecated and will be dropped in a future relea
   and various pieces of infrastructure and documentation will assume development is done on Postgres.
   Postgres can be easily run locally using the Docker services option referenced above.
 
-Removing these options will provide a more consistent, opinionated set of best-practices,
+Removing these options will provide a more consistent set of best-practices,
 that work well for nearly every project and will improve the stability and velocity of Pegasus updates.
 
 If you have any questions or concerns about migrating, don't hesitate to get in touch.
 
 ### Other changes
 
-- Postgres and Redis docker containers now expose their service ports on the host container.
-- The development Postgres Docker container is now pinned to version 17.
-- Expanded the README to have more details and reference many of the changes above.
-- Added a url route to test the `429` (too many requests) error page. Thanks Brennon for suggesting!
-- Updated the default Anthropic LLM model to the newly-released Claude Sonnet 4.5.
-- Continued iterating on the various AI rules files.
 - Overhauled the "[Gettting started](/getting-started/)" and "[Docker](/docker/)" sections of the docs
   to reflect the latest changes.
+- Overhauled the README to have more details and reference many of the changes above.
+  - Also overhauled the AI rules files to reflect the latest state.
+- Postgres and Redis docker containers now expose their service ports on the host container.
+- The development Postgres Docker container is now pinned to version 17.
+- Added a url route to test the `429` (too many requests) error page. Thanks Brennon for suggesting!
+- Updated the default Anthropic LLM model to the newly-released Claude Sonnet 4.5.
 
+*Oct 10, 2025*
 
 ## Version 2025.9.2
 
