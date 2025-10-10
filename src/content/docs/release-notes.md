@@ -8,7 +8,17 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 ## Version 2025.10
 
 This release focuses on improving the developer experience of working with Pegasus.
-It has a number of changes that should make things simpler, smoother and easier.
+It has a number of changes that should make things simpler and smoother.
+
+Key changes:
+
+- All projects will default to Postgres, Vite, and Tailwind moving forwards. Other options will be slowly phased out.
+- All projects will ship with Docker containers for Postgres and Redis (you can ignore these if you want to run them separately)
+- The `Makefile` now ships with every project and includes commands for running ~everything you need.
+- `make init` will work on all projects, and is ~all you need to get running (after installing prerequisites)
+- Added some dev quality-of-life tools.
+
+Details below.
 
 ### Services-only Docker setup
 
@@ -76,8 +86,7 @@ If you have any questions or concerns about migrating, don't hesitate to get in 
 
 - Overhauled the "[Gettting started](/getting-started/)" and "[Docker](/docker/)" sections of the docs
   to reflect the latest changes.
-- Overhauled the README to have more details and reference many of the changes above.
-  - Also overhauled the AI rules files to reflect the latest state.
+- In addition to the major changes mentioned above, made some minor changes and corrections to the README and AI Rules files.
 - Postgres and Redis docker containers now expose their service ports on the host container.
 - The development Postgres Docker container is now pinned to version 17.
 - Added a url route to test the `429` (too many requests) error page. Thanks Brennon for suggesting!
