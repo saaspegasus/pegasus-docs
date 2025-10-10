@@ -192,7 +192,7 @@ To resolve any issues with database migrations, follow the following steps:
 Basically, **you should always keep your migration history and throw away any changes Pegasus proposes to existing migration files.**
 Then re-run `makemigrations` on the merged code.
 
-### Resolving Python Package "generated" files
+### Resolving Python Package "generated" files (e.g. `uv.lock`)
 
 Python packages in Pegasus have lock files that are dynamically generated from other files:
 

@@ -5,6 +5,86 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.10
+
+This release focuses on improving the developer experience of working with Pegasus.
+It has a number of changes that should make things simpler, smoother and easier.
+
+### Services-only Docker setup
+
+This release adds default "services-only" Docker setup for projects that weren't using Docker already.
+In this mode, Postgres and Redis run via Docker, but Python and Node/npm run natively.
+*This is now the recommended way to develop Pegasus applications.*
+You can read more in the updated [Docker docs](/docker).
+
+### Expanded `make` support
+
+The `Makefile` will now be included on all Pegasus builds.
+This can be used to run the app, tests, migrations, front end, and more without having to remember
+the exact commands, and can be easily customized.
+
+You can run `make` without any arguments to see the available options.
+
+### Added a `dev.sh` script to run Django and Vite/Webpack in a single command
+
+For projects not already using Docker, a `dev.sh` script was added that runs both Django and Webpack/Vite
+in a single command, handling process management for you.
+Running `make dev` will use script, though you can also run it manually via `./scripts/dev.sh`.
+
+This allows you to easily stop and start these two coupled processes together without having to fiddle
+with multiple terminals or tools like `tmux`.
+
+### Expanded README and Agents files
+
+The project's README and the various Agent files (cursor rules, CLAUDE.md, etc.) have been
+overhauled and expanded to use the `make` commands.
+This provides a simpler on-ramp both for developers and agents to run the app and the various
+supporting commands.
+
+### Streamlined development tooling
+
+Two new packages were added to improve the developer experience:
+
+- [django-watchfiles](https://github.com/adamchainz/django-watchfiles) improves the Django dev server's
+  autoreloading behavior in several ways, making it both faster and use less system resources.
+  [Learn more here](https://adamj.eu/tech/2025/09/22/introducing-django-watchfiles/).
+- [django-browser-reload](https://github.com/adamchainz/django-browser-reload) adds automatic page
+  reloading to your browser whenever code changes.
+
+Both of these options are development features, and should have no impact on applications in production.
+They are enabled on all projects by default, but can be removed under advanced settings.
+
+Thanks to [Adam Johnson](https://adamj.eu/) for the great tools!
+
+### Deprecating configuration options
+
+The following options have been deprecated and will be dropped in a future release.
+
+- **Bulma and Bootstrap CSS Frameworks have been deprecated.**
+  Tailwind will be the primary CSS framework moving forwards.
+- **Webpack has been deprecated.** Existing projects should [migrate to Vite](https://docs.saaspegasus.com/front-end/migrating/).
+- **SQLite has been deprecated.** While it will likely still work, it will no longer be QA'd,
+  and various pieces of infrastructure and documentation will assume development is done on Postgres.
+  Postgres can be easily run locally using the Docker services option referenced above.
+
+Removing these options will provide a more consistent set of best-practices,
+that work well for nearly every project and will improve the stability and velocity of Pegasus updates.
+
+If you have any questions or concerns about migrating, don't hesitate to get in touch.
+
+### Other changes
+
+- Overhauled the "[Gettting started](/getting-started/)" and "[Docker](/docker/)" sections of the docs
+  to reflect the latest changes.
+- Overhauled the README to have more details and reference many of the changes above.
+  - Also overhauled the AI rules files to reflect the latest state.
+- Postgres and Redis docker containers now expose their service ports on the host container.
+- The development Postgres Docker container is now pinned to version 17.
+- Added a url route to test the `429` (too many requests) error page. Thanks Brennon for suggesting!
+- Updated the default Anthropic LLM model to the newly-released Claude Sonnet 4.5.
+
+*Oct 10, 2025*
+
 ## Version 2025.9.2
 
 This release fixes some small bugs when deploying `uv` projects to Heroku with the Python buildpack:
