@@ -64,7 +64,9 @@ Two new packages were added to improve the developer experience:
   reloading to your browser whenever code changes.
 
 Both of these options are development features, and should have no impact on applications in production.
-They are enabled on all projects by default, but can be removed under advanced settings.
+Browser reload is enabled on all projects by default, while watchfiles is off by defualt because
+of [this "file watch limit reached" issue on some filesystems](https://github.com/adamchainz/django-watchfiles/issues/135).
+Both options can be enabled/disabled under advanced development settings.
 
 Thanks to [Adam Johnson](https://adamj.eu/) for the great tools!
 
