@@ -11,7 +11,7 @@ It is required by several Pegasus features, including:
 2. Per-unit subscriptions (celery runs the background task to sync unit amounts with Stripe).
 3. AI Chat (it is used in all builds to set chat names, and, if async is not enabled, for the chats themselves).
 
-If you aren't using any of the above features, you can disable celery by unchecking the "use celery" 
+If you aren't using any of the above features, you can disable celery by unchecking the "use celery"
 option---added in version 2025.1---in your project settings.
 **If you *are* using any of the above features, this option will not do anything.**
 
@@ -20,7 +20,7 @@ option---added in version 2025.1---in your project settings.
 **If you're using [Docker in development](/docker) then Celery should automatically be configured and running.
 The instructions in this section are for running Celery outside of Docker.**
 
-The easiest way to get going in development is to [download and install Redis](https://redis.io/download) 
+The easiest way to get going in development is to [download and install Redis](https://redis.io/download)
 (if you don't already have it) and then run:
 
 *With uv:*
@@ -39,18 +39,17 @@ Note that the 'solo' pool is recommended for development but not for production.
 you should use a more robust pool implementation such as `prefork` (for CPU bound tasks) or `gevent` (for I/O bound
 tasks).
 
-### Running Celery with Gevent
+### Celery and Gevent
 
-The `gevent` pool is useful when running tasks that are I/O bound which tends to be 90% of tasks. The same
-configuration can also be used to run Celery on Windows (if the `solo` pool is not suitable) since 
+In production Celery is configured to run with the `gevent` pool, which drastically improves performance of
+Celery when running tasks that are I/O bound (which tends to be most tasks that make API or database calls).
+
+However, `gevent` does have some limitations, including that it does not work well `asyncio`.
+This means that if you are calling lots of async code in your Celery tasks, you should consider a different pool.
+
+To change the pool used by Celery you can modify (or remove) the `--pool` command when you call it.
+Note that `--pool=solo` or `--pool=gevent` is recommended for running Celery on Windows, since
 Celery 4.x [no longer officially supports Windows](https://docs.celeryq.dev/en/4.0/whatsnew-4.0.html#removed-features).
-
-To use the `gevent` pool, change the concurrency pool implementation to ``gevent`` instead.
-
-```bash
-pip install gevent
-celery -A {{ project_name }} worker -l info -P gevent
-```
 
 For more information see the [Celery documentation](https://docs.celeryq.dev/en/stable/userguide/concurrency/gevent.html).
 
@@ -142,6 +141,6 @@ Note that if you run Celery Beat as a standalone process, you will need to ensur
 
 In production, you can run Celery Beat as a separate process. You must ensure that there is only ever one Celery Beat process running at a time to avoid multiple instances of the same task being scheduled.
 
-It's also important to note that you can not run Celery Beat in the same process as a worker that is using the `gevent` pool. 
+It's also important to note that you can not run Celery Beat in the same process as a worker that is using the `gevent` pool.
 
 For more information, see the [Celery Beat documentation](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html).
