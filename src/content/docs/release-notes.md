@@ -5,6 +5,12 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.11
+
+- Updated AI API key environment variables to be the defaults used by Pydantic AI so they can be set in a single place.
+  You should now set `OPENAI_API_KEY` instead of `AI_CHAT_OPENAI_API_KEY`
+  and `ANTHROPIC_API_KEY` instead of `AI_CHAT_ANTHROPIC_API_KEY`.
+
 ## Version 2025.10
 
 This release improves the developer experience of working with Pegasus.
