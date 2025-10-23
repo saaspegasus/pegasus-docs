@@ -12,7 +12,7 @@ Step-by-step guides to some different things you might want to do with Pegasus.
 Pegasus ships with a simple script to promote any user to a superuser who can access
 the Django admin.
 
-After going through the sign up flow, to convert your newly-created user into an admin, 
+After going through the sign up flow, to convert your newly-created user into an admin,
 run the following command, being sure to replace the email address with the one you used to sign up:
 
 **Docker:**
@@ -25,7 +25,7 @@ docker compose exec web python ./manage.py promote_user_to_superuser yourname@ex
 
 ```bash
 python ./manage.py promote_user_to_superuser yourname@example.com
-``` 
+```
 
 Now you should be able to access the django admin at http://localhost:8000/admin
 
@@ -147,6 +147,46 @@ To migrate a project from non-formatted to formatted code, you can go through th
    </Steps>
 4. Finally, check the "autoformat" box on your Pegasus project, and do *another* upgrade according to the same process.
 </Steps>
+
+
+## Migrating an existing project to Pegasus
+
+There is not a one-size-fits-all answer to how to migrate an existing app to Pegasus,
+as it can depend on the size, complexity, age, and architecture of the project you're migrating from.
+
+That said, the strategy that has worked best for most people on small-to-medium-sized projects is to basically
+**start a new project on Pegasus and merge your existing functionality into it**.
+
+Here is a rough guideline for how you can do that:
+
+1. Create a new Pegasus project with the exact settings you want your app to have.
+   If your existing app uses certain technologies (e.g. css frameworks, deployment, etc.) it's probably easiest
+   to pick all the same ones, if possible, unless you know you want to change those at the same time.
+2. Bring across the custom logic of your legacy project, while largely preserving the previous project's structure.
+   So, for example, if your project was split into multiple Django apps, just copy those across.
+   If it was a monolith, just leave it that way, and so on.
+3. Reconcile any conflicting data models. E.g. you will only want a single user model.
+   Ideally you would use Pegasus's built-in `CustomUser` model and update your foreign keys accordingly,
+   although this can make data migrations more complicated.
+4. Try and get the urls/views etc. working for your previous app's functionality.
+   Don't worry about UI, but just try to get the routes and business logic working and routing to the right tmeplates.
+5. Migrate those templates to use the Pegasus base templates, etc. (if possible).
+   You can kind of do this page by page, making each one look good as you go.
+   Alternatively, keep your own base template if it is different enough from Pegasus's
+   or if you want to keep your existing app scaffolding.
+   The latter option will require updating Pegasus's built-in functionality to work with your own templates,
+   and will make future upgrades/merges more complicated.
+6. Figure out a data migration (assuming you already have production data).
+   This can often be the trickiest part, especially if you're swapping the user model or othe foregn keys.
+   It can often be easiest to write scripts to copy the data across from one instance to the other,
+   but in some cases you might prefer to keep your previous migration history in place and run migrations
+   on the live database.
+   The larger the project is, the more likely it is you'll want to keep the database and existing models
+   and just use migrations to do the minimal set of Pegasus changes.
+
+The main downsides of the above approach are that you lose your git history on the previous project,
+data migrations can be tricky, and if you have a complex UI then it might take some effort to port across.
+The main upside is that once you get through the pain, all future Pegasus updates will likely be much smoother.
 
 ## Delete Pegasus Examples
 
