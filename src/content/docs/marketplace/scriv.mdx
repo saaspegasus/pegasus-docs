@@ -41,3 +41,31 @@ To publish your own version of the chat widget, you can do the following:
 2. Replace `scriv-chat` with your own package name in `components/scriv-chat/package.json`, and modify any other relevant variables.
 3. Publish the package, by getting set up on [npmjs.com](https://www.npmjs.com/) and then running `npm publish`.
 </Steps>
+
+
+## Troubleshooting
+
+### Knowledge sources not indexing
+
+Knowledge sources are indexed by a background task that runs via [Celery](/celery).
+If your knowledge sources aren't indexing, the most likely cause is that celery is not running correctly.
+
+The first thing to check is whether Celery is running.
+If you're using Docker, Celery should run automatically with the correct parameters as part of the docker compose setup.
+
+If you're not using Docker, you will have to run it manully, and specify the additional "background" queue argument:
+
+```
+celery -A scriv worker -l INFO --pool=solo  -Q celery,background
+```
+
+If Celery is running properly, you should see logs whenever you add / rebuild a knowledge source.
+If the knowledge sources still aren't being added, check the logs for any errors.
+
+You can also manually trigger a knowledge source index by running the following command:
+
+```
+./manage.py build_index <index_id>
+```
+
+The `index_id` argument can be found in the Django admin, or in the URL when viewing the knowledge source.
