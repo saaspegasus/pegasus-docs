@@ -3,6 +3,8 @@ title: Using Teams
 description: Build multi-tenant applications with team-based data models, role-based permissions, and collaborative user management features.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
+
 Teams are designed to provide sandboxes for groups of users collaborating on single project.
 Users can join one or more teams, invite other users to their teams, and give different team members different roles.
 
@@ -229,10 +231,10 @@ The specifics here will depend on the role you've added and the goals you're try
 
 ## Cookbooks
 
-### Disabling or hiding teams from the UI
+### Partially using teams
 
-Many projects want to enable teams but hide them from users.
-For example:
+Many projects might want to use teams in the background but hide them from users.
+This can be useful in certain scenarios:
 
 - If you know you want to use teams eventually, but haven't built out support for them yet.
 - If your application has different user types, some of which belong to teams and some of which don't.
@@ -256,8 +258,11 @@ To achieve this, you should do something like the following:
    even if they navigate to the right URL in the browser.
 5. Continue building your application using the team-based models and URL patterns, but don't expose them to the user.
 
+
 If you follow these steps it should be relatively easy to expose teams down the line instead of having to deal with
 a complicated migration. That process will mostly involve un-hidng the team functionality that was hidden.
 
-Note: If you have different categories of users, some on teams and some not, then instead of hiding the functionality,
-you should conditionally enable it based on the type of user who is logged in.
+<Aside title="Supporting team and non-team users">
+If you have different categories of users, some on teams and some not, then instead of hiding the functionality
+mentioned above, you should instead conditionally enable it based on the type of user that is logged in.
+</Aside>
