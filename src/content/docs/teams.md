@@ -226,3 +226,38 @@ You'll need to update any views or logic that handle role-based permissions,
 by calling the helper functions and decorators you've defined above.
 
 The specifics here will depend on the role you've added and the goals you're trying to achieve with it.
+
+## Cookbooks
+
+### Disabling or hiding teams from the UI
+
+Many projects want to enable teams but hide them from users.
+For example:
+
+- If you know you want to use teams eventually, but haven't built out support for them yet.
+- If your application has different user types, some of which belong to teams and some of which don't.
+
+The recommended way to handle this situation is to **enable teams in Pegasus, but hide/restrict them in the UI**.
+In this world, all users will still belong to a default team (which is created for them automatically),
+and all models are associated with teams. However, the concept of teams will be hidden from users until you
+decide to make them visible.
+
+This allows you to easily "turn on" teams when you are ready, or migrate a user from a "non-team" to a "team" account,
+while being able to use the same underlying business logic and not have to deal with complicated data migrations.
+
+To achieve this, you should do something like the following:
+
+1. Build your application with teams enabled.
+   This will provide the data models and URL scaffolding to work with teams, and make using teams later much easier.
+2. Hide the `team_name` field from the signup form (`signup.html`), and let teams be auto-created for new users.
+3. Hide the team-related items from the application navigation (entry point is `app_nav.html`).
+4. (Optional) Hide/remove out the team-based url mappings (entry point is `teams/urls.py`).
+   Do this if you don't want people to be able to access team-related functionality
+   even if they navigate to the right URL in the browser.
+5. Continue building your application using the team-based models and URL patterns, but don't expose them to the user.
+
+If you follow these steps it should be relatively easy to expose teams down the line instead of having to deal with
+a complicated migration. That process will mostly involve un-hidng the team functionality that was hidden.
+
+Note: If you have different categories of users, some on teams and some not, then instead of hiding the functionality,
+you should conditionally enable it based on the type of user who is logged in.
