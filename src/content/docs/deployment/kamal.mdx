@@ -71,19 +71,50 @@ whatever tool you use to manage your DNS, and point it at the IP address of the 
 
 The most common domain to use is `www.<yourdomain>.com`.
 
-### Create the image repository on Docker Hub
+### Create the image repository
 
 Before doing deployment, you need a place to store your Docker images, also known as a *Docker registry*.
-The most popular one is [Docker Hub](https://hub.docker.com/), so we'll use that one, though
-you can choose a different one if you want, as described in the [Kamal docs](https://kamal-deploy.org/docs/configuration).
+The two recommended options are [Docker Hub](https://hub.docker.com/)
+and [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/).
+
+Docker Hub is easier to use and good if you only have a single project (covered under their free tier).
+Amazon ECR is much more cost-effective if you have multiple projects---typically costing only pennies per project, per month.
+
+You can choose another registry if you want, as described in the [Kamal docs](https://kamal-deploy.org/docs/configuration).
+
+#### Using Docker Hub
 
 First create an account on [Docker Hub](https://hub.docker.com/) and note your username.
 
-Then create a new repository, choosing a unique name for your app, and marking it "private".
+Then create a new repository, choosing a unique name for your app, and **marking it "private"**.
 
 Finally you will need to create an access token. Go to "Account Settings" --> "Security" and make a new access token,
 giving it the default permissions of Read, Write, Delete.
 **Save this token somewhere as you will need it in the next step and will only see it once.**
+
+#### Using Amazon ECR
+
+You will need an [AWS account](https://aws.amazon.com/) to use Amazon ECR.
+
+<Steps>
+ 1. Login to the AWS console and navigate to the ECR service.
+ 2. Under "Private Registry" --> "Repositories" click "Create repository".
+ 3. Choose a repository name, e.g. "myaccount/myapp" and keep the remaining defaults. Click "Create".
+ 3. Next, in the IAM service, create an IAM user / group, giving it the `AmazonEC2ContainerRegistryFullAccess` permissions policy.
+ 4. Create an access key for the user / group and save the credentials.
+ 5. [Install and configure the AWS CLI](https://docs.aws.amazon.com/cli/v1/userguide/cli-chap-configure.html) on your local machine,
+    using those credentials.
+</Steps>
+
+You can test that everything is working by running:
+```
+aws ecr get-login-password
+```
+
+And confirming it returns a (very long!) password.
+
+For a more detailed guide on setting up Amazon ECR with Kamal, see
+[this detailed writeup](https://dylancastillo.co/posts/deploy-a-django-app-with-kamal-aws-ecr-and-github-actions.html).
 
 ### Install and configure Kamal
 
@@ -108,25 +139,49 @@ The `secrets` file should not be checked into source control. See `.kamal/secret
 cp .kamal/secrets.example .kamal/secrets
 ```
 
-#### Update the Kamal configuration files
+#### Update the Kamal deploy.yml file
 
 The Kamal configuration is in `config/deploy.yml`.
 You will need to update the following values:
 
 * Docker image repo: `image: <namespace>/<repository-name>` - this is the repository you created above.
-  If you're using Docker Hub, the `namespace` will typically be your username.
-* Docker registry username: `username: <DOCKER REGISTRY USERNAME>` - the username you chose above.
+  If you're using Docker Hub, the `namespace` will typically be your username, and if you're using ECR
+  you can use the exact repository name you chose above.
+* Docker registry settings (see below)
 * Your server IP address (or hostname) `<IP-ADDRESS>` (this value is listed once per service).
 * Your app domain: `host: <your site url>` in the `proxy` section at the end, if this is not already set via your project configuration.
 
-Additionally, in your `.kamal/secrets` file you should add the following variables:
+For the registry section, if you're using **Docker Hub**, you will need to add the username you chose above:
 
-* Set `KAMAL_REGISTRY_PASSWORD` to the access token value you created above.
+```yaml
+registry:
+  username: <DOCKER REGISTRY USERNAME>  # set this
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+```
+
+If you're using **Amazon ECR**, you should update it as follows:
+
+```yaml
+registry:
+  server: <your aws account id>.dkr.ecr.<your aws region id>.amazonaws.com
+  username: AWS
+  password: <%= %x(aws ecr get-login-password) %>
+```
+
+For other registries, see the [Kamal docs](https://kamal-deploy.org/docs/configuration/docker-registry/).
+
+#### Update the .kamal/secrets file
+
+Next, in your `.kamal/secrets` file you should add the following variables:
+
+* If you're using Docker Hub, set `KAMAL_REGISTRY_PASSWORD` to the access token value you created above.
+  If you're using Amazon ECR, you can remove this variable.
 * Choose secure, unique, and ideally random values for `POSTGRES_PASSWORD` and `SECRET_KEY`.
 * Update the `DATABASE_URL` value (use the same password as `POSTGRES_PASSWORD`).
 
 You can review other settings in `deploy.yml`, but those should be all that you need to set yourself
-to do your first deployment.
+for your first deployment.
 
 ### Deploy
 
@@ -440,3 +495,15 @@ an ssh section, as [described in the docs](https://kamal-deploy.org/docs/configu
 ssh:
   user: kamal
 ```
+
+#### Cleaning up old Images on Amazon ECR
+
+Amazon ECR charges based on the amount of image storage you use.
+In order to keep costs down, you set a lifecycle policy that cleans up old images.
+
+The following configuration can be used to clean up all but the most recent 3 images:
+
+
+![ECR Lifecycle Policy](../../../assets/images/deployment/ecr-lifecycle-rule.png)
+
+For more details, see [Amazon's documentaiton on lifcecyle policies](https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html)
