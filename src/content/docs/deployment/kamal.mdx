@@ -34,15 +34,15 @@ Or follow along with the documentation below.
 Deploying on Kamal will require a few pieces:
 
 1. A server running Linux (the latest Ubuntu LTS is recommended---version 24.04 as of this writing) and accessible via SSH.
-3. A domain name for your app. You will need to create a DNS record pointing to your server's IP address.
-2. A Docker registry to store your images. You can use [Docker Hub](https://hub.docker.com) or any other registry.
+2. A domain name for your app. You will need to create a DNS record pointing to your server's IP address.
+3. A Docker registry to store your images. You can use [Docker Hub](https://hub.docker.com) or any other registry.
 4. A development environment where you install and configure Kamal.
 
 We'll walk through these in more detail in order below.
 
 ### Provision and prepare your server
 
-The first step is to provision a server were you will host your application.
+The first step is to provision a server where you will host your application.
 Some popular choices include:
 
 * Hetzner (get €20 credit and support Pegasus with [this link](https://hetzner.cloud/?ref=49vhF1w3TIyB)).
@@ -66,7 +66,7 @@ the note below.
 
 ### Set up DNS
 
-To set up SSL you will need a DNS record pointing at your sever. Create a new "A" record using
+To set up SSL you will need a DNS record pointing at your server. Create a new "A" record using
 whatever tool you use to manage your DNS, and point it at the IP address of the server you created above.
 
 The most common domain to use is `www.<yourdomain>.com`.
@@ -506,4 +506,4 @@ The following configuration can be used to clean up all but the most recent 3 im
 
 ![ECR Lifecycle Policy](../../../assets/images/deployment/ecr-lifecycle-rule.png)
 
-For more details, see [Amazon's documentaiton on lifcecyle policies](https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html)
+For more details, see [Amazon's documentation on lifecycle policies](https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html)
