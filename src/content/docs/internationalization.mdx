@@ -79,7 +79,7 @@ def my_view(request):
     return HttpResponse(output)
 ```
 
-See the [Django docs](https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#internationalization-in-python-code) for more.
+See the [Django docs](https://docs.djangoproject.com/en/stable/topics/i18n/translation/#internationalization-in-python-code) for more.
 
 **In Django templates:**
 ```jinja
@@ -87,14 +87,14 @@ See the [Django docs](https://docs.djangoproject.com/en/4.0/topics/i18n/translat
 <title>{% translate "This is the title." %}</title>
 ```
 
-See the [Django docs](https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#internationalization-in-template-code) for more.
+See the [Django docs](https://docs.djangoproject.com/en/stable/topics/i18n/translation/#internationalization-in-template-code) for more.
 
 **In JavaScript:**
 ```javascript
 document.write(gettext('this is to be translated'));
 ```
 
-See the [Django docs](https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#internationalization-in-javascript-code) for more.
+See the [Django docs](https://docs.djangoproject.com/en/stable/topics/i18n/translation/#internationalization-in-javascript-code) for more.
 
 **In Wagtail:**
 
@@ -153,7 +153,7 @@ This allows localization to work for both authenticated and unauthenticated user
 
 More information on this approach is available the Django docs: [How Django discovers language preference][1]
 
-[1]: https://docs.djangoproject.com/en/4.2/topics/i18n/translation/#how-django-discovers-language-preference
+[1]: https://docs.djangoproject.com/en/stable/topics/i18n/translation/#how-django-discovers-language-preference
 
 ## Timezones
 
@@ -163,4 +163,4 @@ by default all dates and times will appear in their local time.
 
 For more information on working with timezones in Django, see [Django's timezone documentation][2].
 
-[2]: https://docs.djangoproject.com/en/4.2/topics/i18n/timezones/
+[2]: https://docs.djangoproject.com/en/stable/topics/i18n/timezones/

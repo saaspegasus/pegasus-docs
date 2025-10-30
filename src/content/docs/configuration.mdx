@@ -72,7 +72,7 @@ SOME_VALUE = 'my value'
 
 ## Project Metadata
 
-When you first setup Pegasus it populated the `PROJECT_METADATA` setting in `settings.py` with various 
+When you first setup Pegasus it populated the `PROJECT_METADATA` setting in `settings.py` with various
 things like page titles and social sharing information.
 
 These settings can later be changed as you like by editing the setting directly:
@@ -106,7 +106,7 @@ You should set this to `True` when using https and `False` when not (typically o
 
 When you first install Pegasus it will use the `URL` value from `PROJECT_METADATA` above to create
 a Django `Site` object in your database.
-The domain name of this `Site` will be used for your server address. 
+The domain name of this `Site` will be used for your server address.
 
 If you need to change the URL after installation, you can go to the site admin at `admin/sites/site/` and
 modify the values accordingly, leaving off any http/https prefix.
@@ -172,9 +172,9 @@ with a sensible set of defaults and templates.
 
 ### Social logins
 
-Pegasus optionally ships with "Login with Google/Twitter/Github" options. 
+Pegasus optionally ships with "Login with Google/Twitter/Github" options.
 
-You'll separately need to follow the steps listed on the 
+You'll separately need to follow the steps listed on the
 [provider-specific pages here](https://docs.allauth.org/en/latest/socialaccount/providers/index.html)
 to configure things on the other side.
 These steps can sometimes be a bit involved and vary by platform.
@@ -215,7 +215,7 @@ The Pegasus community has recommended the following guides to set things up with
 
 ### Requiring email confirmation
 
-Pegasus does not require users to confirm their email addresses prior to logging in. 
+Pegasus does not require users to confirm their email addresses prior to logging in.
 However, this can be easily changed by changing the following value in `settings.py`
 
 ```python
@@ -235,7 +235,7 @@ ACCOUNT_LOGIN_BY_CODE_ENABLED=True
 
 ### Two-factor authentication
 
-Two-Factor authentication (2FA) is configured using the [allauth's mfa][1] support. 
+Two-Factor authentication (2FA) is configured using the [allauth's mfa][1] support.
 
 [1]: https://docs.allauth.org/en/latest/mfa/index.html
 
@@ -289,7 +289,7 @@ STRIPE_LIVE_MODE = False  # Change to True in production
 To enable Google Analytics, add your analytics tracking ID to your `.env` file or `settings.py` file:
 
 ```python
-GOOGLE_ANALYTICS_ID = 'UA-XXXXXXX-1' 
+GOOGLE_ANALYTICS_ID = 'UA-XXXXXXX-1'
 ```
 
 Pegasus uses a "global site tag" with gtag.js by default, which is a simpler version of Google Analytics that can be rolled out
@@ -331,7 +331,7 @@ In development you can specify "localhost" as your domain like this:
 
 ![Turnstile Dev](../../assets/images/turnstile.png)
 
-In production, you should replace that with your site's production domain. 
+In production, you should replace that with your site's production domain.
 
 
 ## Mailing List
@@ -398,7 +398,7 @@ or Pegasus message:
 * `{{project_name.upper()}}_LOG_LEVEL`
 
 Alternatively the entire log configuration can be overridden using the `LOGGING` setting as described in the
-[Django docs](https://docs.djangoproject.com/en/4.0/topics/logging/).
+[Django docs](https://docs.djangoproject.com/en/stable/topics/logging/).
 
 ## Storing media files
 
@@ -406,7 +406,7 @@ SaaS Pegasus ships with optional configuration for storing dynamic media files i
 If you do not have this enabled the [default Django configuration][default] will be used which requires
 you to have persistent storage available for your site such as a Docker volume.
 
-[default]: https://docs.djangoproject.com/en/4.1/topics/files/
+[default]: https://docs.djangoproject.com/en/stable/topics/files/
 
 ### Setting up S3 media storage
 
@@ -461,7 +461,7 @@ The `django-debug-toolbar` package is placed in the `dev-requirements.txt` file 
 be available in dev environments. Should you wish to use it in a production environment you will need
 to add it to your `prod-requirements.in` file and [re-build](/python/setup) your `prod-requirements.txt` file.
 
-By default, the toolbar is enabled in development environments via the `ENABLE_DEBUG_TOOLBAR` setting 
+By default, the toolbar is enabled in development environments via the `ENABLE_DEBUG_TOOLBAR` setting
 in your `.env` file(s). You can change this setting in any environment to turn it on/off.
 
 ```dotenv

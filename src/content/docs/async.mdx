@@ -47,7 +47,7 @@ In Pegasus, the convention is to put your websocket urls in `channels_urls.py`
 in your project folder (the same one containing `urls.py`).
 
 Because websocket urls are separate from your main app, and because they follow a different protocol,
-they must be referenced as absolute URLs in your front end (including prepending "ws://" or "wss://" depending on whether 
+they must be referenced as absolute URLs in your front end (including prepending "ws://" or "wss://" depending on whether
 you're using HTTPS).
 
 Pegasus ships with two helper functions you can use to assist with working with URLs, so long as you follow Pegasus conventions.
@@ -65,7 +65,7 @@ You can then use the websocket URL in a template/JavaScript like this:
 ```js
 const chatSocket = new WebSocket({{ room_ws_url}});
 chatSocket.onmessage = function(e) {
-  // handle message 
+  // handle message
 };
 ```
 
@@ -79,7 +79,7 @@ That said, you can customize your app to use whichever server you prefer.
 ### Daphne
 
 In development, Pegasus uses the [Daphne](https://pypi.org/project/daphne/) web server for its tight integration with Django's `runserver` command,
-as [outlined in the Django docs](https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/daphne/).
+as [outlined in the Django docs](https://docs.djangoproject.com/en/stable/howto/deployment/asgi/daphne/).
 
 Daphne is installed via `dev-requirements` and will be added to your `INSTALLED_APPS` whenever `settings.DEBUG` is `True`.
 
@@ -125,4 +125,4 @@ pip install -r requirements/dev-requirements.txt
 
 Since this is a new feature there may be some speed-bumps getting it into production on all platforms.
 While every deployment platform is expected to work, it is not possible to test every app/configuration.
-So, if you have any issues please reach out over email (support@saaspegasus.com) or on Slack and I will do my best to help! 
+So, if you have any issues please reach out over email (support@saaspegasus.com) or on Slack and I will do my best to help!

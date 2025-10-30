@@ -86,7 +86,7 @@ Once you've created your billing model on Stripe, follow these instructions to s
 4. Alternatively, if you *are* using the Stripe embedded pricing table set the `STRIPE_PRICING_TABLE_ID` variable in your settings/environment to the pricing table ID you created in Stripe.
 </Steps>
 
-Now login and click the "Subscription" tab in the navigation. 
+Now login and click the "Subscription" tab in the navigation.
 If you've set things up correctly you should see a page that looks like this
 (it will look slightly different if you are using the Stripe pricing table, or a different CSS framework):
 
@@ -133,7 +133,7 @@ https://<yoursite>/subscriptions/confirm/?session_id={CHECKOUT_SESSION_ID}
 *Make sure you check the option to apply this change to all prices* if you're using monthly and annual pricing.
 And then *repeat this process for every product in the pricing page*.
 
-**If you don't make this change, you will not see subscriptions updated unless you are also running webhooks.** 
+**If you don't make this change, you will not see subscriptions updated unless you are also running webhooks.**
 
 ### Using the in-app pricing table
 
@@ -143,7 +143,7 @@ You can modify `ACTIVE_PRODUCTS` and `ACTIVE_PLAN_INTERVALS` and see how the pag
 Whenever you make changes in Stripe, you will need to re-run `./manage.py bootstrap_subscriptions`,
 and incorporate any necessary changes into the `ACTIVE_PRODUCTS` list.
 
-More background and details on this set up can be found in this 
+More background and details on this set up can be found in this
 [Django Stripe Integration Guide](https://www.saaspegasus.com/guides/django-stripe-integrate/).
 
 ## Customer Portal
@@ -263,10 +263,10 @@ For recent projects, use the instructions above.**
 
 ### Custom Webhook Handling
 
-You may want to do more than just update the underlying Stripe objects when processing webhooks, 
+You may want to do more than just update the underlying Stripe objects when processing webhooks,
 for example, notifying a customer or admin of a failed payment.
 
-Pegasus ships with an example of executing custom logic from a webhook in `apps/subscriptions/webhooks.py`. 
+Pegasus ships with an example of executing custom logic from a webhook in `apps/subscriptions/webhooks.py`.
 This basic example will mail your project admins when a Subscription is canceled.
 
 More details on custom webhooks can be found in the [dj-stripe documentation](https://dj-stripe.dev/2.9/usage/webhooks/).
@@ -283,7 +283,7 @@ in local currencies, but the pricing table itself will display the prices in you
 ## Free trials
 
 You can easily enable free trials using the option in Stripe's embedded pricing table.
-Your customers will be able to sign up with their credit cards for a trial and will have the same 
+Your customers will be able to sign up with their credit cards for a trial and will have the same
 experience in your application as someone who is paying for the plan.
 They'll be able to update their status from the customer portal, and once the trial period ends they will be billed.
 
@@ -372,7 +372,7 @@ You can use any of:
 
 - Standard pricing (e.g. $10/user)
 - Package pricing (e.g. $50 / 5 new users)
-- Tiered pricing (graduated or volume) (e.g. $50 for up to 5 users, $5/user after that) 
+- Tiered pricing (graduated or volume) (e.g. $50 for up to 5 users, $5/user after that)
 
 ### Displaying prices on the subscriptions page
 
@@ -446,7 +446,7 @@ class Workspace(models.Model):
 ```
 
 Then you would want to update the `billing_details_last_changed` field of the `CustomUser` object every time a workspace
-was added or removed (step 1, above). That might look something like this, using [Django signals](https://docs.djangoproject.com/en/4.0/topics/signals/):
+was added or removed (step 1, above). That might look something like this, using [Django signals](https://docs.djangoproject.com/en/stable/topics/signals/):
 
 ```python
 @receiver(post_save, sender=Workspace)
@@ -462,7 +462,7 @@ def update_billing_date_on_workspace_deletion(sender, instance, **kwargs):
     instance.user.save()
 ```
 
-The other piece of code you would need to add is associating the `get_quantity` function on the user with the number of 
+The other piece of code you would need to add is associating the `get_quantity` function on the user with the number of
 workspaces they have.
 
 You'd want to add a method like this to `CustomUser`:
@@ -470,7 +470,7 @@ You'd want to add a method like this to `CustomUser`:
 ```python
 class CustomUser(SubscriptionModelBase, AbstractUser):
     # other stuff here
-    
+
     def get_quantity(self):
         return self.workspaces.count()
 ```
@@ -566,7 +566,7 @@ There are two recommended workarounds to this:
 
 1. Downgrade your Stripe API version. The most recent supported version is `2023-10-16`.
    Your API version can be found in the "Developers" section of the Stripe dashboard.
-2. Manually add a database migration to your project to increase the size of the column. 
+2. Manually add a database migration to your project to increase the size of the column.
    If you build with Pegasus version 2024.10 or later, this migration will be automatically added to your project.
    Otherwise, see below for instructions on adding it.
 
