@@ -35,7 +35,7 @@ Or in Docker:
 ```bash
 make npm-dev
 ```
-This command will also automatically refresh your front end whenever any changes are made. 
+This command will also automatically refresh your front end whenever any changes are made.
 
 ## Adding files to Django templates
 
@@ -75,7 +75,11 @@ corresponding changes to your `django-vite` settings as per their documentation.
 ## Production
 
 In production, the above configuration should work out of the box.
-Production builds will disable `settings.DEBUG` which will in turn disable vite's dev mode.
+Production builds will disable `settings.DEBUG` via the environment variable,
+which will in turn disable vite's dev mode.
+
+
+
 
 If you need more fine-grained control, or want to test a production build, you can also explicitly
 set the `DJANGO_VITE_DEV_MODE` environment variable to `false`.
