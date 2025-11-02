@@ -5,6 +5,8 @@ sidebar:
   order: 3
 ---
 
+import { Aside } from '@astrojs/starlight/components';
+
 ## Vite architecture overview
 
 The Vite integration with Django is managed by [`django-vite`](https://github.com/MrBin99/django-vite).
@@ -78,7 +80,12 @@ In production, the above configuration should work out of the box.
 Production builds will disable `settings.DEBUG` via the environment variable,
 which will in turn disable vite's dev mode.
 
-
+<Aside title="Environment variables and settings.DEBUG">
+You should always override `settings.DEBUG` via an environment variable or `.env` file.
+This ensures that the value is set at the top of `settings.py`, which in turn overrides the `dev_mode` setting
+of `django-vite`. If instead you set `DEBUG = False` in `settings_production.py` this will not properly override
+the value, and django-vite will still use dev mode in your production app.
+</Aside>
 
 
 If you need more fine-grained control, or want to test a production build, you can also explicitly
