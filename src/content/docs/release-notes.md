@@ -10,6 +10,9 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 - Updated AI API key environment variables to be the defaults used by Pydantic AI so they can be set in a single place.
   You should now set `OPENAI_API_KEY` instead of `AI_CHAT_OPENAI_API_KEY`
   and `ANTHROPIC_API_KEY` instead of `AI_CHAT_ANTHROPIC_API_KEY`.
+- Updated links to the Django docs to always point to the latest stable release.
+- Updated Kit (formerly ConvertKit) mailing list integration to V4 of the API.
+  - Also updated [the docs](/configuration/#kit-formerly-convertkit).
 
 ## Version 2025.10
 
