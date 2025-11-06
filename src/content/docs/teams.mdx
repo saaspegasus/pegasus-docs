@@ -15,7 +15,7 @@ Some of those building blocks are documented here.
 
 ## Example App
 
-As of version 0.17, Pegasus ships with a built-in example application demonstrating the basics of working with team-based
+Pegasus ships with an optional built-in example application demonstrating the basics of working with team-based
 models and views.
 
 The example app includes:
@@ -46,7 +46,34 @@ By default, a `role` field is added to represent the `User`'s role in the `Team`
 ### Team-based models
 
 Data models that "belong" to a Team can subclass `BaseTeamModel`.
-See the example app for usage.
+
+In addition to always including a `.team` field, this model also has an additional manager called
+`for_team` that will automatically filter querysets based on the current team (set by the [context variable](#team-context-variable)).
+This is useful to use to provide strict access to your data models (if they should never be accessed outside a team).
+
+These two statements are approximately equivalent:
+
+```python
+MyTeamModel.for_team().filter(...)
+MyTeamModel.objects.filter(team=get_current_team(), ...)
+```
+
+See the example app for additional usage examples.
+For more strict logic around team queries, see [the strict team access section](#strict-team-access).
+
+## Team Context variable
+
+From version 2025.11, a [ContextVar](https://docs.python.org/3/library/contextvars.html) is available to keep track of the current team.
+
+The team is set automatically in views by the [middleware](#middleware) or by using the `current_team` context manager like this:
+
+```python
+a_team = Team.objects.get(slug='a-team')
+with current_team(team):
+    # get_current_team() will return the `a_team` object inside this block
+    call_code_that_uses_the_curent_team()
+    MyModel.for_team().all()  # only returns objects with `team=a_team`
+```
 
 ## Team-based Views
 
@@ -230,6 +257,36 @@ by calling the helper functions and decorators you've defined above.
 The specifics here will depend on the role you've added and the goals you're trying to achieve with it.
 
 ## Cookbooks
+
+### Strict team access
+
+If you want to ensure that your data models are only ever accessible in the context of a team, you can change the
+declaration of the manager classes on `BaseTeamModel` as follows:
+
+```python
+class BaseTeamModel(BaseModel):
+    """
+    Abstract model for objects that are part of a team.
+    """
+
+    team = models.ForeignKey(Team, verbose_name=gettext("Team"), on_delete=models.CASCADE)
+
+    # rename the global manager to `all_objects`. This will be used in the Django admin, but any calling code
+    # using `.objects` will automatically filter by team.
+    all_objects = models.Manager()
+
+    # Override `.objects` with the TeamScopedManager to always filter
+    objects = TeamScopedManager()
+
+
+    class Meta:
+        abstract = True
+```
+
+You can also set `settings.STRICT_TEAM_CONTEXT = True` to fail hard if `.objects` is ever called without a valid team set.
+
+If you do this, you never need to add `.filter(team=team)` to any of your queries, as the filter will be applied automatically.
+
 
 ### Partially using teams
 
