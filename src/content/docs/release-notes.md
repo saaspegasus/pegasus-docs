@@ -21,15 +21,22 @@ Details:
 - Added a new `TeamScopedManager` class to automatically filter a queryset based on the current team (from the context variable).
 - Updated `BaseTeamModel` to add `for_team = TeamScopedManager()`, which can be used to automatically filter a team
   moodel based on the current team.
+- `TeamsMiddleware` will no longer set `request.team` to the user's default team if it is not in the URL.
+  Previously it would return the most recently visited team or the first team that the user is a member of.
+  If you need that behavior, you can now use `request.default_team`.
 - Added several tests for the above functionality.
 
 See [the updated teams documentation](/teams) for more information about working with these tools,
-including how to use them to [always enforce a team is set](/teams/#strict-team-access).
+including how to use them to [always enforce that a team is set](/teams/#strict-team-access).
 
 
 ### Other changes
 
 - The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
+- Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
+  This was done by updating a migration to remove the unexpected tables, as outlined in
+  [this comment](https://github.com/django-waffle/django-waffle/issues/317#issuecomment-488398832).
+  - The migration was also renamed - see upgrade section for details.
 - Fixed some places were types were set incorrectly or didn't pass type checking.
 - Updated AI API key environment variables to be the defaults used by Pydantic AI so they can be set in a single place.
   You should now set `OPENAI_API_KEY` instead of `AI_CHAT_OPENAI_API_KEY`
@@ -42,7 +49,12 @@ including how to use them to [always enforce a team is set](/teams/#strict-team-
 
 ### Upgrading
 
-If you were using the (Convert)Kit integration, you should update based on the [latest documentation](/configuration/#kit-formerly-convertkit).
+- If you had any code dependent on `request.team` being set even if there was no team in the URL, you should
+update that code to use `request.default_team`.
+- If you were using the (Convert)Kit integration, you should update based on the [latest documentation](/configuration/#kit-formerly-convertkit).
+- The migration `/apps/web/migrations/0002_patch_djstripe_column.py` was renamed to `/apps/web/migrations/0002_patch_third_party_tables.py`.
+If you want to patch the waffle tables but have already run the migration, you can run `./manage.py makemigrations web --empty`
+and then copy the contents of the file across, keeping the generated `("web", "000x_xxxx"),` dependency line there.
 
 
 ## Version 2025.10
