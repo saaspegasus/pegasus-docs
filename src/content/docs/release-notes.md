@@ -35,14 +35,15 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 - The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
 - Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
   This was done by updating a migration to remove the unexpected tables, as outlined in
-  [this comment](https://github.com/django-waffle/django-waffle/issues/317#issuecomment-488398832).
+  [this comment](https://github.com/django-waffle/django-waffle/issues/317#issuecomment-488398832). Thanks Ben N for reporting!
   - The migration was also renamed - see upgrade section for details.
-- Fixed some places were types were set incorrectly or didn't pass type checking.
+- Fixed some places where types were set incorrectly or didn't pass type-checking.
+- Updated `.vite` declaration in the `.gitignore` to make it more obvious how to check in vite's built static files if you want to do that. Thanks Lile for suggesting!
 - Updated AI API key environment variables to be the defaults used by Pydantic AI so they can be set in a single place.
   You should now set `OPENAI_API_KEY` instead of `AI_CHAT_OPENAI_API_KEY`
   and `ANTHROPIC_API_KEY` instead of `AI_CHAT_ANTHROPIC_API_KEY`.
 - Updated links to the Django docs to always point to the latest stable release.
-- Updated Kit (formerly ConvertKit) mailing list integration to V4 of the API.
+- Updated Kit (formerly ConvertKit) mailing list integration to V4 of the API. Thanks Ben H for suggesting!
   - Changed `CONVERTKIT_API_KEY` setting / environment variable name to `KIT_API_KEY`.
   - Also updated [the docs](/configuration/#kit-formerly-convertkit).
 - Made minor updates to AI rules files.
