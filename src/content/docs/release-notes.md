@@ -7,12 +7,43 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 
 ## Version 2025.11
 
+Here's what's in the November release.
+
+### New Team scoping features
+
+These provide more consistent ways to filter your models based on the current team and help avoid
+bugs related to forgetting to apply a filter to your queries.
+
+Details:
+
+- Added a new [context variable](/teams/#team-context-variable) to keep track of the current team.
+- Updated the `TeamsMiddleware` to automatically set/unset the variable for the user's current team.
+- Added a new `TeamScopedManager` class to automatically filter a queryset based on the current team (from the context variable).
+- Updated `BaseTeamModel` to add `for_team = TeamScopedManager()`, which can be used to automatically filter a team
+  moodel based on the current team.
+- Added several tests for the above functionality.
+
+See [the updated teams documentation](/teams) for more information about working with these tools,
+including how to use them to [always enforce a team is set](/teams/#strict-team-access).
+
+
+### Other changes
+
+- The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
+- Fixed some places were types were set incorrectly or didn't pass type checking.
 - Updated AI API key environment variables to be the defaults used by Pydantic AI so they can be set in a single place.
   You should now set `OPENAI_API_KEY` instead of `AI_CHAT_OPENAI_API_KEY`
   and `ANTHROPIC_API_KEY` instead of `AI_CHAT_ANTHROPIC_API_KEY`.
 - Updated links to the Django docs to always point to the latest stable release.
 - Updated Kit (formerly ConvertKit) mailing list integration to V4 of the API.
+  - Changed `CONVERTKIT_API_KEY` setting / environment variable name to `KIT_API_KEY`.
   - Also updated [the docs](/configuration/#kit-formerly-convertkit).
+- Made minor updates to AI rules files.
+
+### Upgrading
+
+If you were using the (Convert)Kit integration, you should update based on the [latest documentation](/configuration/#kit-formerly-convertkit).
+
 
 ## Version 2025.10
 
