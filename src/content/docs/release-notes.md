@@ -35,6 +35,8 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 - **Upgraded all Python packages.**
 - **Upgraded all JavaScript packages.**
 - **Added [AGENTS.md](https://agents.md/) as an additional output format for AI rules files.**
+- **You can now clone/copy projects in SaaS Pegasus**---starting a new project with an existing project's configuration
+  instead of the defaults each time.  (Thanks Patrick for the suggestion!)
 - The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
 - Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
   This was done by updating a migration to remove the unexpected tables, as outlined in
