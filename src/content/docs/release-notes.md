@@ -5,6 +5,85 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.11
+
+Here's what's in the November release.
+
+### New Team scoping features
+
+These updates provide more consistent ways to filter your models based on the current team and help avoid
+writing bugs related to forgetting to apply a team filter to your DB queries.
+
+If you're happy with the current teams setup you can largely ignore these changes—they mainly add
+new, optional functionality on top of the existing system.
+
+If you would like to introduce more strict Team filtering and checking in your app, review
+the changes below and updated sections of the documentation.
+
+Details:
+
+- Added a new [context variable](/teams/#team-context-variable) to keep track of the current team.
+- Updated the `TeamsMiddleware` to automatically set/unset the variable for the user's current team.
+- Added a new `TeamScopedManager` class to automatically filter a queryset based on the current team (from the context variable).
+- Updated `BaseTeamModel` to add `for_team = TeamScopedManager()`, which can be used to automatically filter a team
+  moodel based on the current team.
+- `TeamsMiddleware` will no longer set `request.team` to the user's default team if it is not in the URL.
+  Previously it would return the most recently visited team or the first team that the user is a member of.
+  If you need that behavior, you can now use `request.default_team`.
+- Added several tests for the above functionality.
+
+See [the updated teams documentation](/teams) for more information about working with these tools,
+including how to use them to [always enforce that a team is set](/teams/#strict-team-access).
+
+
+### Other changes
+
+**Added**
+
+- **Added [AGENTS.md](https://agents.md/) as an additional output format for AI rules files.**
+- **You can now clone/copy projects in SaaS Pegasus**—starting a new project with an existing project's configuration
+  instead of the defaults each time.  (Thanks Patrick for the suggestion!)
+
+**Changed**
+
+- **Upgraded all Python packages.**
+- **Upgraded all JavaScript packages.**
+- Updated `.vite` declaration in the `.gitignore` to make it more obvious how to check in vite's built static files if you want to do that. Thanks Lile for suggesting!
+- Updated AI API key environment variables to be the defaults used by Pydantic AI so they can be set in a single place.
+  You should now set `OPENAI_API_KEY` instead of `AI_CHAT_OPENAI_API_KEY`
+  and `ANTHROPIC_API_KEY` instead of `AI_CHAT_ANTHROPIC_API_KEY`.
+- Updated links to the Django docs to always point to the latest stable release.
+- Updated Kit (formerly ConvertKit) mailing list integration to V4 of the API. Thanks Ben H for suggesting!
+  - Changed `CONVERTKIT_API_KEY` setting / environment variable name to `KIT_API_KEY`.
+  - Also updated [the docs](/configuration/#kit-formerly-convertkit).
+- Updated `django_browser_reload` to only setup the app/middleware if `DEBUG=True`.
+  This removes a warning in production. (Thanks Zac for the suggestion!)
+- Made minor updates to AI rules files.
+
+**Fixed**
+
+- The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
+- Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
+  This was done by updating a migration to remove the unexpected tables, as outlined in
+  [this comment](https://github.com/django-waffle/django-waffle/issues/317#issuecomment-488398832). Thanks Ben N for reporting!
+  - The migration was also renamed - see upgrade section for details.
+- Fixed some places where types were set incorrectly or didn't pass type-checking.
+- Fixed a bug where `django_browser_reload` was always enabled, even if you had turned it off.
+
+
+### Upgrading
+
+- If you had any code dependent on `request.team` being set even if there was no team in the URL, you should
+update that code to use `request.default_team`.
+- If you were using the (Convert)Kit integration, you should update based on the [latest documentation](/configuration/#kit-formerly-convertkit).
+- The migration `/apps/web/migrations/0002_patch_djstripe_column.py` was renamed to `/apps/web/migrations/0002_patch_third_party_tables.py`.
+  - In most cases, this should apply correctly, but if you have any issues with it,
+    you can re-create the migration by running `./manage.py makemigrations web --empty`
+    and then copying the contents of the file across (except for the generated `("web", "000x_xxxx"),` dependency line).
+    Alternatively, if you don't use `TransactionTestCase`, you can just reject the migration file changes.
+
+*Nov 10, 2025*
+
 ## Version 2025.10
 
 This release improves the developer experience of working with Pegasus.
@@ -421,9 +500,9 @@ This release adds the option to use [Vite](https://vite.dev/) as a bundler inste
 Vite is a modern build tool that adds a few key benefits over the Webpack build system:
 
 1. It is much faster than Webpack.
-2. Hot Module Replacement (HMR)---a development feature that lets code changes in your front end files automatically
+2. Hot Module Replacement (HMR)—a development feature that lets code changes in your front end files automatically
    update without a full-page reload.
-3. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
+3. Code splitting—a production feature that breaks your front end files into individual bundles that encapsulate
    code dependencies. This leads to less redundant JavaScript and faster page loads.
 
 You can watch the video below for a walkthrough of these benefits and how they work in the new setup.
@@ -564,7 +643,7 @@ authentication APIs.
 
 On top of this, support for many new authentication workflows was added to the standalone front end,
 including email confirmation, password reset, and social authentication.
-The standalone front end---which is still in experimental mode---is now close-to-parity with the Django authentication system.
+The standalone front end—which is still in experimental mode—is now close-to-parity with the Django authentication system.
 
 Details:
 
@@ -1276,7 +1355,7 @@ Read more in the [shadcn docs here](/css/tailwind/#shadcn).
 ### New flowbite integration and demo component page
 
 Another new build setting allows you to build your project with [flowbite](https://flowbite.com/) installed.
-Flowbite is another great component library for Tailwind and does *not* use React---making
+Flowbite is another great component library for Tailwind and does *not* use React—making
 it a great fit for htmx projects.
 If you enable this setting, flowbite will automatically be installed and you can drop
 flowbite components into any Django template.
@@ -1706,7 +1785,7 @@ Litellm can still be used with all common AI models, including OpenAI, Anthropic
 
 ### Formatting and linting now use Ruff
 
-Black and isort have been replaced with [ruff](https://github.com/astral-sh/ruff)---a Python linter/formatter
+Black and isort have been replaced with [ruff](https://github.com/astral-sh/ruff)—a Python linter/formatter
 that offers the same functionality as those tools but is much faster.
 
 Additionally, Pegasus will now remove unused imports from your files automatically, both
@@ -1853,7 +1932,7 @@ Here are a few highlights:
 
 In addition to using OpenAI chat models, you can now build the Pegasus AI chat applicaiton
 with the [`llm` library](https://github.com/simonw/llm). This lets you run the chat application
-against any supported model---including the Anthropic family (Claude 3), and local models like Llama 3.
+against any supported model—including the Anthropic family (Claude 3), and local models like Llama 3.
 
 Additionally, the image generation demo now supports Dall-E-3 and Stable Diffusion 3.
 For complete details, see the new [AI documentation](/ai/images).
@@ -3026,7 +3105,7 @@ Details:
 ### Requirements update
 
 This release updates the Python requirements files (again).
-Apologies for the iteration on this---trying to find the best long-term workflow and hopefully this is it.
+Apologies for the iteration on this—trying to find the best long-term workflow and hopefully this is it.
 
 - The `requirements/dev-requirements.txt` (and `.in`) file no longer includes everything in `requirements/requirements.txt`.
   It now only has the requirements used *only* in development.
@@ -3195,8 +3274,8 @@ These are the biggest changes:
 ### Code formatting
 
 Pegasus will (optionally) now auto-format your Python code using [black](https://black.readthedocs.io).
-In addition to formatting, Pegasus now ships with [pre-commit hooks](https://pre-commit.com)---which you
-can install to ensure your code matches the expected format---and adds format checks to your Github actions CI.
+In addition to formatting, Pegasus now ships with [pre-commit hooks](https://pre-commit.com)—which you
+can install to ensure your code matches the expected format—and adds format checks to your Github actions CI.
 Much more detail can be found in the new [code formatting docs](/code-structure/#code-formatting).
 This option is enabled by default for new projects, and it's recommended that all existing Pegasus projects upgrade to this format,
 as it will make future merges/upgrades much easier.
