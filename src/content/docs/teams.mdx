@@ -31,7 +31,7 @@ that demonstrate additional team-based examples, including functional views, pag
 
 They are a great place to start for inspiration and getting something up and running quickly!
 
-*Note: the example apps are not officially sanctioned/supported by Pegasus---though
+*Note: the example apps are not officially sanctioned/supported by Pegasus—though
 features from them will be continually incorporated into future releases.*
 
 ## Data Models
@@ -269,13 +269,16 @@ class BaseTeamModel(BaseModel):
     Abstract model for objects that are part of a team.
     """
 
-    team = models.ForeignKey(Team, verbose_name=gettext("Team"), on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, verbose_name=gettext("Team"),
+                             on_delete=models.CASCADE)
 
-    # rename the global manager to `all_objects`. This will be used in the Django admin, but any calling code
+    # rename the global manager to `all_objects`.
+    # This will be used in the Django admin, but any calling code
     # using `.objects` will automatically filter by team.
     all_objects = models.Manager()
 
     # Override `.objects` with the TeamScopedManager to always filter
+    # queries by the current team.
     objects = TeamScopedManager()
 
 
@@ -285,7 +288,8 @@ class BaseTeamModel(BaseModel):
 
 You can also set `settings.STRICT_TEAM_CONTEXT = True` to fail hard if `.objects` is ever called without a valid team set.
 
-If you do this, you never need to add `.filter(team=team)` to any of your queries, as the filter will be applied automatically.
+If you make this change, you never need to add `.filter(team=team)` to any of your queries,
+as the filter will be applied automatically anytime you reference `TeamModel.objects`.
 
 
 ### Partially using teams
