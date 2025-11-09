@@ -11,8 +11,14 @@ Here's what's in the November release.
 
 ### New Team scoping features
 
-These provide more consistent ways to filter your models based on the current team and help avoid
-bugs related to forgetting to apply a filter to your queries.
+These updates provide more consistent ways to filter your models based on the current team and help avoid
+writing bugs related to forgetting to apply a team filter to your DB queries.
+
+If you're happy with the current teams setup you can largely ignore these changes—they mainly add
+new, optional functionality on top of the existing system.
+
+If you would like to introduce more strict Team filtering and checking in your app, review
+the changes below and updated sections of the documentation.
 
 Details:
 
@@ -35,7 +41,7 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 - **Upgraded all Python packages.**
 - **Upgraded all JavaScript packages.**
 - **Added [AGENTS.md](https://agents.md/) as an additional output format for AI rules files.**
-- **You can now clone/copy projects in SaaS Pegasus**---starting a new project with an existing project's configuration
+- **You can now clone/copy projects in SaaS Pegasus**—starting a new project with an existing project's configuration
   instead of the defaults each time.  (Thanks Patrick for the suggestion!)
 - The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
 - Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
@@ -486,9 +492,9 @@ This release adds the option to use [Vite](https://vite.dev/) as a bundler inste
 Vite is a modern build tool that adds a few key benefits over the Webpack build system:
 
 1. It is much faster than Webpack.
-2. Hot Module Replacement (HMR)---a development feature that lets code changes in your front end files automatically
+2. Hot Module Replacement (HMR)—a development feature that lets code changes in your front end files automatically
    update without a full-page reload.
-3. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
+3. Code splitting—a production feature that breaks your front end files into individual bundles that encapsulate
    code dependencies. This leads to less redundant JavaScript and faster page loads.
 
 You can watch the video below for a walkthrough of these benefits and how they work in the new setup.
@@ -629,7 +635,7 @@ authentication APIs.
 
 On top of this, support for many new authentication workflows was added to the standalone front end,
 including email confirmation, password reset, and social authentication.
-The standalone front end---which is still in experimental mode---is now close-to-parity with the Django authentication system.
+The standalone front end—which is still in experimental mode—is now close-to-parity with the Django authentication system.
 
 Details:
 
@@ -1341,7 +1347,7 @@ Read more in the [shadcn docs here](/css/tailwind/#shadcn).
 ### New flowbite integration and demo component page
 
 Another new build setting allows you to build your project with [flowbite](https://flowbite.com/) installed.
-Flowbite is another great component library for Tailwind and does *not* use React---making
+Flowbite is another great component library for Tailwind and does *not* use React—making
 it a great fit for htmx projects.
 If you enable this setting, flowbite will automatically be installed and you can drop
 flowbite components into any Django template.
@@ -1771,7 +1777,7 @@ Litellm can still be used with all common AI models, including OpenAI, Anthropic
 
 ### Formatting and linting now use Ruff
 
-Black and isort have been replaced with [ruff](https://github.com/astral-sh/ruff)---a Python linter/formatter
+Black and isort have been replaced with [ruff](https://github.com/astral-sh/ruff)—a Python linter/formatter
 that offers the same functionality as those tools but is much faster.
 
 Additionally, Pegasus will now remove unused imports from your files automatically, both
@@ -1918,7 +1924,7 @@ Here are a few highlights:
 
 In addition to using OpenAI chat models, you can now build the Pegasus AI chat applicaiton
 with the [`llm` library](https://github.com/simonw/llm). This lets you run the chat application
-against any supported model---including the Anthropic family (Claude 3), and local models like Llama 3.
+against any supported model—including the Anthropic family (Claude 3), and local models like Llama 3.
 
 Additionally, the image generation demo now supports Dall-E-3 and Stable Diffusion 3.
 For complete details, see the new [AI documentation](/ai/images).
@@ -3091,7 +3097,7 @@ Details:
 ### Requirements update
 
 This release updates the Python requirements files (again).
-Apologies for the iteration on this---trying to find the best long-term workflow and hopefully this is it.
+Apologies for the iteration on this—trying to find the best long-term workflow and hopefully this is it.
 
 - The `requirements/dev-requirements.txt` (and `.in`) file no longer includes everything in `requirements/requirements.txt`.
   It now only has the requirements used *only* in development.
@@ -3260,8 +3266,8 @@ These are the biggest changes:
 ### Code formatting
 
 Pegasus will (optionally) now auto-format your Python code using [black](https://black.readthedocs.io).
-In addition to formatting, Pegasus now ships with [pre-commit hooks](https://pre-commit.com)---which you
-can install to ensure your code matches the expected format---and adds format checks to your Github actions CI.
+In addition to formatting, Pegasus now ships with [pre-commit hooks](https://pre-commit.com)—which you
+can install to ensure your code matches the expected format—and adds format checks to your Github actions CI.
 Much more detail can be found in the new [code formatting docs](/code-structure/#code-formatting).
 This option is enabled by default for new projects, and it's recommended that all existing Pegasus projects upgrade to this format,
 as it will make future merges/upgrades much easier.
