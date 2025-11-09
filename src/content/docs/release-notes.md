@@ -68,6 +68,8 @@ update that code to use `request.default_team`.
   and then copying the contents of the file across (except for the generated `("web", "000x_xxxx"),` dependency line).
   Alternatively, if you don't use `TransactionTestCase`, you can just reject the migration file changes.
 
+*Nov 10, 2025*
+
 ## Version 2025.10
 
 This release improves the developer experience of working with Pegasus.
