@@ -38,17 +38,16 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 
 ### Other changes
 
-- **Upgraded all Python packages.**
-- **Upgraded all JavaScript packages.**
+**Added**
+
 - **Added [AGENTS.md](https://agents.md/) as an additional output format for AI rules files.**
 - **You can now clone/copy projects in SaaS Pegasus**—starting a new project with an existing project's configuration
   instead of the defaults each time.  (Thanks Patrick for the suggestion!)
-- The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
-- Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
-  This was done by updating a migration to remove the unexpected tables, as outlined in
-  [this comment](https://github.com/django-waffle/django-waffle/issues/317#issuecomment-488398832). Thanks Ben N for reporting!
-  - The migration was also renamed - see upgrade section for details.
-- Fixed some places where types were set incorrectly or didn't pass type-checking.
+
+**Changed**
+
+- **Upgraded all Python packages.**
+- **Upgraded all JavaScript packages.**
 - Updated `.vite` declaration in the `.gitignore` to make it more obvious how to check in vite's built static files if you want to do that. Thanks Lile for suggesting!
 - Updated AI API key environment variables to be the defaults used by Pydantic AI so they can be set in a single place.
   You should now set `OPENAI_API_KEY` instead of `AI_CHAT_OPENAI_API_KEY`
@@ -57,10 +56,19 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 - Updated Kit (formerly ConvertKit) mailing list integration to V4 of the API. Thanks Ben H for suggesting!
   - Changed `CONVERTKIT_API_KEY` setting / environment variable name to `KIT_API_KEY`.
   - Also updated [the docs](/configuration/#kit-formerly-convertkit).
-- Made minor updates to AI rules files.
-- Fixed a bug where `django_browser_reload` was always enabled, even if you had turned it off.
 - Updated `django_browser_reload` to only setup the app/middleware if `DEBUG=True`.
   This removes a warning in production. (Thanks Zac for the suggestion!)
+- Made minor updates to AI rules files.
+
+**Fixed**
+
+- The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
+- Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
+  This was done by updating a migration to remove the unexpected tables, as outlined in
+  [this comment](https://github.com/django-waffle/django-waffle/issues/317#issuecomment-488398832). Thanks Ben N for reporting!
+  - The migration was also renamed - see upgrade section for details.
+- Fixed some places where types were set incorrectly or didn't pass type-checking.
+- Fixed a bug where `django_browser_reload` was always enabled, even if you had turned it off.
 
 
 ### Upgrading
@@ -69,10 +77,10 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 update that code to use `request.default_team`.
 - If you were using the (Convert)Kit integration, you should update based on the [latest documentation](/configuration/#kit-formerly-convertkit).
 - The migration `/apps/web/migrations/0002_patch_djstripe_column.py` was renamed to `/apps/web/migrations/0002_patch_third_party_tables.py`.
-  In most cases, this should apply correctly, but if you have any issues with it,
-  you can re-create the migration by running `./manage.py makemigrations web --empty`
-  and then copying the contents of the file across (except for the generated `("web", "000x_xxxx"),` dependency line).
-  Alternatively, if you don't use `TransactionTestCase`, you can just reject the migration file changes.
+  - In most cases, this should apply correctly, but if you have any issues with it,
+    you can re-create the migration by running `./manage.py makemigrations web --empty`
+    and then copying the contents of the file across (except for the generated `("web", "000x_xxxx"),` dependency line).
+    Alternatively, if you don't use `TransactionTestCase`, you can just reject the migration file changes.
 
 *Nov 10, 2025*
 
