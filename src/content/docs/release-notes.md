@@ -32,6 +32,9 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 
 ### Other changes
 
+- **Upgraded all Python packages.**
+- **Upgraded all JavaScript packages.**
+- **Added [AGENTS.md](https://agents.md/) as an additional output format for AI rules files.**
 - The employee agent demo now uses a proper `Enum` for departments, preventing invalid options from being used.
 - Fixed an issue with using `TransactionTestCase` in certain build configurations due to an issue with `django-waffle`.
   This was done by updating a migration to remove the unexpected tables, as outlined in
@@ -47,6 +50,10 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
   - Changed `CONVERTKIT_API_KEY` setting / environment variable name to `KIT_API_KEY`.
   - Also updated [the docs](/configuration/#kit-formerly-convertkit).
 - Made minor updates to AI rules files.
+- Fixed a bug where `django_browser_reload` was always enabled, even if you had turned it off.
+- Updated `django_browser_reload` to only setup the app/middleware if `DEBUG=True`.
+  This removes a warning in production. (Thanks Zac for the suggestion!)
+
 
 ### Upgrading
 
@@ -54,9 +61,10 @@ including how to use them to [always enforce that a team is set](/teams/#strict-
 update that code to use `request.default_team`.
 - If you were using the (Convert)Kit integration, you should update based on the [latest documentation](/configuration/#kit-formerly-convertkit).
 - The migration `/apps/web/migrations/0002_patch_djstripe_column.py` was renamed to `/apps/web/migrations/0002_patch_third_party_tables.py`.
-If you want to patch the waffle tables but have already run the migration, you can run `./manage.py makemigrations web --empty`
-and then copy the contents of the file across, keeping the generated `("web", "000x_xxxx"),` dependency line there.
-
+  In most cases, this should apply correctly, but if you have any issues with it,
+  you can re-create the migration by running `./manage.py makemigrations web --empty`
+  and then copying the contents of the file across (except for the generated `("web", "000x_xxxx"),` dependency line).
+  Alternatively, if you don't use `TransactionTestCase`, you can just reject the migration file changes.
 
 ## Version 2025.10
 
