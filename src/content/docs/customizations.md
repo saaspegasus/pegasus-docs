@@ -9,7 +9,7 @@ This page outlines the basics of customizing Pegasus to meet your application's 
 
 Pegasus ships with a simple landing page that varies based on your selected CSS framework.
 Most projects will want to highly customize the landing page from what comes out of the box.
-Unless you are planning on building a marketing site on a different platform, this is likely one of the first 
+Unless you are planning on building a marketing site on a different platform, this is likely one of the first
 things you'll do.
 
 To modify the default landing page, you can edit the `./templates/web/landing_page.html` file
@@ -47,6 +47,6 @@ For more information, see the individual page for your framework in [the CSS doc
 
 ## Javascript
 
-The project uses a webpack build pipeline to compile the javascript files.
+The project uses a Vite build pipeline to compile the JavaScript files.
 
 For more details on how it works see the [front-end documentation](/front-end/overview).
