@@ -5,6 +5,18 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.11.1
+
+This is a minor hotfix release fixing two issues:
+
+- Fixed a crash in the teams example app, due to an incorrect reference to
+  `model.for_team()` (instead of the correct `model.for_team`). Thanks Eugen for reporting!
+- Fixed an issue where Heroku Redis URLs accidentally removed `?ssl_cert_reqs=none` if you used
+  the Docker-based build. Thanks Steven for reporting!
+
+
+*November 17, 2025*
+
 ## Version 2025.11
 
 Here's what's in the November release.
