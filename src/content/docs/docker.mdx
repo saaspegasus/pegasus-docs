@@ -43,7 +43,7 @@ make start
 ```
 
 This will start the Database services (PostgreSQL and Redis) and in full-mode,
-start all the processes needed to run your application, including Django, the front end build,
+start all the processes needed to run your application, including Django, the front end server / bundler,
 and Celery.
 
 <Aside title="make and Windows">
@@ -59,6 +59,17 @@ make init
 ```
 
 Which will also create and run database migrations and bootstrap your application.
+
+## Stopping the application
+
+To stop the Docker services, run:
+
+```bash
+make stop
+```
+
+This will stop the Database services (PostgreSQL and Redis) and in full-mode,
+stop the other container processes (Django, Vite/Webpack, and Celery).
 
 ## Architecture and how it works
 
