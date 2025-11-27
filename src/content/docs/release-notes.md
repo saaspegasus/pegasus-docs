@@ -5,6 +5,21 @@ description: Complete changelog and version history for SaaS Pegasus Django boil
 
 Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.com/) are documented here.
 
+## Version 2025.11.2
+
+This is a bugfix release addressing a few issues:
+
+- **Switched the default production celery pool from `gevent` to `threads`.**
+  This fixes compatibility issues between `gevent` and `asyncio` that arose when using agents inside Celery.
+  Thanks Matt for reporting and suggesting the fix!
+  - This change also removes `gevent` from production requirements. If you were using it elsewhere you should keep it.
+- Fixed a bug where the "New Agent Chat" button didn't properly set the agent name on React / non-async builds.
+- Fixed a whitespace issue in the Digital Ocean `app-spec.yaml` file that was causing an invalid config.
+- Bumped the Postgres version on Digital Ocean to the latest (version 18).
+- Added the `/.vite/` path back to the `.gitignore` file.
+
+*November 27, 2025*
+
 ## Version 2025.11.1
 
 This is a minor hotfix release fixing two issues:
