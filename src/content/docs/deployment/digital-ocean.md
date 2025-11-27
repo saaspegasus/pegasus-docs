@@ -42,7 +42,7 @@ This can be done from inside App Platform, or by following [this link](https://c
 Before you can deploy you will need to set up databases for your application.
 
 First, navigate to [Databases --> New](https://cloud.digitalocean.com/databases/new), and choose
-"PostgreSQL" and the latest version (as of this writing, v17).
+"PostgreSQL" and the latest version (as of this writing, v18).
 
 You can leave most of the settings as-is, though feel free to change as you want.
 The smallest size should be fine for most applications getting stared.
