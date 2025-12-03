@@ -47,7 +47,7 @@ export default defineConfig({
             {
               label: 'Deployment',
               description: 'Documentation for deploying Pegasus projects to different hosting providers.',
-              paths: ['css/**'],
+              paths: ['deployment/**'],
             },
           ],
         }),
