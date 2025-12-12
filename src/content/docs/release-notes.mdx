@@ -30,7 +30,7 @@ See the upgrading section below for more details.
 
 You can now generate images in the image demo with Google Gemini (Nano Banana Pro).
 This model is *very* good at image generation and opens up a lot of new application use cases.
-See the [image generation documentation](/ai/images) for more details.
+See the [image generation documentation](/ai/images) for setup details.
 
 ### Other Changes
 
@@ -38,7 +38,7 @@ See the [image generation documentation](/ai/images) for more details.
 - **Upgraded most Python packages to their latest versions.**
 - **Added `django.contrib.postgres` to installed apps when using Postgres.**
   This is required to use the Wagtail integration on Django 6.
-- **Pinned the Postgres Docker image to version 17 everywhere.**
+- **Pinned the Postgres Docker image to version 17 everywhere.** Thanks Eugen for reporting a configuration mismatch for version 18!
 - **Improved admin defaults**
   - The ecommerce `Purchase` admin now includes search fields (user email, checkout session ID) and autocomplete for the user field.
   - The `CustomUser` admin now includes search fields for email, first name, and last name.
@@ -66,7 +66,7 @@ See the [image generation documentation](/ai/images) for more details.
   version you will need to upgrade. Using any supported Pegasus deployment option should handle this for you.
 - If your project was using `django-template-partials` (used by the Pegasus CLI),
   you should review [Django's migration guide](https://github.com/carltongibson/django-template-partials/blob/main/Migration.md).
-  Most of this is handled by Pegasus, but you must remove the `{% load partials %}` from all your existing templates that have it.
+  Most of this is handled by Pegasus, but **you must remove the `{% load partials %}` from all your existing templates that have it**.
 
 
 *December 12, 2025*
