@@ -38,13 +38,13 @@ See the [image generation documentation](/ai/images) for more details.
 - **Upgraded most Python packages to their latest versions.**
 - **Added `django.contrib.postgres` to installed apps when using Postgres.**
   This is required to use the Wagtail integration on Django 6.
-- Upgraded the default uv version to 0.9.17
-- Pinned the Postgres Docker image to version 17 everywhere.
+- **Pinned the Postgres Docker image to version 17 everywhere.**
 - **Improved admin defaults**
   - The ecommerce `Purchase` admin now includes search fields (user email, checkout session ID) and autocomplete for the user field.
   - The `CustomUser` admin now includes search fields for email, first name, and last name.
 - **Fixed various type annotations throughout the codebase to pass stricter type checking.**
   This is part of an ongoing effort to improve the type safety of the codebase.
+- Upgraded the default uv version to 0.9.17
 - Updated `settings.ADMINS` to use a simpler format with just email addresses instead of name/email tuple,
   which will be removed in Django 7.
 - Added translations in a few places.
@@ -56,7 +56,7 @@ See the [image generation documentation](/ai/images) for more details.
 - Fixed a typo in a comment in the team model's manager documentation.
 - Fixed timezone warnings in subscription tests by using `timezone.now()` instead of `datetime.utcnow()`.
 - Fixed missing return type annotations and added better error handling in ecommerce helpers.
-- Fixed a missing return statement in the `get_discounted_price` billing utility.
+- Added a return statement to the `get_discounted_price` billing utility to match the return type of the function.
 - Removed a redundant import in the team invitation views.
 - Fixed a few compatibility issues on the experimental Django Ninja build.
 
