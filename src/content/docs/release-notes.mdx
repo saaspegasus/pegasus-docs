@@ -10,6 +10,67 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 Release notes for updates before 2025 are available on the [Release Notes History](/release-notes-history/) page.
 </Aside>
 
+## Version 2025.12
+
+This release upgrades Pegasus to Django 6, adds Google Gemini (Nano Banana Pro) as an AI image generation option,
+and includes several minor fixes and updates.
+
+### Django 6 Upgrade
+
+Pegasus has been upgraded to Django 6! This includes:
+
+- **Upgraded Django to version 6.0.**
+- **Bumped the minimum Python version to 3.12** to match Django 6's requirements.
+- **Removed `django-template-partials` dependency**, as template partials are now built into Django 6.
+  Also simplified the template loader configuration in `settings.py` by removing the partials-related setup.
+
+See the upgrading section below for more details.
+
+### Gemini / Nano Banana Image Generation
+
+You can now generate images in the image demo with Google Gemini (Nano Banana Pro).
+This model is *very* good at image generation and opens up a lot of new application use cases.
+See the [image generation documentation](/ai/images) for more details.
+
+### Other Changes
+
+- **Upgraded most JavaScript packages to their latest versions.**
+- **Upgraded most Python packages to their latest versions.**
+- **Added `django.contrib.postgres` to installed apps when using Postgres.**
+  This is required to use the Wagtail integration on Django 6.
+- Upgraded the default uv version to 0.9.17
+- Pinned the Postgres Docker image to version 17 everywhere.
+- **Improved admin defaults**
+  - The ecommerce `Purchase` admin now includes search fields (user email, checkout session ID) and autocomplete for the user field.
+  - The `CustomUser` admin now includes search fields for email, first name, and last name.
+- **Fixed various type annotations throughout the codebase to pass stricter type checking.**
+  This is part of an ongoing effort to improve the type safety of the codebase.
+- Updated `settings.ADMINS` to use a simpler format with just email addresses instead of name/email tuple,
+  which will be removed in Django 7.
+- Added translations in a few places.
+- Added a project description field to `pyproject.toml` that uses your project's description.
+
+### Fixed
+
+- Fixed a typo in the subscription template filename (`no_subsription_access.html` → `no_subscription_access.html`).
+- Fixed a typo in a comment in the team model's manager documentation.
+- Fixed timezone warnings in subscription tests by using `timezone.now()` instead of `datetime.utcnow()`.
+- Fixed missing return type annotations and added better error handling in ecommerce helpers.
+- Fixed a missing return statement in the `get_discounted_price` billing utility.
+- Removed a redundant import in the team invitation views.
+- Fixed a few compatibility issues on the experimental Django Ninja build.
+
+### Upgrading
+
+- **Django 6 requires Python 3.12 or later.** This was already the default version in Pegasus, but if you are on an older
+  version you will need to upgrade. Using any supported Pegasus deployment option should handle this for you.
+- If your project was using `django-template-partials` (used by the Pegasus CLI),
+  you should review [Django's migration guide](https://github.com/carltongibson/django-template-partials/blob/main/Migration.md).
+  Most of this is handled by Pegasus, but you must remove the `{% load partials %}` from all your existing templates that have it.
+
+
+*December 12, 2025*
+
 ## Version 2025.11.2
 
 This is a bugfix release addressing a few issues:
