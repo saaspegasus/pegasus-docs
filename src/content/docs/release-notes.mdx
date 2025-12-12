@@ -15,7 +15,7 @@ Release notes for updates before 2025 are available on the [Release Notes Histor
 This release upgrades Pegasus to Django 6, adds Google Gemini (Nano Banana Pro) as an AI image generation option,
 and includes several minor fixes and updates.
 
-### Django 6 Upgrade
+### Django 6
 
 Pegasus has been upgraded to Django 6! This includes:
 
@@ -50,7 +50,7 @@ See the [image generation documentation](/ai/images) for setup details.
 - Added translations in a few places.
 - Added a project description field to `pyproject.toml` that uses your project's description.
 
-### Fixed
+#### Fixed
 
 - Fixed a typo in the subscription template filename (`no_subsription_access.html` → `no_subscription_access.html`).
 - Fixed a typo in a comment in the team model's manager documentation.
@@ -59,6 +59,11 @@ See the [image generation documentation](/ai/images) for setup details.
 - Added a return statement to the `get_discounted_price` billing utility to match the return type of the function.
 - Removed a redundant import in the team invitation views.
 - Fixed a few compatibility issues on the experimental Django Ninja build.
+
+### CLI changes
+
+- Released [v0.10 of the CLI](https://github.com/saaspegasus/pegasus-cli/releases/tag/v0.10) which
+  adds Django 6.0 support and fixes a few bugs (details in release notes there).
 
 ### Upgrading
 
