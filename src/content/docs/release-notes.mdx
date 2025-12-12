@@ -23,6 +23,7 @@ Pegasus has been upgraded to Django 6! This includes:
 - **Bumped the minimum Python version to 3.12** to match Django 6's requirements.
 - **Removed `django-template-partials` dependency**, as template partials are now built into Django 6.
   Also simplified the template loader configuration in `settings.py` by removing the partials-related setup.
+- **Temporarily added a workaround to `pyproject.toml` to allow installing `django-celery-beat` alongside Django 6.0.**
 
 See the upgrading section below for more details.
 
@@ -67,12 +68,31 @@ See the [image generation documentation](/ai/images) for setup details.
 
 ### Upgrading
 
-- **Django 6 requires Python 3.12 or later.** This was already the default version in Pegasus, but if you are on an older
-  version you will need to upgrade. Using any supported Pegasus deployment option should handle this for you.
-- If your project was using `django-template-partials` (used by the Pegasus CLI),
-  you should review [Django's migration guide](https://github.com/carltongibson/django-template-partials/blob/main/Migration.md).
-  Most of this is handled by Pegasus, but **you must remove the `{% load partials %}` from all your existing templates that have it**.
+A few notes on upgrading to Django 6:
 
+Django 6 requires Python 3.12 or later.** This was already the default version in Pegasus, but if you are on an older
+version you will need to upgrade. Using any supported Pegasus deployment option should handle this for you.
+
+If your project was using `django-template-partials` (used by the Pegasus CLI),
+you should review [Django's migration guide](https://github.com/carltongibson/django-template-partials/blob/main/Migration.md).
+Most of this is handled by Pegasus, but **you must remove the `{% load partials %}` from all your existing templates that have it**.
+
+All Pegasus dependencies *except* `django-celery-beat` can be installed automatically against Django 6.0.
+`django-celery-beat` appears compatible, but hasn't updated the package metadata to allow installing alongside Django 6.0.
+Because of this, this version of Pegasus adds the following section to `pyproject.toml` to allow installing `django-celery-beat`:
+
+```toml
+[tool.uv]
+override-dependencies = [
+    "django==6.0"
+]
+```
+
+**If you are upgrading an existing project, this line may allow other incompatible dependencies to be installed.**
+So you may want to manually check the versions of any non-Pegasus dependencies that get added to ensure they
+work correctly.
+
+This configuration section will be removed [as soon as django-celery-beat supports Django 6](https://github.com/celery/django-celery-beat/issues/977).
 
 *December 12, 2025*
 
