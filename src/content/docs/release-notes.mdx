@@ -10,6 +10,15 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 Release notes for updates before 2025 are available on the [Release Notes History](/release-notes-history/) page.
 </Aside>
 
+## Version 2025.12.1
+
+This is a hotfix release that fixes an issue where production Dockerfiles weren't building on 2025.12 when
+celery was enabled because `git` was not installed. The fix is installing `git` before installing Python dependencies.
+
+Thanks Chris for reporting!
+
+*Dec 14, 2025*
+
 ## Version 2025.12
 
 This release upgrades Pegasus to Django 6, adds Google Gemini (Nano Banana Pro) as an AI image generation option,
