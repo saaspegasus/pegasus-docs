@@ -69,7 +69,7 @@ The team is set automatically in views by the [middleware](#middleware) or by us
 
 ```python
 a_team = Team.objects.get(slug='a-team')
-with current_team(team):
+with current_team(a_team):
     # get_current_team() will return the `a_team` object inside this block
     call_code_that_uses_the_curent_team()
     MyModel.for_team().all()  # only returns objects with `team=a_team`
