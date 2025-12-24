@@ -327,3 +327,14 @@ a complicated migration. That process will mostly involve un-hidng the team func
 If you have different categories of users, some on teams and some not, then instead of hiding the functionality
 mentioned above, you should instead conditionally enable it based on the type of user that is logged in.
 </Aside>
+
+
+### Renaming "teams" in your application
+
+Many projects may want to rename "Teams" to something else, e.g. "Organizations".
+
+To rename teams it is recommended to rename it in the UI only and not update the data models
+or app name. Renaming it in the models and app will make future Pegasus upgrades much more difficult.
+
+To rename teams in the UI, you can search for "teams" in the codebase and update the references,
+which are mostly in the template and javascript files.
