@@ -10,6 +10,18 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 Release notes for updates before 2025 are available on the [Release Notes History](/release-notes-history/) page.
 </Aside>
 
+## Version 2025.12.2
+
+This is a hotfix release that bumps the Pegasus CLI version to fix
+[a permissions issue with the created views](https://github.com/saaspegasus/pegasus-cli/issues/29).
+
+Thanks Mark for reporting!
+
+It's recommended that all projects upgrade the CLI version to 0.11 and/or add the appropriate
+permissions checks to the created views (by adding `team=request.team` or `user=request.user` to the object
+access queries in the generated `views.py` files).
+
+
 ## Version 2025.12.1
 
 This is a hotfix release that fixes an issue where production Dockerfiles weren't building on 2025.12 when
