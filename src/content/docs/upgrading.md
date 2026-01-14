@@ -245,7 +245,7 @@ In this case you can fake a pure Pegasus branch by taking the following steps.
 1. Save your current code (from the "main" branch).
 2. Make a new branch (e.g. called "pure-pegasus")
 3. Download your codebase from saaspegasus.com on the *last release your project used/upgraded to*.
-4. Put the unmodified download of Pegasus 2022.3 onto that branch, without any of your own code.
+4. Put the unmodified download of your *current* Pegasus version onto that branch, without any of your own code.
    The easiest way to do that is to copy the `.git` folder into your downloaded project and immediately commit the result.
    This will "brutally" overwrite all your customizations in your git history. *Note this commit id.*
 5. Then repeat this process, but instead, do the reverse. Copy the `.git` folder from the Pegasus download back into your
@@ -255,6 +255,6 @@ In this case you can fake a pure Pegasus branch by taking the following steps.
    but the pull request will contain no changes.
 
 After this process git will believe that the pure pegasus code is fully merged to `main`.
-You can then use the commit id you noted in step 4 as the starting point for your upgrade
+You can then use the commit id you noted in step 4 as the commit id on the site, or the starting point for your upgrade
 ([step 1](#1-create-a-branch-for-the-upgrade)),
 and jump to [step 2 above](#2-upgrade-the-code-in-the-branch).
