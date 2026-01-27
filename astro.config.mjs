@@ -183,6 +183,7 @@ export default defineConfig({
           items: [
             'github',
             'upgrading',
+            'early-access',
             'marketplace/connecting',
             'marketplace/scriv',
           ],
