@@ -41,6 +41,8 @@ See the [Git Worktrees documentation](/experimental/git-worktrees/) for details.
 - Added shadcn configuration file (`components.json`) for easy component management
 - Added path alias `@/*` for cleaner imports
 
+See the [Standalone React Front End documentation](/experimental/react-front-end/) for details.
+
 ### Type Checking with Mypy (Experimental)
 
 Pegasus now includes optional support for static type checking using mypy and django-stubs.
@@ -53,32 +55,42 @@ See the [Type Checking documentation](/experimental/type-checking/) for details.
 
 **Added**
 
-- **Added support for superuser API permissions.** New `IsSuperUser`, `IsAuthenticatedSuperUser`, and `IsAuthenticatedOrHasUserAPIKeySuperUser` permission classes for restricting API endpoints to superusers only. Includes comprehensive tests.
-- **Added an error notification when HTMX requests fail.** The app base template now shows a dismissible error banner on HTMX errors.
-- **Added configurable Docker user/group in Dockerfile.** You can now customize the user and group IDs via build args (`SITE_UID`, `SITE_GID`, `SITE_USER`, `SITE_GROUP`). Thanks Geoff for the contribution!
-- **Added a longer default deploy timeout (180 seconds) for Kamal deployments.** Thanks Aurelien for the suggestion!
+- **Added support for superuser API permissions.** New `IsSuperUser`, `IsAuthenticatedSuperUser`,
+  and `IsAuthenticatedOrHasUserAPIKeySuperUser` permission classes for restricting API endpoints to superusers only.
+  - Also added tests.
+- Added an error notification when HTMX requests fail.
+- The `dev.sh` script (and `make dev`) now starts the standalone frontend dev server alongside Django and Vite.
 
 **Changed**
 
-- **Switched from `psycopg2-binary` to `psycopg[binary]`.** This is the modern PostgreSQL adapter recommended by the psycopg team. Thanks Saif for the suggestion!
-- **API key revocation now uses key prefix instead of ID.** This is more secure as it doesn't expose internal database IDs. Thanks Brennon for the contribution!
-- **Django and Vite ports are now configurable via environment variables.** Set `DJANGO_PORT`, `DJANGO_VITE_PORT`, `POSTGRES_PORT`, and `REDIS_PORT` in your `.env` file. Docker Compose will use these ports automatically.
-- **Vite now ignores large directories (`.venv`, `node_modules`, `.git`) when watching files.** This prevents exhausting system inotify watchers when running multiple Vite instances in parallel. Thanks Jacob for the contribution!
-- **Teams model now uses `gettext_lazy` instead of `gettext`** for translatable strings, which is the correct pattern for model-level translations. Thanks Saif for reporting!
-- **Fixed shadcn/daisyUI CSS variable mappings.** The muted and radius variables now use the correct daisyUI equivalents, and accent colors are no longer overridden by default.
+- **Django and Vite ports are now configurable via environment variables.**
+  Set `DJANGO_PORT`, `DJANGO_VITE_PORT`, `POSTGRES_PORT`, and `REDIS_PORT` in your `.env` file.
+  Docker Compose should use these ports automatically. This helps enable the worktree workflow outlined above.
+- Switched from `psycopg2-binary` to `psycopg[binary]`, as recommended by the latest Django docs. Thanks Saif for the suggestion!
+- API key display and revocation now uses key prefix instead of ID. Thanks Brennon for the suggestion!
+- Added configurable Docker user/group in Dockerfile.
+  You can now customize the user and group IDs via build args (`SITE_UID`, `SITE_GID`, `SITE_USER`, `SITE_GROUP`).
+  Thanks Geoff for the suggestion!
+- Added a longer default deploy timeout (180 seconds) for Kamal deployments.
+  Thanks Aurelien for the suggestion!
+- Changed assertion statements to proper exceptions in subscription views and employee views for better error handling.
 
 **Fixed**
 
-- **Fixed tests failing when using manifest storage** by adding a test base class that overrides storage settings. Thanks Brennon for reporting!
-- **Fixed `.env` sourcing in `dev.sh` to support special characters** in environment variable values.
-- **Fixed subscription signals to handle missing subscriptions gracefully** instead of raising attribute errors.
-- **Fixed various type annotations throughout the codebase** to pass stricter type checking, including:
+- Fixed shadcn/daisyUI CSS variable mappings. Accent colors are no longer overridden by shadcn by default,
+  which was causing inconsistent styling on DaisyUI accent components.
+- Vite now ignores large directories (`.venv`, `node_modules`, `.git`) when watching files.
+  This helps prevent exhausting system inotify watchers. Thanks Jacob for the suggestion!
+- Switched some model references to use `gettext_lazy` instead of `gettext` for translatable strings,
+  which is the correct pattern for model-level translations. Thanks Saif for reporting!
+- Fixed tests failing when using manifest storage by adding a test base class that overrides storage settings.
+  Thanks Brennon for reporting!
+- **Made many minor code-quality improvements caught by the type checker**. Including:
+  - Subscription signals now handle missing subscriptions more gracefully/explicitly.
   - Added proper return types and null checks in subscription helpers
   - Fixed type hints in AI agents and tools
   - Added type annotations to settings and model files
   - Fixed import paths for `Message` class in teams tests
   - Added type ignores with explanatory comments where necessary
-- **Fixed assertion statements converted to proper exceptions** in subscription views and employee views for better error handling.
-- **Fixed standalone frontend dev server not being managed by `dev.sh`** - it's now started and stopped alongside Django and Vite.
 
-*January 27, 2026*
+*January 29, 2026*
