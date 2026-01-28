@@ -1,0 +1,109 @@
+---
+title: Type Checking with Mypy
+description: Enable static type checking in your Pegasus project using mypy and django-stubs.
+---
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="Experimental">
+This is an [early access feature](/early-access/). It may change before the final release.
+</Aside>
+
+Pegasus includes optional support for static type checking using [mypy](https://mypy-lang.org/)
+and [django-stubs](https://github.com/typeddjango/django-stubs).
+When enabled, type checking runs automatically in GitHub Actions CI.
+
+## Enabling Type Checking
+
+Type checking can be enabled from your project's configuration page on saaspegasus.com.
+When enabled, your project will include:
+
+- `mypy` and `django-stubs` as development dependencies
+- A `mypy.ini` configuration file
+- Type checking in the GitHub Actions CI workflow
+- Additional guidelines in AI rules files for working with types
+
+## Running Type Checks
+
+To run type checking locally:
+
+```bash
+# With uv
+uv run mypy .
+
+# Without uv
+mypy .
+```
+
+## Configuration
+
+Type checking is configured in `mypy.ini` at the project root.
+The default configuration is tuned to work well with Django and Pegasus conventions.
+
+## Working with Django Lazy Translation Strings
+
+When using type hints with Django's lazy translation strings (`gettext_lazy`),
+use the following pattern to avoid mypy errors while keeping the code working
+in production (where `django-stubs-ext` is not installed):
+
+```python
+from __future__ import annotations  # Must be the first import
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from django_stubs_ext import StrOrPromise
+
+
+def my_function(name: StrOrPromise) -> StrOrPromise:
+    ...
+
+
+class MyData:
+    title: StrOrPromise
+    description: StrOrPromise
+```
+
+### Why this pattern works
+
+- `from __future__ import annotations` makes type annotations strings at runtime (not evaluated)
+- `if TYPE_CHECKING:` ensures the import only happens during type checking, not at runtime
+- `django-stubs-ext` is a dev dependency and won't be available in production
+- This pattern allows both regular strings and lazy translation strings to be accepted
+
+## Tips for Adding Types
+
+- **Start gradually**: You don't need to add types everywhere at once. Focus on new code and critical paths.
+- **Use `# type: ignore` sparingly**: When mypy can't understand something, add a comment explaining why.
+- **Leverage inference**: Mypy can often infer types, so you don't always need explicit annotations.
+- **Check django-stubs documentation**: Many Django patterns have specific typing solutions in django-stubs.
+
+## Common Patterns
+
+### Typed Django Models
+
+```python
+from django.db import models
+
+class MyModel(models.Model):
+    name: models.CharField[str, str] = models.CharField(max_length=100)
+    count: models.IntegerField[int, int] = models.IntegerField(default=0)
+```
+
+### Typed Views
+
+```python
+from django.http import HttpRequest, HttpResponse
+
+def my_view(request: HttpRequest) -> HttpResponse:
+    return HttpResponse("Hello")
+```
+
+### Optional Fields
+
+```python
+from typing import Optional
+
+def get_user_name(user_id: int) -> Optional[str]:
+    user = User.objects.filter(id=user_id).first()
+    return user.name if user else None
+```
