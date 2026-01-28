@@ -86,6 +86,20 @@ and [Github secrets docs](https://docs.github.com/en/actions/security-for-github
 If you enable the Junie integration, your rules will be collapsed into a single, organized `.junie/guidelines.md`
 file for Junie to use.
 
+## Pegasus Skills for Claude Code
+
+[Pegasus Skills](https://github.com/saaspegasus/pegasus-skills) are specialized skill files
+that enhance Claude Code's capabilities when working with Pegasus projects.
+
+Currently there is one skill available:
+
+- **resolve-pegasus-conflicts**: Helps resolve merge conflicts that arise during Pegasus upgrades.
+  This skill can be invoked with `/resolve-pegasus-conflicts` or by asking Claude Code for help
+  with merge conflicts during an upgrade.
+
+See the [Pegasus Skills repository](https://github.com/saaspegasus/pegasus-skills) for installation
+instructions and more details.
+
 ## Git Worktrees for Parallel Development (Experimental)
 
 Pegasus includes experimental support for git worktrees, allowing you to work on multiple branches
