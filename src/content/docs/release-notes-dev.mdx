@@ -63,7 +63,7 @@ See the [Type Checking documentation](/experimental/type-checking/) for details.
 
 **Changed**
 
-- **Django and Vite ports are now configurable via environment variables.**
+- Django and Vite ports are now configurable via environment variables.
   Set `DJANGO_PORT`, `DJANGO_VITE_PORT`, `POSTGRES_PORT`, and `REDIS_PORT` in your `.env` file.
   Docker Compose should use these ports automatically. This helps enable the worktree workflow outlined above.
 - Switched from `psycopg2-binary` to `psycopg[binary]`, as recommended by the latest Django docs. Thanks Saif for the suggestion!
@@ -85,7 +85,7 @@ See the [Type Checking documentation](/experimental/type-checking/) for details.
   which is the correct pattern for model-level translations. Thanks Saif for reporting!
 - Fixed tests failing when using manifest storage by adding a test base class that overrides storage settings.
   Thanks Brennon for reporting!
-- **Made many minor code-quality improvements caught by the type checker**. Including:
+- **Made many minor code-quality improvements caught by the type checker:**
   - Subscription signals now handle missing subscriptions more gracefully/explicitly.
   - Added proper return types and null checks in subscription helpers
   - Fixed type hints in AI agents and tools
@@ -93,4 +93,4 @@ See the [Type Checking documentation](/experimental/type-checking/) for details.
   - Fixed import paths for `Message` class in teams tests
   - Added type ignores with explanatory comments where necessary
 
-*January 29, 2026*
+*January 30, 2026*
