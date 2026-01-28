@@ -86,6 +86,12 @@ and [Github secrets docs](https://docs.github.com/en/actions/security-for-github
 If you enable the Junie integration, your rules will be collapsed into a single, organized `.junie/guidelines.md`
 file for Junie to use.
 
+## Git Worktrees for Parallel Development (Experimental)
+
+Pegasus includes experimental support for git worktrees, allowing you to work on multiple branches
+simultaneously with isolated services.
+See the [Git Worktrees documentation](/experimental/git-worktrees/) for details.
+
 ## Other tools
 
 If you're using a different tool, it is recommended to choose one of the two above when building your project
