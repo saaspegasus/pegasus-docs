@@ -41,14 +41,20 @@ See the [Git Worktrees documentation](/experimental/git-worktrees/) for details.
 - Added shadcn configuration file (`components.json`) for easy component management
 - Added path alias `@/*` for cleaner imports
 
+### Type Checking with Mypy (Experimental)
+
+Pegasus now includes optional support for static type checking using mypy and django-stubs.
+When enabled, your project includes pre-configured mypy settings and type checking runs automatically in GitHub Actions CI.
+AI rules files also include guidelines for working with types.
+
+See the [Type Checking documentation](/experimental/type-checking/) for details.
+
 ### Other Changes
 
 **Added**
 
 - **Added support for superuser API permissions.** New `IsSuperUser`, `IsAuthenticatedSuperUser`, and `IsAuthenticatedOrHasUserAPIKeySuperUser` permission classes for restricting API endpoints to superusers only. Includes comprehensive tests.
 - **Added an error notification when HTMX requests fail.** The app base template now shows a dismissible error banner on HTMX errors.
-- **Added experimental mypy type checking to GitHub Actions CI** for builds that have type checking enabled.
-- **Added type checker guidelines to generated project AI rules** when mypy is enabled, including patterns for Django lazy translation strings.
 - **Added configurable Docker user/group in Dockerfile.** You can now customize the user and group IDs via build args (`SITE_UID`, `SITE_GID`, `SITE_USER`, `SITE_GROUP`). Thanks Geoff for the contribution!
 - **Added a longer default deploy timeout (180 seconds) for Kamal deployments.** Thanks Aurelien for the suggestion!
 
