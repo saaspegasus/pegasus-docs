@@ -10,15 +10,21 @@ Pegasus includes optional support for static type checking using [mypy](https://
 and [django-stubs](https://github.com/typeddjango/django-stubs).
 When enabled, type checking runs automatically in GitHub Actions CI.
 
+*This feature is currently marked as experimental because not every combination of Pegasus features has
+been fully tested by mypy. However, most common configurations are tested and should work out of the box.
+However, enabling type checking is perfectly safe.*
+
 ## Enabling Type Checking
 
-Type checking can be enabled from your project's configuration page on saaspegasus.com.
+Type checking can be enabled from your project's configuration page
+under "Developer Setup" -> "Advanced".
 When enabled, your project will include:
 
 - `mypy` and `django-stubs` as development dependencies
 - A `mypy.ini` configuration file
 - Type checking in the GitHub Actions CI workflow
 - Additional guidelines in AI rules files for working with types
+
 
 ## Running Type Checks
 
@@ -35,9 +41,15 @@ mypy .
 ## Configuration
 
 Type checking is configured in `mypy.ini` at the project root.
-The default configuration is tuned to work well with Django and Pegasus conventions.
+The default configuration should pass out of the box for all new Pegasus projects.
 
-## Working with Django Lazy Translation Strings
+*If you run into any mypy errors with your project's configuration on a new project,
+please report them [via email or Slack](https://www.saaspegasus.com/support/).*
+
+## Common Patterns
+
+
+### Working with Django Lazy Translation Strings
 
 When using type hints with Django's lazy translation strings (`gettext_lazy`),
 use the following pattern to avoid mypy errors while keeping the code working
@@ -61,21 +73,8 @@ class MyData:
     description: StrOrPromise
 ```
 
-### Why this pattern works
-
-- `from __future__ import annotations` makes type annotations strings at runtime (not evaluated)
-- `if TYPE_CHECKING:` ensures the import only happens during type checking, not at runtime
-- `django-stubs-ext` is a dev dependency and won't be available in production
-- This pattern allows both regular strings and lazy translation strings to be accepted
-
-## Tips for Adding Types
-
-- **Start gradually**: You don't need to add types everywhere at once. Focus on new code and critical paths.
-- **Use `# type: ignore` sparingly**: When mypy can't understand something, add a comment explaining why.
-- **Leverage inference**: Mypy can often infer types, so you don't always need explicit annotations.
-- **Check django-stubs documentation**: Many Django patterns have specific typing solutions in django-stubs.
-
-## Common Patterns
+This pattern allows both regular strings and lazy translation strings to be accepted by the type checker,
+while not requiring the `django-stubs-ext` package in production.
 
 ### Typed Django Models
 
