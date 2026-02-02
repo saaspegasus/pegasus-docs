@@ -12,14 +12,17 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 *The development release notes are generated automatically by AI and may contain errors.*
 
-## Version 2026.1
+## Version 2026.2
 
-This release ports the standalone React frontend to shadcn/ui, adds experimental git worktree support for parallel development,
-introduces type checking with mypy, and includes numerous other changes and fixes.
+This release focuses on improving AI-assisted development with a number direct and indirect improvements.
 
 ### Standalone Frontend ported to shadcn/ui
 
-**The standalone React frontend has been completely redesigned using shadcn/ui components.** This includes:
+**The standalone React frontend has been completely redesigned using shadcn/ui components.**
+Shadcn has become the de-facto recommended way to build a standalone React frontend and LLMs are
+very good at working with it. This makes it a natural choice for the standalone frontend for Pegasus moving forwards.
+
+Details:
 - New sidebar component using shadcn's responsive sidebar pattern
 - All form inputs, buttons, labels, and cards now use shadcn components
 - Authentication pages (login, signup, password reset) redesigned with consistent styling
@@ -29,9 +32,37 @@ introduces type checking with mypy, and includes numerous other changes and fixe
 
 See the [updated Standalone React Front End documentation](/experimental/react-front-end/) for details.
 
+### Type Checking with Mypy (Experimental)
+
+**Pegasus now includes optional support for static type checking using mypy and django-stubs.**
+
+One of the most important principles of successfully building complext applications with Agents is that
+you should give them as many tools as possible to help them verify their work.
+Type checking is one of these tools that can help agents catch errors and bugs and verify their work.
+
+When enabled, your project will include pre-configured mypy settings, and type checking runs automatically in GitHub Actions CI.
+
+In addition, a large number of small changes were made to the codebase to add type hints and fix typing issues
+so that mypy works out of the box on all tested build configurations.
+
+Note: this features is labeled as experimental because not every combination of Pegasus features has
+been fully tested by mypy, but it will become an official supported feature in the next release and is
+safe to enable and use.
+
+See the new [Type Checking documentation](/experimental/type-checking/) for details.
+
+
 ### Git Worktree Support (Experimental)
 
-You can now create isolated git worktrees with unique ports for all services, enabling parallel development on multiple branches simultaneously. Each worktree gets its own:
+Another growing trend in AI programming is the use of git worktrees to enable parallel development on multiple branches simultaneously.
+Worktrees allow you (or agents) to work on multiple branches at once without overwriting each branch's changes.
+
+To assist with using worktrees, Pegasus adds some utilities that help you create and manage worktrees.
+Specifically, you can now create isolated git worktrees with unique ports for all services,
+enabling parallel development on multiple branches simultaneously, giving each worktree its own database
+and web ports (so multiple worktrees can run in browsers concurrently).
+
+Specifically, each worktree gets its own:
 - Django port (starting at 8000, incrementing for each worktree)
 - Vite dev server port (starting at 5173)
 - PostgreSQL instance port (starting at 5432)
@@ -43,6 +74,7 @@ To create a worktree, use the new `/worktree` Claude Code skill or run:
 ./scripts/create-worktree.sh feature-name
 ```
 
+This feature is experimental.
 See the [Git Worktrees documentation](/experimental/git-worktrees/) for details.
 
 ### Pegasus Skills for Claude Code
@@ -53,16 +85,6 @@ The first skill, `resolve-pegasus-conflicts`, helps resolve merge conflicts that
 You can invoke it with `/resolve-pegasus-conflicts` or by asking Claude Code for help with merge conflicts.
 
 See the [AI Integrations documentation](/ai/development/#pegasus-skills-for-claude-code) for installation instructions and details.
-
-### Type Checking with Mypy (Experimental)
-
-Pegasus now includes optional support for static type checking using mypy and django-stubs.
-When enabled, your project includes pre-configured mypy settings and type checking runs automatically in GitHub Actions CI.
-
-In addition, a large number of small changes were made to the codebase to add type hints and fix typing issues
-so that mypy works out of the box.
-
-See the [Type Checking documentation](/experimental/type-checking/) for details.
 
 ### Other Changes
 
