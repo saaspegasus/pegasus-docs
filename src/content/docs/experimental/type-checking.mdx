@@ -20,10 +20,10 @@ Type checking can be enabled from your project's configuration page
 under "Developer Setup" -> "Advanced".
 When enabled, your project will include:
 
-- `mypy` and `django-stubs` as development dependencies
-- A `mypy.ini` configuration file
+- `mypy`, `django-stubs`, and other stub libraries as development dependencies
+- A mypy configuration in your `pyproject.toml`
 - Type checking in the GitHub Actions CI workflow
-- Additional guidelines in AI rules files for working with types
+- Additional guidelines in AI skills files for working with types
 
 
 ## Running Type Checks
@@ -40,67 +40,17 @@ mypy .
 
 ## Configuration
 
-Type checking is configured in `mypy.ini` at the project root.
+Type checking is configured in your `pyproject.toml` file.
 The default configuration should pass out of the box for all new Pegasus projects.
 
 *If you run into any mypy errors with your project's configuration on a new project,
 please report them [via email or Slack](https://www.saaspegasus.com/support/).*
 
-## Common Patterns
+## Documentation (and AI Skills)
 
+Your project's AI skills files will now include additional guidelines for working with types.
+If you're using Claude Code, you can use the `/fix-types` skill to run interactive type check fixes on your code.
 
-### Working with Django Lazy Translation Strings
-
-When using type hints with Django's lazy translation strings (`gettext_lazy`),
-use the following pattern to avoid mypy errors while keeping the code working
-in production (where `django-stubs-ext` is not installed):
-
-```python
-from __future__ import annotations  # Must be the first import
-
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from django_stubs_ext import StrOrPromise
-
-
-def my_function(name: StrOrPromise) -> StrOrPromise:
-    ...
-
-
-class MyData:
-    title: StrOrPromise
-    description: StrOrPromise
-```
-
-This pattern allows both regular strings and lazy translation strings to be accepted by the type checker,
-while not requiring the `django-stubs-ext` package in production.
-
-### Typed Django Models
-
-```python
-from django.db import models
-
-class MyModel(models.Model):
-    name: models.CharField[str, str] = models.CharField(max_length=100)
-    count: models.IntegerField[int, int] = models.IntegerField(default=0)
-```
-
-### Typed Views
-
-```python
-from django.http import HttpRequest, HttpResponse
-
-def my_view(request: HttpRequest) -> HttpResponse:
-    return HttpResponse("Hello")
-```
-
-### Optional Fields
-
-```python
-from typing import Optional
-
-def get_user_name(user_id: int) -> Optional[str]:
-    user = User.objects.filter(id=user_id).first()
-    return user.name if user else None
-```
+The skills file is also open source and [documented here](https://github.com/saaspegasus/django-skills/blob/main/skills/fix-types/SKILL.md)
+if you'd like to see details on suggested fixes and resolution patterms.
+Please contribute if you have any suggestions for improvements!
