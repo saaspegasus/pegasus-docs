@@ -49,8 +49,19 @@ please report them [via email or Slack](https://www.saaspegasus.com/support/).*
 ## Documentation (and AI Skills)
 
 Your project's AI skills files will now include additional guidelines for working with types.
-If you're using Claude Code, you can use the `/fix-types` skill to run interactive type check fixes on your code.
+If you're using Claude Code, you can run
+
+```
+/fix-types
+```
+
+as a skill in Claude Code to run interactive type check fixes on your code.
 
 The skills file is also open source and [documented here](https://github.com/saaspegasus/django-skills/blob/main/skills/fix-types/SKILL.md)
 if you'd like to see details on suggested fixes and resolution patterms.
 Please contribute if you have any suggestions for improvements!
+
+## Upgrading / adding type checking
+
+When you first enable type checking for your project you will likely get some errors in your own code.
+The easiest way to resolve these is via the `/fix-types` skill mentioned above.
