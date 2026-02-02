@@ -79,6 +79,10 @@ See the [Type Checking documentation](/experimental/type-checking/) for details.
 - Django and Vite ports are now configurable via environment variables.
   Set `DJANGO_PORT`, `DJANGO_VITE_PORT`, `POSTGRES_PORT`, and `REDIS_PORT` in your `.env` file.
   Docker Compose should use these ports automatically. This helps enable the worktree workflow outlined above.
+- Changed the default development docker setup to only expose postgres and redis ports over localhost.
+  This improves security if you are doing development on a machine that's exposed to the public internet.
+- Moved `django-browser-reload` and `django-watchfiles` to development requirements and only set them up if `DEBUG=True`.
+  Thanks Saif for the suggestion!
 - Switched from `psycopg2-binary` to `psycopg[binary]`, as recommended by the latest Django docs. Thanks Saif for the suggestion!
 - API key display and revocation now uses key prefix instead of ID. Thanks Brennon for the suggestion!
 - Added configurable Docker user/group in Dockerfile.
