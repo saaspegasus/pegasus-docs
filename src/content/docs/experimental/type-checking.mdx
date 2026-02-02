@@ -1,0 +1,67 @@
+---
+title: Type Checking with Mypy
+description: Enable static type checking in your Pegasus project using mypy and django-stubs.
+---
+import ExperimentalFeature from '../../../components/ExperimentalFeature.astro';
+
+<ExperimentalFeature />
+
+Pegasus includes optional support for static type checking using [mypy](https://mypy-lang.org/)
+and [django-stubs](https://github.com/typeddjango/django-stubs).
+When enabled, type checking runs automatically in GitHub Actions CI.
+
+*This feature is currently marked as experimental because not every combination of Pegasus features has
+been fully tested by mypy. However, most common configurations are tested and should work out of the box.
+However, enabling type checking is perfectly safe.*
+
+## Enabling Type Checking
+
+Type checking can be enabled from your project's configuration page
+under "Developer Setup" -> "Advanced".
+When enabled, your project will include:
+
+- `mypy`, `django-stubs`, and other stub libraries as development dependencies
+- A mypy configuration in your `pyproject.toml`
+- Type checking in the GitHub Actions CI workflow
+- Additional guidelines in AI skills files for working with types
+
+
+## Running Type Checks
+
+To run type checking locally:
+
+```bash
+# With uv
+uv run mypy .
+
+# Without uv
+mypy .
+```
+
+## Configuration
+
+Type checking is configured in your `pyproject.toml` file.
+The default configuration should pass out of the box for all new Pegasus projects.
+
+*If you run into any mypy errors with your project's configuration on a new project,
+please report them [via email or Slack](https://www.saaspegasus.com/support/).*
+
+## Documentation (and AI Skills)
+
+Your project's AI skills files will now include additional guidelines for working with types.
+If you're using Claude Code, you can run
+
+```
+/fix-types
+```
+
+as a skill in Claude Code to run interactive type check fixes on your code.
+
+The skills file is also open source and [documented here](https://github.com/saaspegasus/django-skills/blob/main/skills/fix-types/SKILL.md)
+if you'd like to see details on suggested fixes and resolution patterms.
+Please contribute if you have any suggestions for improvements!
+
+## Upgrading / adding type checking
+
+When you first enable type checking for your project you will likely get some errors in your own code.
+The easiest way to resolve these is via the `/fix-types` skill mentioned above.

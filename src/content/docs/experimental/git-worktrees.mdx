@@ -1,0 +1,124 @@
+---
+title: Git Worktrees for Parallel Development
+description: Use git worktrees with isolated services for parallel development on multiple branches simultaneously.
+---
+import ExperimentalFeature from '../../../components/ExperimentalFeature.astro';
+
+<ExperimentalFeature />
+
+Git worktrees allow you to work on multiple branches simultaneously without switching contexts.
+Each worktree is an isolated working directory with its own ports for all services (Django, Vite, PostgreSQL, and Redis).
+
+## Creating a Worktree
+
+You can create a worktree using the standalone script:
+
+```bash
+# Interactive mode - prompts for name and base branch
+./scripts/create-worktree.sh
+
+# With arguments
+./scripts/create-worktree.sh feature-name          # Branches from main (default)
+./scripts/create-worktree.sh feature-name dev      # Branches from dev
+
+# Custom directory location (default: ../worktrees)
+WORKTREE_BASE_DIR=/custom/path ./scripts/create-worktree.sh feature-name
+```
+
+Or, if you're using Claude Code, you can use the `/worktree` skill, which will prompt you for a name and base branch.
+
+## What Gets Created
+
+When you create a worktree, the script:
+
+1. Creates a new git worktree in `../worktrees/{name}` (configurable via `WORKTREE_BASE_DIR`)
+2. Allocates unique ports for all services (Django, Vite, PostgreSQL, Redis)
+3. Copies and configures `.env` with the new ports
+4. Updates `DATABASE_URL` and `REDIS_URL` to use the allocated ports
+5. Updates CORS settings to match the new Vite port
+6. Copies Claude settings (if present)
+7. Runs initial setup (`make setup-env` and `make npm-install-all`)
+
+## Port Allocation
+
+Worktrees get automatically assigned ports to avoid conflicts:
+
+| Worktree | Django | Vite | PostgreSQL | Redis |
+|----------|--------|------|------------|-------|
+| Main | 8000 | 5173 | 5432 | 6379 |
+| Worktree 1 | 8001 | 5174 | 5433 | 6380 |
+| Worktree 2 | 8002 | 5175 | 5434 | 6381 |
+
+Each worktree runs its own isolated PostgreSQL and Redis instances via Docker Compose, allowing you to:
+
+- Work with different database schemas or data simultaneously
+- Test migrations independently without affecting other worktrees
+- Run integration tests in complete isolation
+
+## Working in a Worktree
+
+After creating a worktree:
+
+```bash
+# 1. Change to the worktree directory (path shown in creation output)
+cd ../worktrees/{name}
+
+# 2. Start PostgreSQL and Redis (in background)
+make start-bg
+
+# 3. Start development servers (Django and Vite)
+make dev
+
+# 4. (Optional) Start a new Claude session in this directory
+claude
+```
+
+Access your worktree at the allocated ports (shown during creation).
+
+## Managing Worktrees
+
+```bash
+# List all worktrees
+git worktree list
+
+# Remove a worktree (from main directory)
+git worktree remove ../worktrees/{name}
+
+# Remove a worktree and delete the branch
+git worktree remove ../worktrees/{name}
+git branch -D {name}
+```
+
+## Reconfiguring Ports
+
+If you need to fix port conflicts or change ports in an existing worktree:
+
+```bash
+# From within a worktree (auto-detect ports)
+cd ../worktrees/{name}
+../../{project}/scripts/configure-ports.sh
+
+# From repo root (specify worktree path)
+./scripts/configure-ports.sh ../worktrees/{name}
+
+# Use specific ports (advanced)
+./scripts/configure-ports.sh ../worktrees/{name} 8005 5178 5437 6383
+```
+
+The script updates all port-related variables in `.env` including `DATABASE_URL`, `REDIS_URL`, and `CORS_ALLOWED_ORIGINS`.
+
+## Important Notes
+
+- **Isolated services**: Each worktree has its own PostgreSQL and Redis instances with unique ports
+- **Database independence**: Migrations and data changes in one worktree don't affect others
+- **Docker required**: PostgreSQL and Redis run via Docker Compose (`make start-bg`)
+- **Independent npm packages**: Each worktree has its own `node_modules`
+- **Branch naming**: If a branch name conflicts, the script appends `-2`, `-3`, etc.
+- **Port conflicts**: Make sure no other services are using the allocated port ranges
+
+## Known Limitations
+
+- This feature has only been tested on Linux environments and may not work with other operaring systems.
+
+
+If you have any feedback on this feature please let us know!

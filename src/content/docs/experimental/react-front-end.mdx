@@ -3,15 +3,12 @@ title: Standalone React Front End
 description: Build decoupled React single-page applications with Vite, session authentication, API integration, and deployment to static hosting platforms.
 ---
 
-import { Aside, Steps } from '@astrojs/starlight/components';
+import { Steps } from '@astrojs/starlight/components';
+import ExperimentalFeature from '../../../components/ExperimentalFeature.astro';
 
-<Aside type="caution" title="Experimental Feature">
-This feature is experimental.
-It is likely (but not guaranteed) that it will make it into a future Pegasus release.
-While in the experimental phase, it may undergo significant changes, including breaking changes.
-</Aside>
+<ExperimentalFeature />
 
-*Added in version 2024.4. Expanded in version 2025.4.1.*
+*Added in version 2024.4. Expanded in versions 2025.4.1 and 2026.1.*
 
 SaaS Pegasus's default React integration is based on a hybrid-model for reasons
 [outlined here](https://www.saaspegasus.com/guides/modern-javascript-for-django-developers/client-server-architectures/#enter-the-hybrid-architecture).
@@ -21,17 +18,19 @@ isolating your front end and back end code, and working with AI-based tools that
 
 Pegasus experimentally ships with a decoupled front end *example* single page application that can be used as a starting point for building
 out a decoupled front end / SPA with React.
-It uses [Vite](https://vitejs.dev/) as a development server and build tool.
+It uses [Vite](https://vitejs.dev/) as a development server and build tool,
+and uses React with TailwindCSS and [shadcn/ui](https://ui.shadcn.com/) for components.
 
 The features it includes are:
 
 - A standalone Vite / React application.
 - Authentication via headless allauth and sessions---including sign up, login, social login, email confirmation,
   two-factor authentication, and logout functionality.
+- A shadcn/ui component environment setup with DaisyUI theme colors.
 - A sample profile page which shows how to retrieve data from the logged in user (via the back end APIs) and display it.
 - The employee lifecycle demo that ships with Pegasus (if enabled), showing a full create, update, delete (CRUD) workflow.
 
-The standalone front end is *only available on TailwindCSS* and uses DaisyUI for styling.
+The standalone front end is *only available on TailwindCSS*.
 
 **The standalone is not intended to be a replacement for Pegasus's UI, but a reference example you can use
 as a starting point to build standalone, single-page-applications with Pegasus and React.**
@@ -76,6 +75,40 @@ npm run dev
 
 Note: your Django backend must also be running for the front end to work,
 and you must also [build your Django front end](/front-end/overview) for styles to work.
+
+## Shadcn setup
+
+This frontend uses [shadcn/ui](https://ui.shadcn.com/) for UI components.
+shadcn components are copied into the codebase (not installed as a package) and can be customized directly.
+
+### Adding Components
+
+```bash
+cd frontend
+npx shadcn@latest add [component-name]
+```
+
+Components are installed to `src/components/ui/`.
+Browse available components at https://ui.shadcn.com/docs/components.
+
+### Key Files
+
+- `components.json` - shadcn configuration
+- `src/lib/utils.ts` - `cn()` helper for className merging
+- `src/components/ui/` - all shadcn components
+- `src/index.css` - CSS variables and DaisyUI color mapping
+
+### DaisyUI Integration
+
+shadcn colors are mapped to DaisyUI theme variables in `src/index.css` under `@theme inline`.
+This ensures shadcn components use the same colors as the rest of the app.
+
+Key mappings:
+
+- `--color-primary` → DaisyUI primary
+- `--color-destructive` → DaisyUI error
+- `--color-muted` → DaisyUI base-200
+- `--color-accent` → DaisyUI base-300
 
 ## Authentication
 
@@ -166,7 +199,7 @@ by overriding them in your environment variables or a production settings file:
 
 - `FRONTEND_ADDRESS`: Your front end's full URL, e.g. "https://www.mydomain.com"
 - `CORS_ALLOWED_ORIGINS`: Full URLs of both your frontend and backend addresses, e.g.  "https://www.mydomain.com,https://app.mydomain.com"
-- `CSRF_COOKIE_DOMAIN`: All domains and subdomains, e.g. ".mydomain.com" (note the leading "."). 
+- `CSRF_COOKIE_DOMAIN`: All domains and subdomains, e.g. ".mydomain.com" (note the leading ".").
 - `SESSION_COOKIE_DOMAIN`: Same as `CSRF_COOKIE_DOMAIN`.
 
 ### The React Frontend
@@ -178,7 +211,7 @@ The basic steps for deployment are to run `npm run build` and then serve the out
 In addition, the following environment variables need to be set during build. Do not include trailing slashes:
 
 - `VITE_APP_BASE_URL`: Your django backend url, e.g. "https://app.mydomain.com"
-- `VITE_ALLAUTH_BASE_URL`: The full allauth base route for your backend, e.g. "https://app.mydomain.com/_allauth/browser/v1" 
+- `VITE_ALLAUTH_BASE_URL`: The full allauth base route for your backend, e.g. "https://app.mydomain.com/_allauth/browser/v1"
 
 Each static site host has their own way of configuring the above setup.
 Below are quick example instructions for deploying the front end on Cloudflare Pages:
@@ -199,7 +232,7 @@ Below are quick example instructions for deploying the front end on Cloudflare P
         * `NPM_VERSION: 11.3.0`
     </Steps>
 5. Click "Save and Deploy"
-6. After the initial deployment you can add a custom domain to your front end. 
+6. After the initial deployment you can add a custom domain to your front end.
 </Steps>
 
 ## Known Limitations
@@ -223,4 +256,4 @@ properly set inside it. See `frontend/.env.example` for an example `.env` file s
 ## Feedback
 
 If you have any feedback on this feature I would love to hear it!
-Feedback could include bug reports, feature requests, or any suggested architectural changes. 
+Feedback could include bug reports, feature requests, or any suggested architectural changes.

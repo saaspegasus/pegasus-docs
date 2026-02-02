@@ -10,6 +10,142 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.2
+
+This release focuses on improving AI-assisted development with a number direct and indirect improvements.
+
+### Standalone Frontend ported to shadcn/ui
+
+**The standalone React frontend has been completely redesigned using shadcn/ui components.**
+Shadcn has become the de-facto recommended way to build a standalone React frontend and LLMs are
+very good at working with it. This makes it a natural choice for the standalone frontend for Pegasus moving forwards.
+
+Details:
+
+- New sidebar component using shadcn's responsive sidebar pattern
+- All form inputs, buttons, labels, and cards now use shadcn components
+- Authentication pages (login, signup, password reset) redesigned with consistent styling
+- Profile page and navigation demo updated to use shadcn components
+- Added shadcn configuration file (`components.json`) for easy component management
+- Added path alias `@/*` for cleaner imports
+
+See the [updated Standalone React Front End documentation](/experimental/react-front-end/) for details.
+
+### Skills for Agents
+
+This release of Pegasus starts introducing [agent skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+to assist with common and repetitive tasks when working with Pegasus projects.
+
+In a new Pegasus project, all skills will be included if you enable Claude support.
+
+There are currently skills to help you upgrade your Pegasus project (`/resolve-pegasus-conflicts`),
+fix type errors in your code (`/fix-types`), and work with worktrees (`/worktree`).
+
+Pegasus skills are open source and will be maintained in the following two repositories:
+
+- **[Pegasus Skills](https://github.com/saaspegasus/pegasus-skills)**: Skills that are specific to working on Pegasus projects.
+- **[Django Skills](https://github.com/saaspegasus/django-skills)**: Skills that are more generally useful for any Django project.
+
+See the [AI Integrations documentation](/ai/development/#pegasus-skills-for-claude-code) for installation instructions and details.
+
+### Type Checking with Mypy
+
+
+One of the most important principles of successfully building complex applications with agents is that
+you should give them as many tools as possible to help them verify their work.
+Type checking is one of these tools that can help agents catch errors and bugs and verify their work.
+
+To assist with this, **Pegasus now includes optional support for static type checking using mypy and django-stubs.**
+When enabled, your project will include pre-configured mypy settings, and type checking runs automatically in GitHub Actions CI.
+
+In addition, a large number of small changes were made to the codebase to add type hints and fix typing issues
+so that mypy works out of the box on all tested build configurations.
+
+Note: this features is labeled as experimental because not every combination of Pegasus features has
+been fully tested by mypy, but it will become an official supported feature in the next release and is
+safe to enable and use.
+
+See the new [Type Checking documentation](/experimental/type-checking/) for details.
+
+
+### Git Worktree Support (Experimental)
+
+Another growing trend in AI programming is the use of git worktrees to enable parallel development on multiple branches simultaneously.
+Worktrees allow you (or agents) to work on multiple branches at once without overwriting each branch's changes.
+
+To assist with using worktrees, Pegasus adds some utilities that help you create and manage worktrees.
+Specifically, you can now create isolated git worktrees with unique ports for all services,
+enabling parallel development on multiple branches simultaneously, giving each worktree its own database
+and web ports (so multiple worktrees can run in browsers concurrently).
+
+Specifically, each worktree gets its own:
+- Django port (starting at 8000, incrementing for each worktree)
+- Vite dev server port (starting at 5173)
+- PostgreSQL instance port (starting at 5432)
+- Redis instance port (starting at 6379)
+
+To create a worktree, use the new `/worktree` Claude Code skill or run:
+
+```bash
+./scripts/create-worktree.sh feature-name
+```
+
+This feature is experimental.
+See the [Git Worktrees documentation](/experimental/git-worktrees/) for details.
+
+### Other Changes
+
+**Added**
+
+- **Added support for superuser API permissions.** New `IsSuperUser`, `IsAuthenticatedSuperUser`,
+  and `IsAuthenticatedOrHasUserAPIKeySuperUser` permission classes for restricting API endpoints to superusers only.
+  - Also added tests.
+- Added an error notification when HTMX requests fail.
+- The `dev.sh` script (and `make dev`) now starts the standalone frontend dev server alongside Django and Vite (if enabled).
+
+**Changed**
+
+- Django and Vite ports are now configurable via environment variables.
+  Set `DJANGO_PORT`, `DJANGO_VITE_PORT`, `POSTGRES_PORT`, and `REDIS_PORT` in your `.env` file.
+  Docker Compose should use these ports automatically. This helps enable the worktree workflow outlined above.
+- **Changed the default development docker setup to only expose postgres and redis ports over localhost.**
+  This improves security if you are doing development on a machine that's exposed to the public internet.
+- Moved `django-browser-reload` and `django-watchfiles` to development requirements and only set them up if `DEBUG=True`.
+  Thanks Saif for the suggestion!
+- Switched from `psycopg2-binary` to `psycopg[binary]`, as recommended by the latest Django docs. Thanks Saif for the suggestion!
+- API key display and revocation now uses key prefix instead of ID. Thanks Brennon for the suggestion!
+- Added configurable Docker user/group in production Dockerfile.
+  You can now customize the user and group IDs via build args (`SITE_UID`, `SITE_GID`, `SITE_USER`, `SITE_GROUP`).
+  Thanks Geoff for the suggestion!
+- Added a longer default deploy timeout (180 seconds) for Kamal deployments.
+  Thanks Aurelien for the suggestion!
+- Changed assertion statements to proper exceptions in subscription views and employee views for better error handling.
+- The `.git` and `config` directories are now excluded in production images via the `.dockerignore` file.
+  Thanks Geoff for the suggestion!
+- Font awesome is now installed via NPM instead of the CDN. Thanks Geoff for suggesting!
+
+
+**Fixed**
+
+- Fixed shadcn/daisyUI CSS variable mappings. Accent colors are no longer overridden by shadcn by default,
+  which was causing inconsistent styling on DaisyUI accent components.
+- Vite now ignores large directories (`.venv`, `node_modules`, `.git`) when watching files.
+  This helps prevent exhausting system inotify watchers. Thanks Jacob for the suggestion!
+- Switched some model references to use `gettext_lazy` instead of `gettext` for translatable strings,
+  which is the correct pattern for model-level translations. Thanks Saif for reporting!
+- Fixed tests failing when using manifest storage by adding a test base class that overrides storage settings.
+  Thanks Brennon for reporting!
+- Don't add `django-celery-beat` uv source to `pyproject.toml` if not using celery.
+- **Made many minor code-quality improvements caught by the type checker. Examples:**
+  - Subscription signals now handle missing subscriptions more gracefully/explicitly.
+  - Added proper return types and null checks in subscription helpers
+  - Fixed type hints in AI agents and tools
+  - Added type annotations to settings and model files
+  - Fixed import paths for `Message` class in teams tests
+  - Added type ignores with explanatory comments where necessary
+
+*February 2, 2026*
+
 ## Version 2025.12.2
 
 This is a hotfix release that bumps the Pegasus CLI version to fix
@@ -28,7 +164,7 @@ access queries in the generated `views.py` files).
 This is a hotfix release that fixes an issue where production Dockerfiles weren't building on 2025.12 when
 celery was enabled because `git` was not installed. The fix is installing `git` before installing Python dependencies.
 
-Thanks Chris for reporting!
+Thanks Denis and Chris for reporting!
 
 *Dec 14, 2025*
 

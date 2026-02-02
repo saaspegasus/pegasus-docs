@@ -12,67 +12,6 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 *The development release notes are generated automatically by AI and may contain errors.*
 
-## Version 2026.1
+---
 
-This release adds experimental git worktree support for parallel development, ports the standalone React frontend to shadcn/ui, switches from `psycopg2-binary` to `psycopg[binary]`, and includes numerous type fixes and improvements.
-
-### Git Worktree Support (Experimental)
-
-You can now create isolated git worktrees with unique ports for all services, enabling parallel development on multiple branches simultaneously. Each worktree gets its own:
-- Django port (starting at 8000, incrementing for each worktree)
-- Vite dev server port (starting at 5173)
-- PostgreSQL instance port (starting at 5432)
-- Redis instance port (starting at 6379)
-
-To create a worktree, use the new `/worktree` Claude Code skill or run:
-```bash
-./scripts/create-worktree.sh feature-name
-```
-
-See the generated project's CLAUDE.md for full documentation.
-
-### Standalone Frontend ported to shadcn/ui
-
-**The standalone React frontend has been completely redesigned using shadcn/ui components.** This includes:
-- New sidebar component using shadcn's responsive sidebar pattern
-- All form inputs, buttons, labels, and cards now use shadcn components
-- Authentication pages (login, signup, password reset) redesigned with consistent styling
-- Profile page and navigation demo updated to use shadcn components
-- Added shadcn configuration file (`components.json`) for easy component management
-- Added path alias `@/*` for cleaner imports
-
-### Other Changes
-
-**Added**
-
-- **Added support for superuser API permissions.** New `IsSuperUser`, `IsAuthenticatedSuperUser`, and `IsAuthenticatedOrHasUserAPIKeySuperUser` permission classes for restricting API endpoints to superusers only. Includes comprehensive tests.
-- **Added an error notification when HTMX requests fail.** The app base template now shows a dismissible error banner on HTMX errors.
-- **Added experimental mypy type checking to GitHub Actions CI** for builds that have type checking enabled.
-- **Added type checker guidelines to generated project AI rules** when mypy is enabled, including patterns for Django lazy translation strings.
-- **Added configurable Docker user/group in Dockerfile.** You can now customize the user and group IDs via build args (`SITE_UID`, `SITE_GID`, `SITE_USER`, `SITE_GROUP`). Thanks Geoff for the contribution!
-- **Added a longer default deploy timeout (180 seconds) for Kamal deployments.** Thanks Aurelien for the suggestion!
-
-**Changed**
-
-- **Switched from `psycopg2-binary` to `psycopg[binary]`.** This is the modern PostgreSQL adapter recommended by the psycopg team. Thanks Saif for the suggestion!
-- **API key revocation now uses key prefix instead of ID.** This is more secure as it doesn't expose internal database IDs. Thanks Brennon for the contribution!
-- **Django and Vite ports are now configurable via environment variables.** Set `DJANGO_PORT`, `DJANGO_VITE_PORT`, `POSTGRES_PORT`, and `REDIS_PORT` in your `.env` file. Docker Compose will use these ports automatically.
-- **Vite now ignores large directories (`.venv`, `node_modules`, `.git`) when watching files.** This prevents exhausting system inotify watchers when running multiple Vite instances in parallel. Thanks Jacob for the contribution!
-- **Teams model now uses `gettext_lazy` instead of `gettext`** for translatable strings, which is the correct pattern for model-level translations. Thanks Saif for reporting!
-- **Fixed shadcn/daisyUI CSS variable mappings.** The muted and radius variables now use the correct daisyUI equivalents, and accent colors are no longer overridden by default.
-
-**Fixed**
-
-- **Fixed tests failing when using manifest storage** by adding a test base class that overrides storage settings. Thanks Brennon for reporting!
-- **Fixed `.env` sourcing in `dev.sh` to support special characters** in environment variable values.
-- **Fixed subscription signals to handle missing subscriptions gracefully** instead of raising attribute errors.
-- **Fixed various type annotations throughout the codebase** to pass stricter type checking, including:
-  - Added proper return types and null checks in subscription helpers
-  - Fixed type hints in AI agents and tools
-  - Added type annotations to settings and model files
-  - Fixed import paths for `Message` class in teams tests
-  - Added type ignores with explanatory comments where necessary
-- **Fixed assertion statements converted to proper exceptions** in subscription views and employee views for better error handling.
-- **Fixed standalone frontend dev server not being managed by `dev.sh`** - it's now started and stopped alongside Django and Vite.
-
-*January 27, 2026*
+The development release notes have not been updated since the 2026.2 release.
