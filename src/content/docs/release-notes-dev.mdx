@@ -23,6 +23,7 @@ Shadcn has become the de-facto recommended way to build a standalone React front
 very good at working with it. This makes it a natural choice for the standalone frontend for Pegasus moving forwards.
 
 Details:
+
 - New sidebar component using shadcn's responsive sidebar pattern
 - All form inputs, buttons, labels, and cards now use shadcn components
 - Authentication pages (login, signup, password reset) redesigned with consistent styling
@@ -34,12 +35,12 @@ See the [updated Standalone React Front End documentation](/experimental/react-f
 
 ### Type Checking with Mypy (Experimental)
 
-**Pegasus now includes optional support for static type checking using mypy and django-stubs.**
 
-One of the most important principles of successfully building complext applications with Agents is that
+One of the most important principles of successfully building complex applications with agents is that
 you should give them as many tools as possible to help them verify their work.
 Type checking is one of these tools that can help agents catch errors and bugs and verify their work.
 
+To assist with this, **Pegasus now includes optional support for static type checking using mypy and django-stubs.**
 When enabled, your project will include pre-configured mypy settings, and type checking runs automatically in GitHub Actions CI.
 
 In addition, a large number of small changes were made to the codebase to add type hints and fix typing issues
