@@ -103,25 +103,27 @@ See the [AI Integrations documentation](/ai/development/#pegasus-skills-for-clau
   and `IsAuthenticatedOrHasUserAPIKeySuperUser` permission classes for restricting API endpoints to superusers only.
   - Also added tests.
 - Added an error notification when HTMX requests fail.
-- The `dev.sh` script (and `make dev`) now starts the standalone frontend dev server alongside Django and Vite.
+- The `dev.sh` script (and `make dev`) now starts the standalone frontend dev server alongside Django and Vite (if enabled).
 
 **Changed**
 
 - Django and Vite ports are now configurable via environment variables.
   Set `DJANGO_PORT`, `DJANGO_VITE_PORT`, `POSTGRES_PORT`, and `REDIS_PORT` in your `.env` file.
   Docker Compose should use these ports automatically. This helps enable the worktree workflow outlined above.
-- Changed the default development docker setup to only expose postgres and redis ports over localhost.
+- **Changed the default development docker setup to only expose postgres and redis ports over localhost.**
   This improves security if you are doing development on a machine that's exposed to the public internet.
 - Moved `django-browser-reload` and `django-watchfiles` to development requirements and only set them up if `DEBUG=True`.
   Thanks Saif for the suggestion!
 - Switched from `psycopg2-binary` to `psycopg[binary]`, as recommended by the latest Django docs. Thanks Saif for the suggestion!
 - API key display and revocation now uses key prefix instead of ID. Thanks Brennon for the suggestion!
-- Added configurable Docker user/group in Dockerfile.
+- Added configurable Docker user/group in production Dockerfile.
   You can now customize the user and group IDs via build args (`SITE_UID`, `SITE_GID`, `SITE_USER`, `SITE_GROUP`).
   Thanks Geoff for the suggestion!
 - Added a longer default deploy timeout (180 seconds) for Kamal deployments.
   Thanks Aurelien for the suggestion!
 - Changed assertion statements to proper exceptions in subscription views and employee views for better error handling.
+- The `.git` and `config` directories are now excluded in production images via the `.dockerignore` file.
+  Thanks Geoff for the suggestion!
 
 **Fixed**
 
@@ -133,7 +135,7 @@ See the [AI Integrations documentation](/ai/development/#pegasus-skills-for-clau
   which is the correct pattern for model-level translations. Thanks Saif for reporting!
 - Fixed tests failing when using manifest storage by adding a test base class that overrides storage settings.
   Thanks Brennon for reporting!
-- **Made many minor code-quality improvements caught by the type checker:**
+- **Made many minor code-quality improvements caught by the type checker. Examples:**
   - Subscription signals now handle missing subscriptions more gracefully/explicitly.
   - Added proper return types and null checks in subscription helpers
   - Fixed type hints in AI agents and tools
@@ -141,4 +143,4 @@ See the [AI Integrations documentation](/ai/development/#pegasus-skills-for-clau
   - Fixed import paths for `Message` class in teams tests
   - Added type ignores with explanatory comments where necessary
 
-*January 30, 2026*
+*February 2, 2026*
