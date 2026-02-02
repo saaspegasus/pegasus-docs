@@ -78,12 +78,20 @@ To create a worktree, use the new `/worktree` Claude Code skill or run:
 This feature is experimental.
 See the [Git Worktrees documentation](/experimental/git-worktrees/) for details.
 
-### Pegasus Skills for Claude Code
+### Skills for Agents
 
-[Pegasus Skills](https://github.com/saaspegasus/pegasus-skills) are specialized skill files
-that enhance Claude Code's capabilities when working with Pegasus projects.
-The first skill, `resolve-pegasus-conflicts`, helps resolve merge conflicts that arise during Pegasus upgrades.
-You can invoke it with `/resolve-pegasus-conflicts` or by asking Claude Code for help with merge conflicts.
+This release of Pegasus starts introducing [agent skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+to assist with common and repetitive tasks when working with Pegasus projects.
+
+In a new Pegasus project, all skills will be included if you enable Claude support.
+
+There are currently skills to help you upgrade your Pegasus project (`/resolve-pegasus-conflicts`),
+fix type errors in your code (`/fix-types`), and work with worktrees (`/worktree`).
+
+Pegasus skills are open source and will be maintained in the following two repositories:
+
+- **[Pegasus Skills](https://github.com/saaspegasus/pegasus-skills)**: Skills that are specific to working on Pegasus projects.
+- **[Django Skills](https://github.com/saaspegasus/django-skills)**: Skills that are more generally useful for any Django project.
 
 See the [AI Integrations documentation](/ai/development/#pegasus-skills-for-claude-code) for installation instructions and details.
 
