@@ -10,6 +10,59 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.2.1
+
+This release removes `litellm` and unifies all AI calls through Pydantic AI.
+It also includes a number of smaller features and fixes.
+
+### AI app migration and cleanup
+
+
+- **All AI calls now go through [Pydantic AI](https://ai.pydantic.dev/) instead of using a mix of LiteLLM and Pydantic AI**:
+  - Removed the `litellm` dependency. All chat and agent interactions now use Pydantic AI exclusively.
+  - Replaced `DEFAULT_LLM_MODEL` and `DEFAULT_AGENT_MODEL` settings with a single `DEFAULT_AI_MODEL` setting.
+  - The `LLM_MODELS` dictionary has also been removed in favor of Pydantic AI's built-in model configuration.
+  - API keys are now read directly from standard environment variables (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.)
+    instead of being configured per-model.
+  - Removed the `chat/utils.py` module (`get_llm_kwargs` and `UnknownModelError`) which is no longer needed.
+- **Simplified the chat system, by removing the distinction between "chat" and "agent" session types**:
+  - Removed the `Chat.chat_type` field. Chats are now identified solely by their `Chat.agent_type`
+    field (e.g. `chat`, `weather`, `admin`, `employees`).
+    Added migration to populate the `agent_type` field for existing chats.
+  - Merged `ChatSession` and `AgentSession` into a single `ChatSession` class.
+  - Consolidated WebSocket routing. Instead of separate WebSocket endpoints per agent type (e.g. `/ws/weatheragent/`, `/ws/adminagent/`),
+    all chats now use the existing `/ws/aichat/` endpoint with an `agent_type` query parameter.
+  - Removed per-agent consumer classes in favor of a unified `ChatConsumer`.
+- Fixed a few bug in certain cases where chats did not always resume with the correct agent or history
+  when loaded from the chat history page.
+
+See the upgrading section below for migration details.
+
+### Other Changes
+
+- **Upgraded all JavaScript packages** including Flowbite to 4.x.
+  - Added minimal theme variables needed for Flowbite 4.x dashboard compatibility.
+- **Upgraded all Python packages**, with `dj-stripe` still pinned to 2.9.1 to avoid compatibility issues with newer versions.
+- **Added Claude Code skills for upgrading JavaScript and Python dependencies** to generated projects.
+  These have also been added to the [django-skills](https://github.com/saaspegasus/django-skills) repository.
+- Migrated the test 400, 403, 404, and 500 error pages to Django's built in views for more realistic error simulations.
+  Thanks Brennon for suggesting!
+
+## Other Fixes
+
+- Added `types-requests` as an explicit mypy dev dependency.
+- Fixed the MCP agent tool to use `psycopg2-binary` instead of `psycopg[binary]` for the database connection.
+
+### Upgrading
+
+To migrate to the latest AI code changes, you will need to update your environment variables:
+
+- Replace `DEFAULT_LLM_MODEL` and `DEFAULT_AGENT_MODEL` with `DEFAULT_AI_MODEL`.
+  The new format is `provider:model_name` (e.g. `openai:gpt-4o`). See the [Pydantic AI model docs](https://ai.pydantic.dev/models/overview/) for available models.
+- Also make sure your API keys are defined in your enviornment variables, such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.
+
+*February 10, 2026*
+
 ## Version 2026.2
 
 This release focuses on improving AI-assisted development with a number direct and indirect improvements.
