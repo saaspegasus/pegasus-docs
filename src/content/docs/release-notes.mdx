@@ -12,8 +12,27 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 
 ## Version 2026.2.1
 
-This release removes `litellm` and unifies all AI calls through Pydantic AI.
+This release adds tooling for updating projects via the `pegasus projects` cli and
+removes `litellm` and unifies all AI calls through Pydantic AI.
 It also includes a number of smaller features and fixes.
+
+### Update your project from the command line
+
+The latest version of the [`pegasus` cli](https://github.com/saaspegasus/pegasus-cli) now includes a `projects` subcommand
+that allows you to update your projects directly from the command line.
+It will automatically build your project (optionally updating it to the latest version of Pegasus)
+and submit a pull request to your repository with the changes.
+This currently only works if you have connected your repository to GitHub.
+
+To try it out, after updating the `pegasus-cli` run:
+
+```
+pegasus projects update
+```
+
+You'll need an API key, which you can create from your [profile page](https://www.saaspegasus.com/users/profile/).
+
+For more details, see [the updated CLI documentation](https://github.com/saaspegasus/pegasus-cli?tab=readme-ov-file#pushing-to-github).
 
 ### AI app migration and cleanup
 
