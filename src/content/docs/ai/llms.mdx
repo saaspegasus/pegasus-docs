@@ -1,6 +1,6 @@
 ---
 title: LLMs and Chat
-description: Integrate LLM chat interfaces with OpenAI GPT models, Claude, or local models using Ollama. Supports streaming, async APIs, and multiple authentication methods.
+description: Integrate LLM chat interfaces with OpenAI, Claude, or local models using Pydantic AI. Supports streaming, async APIs, and agents.
 sidebar:
   order: 2
 ---
@@ -10,27 +10,22 @@ import { Steps } from '@astrojs/starlight/components';
 Pegasus comes with an optional Chat UI for interacting with LLMs.
 This section covers how it works and the various supported options.
 
-## Configuring LLM
+## Configuring your AI model
 
-You can configure the models you want to use by setting the `LLM_MODELS` and `DEFAULT_LLM_MODEL`
-values in your `settings.py`. For example:
+All AI calls in Pegasus go through [Pydantic AI](https://ai.pydantic.dev/).
+You can configure the model used by setting the `DEFAULT_AI_MODEL` value
+in your `settings.py` or environment variables / `.env` file.
+The format is `provider:model_name`, for example:
 
-```python
-LLM_MODELS = {
-    "gpt-3.5-turbo": {"api_key": env("OPENAI_API_KEY", default="")},
-    "gpt-4o": {"api_key": env("OPENAI_API_KEY", default="")},
-    "claude-3-opus-20240229": {"api_key": env("ANTHROPIC_API_KEY", default="")},
-    "ollama_chat/llama3": {"api_base": env("OLLAMA_API_BASE", default="http://localhost:11434")},  # requires a running ollama instance
-    "xai/grok-4-fast-reasoning": {"api_key": env("GROK_API_KEY", default="")},
-}
-DEFAULT_LLM_MODEL = env("DEFAULT_LLM_MODEL", default="gpt4o")
+```bash
+DEFAULT_AI_MODEL="openai:gpt-5-mini"
 ```
 
-The chat UI will use whatever is set in `DEFAULT_LLM_MODEL` out-of-the-box, but you can quickly change it
-to another model to try different options.
+The chat UI and all agents will use whatever is set in `DEFAULT_AI_MODEL`.
 
-For further reading, see the documentation of the [litellm Python API](https://docs.litellm.ai/docs/completion),
-and [litellm providers](https://docs.litellm.ai/docs/providers).
+You will also need to set the appropriate API key environment variables for your chosen provider,
+e.g. `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.
+See the [Pydantic AI model docs](https://ai.pydantic.dev/models/overview/) for available models and configuration.
 
 ## Running open source LLMs
 
@@ -44,13 +39,10 @@ To run models like Mixtral or Llama3, you will need to run an [Ollama](https://o
    # or with docker
    docker exec -it ollama ollama pull llama3
    ```
-   See the [documentation](https://docs.litellm.ai/docs/providers/ollama) for the list of supported models.
-3. Update your django settings to point to the Ollama server. For example:
-   ```python
-   LLM_MODELS = {
-       "ollama_chat/llama3": {"api_base": "http://localhost:11434"},
-   }
-   DEFAULT_LLM_MODEL = "ollama_chat/llama3"
+   See the [Pydantic AI Ollama docs](https://ai.pydantic.dev/models/openai/#ollama) for more details.
+3. Set `DEFAULT_AI_MODEL` in your `.env` file to point to the Ollama model. For example:
+   ```bash
+   DEFAULT_AI_MODEL="ollama:llama3"
    ```
 4. Restart your Django server.
 </Steps>
@@ -61,7 +53,7 @@ The Chat UI has multiple different implementations, and the one that is used for
  by your build configuration.
 
 If you build with asynchronous functionality enabled *and* htmx then it will use a websocket-based Chat UI.
-This Chat UI supports streaming responses for OpenAI models, and is the recommended option.
+This Chat UI supports streaming responses, and is the recommended option.
 It is also currently the only option that supports the chat widget that can be embedded on any page.
 
 If you build without asynchronous functionality enabled, the chat UI will instead use Celery and polling.
@@ -124,31 +116,14 @@ For more information on these agents and how they work, you can watch this video
 
 ### Setting the agent model and keys
 
-To change the agent model you can set the `DEFAULT_LLM_MODEL` setting in your `settings.py` file or
-environment variables / `.env` file.
+Agents use the same `DEFAULT_AI_MODEL` setting as the chat UI.
+See [Configuring your AI model](#configuring-your-ai-model) above for details.
 
-For a list of available models, see the [Pydantic AI documentation](https://ai.pydantic.dev/models/overview/).
+## Previous versions (OpenAI / LiteLLM)
 
-You will also need to set the API keys for the models you want to use in the environment,
- according to the Pydantic AI docs.
+Previous versions of Pegasus used LiteLLM and had different configuration options
+including `LLM_MODELS`, `DEFAULT_LLM_MODEL`, and `DEFAULT_AGENT_MODEL`.
+As of version 2026.2.1, all AI calls go through Pydantic AI exclusively.
 
- For example, to use any OpenAI models you need to set the `OPENAI_API_KEY` environment variable.
-
-```bash
-OPENAI_API_KEY="sk-..."
-```
-
-## Choosing an LLM model (deprecated)
-
-Older versions of Pegasus allowed you to choose between two options for your LLM chat: OpenAI and LiteLLM.
-As of version 2025.9.1, all projects will now use [LiteLLM](https://docs.litellm.ai/docs/),
-which fully supports OpenAI, as well as Anthropic, Google, and local models.
-This makes it easy to use different models depending on your specific application needs.
-
-## Configuring OpenAI (deprecated)
-
-If you're using OpenAI, you need to set `OPENAI_API_KEY` in your environment or settings file (`.env` in development).
-You can also change the model used by setting `OPENAI_MODEL`, which defaults to `"gpt-4o"`.
-
-See [this page](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key) for help
-finding your OpenAI API key.
+For documentation on the previous setup, see
+[the older version of this page](https://github.com/saaspegasus/pegasus-docs/blob/f70c522ec14f469bfce42554f862d82824834289/src/content/docs/ai/llms.mdx).
