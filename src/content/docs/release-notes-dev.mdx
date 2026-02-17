@@ -14,4 +14,66 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-The development release notes have not been updated since the 2026.2.1 release.
+## Version 2026.2.2
+
+This release upgrades dj-stripe to version 2.10, updates the health check configuration,
+and includes several minor fixes and improvements.
+
+### dj-stripe 2.10
+
+**Upgraded dj-stripe from 2.9 to 2.10.** This is a significant upgrade that changes how many Stripe model fields are stored.
+In dj-stripe 2.10, many fields that were previously database columns are now read from the `stripe_data` JSONField
+via property accessors. Pegasus has been updated throughout to work with this new structure, including:
+
+- Updated all ORM queries that filtered on removed fields (e.g. `price__recurring`, `subscription__status`)
+  to use `stripe_data`-based lookups (e.g. `price__stripe_data__recurring`, `subscription__stripe_data__status`).
+- Updated subscription serializers to explicitly declare fields that are now property accessors
+  (`unit_amount`, `quantity`, `status`, `start_date`, `current_period_start`, `current_period_end`, `cancel_at_period_end`).
+- Updated the `UsageRecordForm` to use the Stripe API directly, since the `UsageRecord` model was removed in dj-stripe 2.10.
+- Updated the subscription webhook handler to sync subscriptions from the Stripe API
+  instead of directly writing to removed DB columns.
+- Updated ecommerce views to remove `select_related` calls on `default_price`, which is no longer a foreign key.
+- Updated the product image helper to read from `stripe_data` instead of the removed `images` field.
+- Updated billing utilities to handle `unit_amount_decimal` being returned as a string from `stripe_data`.
+- Updated all tests to create Stripe objects with the new `stripe_data` format.
+- Removed the `RunSQL` migration workaround for `djstripe_paymentintent.capture_method` column length,
+  which is no longer needed.
+- Updated migration dependencies from `("djstripe", "0012_2_8")` to `("djstripe", "0001_initial")`
+  to match dj-stripe 2.10's squashed migrations.
+
+See the upgrading section below for more details.
+
+### Updated health check configuration
+
+**Updated health check setup to use the new `django-health-check` API.**
+The health check view now uses `HealthCheckView` (replacing the deprecated `MainView`)
+and configures checks inline instead of via `INSTALLED_APPS`.
+This also fixes an issue where the Celery health check could fail silently by explicitly defining
+the `CELERY_TASK_QUEUES` setting.
+
+### Other Changes
+
+- **Switched default database and Redis URLs from `localhost` to `127.0.0.1`** to fix a performance issue on Windows
+  where DNS resolution of `localhost` could be slow.
+- **Cleaned up unused undraw illustration images** that were always included in builds regardless of project configuration.
+  Only images that are actually used based on your build configuration are now included.
+- **Added an "upgrade-pegasus" Claude Code skill** to help automate the Pegasus upgrade process via the CLI.
+- **Updated the "resolve-pegasus-conflicts" skill** with guidance for handling the dj-stripe 2.10 migration squash,
+  field changes, and the need to re-sync Stripe data after migrating.
+
+### Upgrading
+
+This release includes a significant upgrade to dj-stripe. After upgrading:
+
+- Run `./manage.py migrate` to apply the dj-stripe 2.10 migration changes.
+- Run `./manage.py djstripe_sync_models` to repopulate `stripe_data` for existing records.
+  Without this, properties like `product.default_price` may return `None`.
+- If you have custom code that queries on Stripe model fields that were previously DB columns
+  (e.g. `filter(status=...)`, `filter(recurring__interval=...)`), update them to use
+  `stripe_data`-based lookups (e.g. `filter(stripe_data__status=...)`, `filter(stripe_data__recurring__interval=...)`).
+- If you had the `RunSQL` migration workaround for `djstripe_paymentintent.capture_method`,
+  you can safely remove it.
+- If you have custom migration files that depend on `("djstripe", "0012_2_8")`,
+  update them to `("djstripe", "0001_initial")`.
+
+*Feb 17, 2026*
