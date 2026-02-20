@@ -66,8 +66,9 @@ the `CELERY_TASK_QUEUES` setting.
 This release includes a significant upgrade to dj-stripe. After upgrading:
 
 - Run `./manage.py migrate` to apply the dj-stripe 2.10 migration changes.
-- Run `./manage.py djstripe_sync_models` to repopulate `stripe_data` for existing records.
+- Run `./manage.py djstripe_sync_models Product Price Subscription Customer` to repopulate `stripe_data` for existing records.
   Without this, properties like `product.default_price` may return `None`.
+  Note that if you have used custom fields on other djstripe models you should include those in the set that you sync.
 - If you have custom code that queries on Stripe model fields that were previously DB columns
   (e.g. `filter(status=...)`, `filter(recurring__interval=...)`), update them to use
   `stripe_data`-based lookups (e.g. `filter(stripe_data__status=...)`, `filter(stripe_data__recurring__interval=...)`).
