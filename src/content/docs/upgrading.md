@@ -7,7 +7,27 @@ There are several ways to update your Pegasus project.
 These methods can be used to upgrade your project to a new Pegasus version, or when changing
 anything in your project configuration.
 
-## Using the Github integration (recommended)
+## Using an AI Agent
+
+The easiest way to upgrade your project is with the [Pegasus agent skills](https://github.com/saaspegasus/pegasus-skills).
+
+### Prerequisites
+
+- Set up your project with the Gihtub integration.
+- Install the [agent skills from the repository](https://github.com/saaspegasus/pegasus-skills).
+- Install the [`pegasus-cli`](https://github.com/saaspegasus/pegasus-cli) version 0.12 or later.
+
+Note: These will be installed by default in Pegasus projects created/updated after version 2026.2.2.
+Skills are installed if you choose "Claude Code" as one of your project's enabled coding assistants.
+
+### Upgrading
+
+After setting up the prerequisites you should be able to run the `/upgrade-pegasus` skill in Claude code,
+or ask it to "upgrade your pegasus project". The agent will then run through the upgrade steps for you.
+
+After it completes, you should review the code changes carefully before merging.
+
+## Using the Github integration
 
 The easiest way to upgrade your project is to use the built-in Github integration.
 If you created your project with Github, you should be able to make any changes you want to your project configuration
@@ -158,6 +178,14 @@ In this example, the type annotations were added to the function signature:
 
 The most time-consuming part of an upgrade is typically resolving conflicts between changes you've made and changes
 in the updated Pegasus release. Here are some tips and tricks for managing this process.
+
+### Using an AI Agent
+
+The [pegasus-skills repository](https://github.com/saaspegasus/pegasus-skills) contains a skill with many common
+conflict resolution patterns encoded in it.
+This is the easiest way to handle conflict resolutions.
+
+To use it, install the skills from the repo and then run the `/resolve-pegasus-conflicts` skill.
 
 ### Make sure resolutions are recorded
 
