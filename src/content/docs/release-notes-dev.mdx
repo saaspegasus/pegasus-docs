@@ -16,12 +16,17 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ## Version 2026.2.2
 
-This release upgrades dj-stripe to version 2.10, updates the health check configuration,
+This release upgrades Stripe and dj-stripe to their latest major versions, updates the health check configuration,
 and includes several minor fixes and improvements.
 
-### dj-stripe 2.10
+### Stripe 14 and dj-stripe 2.10
 
-**Upgraded dj-stripe from 2.9 to 2.10.** This is a significant upgrade that changes how many Stripe model fields are stored.
+**Upgraded the `stripe` library from <12 to >=14 and `dj-stripe` from 2.9 to 2.10.**
+
+The Stripe library upgrade moves exception imports from `stripe.error` (e.g. `stripe.error.InvalidRequestError`)
+to the top-level `stripe` module (e.g. `stripe.InvalidRequestError`). All Pegasus code has been updated accordingly.
+
+The dj-stripe 2.10 upgrade is a significant change that affects how many Stripe model fields are stored.
 In dj-stripe 2.10, many fields that were previously database columns are now read from the `stripe_data` JSONField
 via property accessors. Pegasus has been updated throughout to work with this new structure, including:
 
@@ -48,8 +53,6 @@ See the upgrading section below for more details.
 **Updated health check setup to use the new `django-health-check` API.**
 The health check view now uses `HealthCheckView` (replacing the deprecated `MainView`)
 and configures checks inline instead of via `INSTALLED_APPS`.
-This also fixes an issue where the Celery health check could fail silently by explicitly defining
-the `CELERY_TASK_QUEUES` setting.
 
 ### Other Changes
 
@@ -60,6 +63,10 @@ the `CELERY_TASK_QUEUES` setting.
 - **Added an "upgrade-pegasus" Claude Code skill** to help automate the Pegasus upgrade process via the CLI.
 - **Updated the "resolve-pegasus-conflicts" skill** with guidance for handling the dj-stripe 2.10 migration squash,
   field changes, and the need to re-sync Stripe data after migrating.
+- **Included `pegasus-cli` in all projects**, not just HTMX builds.
+- **Added `.playwright-mcp/` to the `.gitignore`** for projects with any AI rules enabled.
+- **Removed the `mypy` override for `stripe.error`**, which is no longer needed with the new Stripe import paths.
+- **Upgraded Python packages to their latest versions.**
 
 ### Upgrading
 
@@ -76,5 +83,7 @@ This release includes a significant upgrade to dj-stripe. After upgrading:
   you can safely remove it.
 - If you have custom migration files that depend on `("djstripe", "0012_2_8")`,
   update them to `("djstripe", "0001_initial")`.
+- If you have custom code that imports from `stripe.error`, update those imports to use the top-level
+  `stripe` module (e.g. `from stripe.error import InvalidRequestError` → `from stripe import InvalidRequestError`).
 
-*Feb 17, 2026*
+*Feb 25, 2026*
