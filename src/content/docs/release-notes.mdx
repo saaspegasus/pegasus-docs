@@ -10,6 +10,83 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.2.2
+
+This maintenance release upgrades Python dependencies, including `stripe` and `dj-stripe`, to their latest major versions,
+and has a few small updates to agent skills.
+
+- **Upgraded Python packages to their latest versions.**
+- **Upgraded `stripe` from version 11 to the latest version (14).**
+  - Moved exception imports from `stripe.error` (e.g. `stripe.error.InvalidRequestError`)
+    to the top-level `stripe` module (e.g. `stripe.InvalidRequestError`).
+  - Removed the `mypy` override for `stripe.error`, which is no longer needed with the new Stripe import paths.
+- **Upgraded  `dj-stripe` from 2.9 to 2.10.** The dj-stripe 2.10 upgrade is a significant change that affects how many
+    Stripe model fields are stored. In dj-stripe 2.10, many fields that were previously database columns are now read
+    from the `stripe_data` JSONField via property accessors.
+  - Updated all ORM queries that filtered on removed fields (e.g. `price__recurring`, `subscription__status`)
+    to use `stripe_data`-based lookups (e.g. `price__stripe_data__recurring`, `subscription__stripe_data__status`).
+  - Updated subscription serializers to explicitly declare fields that are now property accessors
+    (`unit_amount`, `quantity`, `status`, `start_date`, `current_period_start`, `current_period_end`, `cancel_at_period_end`).
+  - Updated the generated API client to reflect the above changes.
+  - Updated the `UsageRecordForm` to use the Stripe API directly, since the `UsageRecord` model was removed in dj-stripe 2.10.
+  - Updated the subscription webhook handler to sync subscriptions from the Stripe API
+    instead of directly writing to removed DB columns.
+  - Updated ecommerce views to remove `select_related` calls on `default_price`, which is no longer a foreign key.
+  - Updated the product image helper to read from `stripe_data` instead of the removed `images` field.
+  - Updated billing utilities to handle `unit_amount_decimal` being returned as a string from `stripe_data`.
+  - Updated all tests to create Stripe objects with the new `stripe_data` format.
+  - Removed the `RunSQL` migration workaround for `djstripe_paymentintent.capture_method` column length,
+    which is no longer needed.
+  - Updated migration dependencies from `("djstripe", "0012_2_8")` to `("djstripe", "0001_initial")`
+    to match dj-stripe 2.10's squashed migrations.
+  - **See the upgrading section below for more details.**
+- Updated health check setup to use the new `django-health-check` API. The health check view now uses `HealthCheckView`
+  (replacing the deprecated `MainView`) and configures checks inline instead of via `INSTALLED_APPS`.
+  - See upgrade notes if you were using custom health checks
+- Switched default database and Redis URLs from `localhost` to `127.0.0.1` to fix a performance issue on Windows
+  where DNS resolution of `localhost` could be slow.
+- Cleaned up unused undraw illustration images that were always included in builds regardless of project configuration.
+  Only images that are actually used based on your build configuration are now included.
+- **Added an "upgrade-pegasus" Claude Code skill** to help automate the Pegasus upgrade process via the CLI.
+- Updated the "resolve-pegasus-conflicts" skill with guidance for handling the dj-stripe 2.10 migration squash,
+  field changes, and the need to re-sync Stripe data after migrating.
+- Included `pegasus-cli` in all projects, not just HTMX builds.
+- Added `.playwright-mcp/` to the `.gitignore` for projects with any AI rules enabled.
+
+### Upgrading
+
+*Note: It's recommended to use the `/resolve-pegasus-conflicts` skill to handle some of these instructions automatically.*
+
+**Stripe / dj-stripe upgrades**
+
+If you are using Stripe/dj-stripe pay careful attention to the [upgrade notes](https://github.com/dj-stripe/dj-stripe/releases).
+
+Code changes:
+
+- If you have custom code that imports from `stripe.error`, update those imports to use the top-level
+  `stripe` module (e.g. `from stripe.error import InvalidRequestError` → `from stripe import InvalidRequestError`).
+- If you have custom migration files that depend on `("djstripe", "0012_2_8")`, update them to `("djstripe", "0001_initial")`.
+- If you had the `RunSQL` migration workaround for `djstripe_paymentintent.capture_method`,
+  you can safely remove it.
+- If you have custom code that queries on Stripe model fields that were previously DB columns
+  (e.g. `filter(status=...)`, `filter(recurring__interval=...)`), update them to use
+  `stripe_data`-based lookups (e.g. `filter(stripe_data__status=...)`, `filter(stripe_data__recurring__interval=...)`).
+
+Running the migration:
+
+- It's recommeneded to back up your production database before migrating so it can be rolled back in case there are any issues.
+- After migrating, run `./manage.py djstripe_sync_models Product Price Subscription Customer` to repopulate `stripe_data` for existing records.
+  Without this, properties like `product.default_price` may return `None`.
+  Note that if you have used custom fields on other djstripe models you should include those in the set that you sync.
+  *You should also run this on your production site after upgrading.*
+
+**Health check upgrade**
+
+If you had configured any custom health checks, you should update `HealthCheckView` in `apps/web/urls.py`
+to include those checks.
+
+*Feb 25, 2026*
+
 ## Version 2026.2.1
 
 This release adds tooling for updating projects via the `pegasus projects` cli and
