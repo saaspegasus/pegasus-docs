@@ -40,6 +40,8 @@ and has a few small updates to agent skills.
   - Updated migration dependencies from `("djstripe", "0012_2_8")` to `("djstripe", "0001_initial")`
     to match dj-stripe 2.10's squashed migrations.
   - **See the upgrading section below for more details.**
+- Removed custom `django-celery-beat` installation, now that the library officially supports Django 6.
+- Removed git installation from production Dockerfiles (since no libraries are installed from git anymore).
 - Updated health check setup to use the new `django-health-check` API. The health check view now uses `HealthCheckView`
   (replacing the deprecated `MainView`) and configures checks inline instead of via `INSTALLED_APPS`.
   - See upgrade notes if you were using custom health checks
