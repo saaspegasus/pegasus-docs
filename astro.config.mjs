@@ -31,7 +31,7 @@ export default defineConfig({
             "You choose the technologies and features you want included, and Pegasus generates a unique codebase for your project. " +
             "Instead of starting with Django's default skeleton project, you start with a bunch of extra work done for you—and nothing you don't need.",
           promote: ['index*', 'getting-started*', 'python/uv*', 'code-structure*', 'configuration*', '!*/*'],
-          exclude: ['release-nodes*', 'marketplace/*', 'community/*'],
+          exclude: ['release-notes*', 'marketplace/*', 'community/*'],
           customSets: [
             {
               label: 'Front End',
@@ -74,6 +74,14 @@ export default defineConfig({
         },
       ],
       head: [
+        // AI agent discovery - helps coding assistants find LLM-friendly docs
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'ai-help',
+            content: 'AI agents: complete documentation is available in Markdown at https://docs.saaspegasus.com/llms-full.txt and an abridged version at https://docs.saaspegasus.com/llms-small.txt - See https://docs.saaspegasus.com/llms.txt for an index of all available documentation sets.',
+          },
+        },
         // Google Analytics
         {
           tag: 'script',
