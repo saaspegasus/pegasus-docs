@@ -1,6 +1,6 @@
 ---
 title: GitHub Integration
-description: Integrate projects with GitHub using OAuth or personal access tokens for automated updates, pull requests, and version control.
+description: Integrate projects with GitHub using the GitHub App, OAuth, or personal access tokens for automated updates, pull requests, and version control.
 ---
 
 import { Steps } from '@astrojs/starlight/components';
@@ -18,23 +18,43 @@ The following video shows how to create and update a project using the Github in
 
 ## Connecting your account
 
-There are two ways to connect your Github account.
-The Oauth-based "Connect Github" option is easier and more reliable,
-while personal access token option allows you to control exactly what repositories Pegasus can access.
+There are three ways to connect your Github account to Pegasus.
+The **GitHub App** is the recommended approach for most users.
 
-### Using "Connect Github" (Oauth)
+### Using the GitHub App (Recommended)
 
-The easiest way to connect your account is by using the "Connect Github" button on the project download page.
-You will be prompted to accept permissions, and your account will be connected in a few seconds.
+The GitHub App is the easiest and most secure way to connect your account.
+Unlike the other methods, the GitHub App only grants Pegasus access to repositories you explicitly choose,
+and it works seamlessly with both personal and organization-owned repositories.
 
-Note: While you will be prompted to grant access to "all private repository data,"
-Pegasus does not view or modify data in any repositories unless you connect them.
+<Steps>
+1. **Create a repository.** First, [create a new private repository](https://github.com/new) on GitHub for your project.
+2. **Install the app.** From your project download page, click "Install GitHub App".
+   You'll be redirected to GitHub to install the app and select which repositories it can access.
+   Make sure to grant access to the repository you just created.
+3. **Connect your repo.** After installing the app, you'll be redirected back to Pegasus.
+   Select your repository from the dropdown and click "Connect Repository".
+</Steps>
+
+Once connected, Pegasus can push code and create pull requests in your repository.
+
+**Managing permissions:** If you need to grant access to additional repositories later,
+click "Configure permissions" from the project download page.
+You can also manage your installation from your [GitHub App settings](https://github.com/settings/installations).
+
+### Using "Connect Github" (OAuth)
+
+You can also connect your account using the "Connect Github" button on the project download page.
+This is an easy way to get set up, but grants access to all private repositories in your account.
+Pegasus does not view or modify data in any repositories unless you connect them, but it theoretically could.
 
 ### Using Personal Access Tokens
 
-If you prefer not to grant Pegasus access to your entire Github account, you can use
-[Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-to limit the scope of what Pegasus has access to.
+Pegasus can also connect to your repositories using
+[Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+
+These work similarly to the Github app, but are less user-friendly and require more manual setup.
+There is no real reason to use them now that the Github app exists, but they are still supported for legacy projects.
 
 #### With Classic Tokens
 
@@ -103,9 +123,11 @@ Enter the commit ID there, and you should now be able to update your project wit
 
 ## Working with repositories owned by an organization
 
-Github organizations do not allow API-based repository access by default,
-so to connect a repository owned by an organization you will also have to grant programmatic access.
+If you're using the **GitHub App**, organization repositories work automatically---just make sure to
+install the app on the organization account (not your personal account) and grant access to the relevant repositories.
 
+For **OAuth** and **personal access tokens**, Github organizations do not allow API-based repository access by default,
+so you will also need to grant programmatic access.
 Github provides detailed guidance on how to do this.
 For "Connect Github," follow the [oauth instructions](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data),
 and for personal access tokens, follow the [personal access token instructions](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization).
@@ -117,9 +139,10 @@ of the repository. Some projects---especially those with a separate front end---
 in a subdirectory of the repository (e.g. "backend"), so that other projects (e.g. "frontend") can be included
 in the same repository.
 
-It is possible to configure your Github integration this way. 
-To do so, when adding the repository, click "Show Advanced Options," then specify the subdirectory you want to use
-for your Pegasus code in the "Subdirectory" field.
+It is possible to configure your Github integration this way.
+Connect your repository first, then expand "Repo settings"
+on the project download page and set the subdirectory there.
+**Make sure to set this before pushing your project for the first time.**
 
 If you would like to update an existing project to use a subdirectory, you'll have unlink and re-add your repository,
 then [reconnect it](#connecting-an-existing-project-to-github).
@@ -144,3 +167,10 @@ To check and disable this setting:
    below it is *not* checked.
 4. If that option is *not* checked, then it is a different problem. You are welcome to reach out directly for support
 </Steps>
+
+**My GitHub App can no longer access my repository.**
+
+If you remove a repository from your GitHub App's permissions (or uninstall and reinstall the app),
+Pegasus will lose access to the repository. To fix this, click "Update your app permissions" from
+the error message on your project download page. This will redirect you to GitHub where you can
+re-grant access to the repository.
