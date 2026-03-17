@@ -14,4 +14,58 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-There have not been any updates to the release notes since the 2026.2.2 release.
+## Version 2026.3
+
+This release adds a fully-featured React profile page, React-based team management,
+upgrades to Vite 8, switches to the modern `psycopg` driver, and includes several frontend and backend improvements.
+
+### Standalone Frontend Improvements
+
+The [standalone frontend](/front-end/#standalone-front-end) continues to get closer to feature parity with the Django-rendered frontend.
+
+#### Profile Page
+
+The profile page has been completely rebuilt with full account management capabilities:
+
+- **Added email address management** — add, remove, verify, and set primary email addresses directly from the profile page.
+- **Added connected accounts management** — connect and disconnect social auth providers from the profile.
+- **Added two-factor authentication setup** — enable/disable TOTP-based 2FA, scan QR codes, and manage recovery codes, all from the React frontend.
+- **Added a reauthentication page** for confirming access before sensitive operations.
+- Improved the profile page layout with card-based sections for a cleaner UI.
+
+#### Teams Management
+
+Teams can now be fully managed from the React frontend:
+
+- **Added a Team Settings page** to the dashboard with team name editing, member list, invitation management, and a danger zone for deleting teams.
+- **Added a Team Switcher component** to the dashboard sidebar for switching between teams.
+- **Added a `TeamProvider` context** that makes the active team available throughout the React app.
+- **Added the ability to resend team invitations** via a new API endpoint.
+
+#### Other Frontend Changes
+
+- **Added a shared `i18n.js` utility** for translation functions (`gettext`, `interpolate`) that works in both Django and standalone frontend contexts.
+- **Improved auth page forms** to use proper `<form>` elements with `onSubmit` handlers instead of button click handlers,
+  improving keyboard accessibility (Enter key to submit).
+- Updated various auth pages (social auth callback, provider signup, email verification, MFA) to use
+  consistent shadcn/ui components (`Button`, `Input`, `Label`) instead of DaisyUI class-based styling.
+- Added CSS theme tokens for `success` and `warning` colors.
+
+### Vite 8
+
+- **Upgraded Vite from version 6 to version 8.** This includes faster production build times thanks to Rolldown.
+  See the [Vite 8 migration guide](https://vite.dev/guide/migration) for details.
+- **Upgraded most JavaScript packages to their latest versions**, including React 19.2, React Router 7.13, DaisyUI 5.5, Tailwind CSS 4.2, TypeScript 5.9, and ESLint 10.
+- **Migrated from individual `@radix-ui/*` packages to the unified `radix-ui` package.**
+
+### Other Changes
+
+- **Switched from `psycopg2` to `psycopg` (psycopg 3) in development and `psycopg[c]` in production.** Thanks Brennon for the suggestion!
+  The production Dockerfile now installs `libpq-dev` and `gcc` for compiling the C extension.
+- **Fixed `bootstrap_subscriptions` management command for dj-stripe 2.10+ compatibility.**
+  The command now syncs the Stripe Account before syncing products, preventing "Account matching query does not exist" errors.
+  Thanks Julian for reporting!
+- Added `legacy-peer-deps=true` to `.npmrc` files because `@tailwindcss/vite` (4.2.1) only declares peer support for Vite 5/6/7, not Vite 8.
+  This will be removed once Tailwind releases a version with `vite@^8` in its peer dependencies.
+
+*March 17, 2026*
