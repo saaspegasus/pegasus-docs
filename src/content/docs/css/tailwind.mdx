@@ -93,6 +93,15 @@ For example, to change the colors of the default theme, add a section like this:
 }
 ```
 
+If you're overriding a built-in theme (e.g. "light"), you should also disable DaisyUI's default themes
+to avoid CSS specificity conflicts in production builds:
+
+```css
+@plugin "daisyui" {
+  themes: false;
+}
+```
+
 ## Other products / themes
 
 ### shadcn
