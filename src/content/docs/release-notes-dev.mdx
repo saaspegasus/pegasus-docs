@@ -16,56 +16,90 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ## Version 2026.3
 
-This release adds a fully-featured React profile page, React-based team management,
-upgrades to Vite 8, switches to the modern `psycopg` driver, and includes several frontend and backend improvements.
+This release includes some big improvements to the [standalone frontend](/experimental/react-front-end),
+upgrades to Vite 8, and includes some minor fixes.
 
 ### Standalone Frontend Improvements
 
-The [standalone frontend](/front-end/#standalone-front-end) continues to get closer to feature parity with the Django-rendered frontend.
+The [standalone frontend](/experimental/react-front-end) continues to improve,
+getting closer to feature parity with the standard Django front end.
+
+This release adds many user and authentication features and team management support for team-based builds.
 
 #### Profile Page
 
-The profile page has been completely rebuilt with full account management capabilities:
+The profile page has been rebuilt with improved account management capabilities.
 
-- **Added email address management** — add, remove, verify, and set primary email addresses directly from the profile page.
-- **Added connected accounts management** — connect and disconnect social auth providers from the profile.
-- **Added two-factor authentication setup** — enable/disable TOTP-based 2FA, scan QR codes, and manage recovery codes, all from the React frontend.
-- **Added a reauthentication page** for confirming access before sensitive operations.
-- Improved the profile page layout with card-based sections for a cleaner UI.
+Details:
+
+- **Added email address management** — add, remove, verify, and set primary email addresses.
+- **Added connected accounts management** — connect and disconnect social accounts.
+- **Added two-factor authentication setup** — enable/disable TOTP-based 2FA, scan QR codes, and manage recovery codes.
+- Improved the profile page layout with card-based sections for a cleaner UI built on shadcn.
 
 #### Teams Management
 
-Teams can now be fully managed from the React frontend:
+Teams can now be managed from the React frontend:
 
 - **Added a Team Settings page** to the dashboard with team name editing, member list, invitation management, and a danger zone for deleting teams.
-- **Added a Team Switcher component** to the dashboard sidebar for switching between teams.
+- **Added a Team Switcher component** to the dashboard sidebar for switching between teams and creating new teams.
 - **Added a `TeamProvider` context** that makes the active team available throughout the React app.
-- **Added the ability to resend team invitations** via a new API endpoint.
 
 #### Other Frontend Changes
 
-- **Added a shared `i18n.js` utility** for translation functions (`gettext`, `interpolate`) that works in both Django and standalone frontend contexts.
 - **Improved auth page forms** to use proper `<form>` elements with `onSubmit` handlers instead of button click handlers,
-  improving keyboard accessibility (Enter key to submit).
+  improving keyboard accessibility and UX (Enter key to submit).
 - Updated various auth pages (social auth callback, provider signup, email verification, MFA) to use
   consistent shadcn/ui components (`Button`, `Input`, `Label`) instead of DaisyUI class-based styling.
-- Added CSS theme tokens for `success` and `warning` colors.
+- Added CSS theme tokens for `success` and `warning` colors, based off the existing DaisyUI theme colors.
+- Migrated from individual `@radix-ui/*` packages to the unified `radix-ui` package.
 
-### Vite 8
+### Vite 8 support
 
-- **Upgraded Vite from version 6 to version 8.** This includes faster production build times thanks to Rolldown.
-  See the [Vite 8 migration guide](https://vite.dev/guide/migration) for details.
-- **Upgraded most JavaScript packages to their latest versions**, including React 19.2, React Router 7.13, DaisyUI 5.5, Tailwind CSS 4.2, TypeScript 5.9, and ESLint 10.
-- **Migrated from individual `@radix-ui/*` packages to the unified `radix-ui` package.**
+The main front end and the standalone frontend now both use Vite 8.
+This simplifies the front end build process and should drastically improve performance building production assets.
+
+See the upgrading section for details.
+
 
 ### Other Changes
 
-- **Switched from `psycopg2` to `psycopg` (psycopg 3) in development and `psycopg[c]` in production.** Thanks Brennon for the suggestion!
+- **Upgraded most JavaScript packages to their latest versions**.
+- **Switch to using the `tailwindcss/vite` plugin instead of postcss for Tailwind CSS in the Django front end.**
+  - Also dropped the no-longer used `postcss.config.js` file.
+- Added the ability to resend team invitations via a new API endpoint. This was to support the standalone front end feature.
+  - Also added basic tests for this API.
+- Made minor improvements to the existing React teams code:
+  - Use relative URLs instead of absolute URLs for internal links.
+  - Make it possible to pass a urlBase prop to the components.
+  - Make it possible to pass image paths to the components.
+  - Explicitly state that `gettext` is assumed to be a global when used.
+- Added a shared `i18n.js` utility for translation functions (`gettext`, `interpolate`)
+  in preparation for introducing internationalization support in the future.
+- Switched from `psycopg2` to `psycopg` (psycopg 3) in development and `psycopg[c]` in production. Thanks Brennon for the suggestion!
   The production Dockerfile now installs `libpq-dev` and `gcc` for compiling the C extension.
-- **Fixed `bootstrap_subscriptions` management command for dj-stripe 2.10+ compatibility.**
+- Fixed `bootstrap_subscriptions` management command for dj-stripe 2.10+ compatibility.
   The command now syncs the Stripe Account before syncing products, preventing "Account matching query does not exist" errors.
   Thanks Julian for reporting!
+  - Also switched the command to use `self.stdout.write` instead of `print`.
 - Added `legacy-peer-deps=true` to `.npmrc` files because `@tailwindcss/vite` (4.2.1) only declares peer support for Vite 5/6/7, not Vite 8.
-  This will be removed once Tailwind releases a version with `vite@^8` in its peer dependencies.
+  This will be removed once Tailwind releases a version that supports Vite 8 in its peer dependencies.
+
+### Upgrading
+
+See the [Vite 8 migration guide](https://vite.dev/guide/migration) for details on upgrading your project to Vite 8.
+If you haven't made heavy customizations to your front end build process, this should be a straightforward upgrade
+and you should not need to change anything on top of what Pegasus does automatically.
+
+The psycopg change should work seamlessly with supported Pegasus deployments.
+If you have a non-standard/manual set up, you may need to install the prerequisites for building the psycopg C extension.
+
+For example, on Ubuntu:
+
+```bash
+sudo apt install clang build-essential libpq-dev python3-dev
+```
+
+Alternatively, you can change `psycopg[c]` to `psycopg[binary]` in your `pyproject.toml` file which should not require any additional setup.
 
 *March 17, 2026*
