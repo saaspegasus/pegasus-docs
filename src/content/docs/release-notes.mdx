@@ -74,11 +74,16 @@ See the upgrading section for details.
   The command now syncs the Stripe Account before syncing products, preventing "Account matching query does not exist" errors.
   Thanks Julian for reporting!
   - Also switched the command to use `self.stdout.write` instead of `print`.
+- Fixed a bug on React builds on the page that users see when they don't have any teams.
+  It said "you have pending invitations" even if the user did not have any. Thanks Jonathan for reporting!
 - Upgrade `sentry-python` to the latest version and re-enable the Pydantic AI sentry integration, now that
   [the integration bug](https://github.com/getsentry/sentry-python/pull/5522) is fixed.
 - Added `legacy-peer-deps=true` to `.npmrc` files and production Docker installs,
   because `@tailwindcss/vite` (4.2.1) only declares peer support for Vite 5/6/7, not Vite 8.
   This will be removed once Tailwind releases a version that supports Vite 8 in its peer dependencies.
+- Temporarily suppress requests/urllib3 warnings. Thanks Geoff and Jonathan for suggesting!
+
+
 
 ### Upgrading
 
