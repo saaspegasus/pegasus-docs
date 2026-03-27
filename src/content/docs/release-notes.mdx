@@ -16,6 +16,8 @@ This is minor hotfix release for 2026.3.1
 
 - Downgrades the NPM version to 11.11 to workaround [this issue with npm 11.12](https://github.com/npm/cli/issues/9151).
 - Updates the standalone frontend  Docker container to install packages with `--legacy-peer-deps` which was still needed.
+- Adds `psycopg[binary]` to dev requirements so that you don't need dependencies on your local system.
+  Thanks Randall for reporting!
 
 *March 27, 2026*
 
