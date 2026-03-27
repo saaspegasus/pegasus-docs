@@ -15,6 +15,7 @@ export default defineConfig({
     '/css/': '/css/overview/',
     '/ai/': '/ai/development/',
     '/deployment/': '/deployment/overview/',
+    '/experimental/type-checking/': '/python/type-checking/',
     '/experimental/': '/experimental/react-front-end/',
     '/community/': '/community/digital-ocean-spaces/',
     '/deployment/google-cloud-github-actions/': '/community/google-cloud-github-actions/',
