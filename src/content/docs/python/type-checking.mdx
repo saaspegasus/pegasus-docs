@@ -2,17 +2,10 @@
 title: Type Checking with Mypy
 description: Enable static type checking in your Pegasus project using mypy and django-stubs.
 ---
-import ExperimentalFeature from '../../../components/ExperimentalFeature.astro';
-
-<ExperimentalFeature />
 
 Pegasus includes optional support for static type checking using [mypy](https://mypy-lang.org/)
 and [django-stubs](https://github.com/typeddjango/django-stubs).
 When enabled, type checking runs automatically in GitHub Actions CI.
-
-*This feature is currently marked as experimental because not every combination of Pegasus features has
-been fully tested by mypy. However, most common configurations are tested and should work out of the box.
-However, enabling type checking is perfectly safe.*
 
 ## Enabling Type Checking
 
