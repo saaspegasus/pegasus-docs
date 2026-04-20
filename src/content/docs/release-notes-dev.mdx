@@ -16,10 +16,72 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ### 2026.4
 
-- Overhauled logging to be more consistent
-  - Use `__name__` everywhere in loggers instead of custom names
-  - Always name logger variables `logger`
-- Added validation to Stripe price IDs and don't send prices to Stripe unless they match expected formats.
-  - Also added tests for this
+This release introduces a major change to how CSS classes work in Tailwind projects,
+adds a revamped sticky header, enhances the AI agent chat with a new streaming/thinking UI,
+and includes a number of security, bug, and dependency fixes.
+
+### Native Tailwind / DaisyUI Classes by Default
+
+Previously, Pegasus projects used its own set of `pg-` prefixed CSS classes
+(e.g., `pg-button-primary`, `pg-title`) that mapped to the underlying framework's
+styles via Sass `@extend` or Tailwind `@apply`.
+
+**New Tailwind projects now output native Tailwind and DaisyUI classes directly**
+(e.g., `btn btn-primary`, `text-3xl font-bold mb-2`).
+This means you can style your app using the standard
+[Tailwind](https://tailwindcss.com/) and [DaisyUI](https://daisyui.com/) documentation,
+without needing to learn or look up Pegasus-specific class names.
+
+**Existing projects can stay on `pg-` classes** by checking the "Use Pegasus CSS classes"
+option in your project configuration — nothing will change for you until you decide to migrate.
+
+**Bootstrap and Bulma projects are unaffected** and continue to use `pg-` classes as before.
+
+A migration script (`scripts/migrate_pg_css_classes.py`) is included in new projects
+to help existing Tailwind projects migrate from `pg-` classes to native classes when ready.
+It supports `--dry-run` so you can preview changes before applying them.
+
+See [the updated CSS docs](/css/pegasus-css/) for full details, including which classes
+are covered by the migration and which (like chat and breadcrumb styles) remain as `pg-`.
+
+### Improved AI Agent Chat Experience
+
+The agent streaming system has been refactored to use typed events
+(`ThinkingTextEvent`, `ToolCallEvent`, `ToolResultEvent`, `FinalTextEvent`) powered
+by `pydantic_ai`'s `agent.iter()`. This enables a richer chat experience:
+
+- **Added a collapsible "thinking" section** in the chat UI that shows the agent's
+  reasoning and tool calls as they happen.
+- **The chat overlay is now resizable** — drag the left edge to change the width,
+  and the size is remembered across sessions.
+- Added tests for the new agent streaming behavior.
+
+### Other Changes
+
+- **Overhauled the default top navigation** with a sticky header that uses a glassmorphism
+  effect, plus a new mobile slide-in drawer for smaller screens.
+- **Added a 7-day cooldown before picking up newly-published packages** (via `uv`'s
+  `exclude-newer` and npm's `min-release-age`) to help mitigate supply-chain attacks
+  that get caught shortly after release. The `upgrade-python-deps` Claude Code skill
+  has been updated to match.
+- **Upgraded Node and npm to their latest versions**, and upgraded most JavaScript packages.
+- **Upgraded TypeScript to version 6**, with associated `tsconfig.json` fixes.
+- Overhauled logging to be more consistent.
+  - Use `__name__` everywhere in loggers instead of custom names.
+  - Always name logger variables `logger`.
+- Added validation to Stripe price IDs — prices are only sent to Stripe when they match
+  the expected format. Also added tests for this.
+- Ran an AI-assisted security and bug audit across the codebase, which surfaced only
+  minor issues. Fixes included:
+  - Catching `IntegrityError` in the ecommerce purchase flow to avoid a race
+    between the Stripe webhook and the success redirect.
+  - Gating the admin AI agent WebSocket to superusers only.
+  - Making chat `message_type` read-only on the API so clients can't inject system-role messages.
+  - HTML-escaping streamed AI chat tokens to prevent XSS via model output.
+  - Fixing `subscription_is_trialing` to use `convert_tstamp` instead of comparing
+    a unix timestamp to a datetime.
+  - Including trialing subscriptions when syncing seat quantities (with a new test).
+  - Catching invalid user timezones in the locale middleware instead of crashing.
+- The team context processor now falls back to `default_team` when no team is set in the URL.
 
 
