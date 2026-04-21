@@ -56,14 +56,22 @@ by `pydantic_ai`'s `agent.iter()`. This enables a richer chat experience:
   and the size is remembered across sessions.
 - Added tests for the new agent streaming behavior.
 
+### Supply Chain Protections
+
+A few changes to help protect against supply-chain attacks on package dependencies:
+
+- **Added a 7-day cooldown before picking up newly-published packages**, so that compromised
+  packages caught shortly after release don't end up in your project. This is applied via
+  `uv`'s `exclude-newer` setting for Python and npm's `min-release-age` setting for JavaScript.
+  The `upgrade-python-deps` Claude Code skill has been updated to pass the same flag.
+- **Added a committed `package-lock.json`** (and `frontend/package-lock.json` for standalone
+  frontend builds) to generated projects. This ensures `npm install` produces deterministic
+  results out of the box and gives you a lockfile to review when dependencies change.
+
 ### Other Changes
 
 - **Overhauled the default top navigation** with a sticky header that uses a glassmorphism
   effect, plus a new mobile slide-in drawer for smaller screens.
-- **Added a 7-day cooldown before picking up newly-published packages** (via `uv`'s
-  `exclude-newer` and npm's `min-release-age`) to help mitigate supply-chain attacks
-  that get caught shortly after release. The `upgrade-python-deps` Claude Code skill
-  has been updated to match.
 - **Upgraded Node and npm to their latest versions**, and upgraded most JavaScript packages.
 - **Upgraded TypeScript to version 6**, with associated `tsconfig.json` fixes.
 - Overhauled logging to be more consistent.
@@ -80,8 +88,11 @@ by `pydantic_ai`'s `agent.iter()`. This enables a richer chat experience:
   - HTML-escaping streamed AI chat tokens to prevent XSS via model output.
   - Fixing `subscription_is_trialing` to use `convert_tstamp` instead of comparing
     a unix timestamp to a datetime.
-  - Including trialing subscriptions when syncing seat quantities (with a new test).
+  - Including trialing subscriptions when syncing seat quantities.
   - Catching invalid user timezones in the locale middleware instead of crashing.
+  - Added a broad set of new tests around the above areas, including timezone middleware
+    handling, teams middleware 404 behavior, and the chat message API (covering auth,
+    cross-user access, and system-message injection attempts).
 - The team context processor now falls back to `default_team` when no team is set in the URL.
 
 
