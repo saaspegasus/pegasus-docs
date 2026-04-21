@@ -10,6 +10,156 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+### 2026.3.2
+
+This is minor hotfix release for 2026.3.1
+
+- Downgrades the NPM version to 11.11 to workaround [this issue with npm 11.12](https://github.com/npm/cli/issues/9151).
+- Updates the standalone frontend  Docker container to install packages with `--legacy-peer-deps` which was still needed.
+- Adds `psycopg[binary]` to dev requirements so that you don't need dependencies on your local system.
+  Thanks Randall for reporting!
+
+*March 27, 2026*
+
+### 2026.3.1
+
+This is a minor hotfix release for 2026.3.
+
+- Fixes a bug where some dates (like "since") were not showing on the subscription page when you
+  have an active subscription. Thanks Brennon for reporting / suggesting the fix!
+- Upgrades the latest JS packages.
+- Removes the `legacy-peer-deps` installation flags that were added for `tailwindcss/vite` which
+  now supports Vite 8.
+- Consistently uses npm version 11.12 everywhere.
+
+*March 24, 2026*
+
+## Version 2026.3
+
+This release includes some big improvements to the [standalone frontend](/experimental/react-front-end),
+upgrades everything to [Vite 8](https://vite.dev/blog/announcing-vite8), and includes the usual small improvements.
+
+### Standalone Frontend Improvements
+
+The [standalone frontend](/experimental/react-front-end) now fully supports user profiles,
+social authentication, email setup, two-factor authentication, and team management (for team-based builds).
+
+#### Profile Page
+
+The profile page has been rebuilt with improved account management capabilities. Details:
+
+- **Added email address management** — add, remove, verify, and set primary email addresses.
+- **Added connected accounts management** — connect and disconnect social accounts.
+- **Added two-factor authentication setup** — enable/disable TOTP-based 2FA, scan QR codes, and manage recovery codes.
+- Improved the profile page layout with card-based sections for a cleaner UI built on shadcn.
+
+#### Teams Management
+
+Teams can now be managed from the React frontend:
+
+- **Added a Team Settings page** to the dashboard with team name editing, member list, invitation management, and a danger zone for deleting teams.
+- **Added a Team Switcher component** to the dashboard sidebar for switching between teams and creating new teams.
+- **Added a `TeamProvider` context** that makes the active team available throughout the React app.
+
+#### Other Standalone Frontend Changes
+
+- Improved auth page forms to use proper `<form>` elements with `onSubmit` handlers instead of button click handlers,
+  improving keyboard accessibility and UX (Enter key to submit).
+- Updated various auth pages (social auth callback, provider signup, email verification, MFA) to use
+  consistent shadcn/ui components (`Button`, `Input`, `Label`) instead of DaisyUI class-based styling.
+- Added CSS theme tokens for `success` and `warning` colors, based off the existing DaisyUI theme colors.
+- Migrated from individual `@radix-ui/*` packages to the unified `radix-ui` package based on the latest recommendations
+  from shadcn.
+
+### Vite 8 support
+
+Both front ends in Pegasus now use Vite 8.
+This should dramatically speed up production build times.
+
+See the upgrading section for details.
+
+
+### Other Changes
+
+- **Upgraded most JavaScript packages to their latest versions**.
+- **Switch to using the `tailwindcss/vite` plugin instead of postcss for Tailwind CSS in the Django front end.**
+  - Also dropped the no-longer used `postcss.config.js` file.
+- **Made improvements to the existing React teams code**:
+  - Use relative URLs instead of absolute URLs for internal links.
+  - Make it possible to pass a urlBase prop to the components.
+  - Make it possible to pass image paths to the components.
+  - Explicitly declare when `gettext` is assumed to be a global function.
+- Added the ability to resend team invitations via a new API endpoint. This supports the new standalone front end feature.
+  - Also added basic tests for this API.
+- Switched from `psycopg2` to `psycopg` (psycopg 3) in development and `psycopg[c]` in production. Thanks Brennon for the suggestion!
+  The production Dockerfile now installs `libpq-dev` and `gcc` for compiling the C extension.
+  - See the upgrading section for details.
+- Fixed `bootstrap_subscriptions` management command for dj-stripe 2.10+ compatibility.
+  The command now syncs the Stripe Account before syncing products, preventing "Account matching query does not exist" errors.
+  Thanks Julian for reporting!
+  - Also switched the command to use `self.stdout.write` instead of `print`.
+- Fixed a bug on React builds on the page that users see when they don't have any teams.
+  It said "you have pending invitations" even if the user did not have any. Thanks Jonathan for reporting!
+- Upgrade `sentry-python` to the latest version and re-enable the Pydantic AI sentry integration, now that
+  [the integration bug](https://github.com/getsentry/sentry-python/pull/5522) is fixed.
+- Added `legacy-peer-deps=true` to `.npmrc` files and production Docker installs,
+  because `@tailwindcss/vite` (4.2.1) only declares peer support for Vite 5/6/7, not Vite 8.
+  This will be removed once Tailwind releases a version that supports Vite 8 in its peer dependencies.
+- Temporarily suppress requests/urllib3 warnings. Thanks Geoff and Jonathan for suggesting!
+
+
+
+### Upgrading
+
+**Vite 8**
+
+See the [Vite 8 migration guide](https://vite.dev/guide/migration) for details on upgrading your project to Vite 8.
+If you haven't made heavy customizations to your front end,
+you should not need to change anything on top of what Pegasus does automatically.
+
+One gotcha is that if you have overridden a built-in DaisyUI theme you will need to remove it from the initialization section of `site-tailwind.css`
+to avoid CSS specificity conflicts in production builds.
+
+You can remove all built-in themes by initializing DaisyUI like this:
+
+```css
+@plugin "daisyui" {
+  themes: false;
+}
+```
+
+Then adding your custom themes:
+
+```css
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: blue;
+  --color-secondary: teal;
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  prefersdark: true;
+  --color-primary: red;
+  --color-secondary: teal;
+}
+```
+
+**psycopg**
+
+The psycopg change should work seamlessly with supported Pegasus deployments, however
+if you have a non-standard/manual set up, you may need to install the prerequisites for building the psycopg C extension.
+
+For example, on Ubuntu:
+
+```bash
+sudo apt install clang build-essential libpq-dev python3-dev
+```
+
+Alternatively, you can change `psycopg[c]` to `psycopg[binary]` in your `pyproject.toml`/`uv.lock` file which should not require any additional changes.
+
+*March 18, 2026*
+
 ## Version 2026.2.2
 
 This maintenance release upgrades Python dependencies, including `stripe` and `dj-stripe`, to their latest major versions,
@@ -217,7 +367,7 @@ Note: this features is labeled as experimental because not every combination of 
 been fully tested by mypy, but it will become an official supported feature in the next release and is
 safe to enable and use.
 
-See the new [Type Checking documentation](/experimental/type-checking/) for details.
+See the new [Type Checking documentation](/python/type-checking/) for details.
 
 
 ### Git Worktree Support (Experimental)

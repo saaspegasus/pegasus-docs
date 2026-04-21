@@ -1,7 +1,12 @@
 ---
-title: Bootstrap
+title: Bootstrap (Deprecated)
 description: Customize Bootstrap 5 themes in Pegasus with Sass variables, JavaScript integration, and Material Kit alternatives for responsive web design.
 ---
+
+:::caution[Deprecated]
+Bootstrap is deprecated in Pegasus. It will continue to work for existing projects, but will not receive
+new features and support will be removed in a future release. New projects should use [TailwindCSS](/css/tailwind/).
+:::
 
 There are two Bootstrap themes, both of which use Bootstrap version 5.
 

@@ -7,7 +7,7 @@ sidebar:
 
 import { Steps } from '@astrojs/starlight/components';
 
-Pegasus supports [Tailwind CSS](https://tailwindcss.com/) (Version 4) and it is the recommended CSS framework for most projects.
+Pegasus supports [Tailwind CSS](https://tailwindcss.com/) (Version 4) and it is the recommended CSS framework for all projects.
 
 ## Demo and Overview
 
@@ -90,6 +90,15 @@ For example, to change the colors of the default theme, add a section like this:
   default: true;
   --color-primary: blue;
   --color-secondary: teal;
+}
+```
+
+If you're overriding a built-in theme (e.g. "light"), you should also disable DaisyUI's default themes
+to avoid CSS specificity conflicts in production builds:
+
+```css
+@plugin "daisyui" {
+  themes: false;
 }
 ```
 

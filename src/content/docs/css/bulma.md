@@ -1,7 +1,12 @@
 ---
-title: Bulma
+title: Bulma (Deprecated)
 description: Customize Bulma CSS framework using Sass variables for colors, typography, and styling in your Pegasus application.
 ---
+
+:::caution[Deprecated]
+Bulma is deprecated in Pegasus. It will continue to work for existing projects, but will not receive
+new features and support will be removed in a future release. New projects should use [TailwindCSS](/css/tailwind/).
+:::
 
 Bulma is readily customizable via [Sass variables](https://bulma.io/documentation/customize/variables/).
 Any of the variables used by Bulma can be changed by modifying the `assets/styles/site-bulma.scss` file.
