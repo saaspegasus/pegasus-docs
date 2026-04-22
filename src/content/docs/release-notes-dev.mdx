@@ -79,6 +79,13 @@ A few changes to help protect against supply-chain attacks on package dependenci
   - Always name logger variables `logger`.
 - Added validation to Stripe price IDs — prices are only sent to Stripe when they match
   the expected format. Also added tests for this.
+- **Fixed a bug in fixed-amount discount coupons** where the discount was being applied
+  at 100x the intended value (the code multiplied Stripe's `amount_off` — already in cents — by 100).
+  If you use fixed-amount coupons, review any past transactions and update accordingly.
+- **Added a friendly `403_csrf.html` template** so expired-session CSRF failures show a
+  clear "Your session has expired" page instead of Django's default.
+- Simplified the `REDIS_URL` settings logic so it no longer runs a no-op SSL-param update
+  on deploy platforms that don't need it.
 - Ran an AI-assisted security and bug audit across the codebase, which surfaced only
   minor issues. Fixes included:
   - Catching `IntegrityError` in the ecommerce purchase flow to avoid a race
@@ -90,6 +97,10 @@ A few changes to help protect against supply-chain attacks on package dependenci
     a unix timestamp to a datetime.
   - Including trialing subscriptions when syncing seat quantities.
   - Catching invalid user timezones in the locale middleware instead of crashing.
+  - Replacing `assert` statements in the ecommerce and subscription checkout flows with
+    proper `PermissionDenied` raises — asserts are stripped when Python runs with `-O`,
+    so they shouldn't be used for security checks. Also added structured logging around
+    these error paths.
   - Added a broad set of new tests around the above areas, including timezone middleware
     handling, teams middleware 404 behavior, and the chat message API (covering auth,
     cross-user access, and system-message injection attempts).
