@@ -10,6 +10,106 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+### 2026.4
+
+This release introduces an optional change to how CSS classes work in Tailwind projects,
+enhances the AI agent chat with a new streaming/thinking UI, adds a revamped sticky header,
+and includes a number of security, bug, and dependency fixes.
+
+### Native Tailwind / DaisyUI Classes by Default
+
+Previously, Pegasus projects used its own set of `pg-` prefixed CSS classes
+(e.g., `pg-button-primary`, `pg-title`) that mapped to the underlying framework's
+styles via Sass `@extend` or Tailwind `@apply`.
+This was primarily a convenience used to enable multiple CSS frameworks, but means
+that generated projects were not using native Tailwind and DaisyUI classes, which could
+confuse people and agents.
+
+**Now, Tailwind projects can output native Tailwind and DaisyUI classes directly**
+for most Pegasus helper classes. So you will see `btn btn-primary` instead of `pg-button-primary`
+in your templates and JavaScript files.
+This means agents will better understand the app styles without having to look up the
+Pegasus-specific class names, and Pegasus apps will feel more like "standard" Tailwind and DaisyUI apps.
+
+Notes:
+- Existing projects will stay on `pg-` classes by default.
+  See the migration guide for details on how to migrate your project to native classes.
+- Legacy Bootstrap and Bulma projects are unaffected and will continue to use `pg-` classes as before.
+
+A migration script (`scripts/migrate_pg_css_classes.py`) is included in new projects
+to help existing Tailwind projects migrate from `pg-` classes to native classes when ready.
+It supports `--dry-run` so you can preview changes before applying them.
+
+See [the updated CSS docs](/css/pegasus-css/) for full details, including which classes
+are covered by the migration and which (like chat and breadcrumb styles) remain as `pg-`.
+
+### Improved AI Agent Chat Experience
+
+The agent streaming system has been refactored to use typed events
+(`ThinkingTextEvent`, `ToolCallEvent`, `ToolResultEvent`, `FinalTextEvent`) powered
+by `pydantic_ai`'s `agent.iter()`. This enables a richer chat experience:
+
+- **Added a collapsible "thinking" section** in the chat UI that shows the agent's
+  reasoning and tool calls as they happen.
+- **The chat overlay is now resizable** — drag the left edge to change the width,
+  and the size is remembered across sessions.
+- Added tests for the new agent streaming behavior.
+
+### Supply Chain Protections
+
+A few changes to help protect against supply-chain attacks on package dependencies:
+
+- **Added a 7-day cooldown before picking up newly-published packages**, so that compromised
+  packages caught shortly after release don't end up in your project. This is applied via
+  `uv`'s `exclude-newer` setting for Python and npm's `min-release-age` setting for JavaScript.
+  The `upgrade-python-deps` Claude Code skill has been updated to pass the same flag.
+- **Added a committed `package-lock.json`** (and `frontend/package-lock.json` for standalone
+  frontend builds) to generated projects. This ensures `npm install` produces deterministic
+  results out of the box and gives you a lockfile to review when dependencies change.
+
+### Other Changes
+
+- **Overhauled the default top navigation** with a sticky header that uses a glassmorphism
+  effect, plus a new mobile slide-in drawer for smaller screens.
+- **Upgraded Node and npm to their latest versions**, and upgraded most JavaScript packages.
+- **Upgraded most Python packages** to their latest versions.
+- **Pinned the `stripe` library to `>=14,<15`** so the upcoming Stripe 15 release isn't picked
+  up automatically. We'll bump this once dj-stripe and the rest of the stack are ready for it.
+- **Upgraded TypeScript to version 6**, with associated `tsconfig.json` fixes.
+- Overhauled logging to be more consistent.
+  - Use `__name__` everywhere in loggers instead of custom names.
+  - Always name logger variables `logger`.
+- Added validation to Stripe price IDs — prices are only sent to Stripe when they match
+  the expected format. Also added tests for this.
+- **Fixed a bug in fixed-amount discount coupons** where the discount was being applied
+  at 100x the intended value (the code multiplied Stripe's `amount_off` — already in cents — by 100).
+  If you use fixed-amount coupons, review any past transactions and update accordingly.
+- **Added a friendly `403_csrf.html` template** so expired-session CSRF failures show a
+  clear "Your session has expired" page instead of Django's default.
+- Simplified the `REDIS_URL` settings logic so it no longer runs a no-op SSL-param update
+  on deploy platforms that don't need it.
+- Ran an AI-assisted security and bug audit across the codebase, which surfaced only
+  minor issues. Fixes included:
+  - Catching `IntegrityError` in the ecommerce purchase flow to avoid a race
+    between the Stripe webhook and the success redirect.
+  - Gating the admin AI agent WebSocket to superusers only.
+  - Making chat `message_type` read-only on the API so clients can't inject system-role messages.
+  - HTML-escaping streamed AI chat tokens to prevent XSS via model output.
+  - Fixing `subscription_is_trialing` to use `convert_tstamp` instead of comparing
+    a unix timestamp to a datetime.
+  - Including trialing subscriptions when syncing seat quantities.
+  - Catching invalid user timezones in the locale middleware instead of crashing.
+  - Replacing `assert` statements in the ecommerce and subscription checkout flows with
+    proper `PermissionDenied` raises — asserts are stripped when Python runs with `-O`,
+    so they shouldn't be used for security checks. Also added structured logging around
+    these error paths.
+  - Added a broad set of new tests around the above areas, including timezone middleware
+    handling, teams middleware 404 behavior, and the chat message API (covering auth,
+    cross-user access, and system-message injection attempts).
+- The team context processor now falls back to `default_team` when no team is set in the URL.
+
+*April 24, 2026*
+
 ### 2026.3.2
 
 This is minor hotfix release for 2026.3.1
