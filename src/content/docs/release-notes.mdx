@@ -10,6 +10,110 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+### 2026.4
+
+This release introduces an optional change to how CSS classes work in Tailwind projects,
+enhances the AI agent chat with a new streaming/thinking UI, adds a revamped sticky header,
+and includes a number of security, bug, and dependency fixes.
+
+### Native Tailwind / DaisyUI Classes by Default
+
+Previously, Pegasus projects used its own set of `pg-` prefixed CSS classes
+(e.g., `pg-button-primary`, `pg-title`) that mapped to the underlying framework's
+styles via Sass `@extend` or Tailwind `@apply`.
+This was primarily a convenience used to enable multiple CSS frameworks, but means
+that generated projects were not using native Tailwind and DaisyUI classes, which could
+confuse people and agents.
+
+**Now, Tailwind projects can output native Tailwind and DaisyUI classes directly**
+for most Pegasus helper classes. So you will see `btn btn-primary` instead of `pg-button-primary`
+in your templates and JavaScript files.
+This means agents will better understand the app styles without having to look up the
+Pegasus-specific class names, and Pegasus apps will feel more like "standard" Tailwind and DaisyUI apps.
+
+Notes:
+- Existing projects will stay on `pg-` classes by default, but migration should be straightforward
+  and mostly automated.
+  See the [migration guide](/css/pegasus-css/#migrating-from-pg--classes-to-native-classes)
+  for details on how to switch your project over to native classes.
+- Legacy Bootstrap and Bulma projects are unaffected and will continue to use `pg-` classes as before.
+
+See [the updated CSS docs](/css/pegasus-css/) for full details, including which classes
+are covered by the migration and which (like chat and breadcrumb styles) remain as `pg-`.
+
+### Improved AI Agent Chat Experience
+
+A few big upgrades to the agent chat experience:
+
+- **Agents will now stream thinking text, and tool calls/results in real time.**
+  This provides a richer chat experience and makes it easier to follow fthe agent's
+  thought process. This happens inside a new collapsible "thinking" section in the chat UI.
+- The chat sidebar is now resizable, giving more room to breathe for chats.
+- Added tests for the new agent streaming behavior.
+
+### Supply Chain Protections
+
+A few changes to help protect against supply-chain attacks on package dependencies,
+which have become much more common recently:
+
+- Added a 7-day cooldown before picking up newly-published npm packages using npm's `min-release-age` setting,
+  so that compromised packages caught shortly after release don't end up in your project.
+- Updated The `upgrade-python-deps` skill to apply a similar cooldown to Python packages.
+  - Note: `uv`'s `exclude-newer` setting was not used because it ignores lockfile constraints.
+- **Added a committed `package-lock.json`** (and `frontend/package-lock.json` for standalone
+  frontend builds) to generated projects. This ensures `npm install` produces deterministic
+  results out-of-the-box with known good versions, and gives you a lockfile to review when dependencies change.
+
+### Other Changes
+
+- **Overhauled the default top navigation** with a sticky header that uses a glassmorphism
+  effect, plus a new mobile slide-in drawer for smaller screens.
+- **Overhauled logging to be more consistent.**
+  - Use `__name__` everywhere in loggers instead of custom names.
+  - Always name logger variables `logger`.
+- **Added a friendly `403_csrf.html` template** so expired-session CSRF failures show a
+  clear "Your session has expired" page instead of Django's default.
+- Updated the Pegasus CLI and agent skills to be able to generate custom pull request titles
+  for upgrades.
+
+### Upgrades
+
+- **Upgraded Node and npm to their latest versions**, and upgraded most JavaScript packages.
+- **Upgraded TypeScript to version 6**, with associated `tsconfig.json` fixes.
+- **Upgraded most Python packages** to their latest versions.
+- Pinned the `stripe` library to `>=14,<15` so the upcoming Stripe 15 release isn't picked
+  up automatically. We'll bump this once dj-stripe and the rest of the stack are ready for it.
+
+### Fixes
+
+Conducted multiple AI-assisted audits of the codebase and made a number of small/obscure fixes:
+
+- Added server-side gating to the admin AI agent WebSocket to superusers only.
+  The admin tool calls were already gated, but this helps prevent accidentally exposing
+  future non-gated tools.
+- Added validation to Stripe price IDs — prices are only sent to Stripe when they match
+  the expected format. Also added tests for this.
+- Fixed a bug in fixed-amount discount coupons where the discount was being applied
+  at 100x the intended value (the code multiplied Stripe's `amount_off` — already in cents — by 100).
+- Simplified the `REDIS_URL` settings logic so it no longer runs a no-op SSL-param update
+  on deploy platforms that don't need it.
+- Catch `IntegrityError` in the ecommerce purchase flow to avoid a race
+  between the Stripe webhook and the success redirect.
+- Made `message_type` read-only in the Chat API so clients can't inject system-role messages.
+- HTML-escaped streamed AI chat tokens to prevent XSS via model output.
+- Fixed `subscription_is_trialing` to properly compare a unix timestamp to a datetime
+  using `convert_tstamp` (it was raising `TypeError` on trialing subscriptions).
+- Included trialing subscriptions in `Team.get_items_needing_sync()` so seat-quantity
+  changes during a trial are synced to Stripe instead of waiting until the trial ends.
+- Handled invalid user timezones in the locale middleware instead of crashing on every request.
+- Replaced `assert` statements in the ecommerce and subscription checkout flows with
+  proper `PermissionDenied` raises and structured logging.
+- Made the team context processor fall back to `default_team` when no team is set in the URL.
+- Added tests around many of the above areas, including timezone middleware
+  handling, teams middleware 404 behavior, and the chat message API.
+
+*April 24, 2026*
+
 ### 2026.3.2
 
 This is minor hotfix release for 2026.3.1
