@@ -73,6 +73,9 @@ A few changes to help protect against supply-chain attacks on package dependenci
 - **Overhauled the default top navigation** with a sticky header that uses a glassmorphism
   effect, plus a new mobile slide-in drawer for smaller screens.
 - **Upgraded Node and npm to their latest versions**, and upgraded most JavaScript packages.
+- **Upgraded most Python packages** to their latest versions.
+- **Pinned the `stripe` library to `>=14,<15`** so the upcoming Stripe 15 release isn't picked
+  up automatically. We'll bump this once dj-stripe and the rest of the stack are ready for it.
 - **Upgraded TypeScript to version 6**, with associated `tsconfig.json` fixes.
 - Overhauled logging to be more consistent.
   - Use `__name__` everywhere in loggers instead of custom names.
