@@ -33,12 +33,9 @@ Pegasus-specific class names, and Pegasus apps will feel more like "standard" Ta
 
 Notes:
 - Existing projects will stay on `pg-` classes by default.
-  See the migration guide for details on how to migrate your project to native classes.
+  See the [migration guide](/css/pegasus-css/#migrating-from-pg--classes-to-native-classes)
+  for details on how to switch your project over to native classes.
 - Legacy Bootstrap and Bulma projects are unaffected and will continue to use `pg-` classes as before.
-
-A migration script (`scripts/migrate_pg_css_classes.py`) is included in new projects
-to help existing Tailwind projects migrate from `pg-` classes to native classes when ready.
-It supports `--dry-run` so you can preview changes before applying them.
 
 See [the updated CSS docs](/css/pegasus-css/) for full details, including which classes
 are covered by the migration and which (like chat and breadcrumb styles) remain as `pg-`.

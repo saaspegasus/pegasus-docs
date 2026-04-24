@@ -35,23 +35,32 @@ This is useful if:
 ### Migrating from pg- Classes to Native Classes
 
 If you have an existing project using `pg-` classes and want to switch to native Tailwind/DaisyUI classes,
-Pegasus ships a migration script to help:
+there are two steps:
+
+**1. Uncheck "Use Pegasus CSS classes" in your project settings.**
+
+In your project on [saaspegasus.com](https://www.saaspegasus.com/), go to
+**Developer Setup → Advanced** and uncheck **Use Pegasus CSS classes**.
+This tells Pegasus to output native Tailwind/DaisyUI classes in future builds.
+
+**2. Migrate your existing templates and JavaScript files.**
+
+Use the `pegasus migrate-css` command from the [Pegasus CLI](https://github.com/saaspegasus/pegasus-cli)
+to convert any `pg-` classes in your own code to their native equivalents:
 
 ```bash
 # Preview what would change
-python scripts/migrate_pg_css_classes.py --dry-run
+pegasus migrate-css --dry-run
 
 # Do the migration
-python scripts/migrate_pg_css_classes.py
+pegasus migrate-css
 ```
 
-The script will find all `pg-` classes in your templates and JavaScript files and replace them
-with their native Tailwind/DaisyUI equivalents.
+The command reads class mappings from your project's `assets/styles/pegasus/tailwind.css`,
+so it should match the version of Pegasus your project was built with.
+See the [pegasus-cli README](https://github.com/saaspegasus/pegasus-cli#migrating-pg--css-classes)
+for additional options (e.g. `--css-file` and `--search-dir` for non-standard project layouts).
 
-:::tip
-It's recommended to run with `--dry-run` first to review the changes,
-and to commit your work before running the migration so you can easily review the diff.
-:::
 
 ## Class Reference
 
