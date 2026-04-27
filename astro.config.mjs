@@ -1,6 +1,7 @@
 // @ts-check
 import {defineConfig} from 'astro/config';
 import starlight from '@astrojs/starlight';
+import sitemap from '@astrojs/sitemap';
 import starlightLinksValidator from 'starlight-links-validator'
 import starlightLlmsTxt from 'starlight-llms-txt'
 
@@ -22,6 +23,7 @@ export default defineConfig({
   },
   prefetch: true,
   integrations: [
+    sitemap(),
     starlight({
       plugins: [
         starlightLinksValidator({
