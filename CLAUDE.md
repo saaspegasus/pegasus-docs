@@ -29,7 +29,7 @@
 
 ## Default Versions
 - Default Node.js version: 22
-- Default Python version: 3.12
+- Default Python version: 3.14
 
 ## Deployment
 - Automatically deployed via Cloudflare Pages from main branch
