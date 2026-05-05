@@ -10,6 +10,45 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+### Version 2026.5
+
+This release upgrades Pegasus projects to Python 3.14, plus a few small improvements
+to the upgrade workflow and a minor security cleanup.
+
+### Python 3.14
+
+Pegasus projects now use Python 3.14 (specifically 3.14.4) by default, and CI runs on 3.14.
+
+A couple of small code cleanups came along with the upgrade:
+
+- Adopted [PEP 758](https://peps.python.org/pep-0758/)'s unparenthesized `except` syntax
+  in a few places (e.g. `except E1, E2:` instead of `except (E1, E2):`).
+- Removed unnecessary quoted forward references — under
+  [PEP 649](https://peps.python.org/pep-0649/) annotations are now evaluated lazily,
+  so the quoting workaround is no longer needed.
+
+If you're upgrading an existing project, bump your project's `requires-python` and
+local Python version to 3.14 as part of the upgrade.
+
+### Minor Changes
+
+- The `upgrade-pegasus` and `resolve-pegasus-conflicts` Claude Code skills now run the
+  post-merge verification steps (`npm` install/build, `uv sync`, migrations, tests, and
+  `ruff`) and push the upgrade branch automatically by default, pausing only if a step
+  fails or the merge required non-trivial judgment.
+- Removed an old `claude.yml` GitHub Actions workflow that had a minor prompt-injection
+  surface and is no longer needed. If you still want it, you can pull the file from
+  a previous Pegasus version. Thanks Viktor for flagging!
+
+### Removed
+
+- Dropped support for `pip-tools` as a Python environment/package manager. All
+  projects now use `uv` for Python environment and dependency management.
+  See the [pip-tools to uv migration guide](/cookbooks/#migrating-from-pip-tools-to-uv)
+  if you're upgrading an existing project.
+
+*May 5, 2026*
+
 ### Verison 2026.4
 
 This release adds the option to use native Tailwind/DaisyUI classes instead of the `pg-` helper classes
