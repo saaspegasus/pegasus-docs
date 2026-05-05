@@ -12,8 +12,7 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 
 ### Version 2026.5
 
-This release upgrades Pegasus projects to Python 3.14, plus a few small improvements
-to the upgrade workflow and a minor security cleanup.
+This release upgrades all projects to Python 3.14, and has a few very small improvements.
 
 ### Python 3.14
 
@@ -27,8 +26,7 @@ A couple of small code cleanups came along with the upgrade:
   [PEP 649](https://peps.python.org/pep-0649/) annotations are now evaluated lazily,
   so the quoting workaround is no longer needed.
 
-If you're upgrading an existing project, bump your project's `requires-python` and
-local Python version to 3.14 as part of the upgrade.
+All projects should get the new Python by default in dev and prod.
 
 ### Minor Changes
 
@@ -44,8 +42,15 @@ local Python version to 3.14 as part of the upgrade.
 
 - Dropped support for `pip-tools` as a Python environment/package manager. All
   projects now use `uv` for Python environment and dependency management.
-  See the [pip-tools to uv migration guide](/cookbooks/#migrating-from-pip-tools-to-uv)
-  if you're upgrading an existing project.
+
+### Upgrading
+
+There are not any special upgrade steps for Python 3.14 as it should be managed automatically by
+uv and the deployment scripts / Docker files. It is recommended to test your projects and any
+custom dependencies thoroughly on Python 3.14 before pushing the upgrade to production.
+
+For projects that were still using `pip-tools`, see the [migration guide](/cookbooks/#migrating-from-pip-tools-to-uv)
+to upgrade to `uv`. It's recommended to do this *before* upgrading to Python 3.14.
 
 *May 5, 2026*
 
