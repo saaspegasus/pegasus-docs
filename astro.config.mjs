@@ -60,7 +60,7 @@ export default defineConfig({
       },
       title: 'SaaS Pegasus',
       description: 'Documentation for SaaS Pegasus - the Django SaaS boilerplate',
-      favicon: '/favicon.svg',
+      favicon: '/favicon.ico',
       logo: {
         src: './src/assets/images/hero.png',
       },
