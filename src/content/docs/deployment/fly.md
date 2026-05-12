@@ -152,7 +152,7 @@ You can one-off commands via a shell:
 ```bash
 $ fly ssh console
 
-app $ ./code/manage.py [command]
+app $ .venv/bin/python manage.py [command]
 ```
 
 ### Celery Support
