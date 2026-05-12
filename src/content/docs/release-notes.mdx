@@ -10,6 +10,27 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.5.1
+
+This release updates the `pydandatic-ai` dependency to `pydantic-ai-slim[openai,anthropic,google,mcp]>=1.0`
+to work around build/install issues after the recent [mistral supply chain attack](https://github.com/mistralai/client-python/issues/523).
+See this [pydantic-ai issue](https://github.com/pydantic/pydantic-ai/issues/5382) for more details.
+
+If you're having trouble building your project on 2026.5, updating to 2026.5.1 should fix the issue.
+If you were using a different model provider or more pydantic-ai features than the ones included above,
+you will need to update your dependencies to add them back.
+
+**Security note:**
+
+The affected `mistral` package was downstream of `pydantic-ai` so theoretically could effect Pegasus projects.
+However, in practice it is very unlikely because:
+
+1. Pegasus's lockfile never contained the affected version (released May 7).
+   So you'd only be vulnerable if you intentionally upgraded your packages outside of a Pegasus update between May 7 and May 12, 2026 (the last 5 days as of this release).
+2. You wouldn't have triggered the vulnerability unless you were intentionally using mistral or set something like `DEFAULT_AI_MODEL=mistral` in your settings/env.
+
+*May 12, 2026*
+
 ## Version 2026.5
 
 This release upgrades all projects to Python 3.14, and has a few very small improvements.
