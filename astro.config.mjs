@@ -118,8 +118,8 @@ export default defineConfig({
         {label: 'Code Structure', slug: 'code-structure'},
         {
           label: 'Python',
-          autogenerate: {directory: 'python'},
           collapsed: true,
+          items: [{autogenerate: {directory: 'python'}}],
         },
         {
           label: 'Front End',
@@ -135,8 +135,8 @@ export default defineConfig({
         },
         {
           label: 'CSS',
-          autogenerate: {directory: 'css'},
           collapsed: true,
+          items: [{autogenerate: {directory: 'css'}}],
         },
         {label: 'Page Metadata', slug: 'page-metadata'},
         {label: 'Docker', slug: 'docker'},
@@ -153,8 +153,8 @@ export default defineConfig({
         {label: 'APIs', slug: 'apis'},
         {
           label: 'AI',
-          autogenerate: {directory: 'ai'},
           collapsed: true,
+          items: [{autogenerate: {directory: 'ai'}}],
         },
         {label: 'Internationalization', slug: 'internationalization'},
         {label: 'Wagtail', slug: 'wagtail'},
@@ -180,13 +180,13 @@ export default defineConfig({
         {label: 'Cookbooks', slug: 'cookbooks'},
         {
           label: 'Experimental',
-          autogenerate: {directory: 'experimental'},
           collapsed: true,
+          items: [{autogenerate: {directory: 'experimental'}}],
         },
         {
           label: 'Community Guides',
-          autogenerate: {directory: 'community'},
           collapsed: true,
+          items: [{autogenerate: {directory: 'community'}}],
         },
         {
           label: 'Using Pegasus',
