@@ -256,6 +256,42 @@ by calling the helper functions and decorators you've defined above.
 
 The specifics here will depend on the role you've added and the goals you're trying to achieve with it.
 
+## Background Tasks
+
+For Celery tasks that operate on team-scoped data, use the `@team_task` decorator from `apps.teams.celery`.
+It loads the team and enters the [team context](#team-context-variable) for the duration of the task,
+so the team-scoped `objects` manager works inside the task body the same way it does in views handled by the
+[middleware](#middleware).
+
+The convention is that the first positional argument to the task (after `self` when `bind=True`) is a `team_id`:
+
+```python
+from apps.teams.celery import team_task
+
+@team_task(bind=True, max_retries=2, queue="default")
+def process_team_data(self, team_id, payload_id):
+    payload = Payload.objects.get(pk=payload_id)  # automatically scoped to team_id
+    # ... do work ...
+```
+
+Enqueue it like any other Celery task, with `team_id` as the first positional argument:
+
+```python
+process_team_data.delay(team.id, payload.id)
+```
+
+`@team_task` accepts all the same options as Celery's `@shared_task` (`bind`, `max_retries`,
+`rate_limit`, `queue`, etc.) and forwards them through.
+
+<Aside>
+Unlike the view-side decorators, `@team_task` does **not** perform any authorization — there is no user in a
+background task. Whoever enqueued the task is responsible for confirming the caller had access to the team
+before calling `.delay(...)`.
+</Aside>
+
+If the team does not exist, the task raises `Team.DoesNotExist` rather than silently no-opping.
+A task enqueued against an invalid team is treated as a programming bug, not a recoverable condition.
+
 ## Cookbooks
 
 ### Strict team access
