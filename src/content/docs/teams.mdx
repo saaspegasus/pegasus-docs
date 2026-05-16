@@ -263,7 +263,8 @@ It loads the team and enters the [team context](#team-context-variable) for the 
 so the team-scoped `objects` manager works inside the task body the same way it does in views handled by the
 [middleware](#middleware).
 
-The convention is that the first positional argument to the task (after `self` when `bind=True`) is a `team_id`:
+The convention is that the task's first parameter (after `self` when `bind=True`) is a `team_id`. It can be passed
+either positionally or as a keyword argument:
 
 ```python
 from apps.teams.celery import team_task
@@ -274,10 +275,11 @@ def process_team_data(self, team_id, payload_id):
     # ... do work ...
 ```
 
-Enqueue it like any other Celery task, with `team_id` as the first positional argument:
+Enqueue it like any other Celery task:
 
 ```python
-process_team_data.delay(team.id, payload.id)
+process_team_data.delay(team.id, payload.id)              # positional
+process_team_data.delay(team_id=team.id, payload_id=...)  # kwarg
 ```
 
 `@team_task` accepts all the same options as Celery's `@shared_task` (`bind`, `max_retries`,
