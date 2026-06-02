@@ -16,8 +16,28 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ## Version 2026.6
 
-This release focuses on security hardening across auth and demo views, adds team-scoped Celery tooling,
-and includes a number of smaller improvements and fixes.
+This release lets you manage your Pegasus project settings from the CLI (and AI agents), hardens a few auth
+and demo endpoints, adds team-scoped Celery tooling, and includes a number of smaller improvements and fixes.
+
+### Manage your projects from the CLI (and AI agents)
+
+You can now create, inspect, and update your Pegasus project configuration directly from the terminal using
+the [`pegasus` CLI](https://github.com/saaspegasus/pegasus-cli)'s new `projects` commands — no need to click
+through the web UI to flip a feature or change a setting:
+
+```
+pegasus projects list                       # list all your projects
+pegasus projects show <id> --json           # full config of one project
+pegasus projects fields --for <id> --json   # schema of editable fields (tier-aware)
+pegasus projects create --set key=value ...
+pegasus projects update <id> --set key=value ...
+pegasus projects push <id>                  # push the rendered project to GitHub
+```
+
+To make this work well with coding agents, Pegasus now also ships a `pegasus-projects` Claude Code skill into
+every generated project. It teaches Claude (and other agents) how to authenticate, discover available fields
+for your license tier, and run the right CLI calls — so you can say things like *"add subscriptions to my
+Pegasus project"* or *"switch the front-end framework to React"* and have the agent do it for you.
 
 ### Security hardening
 
@@ -54,8 +74,6 @@ by team:
 **Added**
 
 - **Markdown rendering now supports tables**, via the markdown `TableExtension`.
-- Added a `pegasus-projects` Claude Code skill (shipped into generated projects) covering the new projects
-  CLI commands.
 
 **Changed**
 
