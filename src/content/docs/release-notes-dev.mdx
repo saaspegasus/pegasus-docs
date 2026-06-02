@@ -47,9 +47,12 @@ by team:
 **Added**
 
 - **Markdown rendering now supports tables**, via the markdown `TableExtension`.
+  This works well in the chat features when AI agents generate tables.
 
 **Changed**
 
+- **Logout and email confirmation now require `POST`.** A few small bit of JS preserve the existing user
+  experience, while preventing accidental or malicious triggering of these flows from GET requests.
 - **Refactored `get_image_url` meta-tag handling.** Default and page images are now resolved through
   `static()` consistently, and absolute `http(s)` URLs are passed through untouched.
 - **Gated the dashboard app behind paid tiers** (URLs and app are only included on non-free configurations).
@@ -73,9 +76,6 @@ by team:
 
 **Security**
 
-- **Logout and email confirmation now require `POST`.** A small JS shim converts logout links to POST
-  submissions so a stray `<img src="/accounts/logout/">` can't sign users out, and the confirmation page
-  auto-submits so email security scanners that don't run JS won't consume the token.
 - Restricted the `simulate_error` view to superusers.
 - Documented that the API schema and docs endpoints (`/api/schema/`, Swagger, ReDoc) are public by default,
   with inline guidance on how to restrict them.
