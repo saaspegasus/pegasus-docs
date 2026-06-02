@@ -95,12 +95,15 @@ which now has commands to create, update, inspect, and push your projects for yo
 - **Logout and email confirmation now require `POST`.** Pegasus handles this for you via the bundled
   `logout.js` shim and the auto-submitting confirmation page, but if you have additional logout links or a custom
   email-confirmation template they need to be updated.
-  - For logout links, *you should add a `data-logout-link` to any link to the logout page.*
+  - For logout links, you should add a `data-logout-link` to any link to the logout page.
   - For email confirmation, refer to Pegasus's `templates/account/email_confirm.html` template for auto-submitting.
   - Alternatively, you can set `ACCOUNT_LOGOUT_ON_GET=True` and/or `ACCOUNT_CONFIRM_EMAIL_ON_GET=True` in your settings
     file to restore the old behavior.
-- If you have any custom Celery tasks that operate on team-scoped models, consider migrating them to the new
-  `@team_task` decorator and `get_team_object_or_404` shortcut.
+- The `pre-commit` changes may cause errors in your existing code in CI when upgrading. It's recommended to run `pre-commit`
+  on your whole project with the updated rules:
+  ```
+  uv run pre-commit run --all-files
+  ```
 
 *May 29, 2026*
 
@@ -1998,4 +2001,3 @@ uv run ruff check --fix
 <Aside type="tip" title="Old Version?">
 Release notes for updates before 2025 are available on the [Release Notes History](/release-notes-history/) page.
 </Aside>
-
