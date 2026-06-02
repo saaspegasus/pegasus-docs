@@ -99,8 +99,9 @@ get_object_or_404(MyTeamModel, team=get_current_team(), pk=pk)
 
 If there is no team in context (for example, in a Celery task that didn't set one), the call raises a 404.
 
-Use this instead of `get_object_or_404(MyTeamModel, ...)` to avoid accidental cross-team lookups
-via the unfiltered default manager.
+This is especially useful if you are using [strict team access](#strict-team-access),
+where the model's default manager is `all_objects` (unfiltered) — so plain
+`get_object_or_404(MyTeamModel, ...)` would bypass the team filter.
 
 ## Team-based Views
 
