@@ -50,6 +50,8 @@ by team:
   It's recommended to use this instead of `get_object_or_404(id=id)` which will not explicitly add a team filer.
 - **Markdown rendering now supports tables**, via the markdown `TableExtension`.
   This works well in the chat features when AI agents generate tables.
+- Added a few new options for pre-commit:
+  - Removed trailing whitespace from a number of templates.
 
 **Changed**
 
@@ -63,7 +65,8 @@ by team:
 - Deployment config now wires through social login secrets, Stripe live-mode, and log levels across the
   additional deploy targets.
 - CI now uses `uv sync --frozen` to match the exact dependencies used in production.
-- Avatar upload validation failures now return a `400` instead of `403`.
+- Fixed the Avatar upload flow to work better when your session expires while the page is open.
+  - Also updated Avatar upload validation failures to return a `400` instead of `403` to make this smoother.
 - Made minor improvements to AI rules files:
   - Fixed Python version to 3.14.
   - Added explicit PEP 758 `except` syntax examples since agents kept thinking it was Python 2 syntax.

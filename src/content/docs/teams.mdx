@@ -54,7 +54,7 @@ This is useful to use to provide strict access to your data models (if they shou
 These two statements are approximately equivalent:
 
 ```python
-MyTeamModel.for_team().filter(...)
+MyTeamModel.for_team.filter(...)
 MyTeamModel.objects.filter(team=get_current_team(), ...)
 ```
 
@@ -72,8 +72,35 @@ a_team = Team.objects.get(slug='a-team')
 with current_team(a_team):
     # get_current_team() will return the `a_team` object inside this block
     call_code_that_uses_the_curent_team()
-    MyModel.for_team().all()  # only returns objects with `team=a_team`
+    MyModel.for_team.all()  # only returns objects with `team=a_team`
 ```
+
+## Team-scoped shortcuts
+
+From version 2026.6, Pegasus includes a `get_team_object_or_404` shortcut for looking up a single object
+scoped to the current team.
+It mirrors Django's `get_object_or_404` but resolves the team automatically from the
+[team context variable](#team-context-variable):
+
+```python
+from apps.teams.shortcuts import get_team_object_or_404
+
+def detail_view(request, team_slug, pk):
+    obj = get_team_object_or_404(MyTeamModel, pk=pk)
+    ...
+```
+
+This is equivalent to either of the following, but with an API that matches Django's stock shortcut:
+
+```python
+get_object_or_404(MyTeamModel.for_team, pk=pk)
+get_object_or_404(MyTeamModel, team=get_current_team(), pk=pk)
+```
+
+If there is no team in context (for example, in a Celery task that didn't set one), the call raises a 404.
+
+Use this instead of `get_object_or_404(MyTeamModel, ...)` to avoid accidental cross-team lookups
+via the unfiltered default manager.
 
 ## Team-based Views
 
@@ -255,6 +282,31 @@ You'll need to update any views or logic that handle role-based permissions,
 by calling the helper functions and decorators you've defined above.
 
 The specifics here will depend on the role you've added and the goals you're trying to achieve with it.
+
+## Background tasks
+
+From version 2026.6, Pegasus includes a `@team_task` decorator (in `apps.teams.celery`)
+for team-scoped Celery tasks. It runs the task body inside a team context — so anything inside the task
+that uses the [team context variable](#team-context-variable) or `MyTeamModel.for_team` just works.
+
+Usage:
+
+```python
+from apps.teams.celery import team_task
+
+@team_task(bind=True, max_retries=2)
+def my_task(self, team_id, other_id):
+    # team is automatically added to the query here, similar to views
+    objs = MyTeamModel.for_team.filter(...)
+    ...
+
+# can be called either of these ways
+my_task.delay(team.id, payload.id)            # positional
+my_task.delay(team_id=team.id, other_id=...)  # kwarg
+```
+
+If the team can't be loaded, the task raises `Team.DoesNotExist`, since it is explicitly expected
+to be run in the context of a team.
 
 ## Cookbooks
 
