@@ -40,12 +40,13 @@ by team:
 
 **Added**
 
-- **Added a `@team_task` decorator** (`apps/teams/celery.py`) for team-scoped Celery tasks. It treats the
+- **Added a [`@team_task` decorator](/teams/#background-tasks)** for team-scoped Celery tasks. It treats the
   task's first argument as a `team_id` (positional or keyword), loads the team, and runs the task body inside
   the team context so the team-scoped `objects` manager just works. Failing to load the team raises
   `Team.DoesNotExist` by design rather than silently no-op'ing.
-- **Added a `get_team_object_or_404` shortcut** (`apps/teams/shortcuts.py`) that scopes `get_object_or_404`
-  to the current team context, avoiding accidental cross-team lookups via the unfiltered default manager.
+- **Added a [`get_team_object_or_404` shortcut](/teams/#team-scoped-shortcuts)** that scopes
+  `get_object_or_404` to the current team context, avoiding accidental cross-team lookups via the unfiltered
+  default manager.
   It's recommended to use this instead of `get_object_or_404(id=id)` which will not explicitly add a team filer.
 - **Markdown rendering now supports tables**, via the markdown `TableExtension`.
   This works well in the chat features when AI agents generate tables.
@@ -63,6 +64,7 @@ by team:
 - Deployment config now wires through social login secrets, Stripe live-mode, and log levels across the
   additional deploy targets.
 - CI now uses `uv sync --frozen` to match the exact dependencies used in production.
+- Avatar upload validation failures now return a `400` instead of `403`.
 - Made minor improvements to AI rules files:
   - Fixed Python version to 3.14.
   - Added explicit PEP 758 `except` syntax examples since agents kept thinking it was Python 2 syntax.
@@ -74,6 +76,9 @@ by team:
 - The admin DB MCP tool now bundles `mcp-alchemy` into the virtualenv so it works in production without `uvx`,
   and uses `psycopg3` instead of `psycopg2`. This fixes an issue with production Docker setups where
   the installation would sometimes "time out", breaking the admin chat bot.
+- Fixed a bug where changing your email address to a previously-verified email would not restore it as
+  the primary email. (Thanks Justin for reporting!)
+  - Also added tests for this.
 - Fixed a bug where having and empty `REDIS_URL` in your environment would cause a crash.
   Now it falls back to the default behavior. (Thanks Justin for reporting!)
 - Fixed a bug where updating a team's `slug` to a unicode-only value could cause a conflict/crash due to it
@@ -87,7 +92,6 @@ by team:
 - Restricted the `simulate_error` view to superusers.
 - Documented that the API schema and docs endpoints (`/api/schema/`, Swagger, ReDoc) are public by default,
   with inline guidance on how to restrict them.
-- Avatar upload validation failures now return `400` instead of `403`.
 - Added baseline pre-commit hooks (YAML, end-of-file, trailing whitespace, merge-conflict, large-files).
 
 ### Upgrading
