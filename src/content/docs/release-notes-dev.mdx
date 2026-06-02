@@ -87,10 +87,11 @@ by team:
 - Marked `package.json` as private and removed placeholder author/description/homepage fields.
 - Deployment config now wires through social login secrets, Stripe live-mode, and log levels across the
   additional deploy targets.
-- CI now uses `uv sync --frozen` to match local development.
-- Updated AI rules (project Python version, PEP 758 `except` syntax, multi-line template comments) and the
-  `resolve-pegasus-conflicts` and `upgrade-pegasus` skills.
-- Bumped the CLI versions.
+- CI now uses `uv sync --frozen` to match the exact dependencies used in production.
+- Made minor improvements to AI rules files:
+  - Fixed Python version to 3.14.
+  - Added explicit PEP 758 `except` syntax examples since agents kept thinking it was Python 2 syntax.
+  - Added emphasis on how to use multi-line template comments.
 
 **Fixed**
 
