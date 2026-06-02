@@ -16,8 +16,8 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ## Version 2026.6
 
-This release lets you manage your Pegasus project settings from the CLI (and AI agents), hardens a few auth
-and demo endpoints, adds team-scoped Celery tooling, and includes a number of smaller improvements and fixes.
+This release lets you manage your Pegasus project settings from the CLI (and AI agents), adds team-scoped
+Celery tooling, and includes a number of smaller improvements, security fixes, and bug fixes.
 
 ### Manage your projects from with AI agents
 
@@ -28,23 +28,6 @@ config and use its other skills to rebuild your project and merge conflicts.
 
 Behind the scenes this uses the updated [`pegasus-cli`](https://github.com/saaspegasus/pegasus-cli)
 which now has commands to create, update, inspect, and push your projects for you.
-
-### Security hardening
-
-A pass over a few endpoints to close off ways they could be misused:
-
-- **Logout now requires a `POST`.** A small JavaScript shim (`logout.js`) converts logout links into POST
-  submissions so a stray `<img src="/accounts/logout/">` (or a link prefetcher) can no longer log users out
-  via GET. When JS is disabled, allauth's confirmation page is used as a fallback.
-- **Email confirmation now requires a `POST`.** The confirmation page auto-submits the form via JavaScript so
-  real users keep the one-click experience, while email security scanners and prefetchers that don't run JS
-  won't silently consume the confirmation token. A spinner is shown while the form submits.
-- **Restricted the `simulate_error` view to superusers.** Previously it was publicly accessible.
-- **Documented that the API schema and docs endpoints (`/api/schema/`, Swagger, ReDoc) are public by default**,
-  with inline guidance on how to restrict them (e.g. `permission_classes`, gating on `DEBUG`, or removing them).
-- Avatar upload validation failures now return a `400` instead of a `403`.
-- Added a baseline set of pre-commit hooks (YAML check, end-of-file, trailing whitespace, merge-conflict,
-  large-files).
 
 ### Team-scoped Celery tooling
 
@@ -87,6 +70,17 @@ by team:
 
 - Added `min-w-0` to the app content flex item to prevent content overflow.
 - Narrowed the admin/health-check mypy overrides and tightened a few type annotations.
+
+**Security**
+
+- **Logout and email confirmation now require `POST`.** A small JS shim converts logout links to POST
+  submissions so a stray `<img src="/accounts/logout/">` can't sign users out, and the confirmation page
+  auto-submits so email security scanners that don't run JS won't consume the token.
+- Restricted the `simulate_error` view to superusers.
+- Documented that the API schema and docs endpoints (`/api/schema/`, Swagger, ReDoc) are public by default,
+  with inline guidance on how to restrict them.
+- Avatar upload validation failures now return `400` instead of `403`.
+- Added baseline pre-commit hooks (YAML, end-of-file, trailing whitespace, merge-conflict, large-files).
 
 ### Upgrading
 
