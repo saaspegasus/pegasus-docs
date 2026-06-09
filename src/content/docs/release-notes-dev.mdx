@@ -14,4 +14,34 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-There are not any new changes since the 2026.6 release.
+## Version 2026.7
+
+This release is a collection of security hardening and bug fixes, focused on slug generation,
+team-context handling, and how the front end reads CSRF tokens.
+
+### All Changes
+
+**Changed**
+
+- **Removed `BasicAuthentication` from the default Django REST Framework authentication classes.**
+  Nothing built-in ever used basic auth, and this is a slightly safer default configuration for most projects.
+- **Improved how CSRF token access works if you change `CSRF_COOKIE_NAME`**.
+  Previously, `csrftoken` was hardcoded in multiple places in the front end, so if you changed that setting it would break.
+  Added a `getCsrfToken()` helper that reads from the server, so changing `CSRF_COOKIE_NAME` works everywhere.
+- Upgraded dependencies.
+
+**Fixed**
+
+- **Slug uniqueness is now checked through the model's `_default_manager` rather than `objects`.**
+  Models that follow the [strict team access](/teams/#strict-team-access) pattern—where `objects` is replaced with a
+  team-scoped manager—now still enforce globally-unique slugs across teams.
+- **Slug generation now truncates values to the slug field's `max_length`.** Previously a very long name
+  could overflow an associated slug column and error on save.
+  - Also fixed an edge case where an auto-generated slug could contain a doubled hyphen (e.g. `foo--2`).
+- **Fixed team-context reset handling in `TeamsMiddleware`.** There was a bug in the logic that attempted to reset team context after setting it
+  in the middleware that resulted in it always being cleared. In practice, this never mattered but it could manifest in tests that exercised the middleware.
+  Also fixed a revealed issue with asynchronous (ASGI) requests attempting to reset the context from an inaccessible token.
+
+**Upgrading**
+
+- If your project relied on DRF basic auth you should reject the change to remove it from settings.
