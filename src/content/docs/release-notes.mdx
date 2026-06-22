@@ -10,6 +10,145 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.6.1
+
+This is a minor bugfix/maintenance release with a few bug fixes and minor security upgrades.
+
+### All Changes
+
+**Changed**
+
+- **Removed `BasicAuthentication` from the default Django REST Framework authentication classes.**
+  - Nothing built-in ever used basic auth, and this is a slightly safer default configuration for most projects.
+- Improved how CSRF token access works if you change `CSRF_COOKIE_NAME`.
+  Previously, `csrftoken` was hardcoded in multiple places in the front end, so if you changed that setting it would break.
+  - Added a `getCsrfToken()` helper that reads from the server and is used everywhere in the front end.
+  - This relies on a new `csrf_settings` context processor to populate `settings.CSRF_COOKIE_NAME` to templates.
+
+**Fixed**
+
+- Team Slug uniqueness is now checked through the model's `_default_manager` rather than `objects`.
+  Models that follow the [strict team access](/teams/#strict-team-access) pattern—where `objects` is replaced with a
+  team-scoped manager—now still enforce globally-unique slugs across teams.
+- Slug generation now truncates values to the slug field's `max_length`. Previously a very long name
+  could overflow an associated slug column and error on save.
+  - Also fixed an edge case where an auto-generated slug could contain a doubled hyphen (e.g. `foo--2`).
+- Fixed team-context reset handling in `TeamsMiddleware`. There was a bug in the logic that attempted to reset team context after setting it
+  in the middleware that resulted in it always being cleared. In practice, this never mattered but it could manifest in tests that exercised the middleware.
+  - Also fixed a revealed issue with asynchronous (ASGI) requests attempting to reset the context from an inaccessible token.
+  - Thanks Mark for reporting!
+- Fixed the home-page redirect for users with a single pending team invitation. The condition was inverted, so users
+  were only auto-redirected to accept an invitation when they had more than one (and were sent to an arbitrary one). It now
+  redirects when there is exactly one open invitation.
+- Hardened the admin dashboard date filters so that malformed or missing `start`/`end` query parameters now fall back to the
+  default date range instead of raising an error.
+- Revoking an API key with an unknown prefix now shows an error message instead of raising an unhandled exception.
+- The AI email tool now calls Django's `send_mail` via `sync_to_async`, so sending email from the async tool no longer errors.
+- The chat-naming background task no longer errors if the chat was deleted before the task runs.
+- Slug generation now returns an empty base value as-is (e.g. a name with no ASCII characters that slugifies to nothing)
+  rather than producing a bare `-2`, leaving the fallback to the caller.
+- Fixed a timezone comparison in the profile view (the user's timezone is now compared against the active timezone as a string).
+
+**Upgrading**
+
+- If your project relied on DRF basic auth you should reject the change to remove it from settings.
+- It's recommend to update any CSRF token reads in templates to use `getCsrfToken()`.
+
+*Jun 12, 2026*
+
+## Version 2026.6
+
+This release adds the ability to manage your Pegasus project settings with AI agents.
+It also adds a number of smaller improvements, utiliites and hardening fixes.
+
+### Manage your projects with AI agents
+
+All projects now include a `pegasus-projects` skill that tells agents how to update your projects
+(or create new projects) automatically. You can say things like "let's add subscriptions" or
+"switch the front-end framework to React" and the agent will update your
+config and use its other skills to rebuild your project and merge conflicts.
+
+Behind the scenes this uses the updated [`pegasus-cli`](https://github.com/saaspegasus/pegasus-cli)
+which now has commands to create, update, inspect, and push your projects for you.
+
+Watch a quick demo below:
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
+    <iframe src="https://www.youtube.com/embed/89VHiPthgWk" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div>
+
+### All Changes
+
+**Added**
+
+- **Added a `@team_task` decorator for team-scoped Celery tasks**. It works very
+  similarly to the `@login_and_team_required` decorator, automatically loading the team into the context variable
+  based on the task's first argument. This lets you easily drop in team-level permissions into any celery task.
+  See [the new teams background tasks docs](/teams/#background-tasks) for more info.
+- **Added a `get_team_object_or_404` shortcut** that scopes
+  `get_object_or_404` to the current team context, avoiding accidental cross-team lookups via the unfiltered
+  default manager.
+  It's recommended to use this instead of `get_object_or_404(id=id)` which will not explicitly add a team filer.
+  See [the teams docs](/teams/#team-scoped-shortcuts) for more info.
+- **Markdown rendering now supports tables**, via the markdown `TableExtension`.
+  This works well in the chat features when AI agents generate tables.
+- Added a number of small built-in options for pre-commit, including `check-yaml`, `check-merge-conflict`,
+  `check-added-large-files`, `end-of-file-fixer`, and `trailing-whitespace`.
+  - Also removed trailing whitespace from a number of files.
+
+**Changed**
+
+- **Upgraded most Python packages to their latest versions**.
+- **Logout and email confirmation now require `POST`.** The user experience doesn't change, some JavaScript
+  code handles the switch from GET to POST, while preventing accidental or malicious triggering of these flows
+  from GET requests.
+- Updated the built-in `package.json` to be marked private and removed placeholder author/description/homepage fields.
+- CI now uses `uv sync --frozen` to match the exact dependencies used in production.
+- Fixed the Avatar upload flow to work better when your session expires while the page is open.
+  - Also updated Avatar upload validation failures to return a `400` instead of `403` to make this smoother.
+- Made improvements to AI rules files:
+  - Fixed Python version to 3.14.
+  - Added explicit PEP 758 `except` syntax examples since agents kept thinking it was Python 2 syntax.
+  - Added emphasis on how to use multi-line template comments.
+- Updated the `simulate_error` debugging view to superusers-only.
+- Added several more default variables to various production config/env files, including `PEGASUS_LOG_LEVEL`,
+  `STRIPE_LIVE_MODE`, and `SENTRY_DSN` and social login variables.
+- Refactored `get_image_url` meta-tag handling to be more consistent in how relative and absoulte paths are
+  handled.
+- Added a comment explaining why the schema view is public.
+- Narrowed the admin/health-check mypy overrides and tightened a few type annotations.
+
+**Fixed**
+
+- The admin DB MCP tool now bundles `mcp-alchemy` into the virtualenv so it works in production without `uvx`,
+  and uses `psycopg3` instead of `psycopg2`. This fixes an issue with production Docker setups where
+  the installation would sometimes "time out", breaking the admin chat bot.
+- Fixed a bug where changing your email address to a previously-verified email would not restore it as
+  the primary email. (Thanks Justin for reporting!)
+  - Also added tests for this.
+- Fixed a bug where having and empty `REDIS_URL` in your environment would cause a crash.
+  Now it falls back to the default behavior. (Thanks Justin for reporting!)
+- Fixed a bug where updating a team's `slug` to a unicode-only value could cause a conflict/crash due to it
+  being blanked out. (Thanks Justin for reporting!)
+  - Also added tests for this.
+- Added `min-w-0` to the app content base template to prevent content inside from overflowing it.
+
+### Upgrading
+
+- **Logout and email confirmation now require `POST`.** Pegasus should handle this for you unless you have added additional
+  logout links or set up a custom email-confirmation template. Those may need to be updated as follows:
+  - For logout links, you should add a `data-logout-link` to any link to the logout page.
+  - For email confirmation, refer to Pegasus's `templates/account/email_confirm.html` template for auto-submitting.
+  - Alternatively, you can set `ACCOUNT_LOGOUT_ON_GET=True` and/or `ACCOUNT_CONFIRM_EMAIL_ON_GET=True` in your settings
+    file to restore the old behavior.
+- The `pre-commit` changes may cause errors in your existing code in CI when upgrading. It's recommended to run `pre-commit`
+  on your whole project with the updated rules:
+  ```
+  uv run pre-commit run --all-files
+  ```
+
+*June 2, 2026*
+
 ## Version 2026.5.1
 
 This release updates the `pydantic-ai` dependency to `pydantic-ai-slim[openai,anthropic,google,mcp]>=1.0`
@@ -1904,4 +2043,3 @@ uv run ruff check --fix
 <Aside type="tip" title="Old Version?">
 Release notes for updates before 2025 are available on the [Release Notes History](/release-notes-history/) page.
 </Aside>
-
