@@ -10,6 +10,24 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.6.2
+
+This is a small maintenance with updates related to the free tier release.
+
+### All Changes
+
+- **The generated code license has moved from `LICENSE.md` to to `LICENSE`.**
+  The new free-tier will use an MIT license, while paid projects continue to use the
+  [standard SaaS Pegasus license](https://www.saaspegasus.com/license/).
+- Free-tier projects now include a "Built with SaaS Pegasus" attribution footer in their README.
+- Upgraded bundled front-end (npm) dependencies.
+- The admin database AI tool now launches the MCP Alchemy server via the project's Python interpreter
+  (`python -m mcp_alchemy.server`) rather than relying on an `mcp-alchemy` executable being on your `PATH`,
+  which makes it more robust across different environments.
+- Fixed a couple of typos in the placeholder landing-page templates.
+
+*Jun 22, 2026*
+
 ## Version 2026.6.1
 
 This is a minor bugfix/maintenance release with a few bug fixes and minor security upgrades.
