@@ -106,7 +106,7 @@ Watch a quick demo below:
 - **Added a `get_team_object_or_404` shortcut** that scopes
   `get_object_or_404` to the current team context, avoiding accidental cross-team lookups via the unfiltered
   default manager.
-  It's recommended to use this instead of `get_object_or_404(id=id)` which will not explicitly add a team filer.
+  It's recommended to use this instead of `get_object_or_404(id=id)` which will not explicitly add a team filter.
   See [the teams docs](/teams/#team-scoped-shortcuts) for more info.
 - **Markdown rendering now supports tables**, via the markdown `TableExtension`.
   This works well in the chat features when AI agents generate tables.
