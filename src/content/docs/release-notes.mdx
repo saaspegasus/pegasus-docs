@@ -10,6 +10,43 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.7
+
+This release adds a substantial set of unit tests to Pegasus's built-in apps, and fixes a few bugs that were uncovered along the way.
+
+### Expanded test suite
+
+Pegasus projects now ship with many more tests covering the built-in functionality, including:
+
+- Team invitation processing and the open-invitation helpers.
+- The `CustomUser` model (display names, gravatars, and email verification) and profile picture validation.
+- The dashboard's user signup statistics.
+- Billing utilities (coupon discounts and price display).
+- Timezone helpers and the site URL helpers in `apps.web.meta`.
+
+Tests are only included for the functionality enabled in your project's configuration.
+
+### Fixed
+
+The new tests revealed a few bugs, which have also been fixed:
+
+- **Fixed the dashboard's signup statistics double-counting users with multiple verified email addresses.**
+  The email-address join now counts distinct users.
+- **Fixed a crash in the ecommerce `ProductConfiguration.readable_price` property** that could occur when
+  Stripe returned `unit_amount_decimal` as a string. It now uses the same friendly currency
+  formatting helper as the rest of the billing code.
+- **Fixed a `TypeError` when applying percentage-based coupons** in the `get_discounted_price` billing utility,
+  caused by mixing Stripe's numeric `percent_off` values with `Decimal` amounts.
+- Removed a redundant settings block that re-silenced an already-silenced system check when running tests.
+
+### Other changes
+
+- Improved the built-in `resolve-pegasus-conflicts` Claude Code skill with much better guidance on
+  resolving migration conflicts during upgrades—including catching silently-renamed migrations that
+  git merges without conflict markers—and a new section on recovering from a partially-applied migration.
+
+*July 22, 2026*
+
 ## Version 2026.6.2
 
 This is a small maintenance with updates related to the free tier release.
