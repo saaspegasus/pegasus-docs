@@ -30,20 +30,18 @@ Tests are only included for the functionality enabled in your project's configur
 
 The new tests revealed a few bugs, which have also been fixed:
 
-- **Fixed the dashboard's signup statistics double-counting users with multiple verified email addresses.**
+- Fixed the dashboard's signup statistics double-counting users with multiple verified email addresses.
   The email-address join now counts distinct users.
-- **Fixed a crash in the ecommerce `ProductConfiguration.readable_price` property** that could occur when
+- Fixed a crash in the ecommerce `ProductConfiguration.readable_price` property that could occur when
   Stripe returned `unit_amount_decimal` as a string. It now uses the same friendly currency
   formatting helper as the rest of the billing code.
-- **Fixed a `TypeError` when applying percentage-based coupons** in the `get_discounted_price` billing utility,
+- Fixed a `TypeError` when applying percentage-based coupons** in the `get_discounted_price` billing utility,
   caused by mixing Stripe's numeric `percent_off` values with `Decimal` amounts.
 - Removed a redundant settings block that re-silenced an already-silenced system check when running tests.
 
 ### Other changes
 
-- Improved the built-in `resolve-pegasus-conflicts` Claude Code skill with much better guidance on
-  resolving migration conflicts during upgrades—including catching silently-renamed migrations that
-  git merges without conflict markers—and a new section on recovering from a partially-applied migration.
+- Improved the built-in `resolve-pegasus-conflicts` skill with better guidance on resolving migration conflicts during upgrades.
 
 *July 22, 2026*
 
