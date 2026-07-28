@@ -10,6 +10,34 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.7.1
+
+This release primarily focuses on type-safety, adding type annotations across
+most of the built-in apps. Strong typing helps catch obscure code errors and also helps agents
+more confidently edit and check code and will continue to be a priority in Pegasus.
+
+While the changes touch a lot of files, they are almost entirely type annotations,
+so upgrading should be relatively low-risk.
+
+- **Added type annotations throughout the built-in apps** (teams, subscriptions, ecommerce, users,
+  ai chat, dashboard, content, web, and the example apps).
+  This is a continuation of the ongoing effort to improve the type safety of the codebase.
+  - Also tweaked a small number of errors revealed by stronger types, including using better
+    exception classes and default values in error/edge cases.
+- Added a new `get_authenticated_user` helper to `apps.users.helpers`.
+  It returns a properly-typed `CustomUser` for requests that are guaranteed to be authenticated,
+  resolving API-key authentication when enabled. The DRF views and permission classes now use it.
+  - **Upgrade Note**: This replaces `get_user_from_request` from `apps.api.helpers`, which has been removed.
+    If you were using it, switch to the new helper.
+- Documented the project's type annotation conventions in the AI rules files, including
+  when to annotate `request` in views and when to use `get_authenticated_user`.
+- Render deploys now wait for CI checks to pass. The `render.yaml` blueprint sets
+  `autoDeployTrigger: checksPass` (when CI is enabled), so broken commits are no longer
+  auto-deployed before your test suite finishes. Thanks Jacob for the suggestion!
+- Added tests for the team model's helper properties and methods.
+
+*July 28, 2026*
+
 ## Version 2026.7
 
 This release adds a substantial set of unit tests to Pegasus's built-in apps, and fixes a few bugs that were uncovered along the way.
