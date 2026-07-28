@@ -26,6 +26,8 @@ so upgrading should be relatively low-risk.
 - **Added type annotations throughout the built-in apps** (teams, subscriptions, ecommerce, users,
   ai chat, dashboard, content, web, and the example apps).
   This is a continuation of the ongoing effort to improve the type safety of the codebase.
+  - Also tweaked a small number of errors revealed by stronger types, including using better
+    exception classes and default values in error/edge cases.
 - Added a new `get_authenticated_user` helper to `apps.users.helpers`.
   It returns a properly-typed `CustomUser` for requests that are guaranteed to be authenticated,
   resolving API-key authentication when enabled. The DRF views and permission classes now use it.
