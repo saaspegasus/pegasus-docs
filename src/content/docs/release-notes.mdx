@@ -10,6 +10,19 @@ Releases of [SaaS Pegasus: The Django SaaS Boilerplate](https://www.saaspegasus.
 See the [Development Release Notes](/release-notes-dev/) for a preview of what's coming in the next release.
 </Aside>
 
+## Version 2026.7.2
+
+This release improves translation support across the app's templates.
+
+- **Added translation markup to nearly 60 templates that were previously missing it**,
+  so more of the built-in UI can be translated out of the box.
+  This covers the account, subscription, e-commerce, team, chat, and example app pages,
+  as well as various shared components (navigation, pagination, landing page sections, and error pages).
+- Updated the subscription details page to use `blocktranslate` for text containing dates,
+  so those sentences can be translated as complete phrases.
+
+*July 30, 2026*
+
 ## Version 2026.7.1
 
 This release primarily focuses on type-safety, adding type annotations across
