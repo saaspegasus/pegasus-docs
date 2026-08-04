@@ -30,6 +30,7 @@ and improves compatibility with newer Stripe API versions.
     - A few places now log to a named module logger instead of the root logger.
     - Generic `Exception`s were replaced with more specific error classes.
     - Unused variables were renamed to have leading `_`s.
+    - `dict()` was replaced with `{}`
   - Note: the mutable-class-default rule (`RUF012`) is explicitly disabled,
     since it conflicts with common Django idioms ([more here](https://github.com/astral-sh/ruff/issues/5243)).
 - **Improved compatibility with newer Stripe API versions.** The following changes help ensure backwards
