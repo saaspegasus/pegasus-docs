@@ -14,25 +14,26 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-This release adopts ruff 0.16's expanded default lint ruleset (and updates the codebase to pass it),
-upgrades Pydantic AI to version 2, and improves compatibility with newer Stripe API versions.
+This release upgrades most of the Python dependencies to their latest versoins,
+including upgrading Pydantic AI to version 2.
+It also adopts ruff 0.16's expanded default lint ruleset (and the codebase to pass it),
+and improves compatibility with newer Stripe API versions.
 
+- **Upgraded most Python packages to their latest versions.**
+  - The most notable update is upgrading Pydantic AI to version 2, which included minor changes to
+    the AI and chat code for its new APIs.
 - **Upgraded ruff to 0.16 and adopted its expanded default ruleset.**
-  Projects now use ruff's default rules (plus the full pycodestyle set) instead of a hand-picked list of checks,
-  enabling many additional rules. The mutable-class-default rule (`RUF012`) is explicitly disabled,
-  since it conflicts with common Django idioms.
-- **Applied lint fixes for the new rules throughout the codebase.** Notable changes include:
-  - Translated error messages that contain variables now use `%` placeholders instead of f-strings,
-    so the messages can be properly translated before the variables are substituted.
-  - The AI weather demo tool now makes its geocoding request with an async HTTP client
-    instead of a blocking `requests` call.
-  - A few places now log to a named module logger instead of the root logger,
-    and a couple of generic `Exception`s were replaced with more specific error classes.
-  - Various smaller cleanups: timezone-aware dates in the content bootstrap command, unused-variable naming,
-    removing obsolete `noqa` comments, and modernized syntax in a handful of places.
-- **Upgraded Pydantic AI to version 2**, updating the AI and chat code for its new APIs
-  (MCP toolset configuration and tool-result event handling).
-- **Improved compatibility with newer Stripe API versions (2025-03-31 and later):**
+  Projects now use ruff's default rules, enabling many additional rules.
+  - Common categories of addressed errors include:
+    - Translated error messages that contain variables now use `%` placeholders instead of f-strings,
+      so the messages can be properly translated before the variables are substituted.
+    - The AI weather demo tool now makes its geocoding request with an async HTTP client
+      instead of a blocking `requests` call.
+    - A few places now log to a named module logger instead of the root logger,
+      and a couple of generic `Exception`s were replaced with more specific error classes.
+    - The mutable-class-default rule (`RUF012`) is explicitly disabled,
+      since it conflicts with common Django idioms.
+- **Improved compatibility with newer Stripe API versions:**
   - Added a `subscription_cancels_at_period_end` helper that handles both the legacy `cancel_at_period_end`
     boolean and the newer `cancel_at` field, and updated the subscription views, webhooks,
     and wrappers to use it.
@@ -41,5 +42,5 @@ upgrades Pydantic AI to version 2, and improves compatibility with newer Stripe 
   - Updated the ecommerce checkout helper to read the checkout session ID from `session.id`
     instead of the removed `session.stripe_id`.
   - Added tests covering the new behavior.
-- Updated the `upgrade-python-deps` Claude Code skill to remove uv's cooldown marker from `uv.lock`,
-  preventing later syncs from silently re-resolving packages to their newest versions.
+- Fixed the `upgrade-python-deps` skill to remove uv's cooldown marker from `uv.lock`.
+  The previous version could cause later syncs to silently re-resolving packages to their newest versions.
