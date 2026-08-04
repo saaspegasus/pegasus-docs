@@ -44,3 +44,10 @@ and improves compatibility with newer Stripe API versions.
   - Added tests covering the new behavior.
 - Fixed the `upgrade-python-deps` skill to remove uv's cooldown marker from `uv.lock`.
   The previous version could cause later syncs to silently re-resolving packages to their newest versions.
+
+## Upgrading
+
+The stricter ruff rules are likely to trip on any cusotmized code that extends Pegasus.
+In most cases, these fixes can be done mechanicalically by handing the task off to a coding agent
+and reviewing the results for errors / issues. Alternatively, you can always add rules to the ruff
+`ignore` list in `pyproject.toml` if you don't want them to run on your project.
