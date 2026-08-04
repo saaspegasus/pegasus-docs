@@ -24,26 +24,31 @@ and improves compatibility with newer Stripe API versions.
     the AI and chat code for its new APIs.
 - **Upgraded ruff to 0.16 and adopted its expanded default ruleset.**
   Projects now use ruff's default rules, enabling many additional rules.
-  - Common categories of addressed errors include:
+  - Some errors / categories of addressed errors include:
     - Translated error messages that contain variables now use `%` placeholders instead of f-strings,
       so the messages can be properly translated before the variables are substituted.
     - The AI weather demo tool now makes its geocoding request with an async HTTP client
       instead of a blocking `requests` call.
-    - A few places now log to a named module logger instead of the root logger,
-      and a couple of generic `Exception`s were replaced with more specific error classes.
-    - The mutable-class-default rule (`RUF012`) is explicitly disabled,
-      since it conflicts with common Django idioms.
-- **Improved compatibility with newer Stripe API versions:**
+    - A few places now log to a named module logger instead of the root logger.
+    - Generic `Exception`s were replaced with more specific error classes.
+    - Unused variables were renamed to have leading `_`s.
+  - Note: the mutable-class-default rule (`RUF012`) is explicitly disabled,
+    since it conflicts with common Django idioms ([more here](https://github.com/astral-sh/ruff/issues/5243)).
+- **Improved compatibility with newer Stripe API versions.** The following changes help ensure backwards
+  and forwards compatibility across different Stripe API versions:
   - Added a `subscription_cancels_at_period_end` helper that handles both the legacy `cancel_at_period_end`
     boolean and the newer `cancel_at` field, and updated the subscription views, webhooks,
     and wrappers to use it.
   - The subscription wrapper's `current_period_end` now falls back to the data on the subscription item
-    when it isn't set on the subscription itself, as is the case in newer API versions.
+    when it isn't set on the subscription itself (as is the case in newer API versions).
   - Updated the ecommerce checkout helper to read the checkout session ID from `session.id`
     instead of the removed `session.stripe_id`.
   - Added tests covering the new behavior.
-- Fixed the `upgrade-python-deps` skill to remove uv's cooldown marker from `uv.lock`.
-  The previous version could cause later syncs to silently re-resolving packages to their newest versions.
+- Minor fixes:
+  - Fixed the `upgrade-python-deps` skill to remove uv's cooldown marker from `uv.lock`.
+    The previous version could cause later syncs to silently re-resolving packages to their newest versions.
+  - Removed the `"pegasus"` logging config and `PEGASUS_LOG_LEVEL` environment variables from builds that
+    don't include the Pegasus examples.
 
 ## Upgrading
 
@@ -51,3 +56,5 @@ The stricter ruff rules are likely to trip on any cusotmized code that extends P
 In most cases, these fixes can be done mechanicalically by handing the task off to a coding agent
 and reviewing the results for errors / issues. Alternatively, you can always add rules to the ruff
 `ignore` list in `pyproject.toml` if you don't want them to run on your project.
+
+*Aug 4, 2026*
