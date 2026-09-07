@@ -11,6 +11,79 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 </Aside>
 
 
+## Version 2026.9
+
+This release adds an expiration window to team invitations, removes a redundant email confirmation
+for invited users, hardens session handling, and expands the subscription test suite.
+
+- **Team invitations now expire.** Invitations track when they were last sent and stop working after
+  a configurable number of days (`TEAM_INVITATION_EXPIRATION_DAYS` in `settings.py`, defaulting to 14).
+  Resending an invitation renews it.
+  - The invitation email now tells recipients how long the invitation is valid.
+  - The team management page shows when each pending invitation was sent and marks expired ones
+    with a badge, in both the htmx and React UIs.
+  - The invitation `resend` API endpoint now returns the updated invitation, and the React UIs use it directly.
+    The Django resend view and URL are now only included in htmx builds.
+  - Added an `Invitation.objects.open()` queryset and `is_open` / `is_expired` properties on the `Invitation` model,
+    which are now used throughout the accept and signup flows.
+  - This adds a `sent_at` field to the `Invitation` model, which requires a migration.
+    See the upgrading section below for details.
+- **Invited users no longer receive a redundant email confirmation.**
+  The invited email address is now marked as verified when the user signs up, before allauth decides
+  whether to send a confirmation email. Previously this happened afterwards, so the confirmation email
+  was sent anyway. The invitation ID can now also be passed as form data during signup.
+- **Added a daily Celery task to clear expired sessions** from the database
+  (using Django's `clearsessions` command). This is only included in builds that use Celery.
+- **The teams middleware now only writes the team to the session when it changes**,
+  avoiding an unnecessary session save on every request.
+- **Expanded the subscription test suite** with coverage of product metadata, models, feature gating,
+  webhooks, wrappers, sync helpers, and background tasks. The tests run in both user- and team-based
+  subscription builds.
+  - Also removed an unused code path from the price lookup helper in `apps/subscriptions/metadata.py`.
+- Added a "Starting the app" section to the project README covering how to start and stop the app
+  after initial setup.
+- Fixed a typo in a variable name in the API schema filter.
+
+### Upgrading
+
+The new `sent_at` field on the `Invitation` model defaults to the current time,
+so a migration generated with `makemigrations` will stamp every existing invitation with the time
+the migration was run rather than when the invitation was actually created.
+For existing projects, it's recommended to backfill `sent_at` from `created_at` in the same migration.
+After running `makemigrations`, edit the generated file to look like the following
+(adjusting the dependency to match your latest `teams` migration):
+
+```python
+import django.utils.timezone
+from django.db import migrations, models
+from django.db.models import F
+
+
+def backfill_sent_at(apps, schema_editor):
+    Invitation = apps.get_model("teams", "Invitation")
+    Invitation.objects.update(sent_at=F("created_at"))
+
+
+class Migration(migrations.Migration):
+    dependencies = [
+        ("teams", "0006_alter_membership_unique_together"),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name="invitation",
+            name="sent_at",
+            field=models.DateTimeField(default=django.utils.timezone.now),
+        ),
+        migrations.RunPython(backfill_sent_at, migrations.RunPython.noop),
+    ]
+```
+
+Without the backfill, any invitations that were already older than the expiration window
+will be treated as freshly sent and remain valid for another 14 days.
+
+*September 6, 2026*
+
 ## Version 2026.8.1
 
 This is a hotfix release that fixes a bug with `SubscriptionWrapper.current_period_end` when
