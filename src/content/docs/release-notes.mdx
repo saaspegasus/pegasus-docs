@@ -39,10 +39,11 @@ This release adds an expiration window to team invitations and includes a handfu
 - Invited users no longer receive a redundant email confirmation on sign up. 
   The invited email was already being marked as verified (the invitation link itself proves ownership of the email),
   but this happened after allauth had already sent its confirmation email.
+  Thanks Peter for reporting!
 - The teams middleware now only writes the team to the session when it changes,
-  avoiding an unnecessary session save on every request.
+  avoiding an unnecessary session save on every request. Thanks Peter for reporting!
 - Removed an unused code path from the price lookup helper in `apps/subscriptions/metadata.py`.
-- Fixed a typo in a variable name in the API schema filter.
+- Fixed a typo in a variable name in the API schema filter. Thanks Brennon for reporting!
 - Removed the `single_team:resend_invitation` url and view from React builds (which never used it).
 
 ### Upgrading
