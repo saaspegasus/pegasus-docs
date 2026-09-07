@@ -13,7 +13,8 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 
 ## Version 2026.9
 
-This release adds an expiration window to team invitations and includes a handful of other bug fixes and improvements.
+This release adds an expiration window to team invitations, significantly expands the subscription
+test suite, and includes a handful of other bug fixes and improvements.
 
 ### Added
 
@@ -27,12 +28,12 @@ This release adds an expiration window to team invitations and includes a handfu
   - The invitation email now tells recipients how long the invitation is valid.
   - The team management page now shows expiry information.
   - The invitation `resend` API endpoint now returns the updated invitation, and the React UIs use it directly.
-- **Added a daily Celery task to clear expired sessions from the database** (projects that use Celery only).
-  This optional cleanup prevents the `Session` table from growing unbounded. Thanks Peter for the suggestion!
 - **Expanded the subscription test suite**, including coverage of product metadata, models, feature gating,
   webhooks, wrappers, sync helpers, and background tasks. Thanks Justin for the suggestion!
 - Added a "Starting the app" section to the project README covering how to start and stop the app
-  after initial setup.
+  after initial setup. Thanks Telmo for suggesting!
+- Added a daily Celery task to clear expired sessions from the database (projects that use Celery only).
+  This optional cleanup prevents the `Session` table from growing unbounded. Thanks Peter for the suggestion!
 
 ### Fixed
 
