@@ -28,6 +28,8 @@ test suite, and includes a handful of other bug fixes and improvements.
   - The invitation email now tells recipients how long the invitation is valid.
   - The team management page now shows expiry information.
   - The invitation `resend` API endpoint now returns the updated invitation, and the React UIs use it directly.
+    The JS API client gets these new fields as well.
+  - Added a bunch of tests for this workflow.
 - **Expanded the subscription test suite**, including coverage of product metadata, models, feature gating,
   webhooks, wrappers, sync helpers, and background tasks. Thanks Justin for the suggestion!
 - Added a "Starting the app" section to the project README covering how to start and stop the app
@@ -43,7 +45,7 @@ test suite, and includes a handful of other bug fixes and improvements.
   Thanks Peter for reporting!
 - The teams middleware now only writes the team to the session when it changes,
   avoiding an unnecessary session save on every request. Thanks Peter for reporting!
-- Removed an unused code path from the price lookup helper in `apps/subscriptions/metadata.py`.
+- Removed the never-called `fail_hard` code path from the price lookup helper in `apps/subscriptions/metadata.py`.
 - Fixed a typo in a variable name in the API schema filter. Thanks Brennon for reporting!
 - Removed the `single_team:resend_invitation` url and view from React builds (which never used it).
 
