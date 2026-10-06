@@ -14,4 +14,49 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-There haven't been any updates since the last release.
+## Version 2026.10
+
+This release improves AI chat. Chats now keep their full tool-call history between turns and are attributed to a team,
+and the admin has a readable view of each conversation. It also upgrades Python dependencies (including Wagtail 8)
+and finishes cleaning up hardcoded CSS classes.
+
+### AI Chat Improvements
+
+- **Chats now save the full pydantic-ai message history, including tool calls.**
+  A new `Chat.message_history` field stores the structured history after each agent run, so later turns
+  keep the context of earlier tool calls. Previously the history was rebuilt from the plain-text `ChatMessage` rows,
+  which lost that context. Older chats, or chats with unreadable history, still fall back to the old behavior.
+- **New chats are attributed to the user's current team** (on builds with teams enabled).
+  `Chat` has a new optional `team` field, which is set when a chat is created from the API or the websocket consumer.
+  This is for attribution, like usage reporting. It doesn't control access, and chats stay private to their user.
+- **Improved the chat admin.** The `Chat` admin now has a formatted, color-coded view of the full message history
+  (user messages, assistant replies, tool calls and results, thinking, retries, and so on), plus a team column and filter.
+- Refactored agent streaming. Stream events are now mapped to UI events by a single `map_stream_event()` function
+  in a new `apps/ai/events.py` module, and the streaming loop moved into `ChatSession`.
+  `run_agent` and `run_agent_streaming` were removed from `apps/ai/agents.py`.
+- Moved the logic for naming a chat from its first message into a single `name_chat_from_message()` helper,
+  used by both the API views and `ChatSession`. Messages shorter than 40 characters (previously 30) are used
+  as the chat name as-is, and longer ones are summarized by the LLM in a background task.
+- Added a request-free `get_default_team(user, session)` helper in `apps/teams/helpers.py`, so the current team
+  can be looked up where there is no request, like in a websocket consumer.
+  `get_default_team_from_request` now calls it.
+- Raised the admin database MCP server's startup timeout to 30 seconds.
+- Fixed a bug where the chat response task failed on Django Ninja builds because it serialized the message the DRF way.
+- Chat tests other than the API tests are now kept on HTMX-only and Django Ninja builds. Before, the whole chat test
+  directory was removed on those builds.
+- Rewrote the `ChatSession` history tests to use pydantic-ai's `TestModel`.
+
+### Other Changes
+
+- **Upgraded Python dependencies.** Notable upgrades include Wagtail 8.0, OpenAI 3, Anthropic 1.2, pydantic-ai 2.36,
+  Django REST Framework 3.18, and the Pegasus CLI 0.16.
+  Django stays on 6.0.x, because `django-celery-beat` doesn't support Django 6.1 yet.
+- Added a few Wagtail 8 dependencies that have no type stubs to the mypy ignore list.
+- Fixed the last hardcoded `pg-` CSS classes in the Tailwind templates (login, signup, pricing page, and plan selector),
+  some Python form code, and the standalone React frontend. These now respect the "use Pegasus CSS classes" setting.
+  Also removed a leftover Bulma `is-size-6` class from the plan selector.
+
+### Upgrading
+
+This release adds new migrations for the `Chat` model (`message_history`, and `team` on team-enabled builds).
+Run `./manage.py migrate` after upgrading.
