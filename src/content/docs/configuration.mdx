@@ -321,17 +321,13 @@ See the [celery docs](/celery) for set up and configuration of Celery.
 
 ## Turnstile
 
-To enable support for [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/),
-set `TURNSTILE_KEY` and `TURNSTILE_SECRET` in your settings or environment variables.
+To enable support for [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) on your sign up pages:
 
-This should automatically enable turnstile on your sign up pages.
+1. Go to the [Turnstile dashboard](https://dash.cloudflare.com/?to=/:account/turnstile) and click **Set up with Spin**.
+2. Enter your production domain. `localhost` and `127.0.0.1` are added automatically, so the same widget works in development.
+3. Copy the sitekey and secret key into your settings or environment variables as `TURNSTILE_KEY` and `TURNSTILE_SECRET`.
 
-It is recommended to create two different Turnstile accounts on Cloudflare for development and production.
-In development you can specify "localhost" as your domain like this:
-
-![Turnstile Dev](../../assets/images/turnstile.png)
-
-In production, you should replace that with your site's production domain.
+Spin also gives you an agent prompt for embedding the widget in your code. You can skip it, since Pegasus already includes the widget and server-side verification.
 
 
 ## Mailing List
