@@ -15,24 +15,38 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 
 This is a security hotfix release for the
 [eMudhra/emSign CA certificate security incident](https://discuss.python.org/t/information-for-python-users-regarding-emudhra-emsign-ca-certificate-security-incident/109576).
-After a compromise of eMudhra's intermediate certificates, the emSign root certificate is being removed from
-CA bundles. Without the update, TLS connections (including to `pypi.org`) could be intercepted.
-The release upgrades every affected package to a version with the fix, and also includes some small Vite tweaks.
 
-- **Upgraded `certifi` to 2026.10.19**, which removes the compromised emSign root certificate.
-- **Upgraded `pip` to 26.2.2.** pip loads its own bundled copy of `certifi`, so updating your
-  operating system's certificates doesn't fix older versions of pip.
-- **Upgraded uv to 0.13.5**, which also includes the fix. This is the version used in the generated
-  Dockerfile and GitHub Actions workflow. The updated `uv.lock` also needs this newer uv to read it.
-- Vite's dev server no longer watches the `static` directory, and `static` is now excluded from
-  TypeScript checks. Thanks Jacob for suggesting!
+You can read more there, but the summary is that an untrusted root certificate needs to be removed
+from CA bundles that are included in a handful of Python libraries. Without updating, TLS connections
+(including to `pypi.org`) could be intercepted and subject to man-in-the-middle attacks.
+
+Details:
+
+- **Upgraded `certifi` to 2026.10.19**.
+- **Upgraded `pip` to 26.2.2**.
+- **Upgraded `uv` to 0.13.5**.
+- **Upgraded `python` to 3.14.9** (Render and Heroku non-Docker builds only).
 
 **Recommended steps after upgrading:**
 
-- Upgrade uv on your own machine. The linked post recommends `UV_SYSTEM_CERTS=true uv self update`.
-- Upgrade pip in any other virtual environments you use.
-- Rebuild your Docker images with layer caching disabled (e.g. `docker build --no-cache`) so they pick up
-  the latest system certificates.
+- In development:
+  - Make sure your OS is patched
+  - Upgrade `uv` on your own machine. The linked post recommends `UV_SYSTEM_CERTS=true uv self update`.
+  - Do a normal Pegasus upgrade (including running `uv sync` to update dependencies).
+  - If you develop with Docker, run run `docker pull python:3.14-slim-bookworm` and rebuild your containers.
+- In production:
+  - Projects using a Docker-based deploy option (Kamal, Fly.io, Heroku Docker, Digital Ocean, Google Cloud):
+    the updated Python packages will be installed automatically on your next build, but you should also
+    make sure the build uses the latest `python:3.14` base image (Python 3.14.9 or later), which includes all fixes.
+    - If your images are built on a machine that may have an older copy cached (e.g. your own machine with Kamal),
+      run `docker pull python:3.14-slim-bookworm` there before deploying, or clear your Docker build cache.
+  - Projects deploying outside a supported Pegasus option should manually update `uv`, `pip`, and `python` however they are installed.
+
+Unrelated changes:
+
+- Vite's dev server no longer watches the `static` directory, and `static` is now excluded from
+  TypeScript checks. Thanks Jacob for suggesting!
+- The development Docker container now uses the same version as the rest of the app.
 
 *October 23, 2026*
 
