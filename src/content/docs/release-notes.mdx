@@ -11,6 +11,43 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 </Aside>
 
 
+## Version 2026.10.1
+
+This is a security hotfix release for the
+[eMudhra/emSign CA certificate security incident](https://discuss.python.org/t/information-for-python-users-regarding-emudhra-emsign-ca-certificate-security-incident/109576).
+
+You can read more there, but the summary is that an untrusted root certificate needs to be removed
+from CA bundles that are included in a handful of Python libraries. Without updating, TLS connections
+(including to `pypi.org`) could be intercepted and subject to man-in-the-middle attacks.
+
+Details:
+
+- **Upgraded `certifi` to 2026.10.19**.
+- **Upgraded `pip` to 26.2.2**.
+- **Upgraded `uv` to 0.13.5**.
+- **Upgraded `python` to 3.14.9** (Render and Heroku non-Docker builds only).
+
+**Recommended steps after upgrading:**
+
+- In development:
+  - Make sure your OS is patched.
+  - Upgrade `uv` on your own machine. The linked post recommends `UV_SYSTEM_CERTS=true uv self update`.
+  - Do a normal Pegasus upgrade (including running `uv sync` to update dependencies).
+  - If you develop with Docker, run `docker pull python:3.14-bookworm` and rebuild your containers.
+- In production:
+  - If you are using Kamal, Fly.io, Heroku, Render, or Digital Ocean, a normal deploy after upgrading should automatically pull in the correct image/Python.
+  - If your production containers are built on a machine that may have an older copy cached (e.g. Google Cloud, using `make gcp-build`)
+      run `docker pull python:3.14-slim-bookworm` there before deploying, or clear your Docker build cache.
+  - Projects deploying outside a supported Pegasus option should manually update `uv`, `pip`, and `python` however they are installed.
+
+Unrelated changes:
+
+- Vite's dev server no longer watches the `static` directory, and `static` is now excluded from
+  TypeScript checks. Thanks Jacob for suggesting!
+- The development Docker container now uses the same `uv` version as the rest of the app.
+
+*October 23, 2026*
+
 ## Version 2026.10
 
 This release is primarily focused on improving AI/agent chat functionality and setting it up for future improvements.
