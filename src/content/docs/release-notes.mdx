@@ -30,15 +30,13 @@ Details:
 **Recommended steps after upgrading:**
 
 - In development:
-  - Make sure your OS is patched
+  - Make sure your OS is patched.
   - Upgrade `uv` on your own machine. The linked post recommends `UV_SYSTEM_CERTS=true uv self update`.
   - Do a normal Pegasus upgrade (including running `uv sync` to update dependencies).
-  - If you develop with Docker, run run `docker pull python:3.14-slim-bookworm` and rebuild your containers.
+  - If you develop with Docker, run `docker pull python:3.14-bookworm` and rebuild your containers.
 - In production:
-  - Projects using a Docker-based deploy option (Kamal, Fly.io, Heroku Docker, Digital Ocean, Google Cloud):
-    the updated Python packages will be installed automatically on your next build, but you should also
-    make sure the build uses the latest `python:3.14` base image (Python 3.14.9 or later), which includes all fixes.
-    - If your images are built on a machine that may have an older copy cached (e.g. your own machine with Kamal),
+  - If you are using Kamal, Fly.io, Heroku, Render, or Digital Ocean, a normal deploy after upgrading should automatically pull in the correct image/Python.
+  - If your production containers are built on a machine that may have an older copy cached (e.g. Google Cloud, using `make gcp-build`)
       run `docker pull python:3.14-slim-bookworm` there before deploying, or clear your Docker build cache.
   - Projects deploying outside a supported Pegasus option should manually update `uv`, `pip`, and `python` however they are installed.
 
@@ -46,7 +44,7 @@ Unrelated changes:
 
 - Vite's dev server no longer watches the `static` directory, and `static` is now excluded from
   TypeScript checks. Thanks Jacob for suggesting!
-- The development Docker container now uses the same version as the rest of the app.
+- The development Docker container now uses the same `uv` version as the rest of the app.
 
 *October 23, 2026*
 
