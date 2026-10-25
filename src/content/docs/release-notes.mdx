@@ -11,6 +11,54 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 </Aside>
 
 
+## Version 2026.10.2
+
+This release follows up on 2026.10.1 with the Node.js side of the
+[eMudhra/emSign CA certificate incident](https://discuss.python.org/t/information-for-python-users-regarding-emudhra-emsign-ca-certificate-security-incident/109576),
+patches a security vulnerability in Brotli, and cleans up the standalone React front end.
+
+### Security updates
+
+- **Upgraded Node to 24.22.1, which removes the untrusted emSign root certificates from Node's built-in CA store.**
+  - Docker builds pick this up automatically from the `node:24` base images. Render builds are now pinned to 24.22.1.
+  - The front end GitHub Actions workflow now uses `check-latest`, so cached runners always get the newest Node 24 release.
+  - Removed the pinned npm 11.11 install from the Docker images. Node 24 now bundles a newer npm, so the pin was actually a downgrade.
+- **Upgraded Brotli to 1.2.1** to address [GHSA-9v8h-qqgm-4m35](https://github.com/advisories/GHSA-9v8h-qqgm-4m35).
+  Brotli is used by `whitenoise` to compress static files. The vulnerability is not on any known path in whitenoise, but upgrading
+  is safe and recommended.
+
+**Recommended steps after upgrading:**
+
+- In development:
+  - Upgrade Node on your own machine to 24.22.1 or later.
+  - If you develop with Docker, run `docker pull node:24-bookworm` and rebuild your containers.
+- In production:
+  - If you are using Kamal, Fly.io, Heroku (Docker), Render, or Digital Ocean, a normal deploy after upgrading should automatically pull in the correct Node version.
+  - If your production containers are built on a machine that may have an older copy cached (e.g. Google Cloud, using `make gcp-build`)
+    run `docker pull node:24-bookworm-slim` there before deploying, or clear your Docker build cache.
+
+### Standalone front end updates
+
+- The standalone front end's Docker image now uses Node 24 (it was previously on Node 22) and installs from its lockfile.
+- The standalone React front end is now linted in CI.
+  - `npm run lint` now only checks for errors. Use the new `npm run lint:fix` to auto-fix.
+- Fixed the existing lint errors in the standalone front end. The main changes are:
+  - The router is now created inside the React tree (in a new `AppRouter` component),
+    which simplifies `main.tsx` and ensures route loaders only run after allauth is set up.
+  - The team context and form error helpers moved into their own modules (`teams/TeamContext.ts` and `lib/formErrors.ts`).
+  - `useIsMobile` now uses `useSyncExternalStore`.
+  - Removed some unused code.
+- Removed the `legacy-peer-deps` npm setting from the standalone front end, since its dependencies no longer need it.
+
+### Upgrading
+
+- If you've added packages with conflicting peer dependencies, `npm install` may now fail on the front end.
+  You can either fix these issues or add `legacy-peer-deps=true` back to `frontend/.npmrc` to work around it.
+- If you've modified the front end, the linting check in CI may fail. You can either fix any issues that come up
+  in your own code, or remove the linting check from the `.github/workflows/build_frontend.yml` file if you don't want to enforce linting.
+
+*October 25, 2026*
+
 ## Version 2026.10.1
 
 This is a security hotfix release for the
