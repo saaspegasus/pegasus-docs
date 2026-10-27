@@ -7,6 +7,20 @@ sidebar:
 
 This page describes how to migrate your project from Webpack to Vite.
 
+## Why migrate?
+
+Webpack is [deprecated in Pegasus](/front-end/webpack/) and will be removed in a future release.
+Vite is also faster, more modern, and includes a number of features not supported by Webpack, including:
+
+1. Hot Module Replacement (HMR)---a development feature that lets code changes in your front end files automatically
+   update without a full-page reload.
+2. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
+   code dependencies. This leads to less redundant JavaScript and faster page loads.
+
+See [this video](https://www.youtube.com/watch?v=qVwRygtffiw) for more on the benefits of Vite over Webpack.
+
+## Video walkthrough
+
 There is also a video walkthrough of the process here:
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin-bottom: 1em;">
@@ -129,7 +143,7 @@ window.SiteJS.library = {
 
 ## 7. Rebuild and run your front end
 
-Finally, rebuild and run your front end, according to the [vite docs](/front-end/vite):
+Finally, rebuild and run your front end, according to the [front end docs](/front-end/overview/#running-in-development):
 
 ```bash
 npm install

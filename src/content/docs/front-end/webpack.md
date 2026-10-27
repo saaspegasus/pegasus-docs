@@ -1,7 +1,20 @@
 ---
-title: Webpack-Specific Instructions
-description: Use Webpack for Django front-end builds with dev-watch mode, bundle compilation, and static file management for JavaScript and CSS assets.
+title: Webpack Instructions (Deprecated)
+description: Instructions for the deprecated Webpack front-end setup, including dev-watch mode, bundle compilation, and static file management.
 ---
+
+:::caution[Deprecated]
+Webpack is deprecated in Pegasus. It will not receive
+new features and support will be removed in a future release. Existing projects should [migrate to Vite](/front-end/migrating/).
+:::
+
+## Webpack architecture
+
+The Webpack setup follows the same architecture as the Vite one, just with different tools:
+[Webpack](https://webpack.js.org/) is the build tool, and [Babel](https://babeljs.io/) compiles the front-end code
+into bundle files that are referenced using Django's static file system.
+
+![Webpack Build Pipeline](../../../assets/images/js-pipeline-with-django.png)
 
 ## Development with Webpack
 
@@ -35,3 +48,26 @@ so they are no longer managed by source control, and have your developers build 
 **You can switch to this workflow by unchecking the "include static files" option in your project configuration.**
 
 For production deployment, see the [production guidance](/deployment/production-checklist/#optimize-your-front-end) on this.
+
+## Troubleshooting
+
+### Changes are not being picked up when running `make npm-watch` in a Docker container
+
+Some Docker configurations do not properly pick up file-system changes across operating systems.
+This can be a problem, e.g. when running on certain Windows environments.
+This causes changes made to not be automatically picked up.
+
+This can be fixed by updating `webpack.config.js` to use polling by adding this:
+
+```javascript
+module.exports = {
+   //...
+   watchOptions: {
+      poll: 1000,
+   },
+};
+```
+
+Alternatively, you can switch to installing/running NPM natively instead of in Docker.
+This is a good option if you are also getting poor performance, which can also be caused
+by cross-platform issues.
