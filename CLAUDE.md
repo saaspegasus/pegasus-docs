@@ -28,7 +28,7 @@
 - Code blocks use triple backticks with language specified
 
 ## Default Versions
-- Default Node.js version: 22
+- Default Node.js version: 24
 - Default Python version: 3.14
 
 ## Deployment
