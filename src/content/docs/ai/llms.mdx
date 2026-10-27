@@ -83,14 +83,11 @@ If you're extending the `app_base.html` file this will be at the end of the `{% 
 {% endblock app %}
 ```
 
-Then, add the `ws_initialize.js` in your page JavaScript:
+Then, add `ws_initialize.ts` to your page JavaScript:
 
 ```jinja
 {% block page_js %}
-<!-- If using vite -->
   {% vite_asset 'assets/javascript/chat/ws_initialize.ts' %}
-<!-- If using webpack -->
-  <script src="{% static 'js/chat-ws-initialize-bundle.js' %}" defer></script>
 {% endblock page_js %}
 ```
 
