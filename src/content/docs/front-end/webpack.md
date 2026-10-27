@@ -1,6 +1,6 @@
 ---
 title: Webpack Instructions (Deprecated)
-description: Use Webpack for Django front-end builds with dev-watch mode, bundle compilation, and static file management for JavaScript and CSS assets.
+description: Instructions for the deprecated Webpack front-end setup, including dev-watch mode, bundle compilation, and static file management.
 ---
 
 :::caution[Deprecated]
@@ -48,3 +48,26 @@ so they are no longer managed by source control, and have your developers build 
 **You can switch to this workflow by unchecking the "include static files" option in your project configuration.**
 
 For production deployment, see the [production guidance](/deployment/production-checklist/#optimize-your-front-end) on this.
+
+## Troubleshooting
+
+### Changes are not being picked up when running `make npm-watch` in a Docker container
+
+Some Docker configurations do not properly pick up file-system changes across operating systems.
+This can be a problem, e.g. when running on certain Windows environments.
+This causes changes made to not be automatically picked up.
+
+This can be fixed by updating `webpack.config.js` to use polling by adding this:
+
+```javascript
+module.exports = {
+   //...
+   watchOptions: {
+      poll: 1000,
+   },
+};
+```
+
+Alternatively, you can switch to installing/running NPM natively instead of in Docker.
+This is a good option if you are also getting poor performance, which can also be caused
+by cross-platform issues.
