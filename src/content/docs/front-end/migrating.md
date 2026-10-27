@@ -57,15 +57,16 @@ entry: {
 ```
 
 Importantly, *if you have added or changed anything in this section, you will need to re-apply those changes to 
-the `build.rollupOptions.input` section of `vite.config.ts`.*
+the `build.rolldownOptions.input` section of `vite.config.ts`.*
+(Older Pegasus versions that predate the Vite 8 upgrade use `build.rollupOptions.input` instead.)
 The section that you need to modify will look something like this:
 
 ```javascript
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       input: {
-        'site-base': path.resolve(__dirname, './assets/site-base.js'),
-        'site-tailwind': path.resolve(__dirname, './assets/site-tailwind.js'),
+        'site-base-css': path.resolve(__dirname, './assets/styles/site-base.css'),
+        'site-tailwind-css': path.resolve(__dirname, './assets/styles/site-tailwind.css'),
         'site': path.resolve(__dirname, './assets/javascript/site.js'),
         'app': path.resolve(__dirname, './assets/javascript/app.js'),
         'dashboard': path.resolve(__dirname, './assets/javascript/shadcn-dashboard/index.jsx'),
