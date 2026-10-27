@@ -57,22 +57,23 @@ entry: {
 ```
 
 Importantly, *if you have added or changed anything in this section, you will need to re-apply those changes to 
-the `build.rolldownOptions.input` section of `vite.config.ts`.*
-(Older Pegasus versions that predate the Vite 8 upgrade use `build.rollupOptions.input` instead.)
+the `build.rolldownOptions.input` section of `vite.config.mts`.*
+(On older Pegasus versions the file is named `vite.config.ts`, and versions that predate Vite 8
+use `build.rollupOptions.input` for the section.)
 The section that you need to modify will look something like this:
 
 ```javascript
   build: {
     rolldownOptions: {
       input: {
-        'site-base-css': path.resolve(__dirname, './assets/styles/site-base.css'),
-        'site-tailwind-css': path.resolve(__dirname, './assets/styles/site-tailwind.css'),
-        'site': path.resolve(__dirname, './assets/javascript/site.js'),
-        'app': path.resolve(__dirname, './assets/javascript/app.js'),
-        'dashboard': path.resolve(__dirname, './assets/javascript/shadcn-dashboard/index.jsx'),
-        'teams': path.resolve(__dirname, './assets/javascript/teams/teams.jsx'),
-        'edit-team': path.resolve(__dirname, './assets/javascript/teams/edit-team.jsx'),
-        'chat': path.resolve(__dirname, './assets/javascript/chat/chat.jsx'),
+        'site-base-css': path.resolve(import.meta.dirname, './assets/styles/site-base.css'),
+        'site-tailwind-css': path.resolve(import.meta.dirname, './assets/styles/site-tailwind.css'),
+        'site': path.resolve(import.meta.dirname, './assets/javascript/site.js'),
+        'app': path.resolve(import.meta.dirname, './assets/javascript/app.js'),
+        'dashboard': path.resolve(import.meta.dirname, './assets/javascript/shadcn-dashboard/index.jsx'),
+        'teams': path.resolve(import.meta.dirname, './assets/javascript/teams/teams.jsx'),
+        'edit-team': path.resolve(import.meta.dirname, './assets/javascript/teams/edit-team.jsx'),
+        'chat': path.resolve(import.meta.dirname, './assets/javascript/chat/chat.jsx'),
       },
 ```
 

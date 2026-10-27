@@ -51,7 +51,7 @@ But it's done to balance page speed and complexity.
 
 The more individual JavaScript files you have, the less code will have to be loaded on any individual page.
 This should generally make your site faster. But it's more complex to maintain as each new file needs to be
-added to your `vite.config.ts`/`webpack.config.js`.
+added to your `vite.config.mts`/`webpack.config.js`.
 
 Meanwhile, dumping everything in a single file is easier to maintain, but can lead to bulky initial page load times.
 After the initial load, the browser's cache should help, so this can be acceptable for most pages
@@ -136,7 +136,8 @@ The convention for using this functionality is:
 SiteJS.<package-name>
 ```
 
-Where `<package-name>` is the name of the file in the `module.exports` section of `vite.config.ts`/`webpack.config.js`.
+Where `<package-name>` is the name of the entry in the `build.rolldownOptions.input` section of `vite.config.mts`
+(or the `entry` section of `webpack.config.js`).
 You can look at existing Pegasus examples to get a better sense of how this works.
 
 Note that this functionality was first built on Webpack libraries,
