@@ -22,15 +22,6 @@ files that can be referenced using Django's static file system, as represented i
 
 ![Vite Build Pipeline](../../../assets/images/js-pipeline-with-django-vite.png)
 
-The Vite integration with Django is managed by [`django-vite`](https://github.com/MrBin99/django-vite).
-Big picture this works in two ways:
-
-1. In *development* front end assets are served directly from Vite's server
-2. In *production* front end assets are built and served through Django's static files system.
-
-This toggle is configured through the `"dev_mode"` setting in your default `DJANGO_VITE` config in `settings.py`.
-Out of the box, this setting is tied to the `settings.DEBUG` flag.
-
 Note: Older versions of Pegasus supported a [Webpack-based setup](/front-end/webpack/), which is now deprecated.
 
 Pegasus's styles use the [Tailwind](https://tailwindcss.com/) CSS framework,
@@ -86,7 +77,17 @@ This will install all the dependencies necessary to build the front end.
 It will also generate a `package-lock.json` file.
 **It is recommended that you add the `package-lock.json` to source control for consistency across installations.**
 
-## Running in development
+## Working with Vite and Django
+
+Pegasus integrates Vite with Django using [django-vite](https://github.com/MrBin99/django-vite), which runs in one of two modes:
+
+1. In *development*, front end assets are served directly from Vite's dev server.
+2. In *production*, front end assets are built and served through Django's static files system.
+
+This is controlled by the `dev_mode` setting in your [django-vite configuration](#django-vite-configuration),
+which is tied to `settings.DEBUG` by default.
+
+### Running in development
 
 Vite does *not* use bundle files in development.
 Instead, your front end files are served by Vite's development server (which is configured though `django-vite`).
@@ -108,7 +109,7 @@ make npm-dev
 
 This command will also automatically refresh your front end whenever any changes are made.
 
-## Adding files to Django templates
+### Adding files to Django templates
 
 To add CSS / JS files to Django templates you can use the `vite_asset` template tag from django-vite:
 
@@ -125,7 +126,7 @@ If you are using React you also need to add the `vite_react_refresh` tag to get 
 {% vite_asset '<path to your React asset>' %}
 ```
 
-## Building for production
+### Building for production
 
 To build for production, run:
 
@@ -158,7 +159,7 @@ set the `DJANGO_VITE_DEV_MODE` environment variable to `false`.
 You will also need to set up [Django's static file serving](/deployment/production-checklist/#check-your-static-file-setup).
 Again, if you're using a supported Pegasus deployment mode, this should be already handled for you.
 
-## django-vite configuration
+### django-vite configuration
 
 The [django-vite docs](https://github.com/MrBin99/django-vite) provide details about the vite configuration.
 Here is the relevant declaration from `settings.py`:
