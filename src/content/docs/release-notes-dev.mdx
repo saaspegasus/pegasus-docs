@@ -14,4 +14,39 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-There haven't been any updates since the last release.
+## Version 2026.11
+
+This release makes Pegasus's custom middleware async-capable, fixes a Vite config warning,
+and includes a few front end dependency updates.
+
+### Async-capable middleware
+
+Pegasus's custom middleware now supports both sync and async requests natively. Before, Django had to
+switch between sync and async contexts around each one when serving requests under ASGI.
+
+- **`TeamsMiddleware` is now async-capable.** It also now leaves the current team context alone if
+  `process_view` never ran, for example on a 404 where URL resolution fails.
+- **`HealthCheckMiddleware`, `UserLocaleMiddleware`, and `UserTimezoneMiddleware` now use Django's `MiddlewareMixin`**,
+  which makes them work with both sync and async requests. Their logic moved into `process_request` / `process_response` hooks.
+- Added tests for the locale and timezone middleware under async requests, and for the team context
+  on async and unresolved requests.
+
+### Other changes
+
+- **Renamed `vite.config.ts` to `vite.config.mts`.** This fixes a warning in Vite 8.3 about the config using ESM syntax
+  in a file Node would load as CommonJS, which Vite's upcoming native config loader won't support.
+  - The config now uses `import.meta.dirname` instead of `__dirname`, which isn't available in ES modules.
+  - The TypeScript `module` setting in `tsconfig.json` is now `es2020` (was `es6`) so that type checking allows `import.meta`.
+- Added `terser-webpack-plugin` as an explicit dev dependency on Webpack builds. `webpack.config.js` uses it, but it was
+  only installed as a dependency of Webpack, which Webpack 5.108 no longer includes.
+- Ran `npm audit fix` to address security advisories in Vite, PostCSS, nanoid, js-yaml, and others.
+- The GitLab CI front end jobs now use the same Node version as the rest of the project (Node 24, was Node 22).
+- Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades. It now catches
+  colliding migrations and unexpected changes to user fields, flags package upgrades that get lost when
+  taking Pegasus's lock files, and handles a few more edge cases during the merge.
+
+### Upgrading
+
+- If you've customized `vite.config.ts`, move your changes into `vite.config.mts` and replace any uses of `__dirname`
+  with `import.meta.dirname`. Then delete the old `vite.config.ts` file.
+- If you've customized any of the middleware listed above, you'll need to merge your changes into the new structure.
