@@ -1,7 +1,12 @@
 ---
-title: Webpack-Specific Instructions
+title: Webpack-Specific Instructions (Deprecated)
 description: Use Webpack for Django front-end builds with dev-watch mode, bundle compilation, and static file management for JavaScript and CSS assets.
 ---
+
+:::caution[Deprecated]
+Webpack is deprecated in Pegasus. It will continue to work for existing projects, but will not receive
+new features and support will be removed in a future release. Existing projects should [migrate to Vite](/front-end/migrating/).
+:::
 
 ## Development with Webpack
 
