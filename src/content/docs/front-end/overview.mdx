@@ -31,21 +31,6 @@ For more details on CSS in Pegasus, see the [CSS documentation](/css/overview).
 and the details of the set up see the [Modern JavaScript for Django Developers](https://www.saaspegasus.com/guides/modern-javascript-for-django-developers/)
 series.**
 
-## Choosing a front end build tool
-
-Pegasus currently lets you choose between Vite and Webpack as the primary build tool for your front end.
-Choosing is relatively simple: **if you don't know what you want, use Vite**.
-
-Vite is faster, more modern, and includes a number of features not supported by webpack, including:
-
-1. Hot Module Replacement (HMR)---a development feature that lets code changes in your front end files automatically
-   update without a full-page reload.
-2. Code splitting---a production feature that breaks your front end files into individual bundles that encapsulate
-   code dependencies. This leads to less redundant JavaScript and faster page loads.
-
-The main reason to choose Webpack is if you are already using it and don't want to switch tools.
-See [this video](https://www.youtube.com/watch?v=qVwRygtffiw) for more on the benefits of Vite over Webpack.
-
 ## Front-end files
 
 The source front-end files live in the `assets` directory, while the compiled files
