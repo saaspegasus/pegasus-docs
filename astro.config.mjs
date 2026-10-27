@@ -13,6 +13,7 @@ export default defineConfig({
     '/using-virtualenvs': '/python/setup/',
     '/python/': '/python/setup/',
     '/front-end/': '/front-end/overview/',
+    '/front-end/vite/': '/front-end/overview/',
     '/front-end/troubleshooting/': '/front-end/webpack/#troubleshooting',
     '/css/': '/css/overview/',
     '/ai/': '/ai/development/',
@@ -127,7 +128,6 @@ export default defineConfig({
           collapsed: true,
           items: [
             'front-end/overview',
-            'front-end/vite',
             'front-end/design-patterns',
             'front-end/migrating',
             'front-end/webpack',

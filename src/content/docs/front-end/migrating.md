@@ -142,7 +142,7 @@ window.SiteJS.library = {
 
 ## 7. Rebuild and run your front end
 
-Finally, rebuild and run your front end, according to the [vite docs](/front-end/vite):
+Finally, rebuild and run your front end, according to the [front end docs](/front-end/overview/#running-in-development):
 
 ```bash
 npm install
