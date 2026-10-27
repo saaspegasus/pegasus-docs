@@ -1,5 +1,5 @@
 ---
-title: Webpack-Specific Instructions (Deprecated)
+title: Webpack Instructions (Deprecated)
 description: Use Webpack for Django front-end builds with dev-watch mode, bundle compilation, and static file management for JavaScript and CSS assets.
 ---
 
