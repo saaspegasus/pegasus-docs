@@ -16,8 +16,7 @@ See [the standalone front end docs](/experimental/react-front-end) for the separ
 Pegasus's front-end architecture is a hybrid model, with a front-end codebase
 that is compiled and used directly in Django templates via Django's static files infrastructure.
 
-Big picture, the front end consists of a build tool ([Vite](https://vite.dev/))
-and a compiler ([esbuild](https://esbuild.github.io/)) which compiles the front-end code into bundle
+Big picture, the front end is built with [Vite](https://vite.dev/), which compiles the front-end code into bundle
 files that can be referenced using Django's static file system, as represented in the diagram below.
 
 ![Vite Build Pipeline](../../../assets/images/js-pipeline-with-django-vite.png)
@@ -38,7 +37,7 @@ The source front-end files live in the `assets` directory, while the compiled fi
 get created in the `static` directory.
 
 Generally you should only ever edit the front-end files in `assets` directly,
-and compile them using the instructions below.
+and use the tools described below to serve and build them.
 
 ## Prerequisites to building the front end
 
@@ -90,7 +89,7 @@ which is tied to `settings.DEBUG` by default.
 ### Running in development
 
 Vite does *not* use bundle files in development.
-Instead, your front end files are served by Vite's development server (which is configured though `django-vite`).
+Instead, your front end files are served by Vite's development server (which is configured through `django-vite`).
 
 This workflow gives you the benefit of added speed and fast page updates without reloading your browser,
 but it does mean that **your Vite server must be running at all times during development**.
@@ -111,11 +110,18 @@ This command will also automatically refresh your front end whenever any changes
 
 ### Adding files to Django templates
 
-To add CSS / JS files to Django templates you can use the `vite_asset` template tag from django-vite:
+To add JavaScript files to Django templates you can use the `vite_asset` template tag from django-vite:
 
 ```jinja
 {% load django_vite %}
 {% vite_asset '<path to your asset>' %}
+```
+
+For CSS files, use the `vite_asset_url` tag inside a regular stylesheet link:
+
+```jinja
+{% load django_vite %}
+<link rel="stylesheet" href="{% vite_asset_url '<path to your CSS file>' %}">
 ```
 
 If you are using React you also need to add the `vite_react_refresh` tag to get HMR working:
@@ -140,11 +146,12 @@ or in Docker:
 make npm-build
 ```
 
-This will compress your files, remove logging statements, etc.
+This will minify and optimize your files.
 In most [supported deployment set ups](/deployment/overview), this will be run automatically for you as part of your deployment.
 
-Production builds will disable `settings.DEBUG` via the environment variable,
-which will in turn disable Vite's dev mode.
+In production, `settings.DEBUG` should be disabled via an environment variable,
+which will in turn disable django-vite's dev mode.
+Supported Pegasus deployments set this for you.
 
 <Aside title="Environment variables and settings.DEBUG">
 You should always override `settings.DEBUG` via an environment variable or `.env` file.
@@ -168,18 +175,22 @@ Here is the relevant declaration from `settings.py`:
 DJANGO_VITE = {
     "default": {
         "dev_mode": env.bool("DJANGO_VITE_DEV_MODE", default=DEBUG),
+        "dev_server_host": env("DJANGO_VITE_HOST", default="localhost"),
+        "dev_server_port": env.int("DJANGO_VITE_PORT", default=5173),
         "manifest_path": BASE_DIR / "static" / ".vite" / "manifest.json",
     }
 }
 ```
 
 This should work without modification for most projects.
-If for some reason you want to change your vite server port or base path in `vite.config.ts` you will have to make
-corresponding changes to your `django-vite` settings as per their documentation.
+To change the Vite server's port, set the `DJANGO_VITE_PORT` environment variable,
+which is read by both `vite.config.ts` and `django-vite`.
+If you change the base path, you will have to make corresponding changes to your `django-vite` settings
+as per their documentation.
 
 ## TypeScript and type checking
 
-Since the 2022.6 release, Pegasus includes TypeScript as part of the front end code.
+Pegasus includes TypeScript as part of the front end code.
 You can write TypeScript or JavaScript code and it will be transpiled to work in a browser as part of the
 build pipeline.
 
