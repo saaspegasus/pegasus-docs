@@ -127,10 +127,10 @@ export default defineConfig({
           items: [
             'front-end/overview',
             'front-end/vite',
-            'front-end/webpack',
             'front-end/design-patterns',
             'front-end/troubleshooting',
             'front-end/migrating',
+            'front-end/webpack',
           ],
         },
         {
