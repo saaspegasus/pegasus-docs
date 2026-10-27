@@ -8,6 +8,14 @@ Webpack is deprecated in Pegasus. It will continue to work for existing projects
 new features and support will be removed in a future release. Existing projects should [migrate to Vite](/front-end/migrating/).
 :::
 
+## Webpack architecture
+
+The Webpack setup follows the same architecture as the Vite one, just with different tools:
+[Webpack](https://webpack.js.org/) is the build tool, and [Babel](https://babeljs.io/) compiles the front-end code
+into bundle files that are referenced using Django's static file system.
+
+![Webpack Build Pipeline](../../../assets/images/js-pipeline-with-django.png)
+
 ## Development with Webpack
 
 Whenever you make modifications to the front-end files you will need to run

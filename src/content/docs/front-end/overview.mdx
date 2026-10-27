@@ -15,19 +15,13 @@ See [the standalone front end docs](/experimental/react-front-end) for the separ
 Pegasus's front-end architecture is a hybrid model, with a front-end codebase
 that is compiled and used directly in Django templates via Django's static files infrastructure.
 
-There are two setups, one built on top of Webpack, and a more modern one built on top of Vite.
-The architecture of these is very similar, just built on different tools.
-
-Big picture, the front end consists of a build tool ([Vite](https://vite.dev/) or [Webpack](https://webpack.js.org/))
-and a compiler ([esbuild](https://esbuild.github.io/) or [Babel](https://babeljs.io/)) which compiles the front-end code into bundle
+Big picture, the front end consists of a build tool ([Vite](https://vite.dev/))
+and a compiler ([esbuild](https://esbuild.github.io/)) which compiles the front-end code into bundle
 files that can be referenced using Django's static file system, as represented in the diagram below.
-
-**Vite**
 
 ![Vite Build Pipeline](../../../assets/images/js-pipeline-with-django-vite.png)
 
-**Webpack**
-![Build Pipeline](../../../assets/images/js-pipeline-with-django.png)
+Older projects may use the deprecated [Webpack setup](/front-end/webpack/) instead.
 
 Pegasus's styles use either the [Tailwind](https://tailwindcss.com/),  [Bootstrap](https://getbootstrap.com/) or [Bulma](https://bulma.io/) CSS frameworks,
 and building the CSS files is included as part of the front-end build pipeline.
