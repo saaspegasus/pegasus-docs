@@ -114,14 +114,14 @@ To add JavaScript files to Django templates you can use the `vite_asset` templat
 
 ```jinja
 {% load django_vite %}
-{% vite_asset 'assets/javascript/app.js' %}
+{% vite_asset 'assets/javascript/my-page.js' %}
 ```
 
 For CSS files, use the `vite_asset_url` tag inside a regular stylesheet link:
 
 ```jinja
 {% load django_vite %}
-<link rel="stylesheet" href="{% vite_asset_url 'assets/styles/site-tailwind.css' %}">
+<link rel="stylesheet" href="{% vite_asset_url 'assets/styles/my-page.css' %}">
 ```
 
 If you are using React you also need to add the `vite_react_refresh` tag to get HMR working:
