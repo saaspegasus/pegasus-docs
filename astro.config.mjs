@@ -13,7 +13,7 @@ export default defineConfig({
     '/using-virtualenvs': '/python/setup/',
     '/python/': '/python/setup/',
     '/front-end/': '/front-end/overview/',
-    '/front-end/vite/': '/front-end/overview/',
+    '/front-end/vite/': '/front-end/overview/#working-with-vite-and-django',
     '/front-end/troubleshooting/': '/front-end/webpack/#troubleshooting',
     '/css/': '/css/overview/',
     '/ai/': '/ai/development/',
