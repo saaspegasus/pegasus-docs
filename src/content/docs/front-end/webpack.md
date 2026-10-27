@@ -4,7 +4,7 @@ description: Use Webpack for Django front-end builds with dev-watch mode, bundle
 ---
 
 :::caution[Deprecated]
-Webpack is deprecated in Pegasus. It will continue to work for existing projects, but will not receive
+Webpack is deprecated in Pegasus. It will not receive
 new features and support will be removed in a future release. Existing projects should [migrate to Vite](/front-end/migrating/).
 :::
 
