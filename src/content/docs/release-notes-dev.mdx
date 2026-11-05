@@ -14,4 +14,88 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-There haven't been any updates since the last release.
+## Version 2026.11
+
+This release upgrades htmx to version 4, makes Pegasus's custom middleware async-capable,
+fixes a Vite config warning, and upgrades Python and JavaScript dependencies.
+
+### htmx 4
+
+Pegasus now uses [htmx 4](https://four.htmx.org/announcements/2026-08-28-htmx-4.0.0-is-released).
+htmx 4 is a major rewrite with a lot of breaking changes, so if you've written your own htmx code,
+read the [upgrading notes](#upgrading) below before you upgrade.
+
+- **Upgraded `htmx.org` to version 4.** The websockets extension now ships with htmx, so the separate `htmx-ext-ws`
+  package has been removed.
+- Updated all of Pegasus's htmx templates and JavaScript to the htmx 4 syntax. This includes the employee demo,
+  the htmx paginators, the app error banner, and the AI chat and group chat plugins.
+- **Pegasus keeps the htmx 2 behavior of ignoring 4xx and 5xx responses.** htmx 4 swaps error responses into the
+  page by default; Pegasus's `htmx.js` turns that off. Individual elements can still opt in to swapping error
+  responses with `hx-status` (for example, `hx-status:422="swap:innerHTML"`).
+- Fixed a bug where the chat UI could get stuck on "Connecting..." if the websocket opened before the page's
+  JavaScript was ready. htmx 4 initializes sooner than htmx 2 did, which made this more likely.
+- Group chat now bundles htmx with the rest of your front end, instead of loading an old version of htmx from a CDN
+  on projects that didn't otherwise use htmx.
+- Removed a redundant CSRF token hook from the htmx object demo. The `hx-headers` on `<body>` already handles this.
+
+### Async-capable middleware
+
+Pegasus's custom middleware now supports both sync and async requests natively. Before, Django had to
+switch between sync and async contexts around each one when serving requests under ASGI.
+
+- **`TeamsMiddleware` is now async-capable.** It also now leaves the current team context alone if
+  `process_view` never ran, for example on a 404 where URL resolution fails.
+- **`HealthCheckMiddleware`, `UserLocaleMiddleware`, and `UserTimezoneMiddleware` now use Django's `MiddlewareMixin`**,
+  which makes them work with both sync and async requests. Their logic moved into `process_request` / `process_response` hooks.
+- Added tests for the locale and timezone middleware under async requests, and for the team context
+  on async and unresolved requests.
+
+### Other changes
+
+- **Upgraded Python and JavaScript dependencies**, including several major version upgrades of front end
+  build tools.
+- **Narrowed the GitHub social login scope from `user` to `user:email`.** The `user` scope gave your app
+  read/write access to the user's whole GitHub profile, and login only needs their public profile and email addresses.
+- **Renamed `vite.config.ts` to `vite.config.mts`.** This fixes a warning in Vite 8.3 about the config using ESM syntax
+  in a file Node would load as CommonJS, which Vite's upcoming native config loader won't support.
+  - The config now uses `import.meta.dirname` instead of `__dirname`, which isn't available in ES modules.
+  - The TypeScript `module` setting in `tsconfig.json` is now `es2020` (was `es6`) so that type checking allows `import.meta`.
+- Added `terser-webpack-plugin` as an explicit dev dependency on Webpack builds. `webpack.config.js` uses it, but it was
+  only installed as a dependency of Webpack, which Webpack 5.108 no longer includes.
+- Ran `npm audit fix` to address security advisories in Vite, PostCSS, nanoid, js-yaml, and others.
+- The GitLab CI front end jobs now use the same Node version as the rest of the project (Node 24, was Node 22).
+- Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades. It now catches
+  colliding migrations and unexpected changes to user fields, flags package upgrades that get lost when
+  taking Pegasus's lock files, and handles a few more edge cases during the merge.
+
+### Upgrading
+
+#### htmx 4
+
+If you only use the htmx code that ships with Pegasus, you shouldn't need to do anything.
+If you've written your own htmx code, you'll need to migrate it.
+The htmx team's [What's New in htmx 4](https://four.htmx.org/docs/whats-new-in-htmx-4) guide covers the
+full list of changes. Here are the ones most likely to affect a Pegasus project:
+
+- **Attribute inheritance is now explicit.** In htmx 2, attributes like `hx-target` and `hx-swap` on a parent element
+  applied to all of its children. In htmx 4 you have to add `:inherited` (e.g. `hx-target:inherited="this"`)
+  for that to happen. This is the change that's easiest to miss, because templates that rely on it won't error.
+  They'll just target the wrong element.
+- **Event names changed** to a colon-separated style (e.g. `htmx:afterSwap` is now `htmx:after:swap`).
+  Check any `addEventListener` calls and `hx-on` / `hx-trigger` attributes that use htmx events.
+- **Websockets use new attributes and events.** `hx-ext="ws"` + `ws-connect` is now `hx-ws:connect`, `ws-send` is now
+  `hx-ws:send`, and the event payloads have a different shape. See the [hx-ws extension docs](https://four.htmx.org/extensions/hx-ws).
+  You can also remove `htmx-ext-ws` from your `package.json`.
+- **Error responses aren't swapped.** As described above, Pegasus keeps the htmx 2 behavior. If you want htmx 4's
+  default instead, remove the `noSwap` config and `htmx:before:swap` listener from `assets/javascript/htmx.js`.
+- If you have a lot of htmx code and want to migrate gradually, the
+  [htmx-2-compat extension](https://four.htmx.org/extensions/htmx-2-compat) restores the htmx 2 event names
+  and implicit inheritance.
+
+#### Other changes
+
+- If your app calls the GitHub API with the user's login token and needs more than their profile and email, add the
+  scopes you need back to the GitHub entry in `SOCIALACCOUNT_PROVIDERS` in `settings.py`.
+- If you've customized `vite.config.ts`, move your changes into `vite.config.mts` and replace any uses of `__dirname`
+  with `import.meta.dirname`. Then delete the old `vite.config.ts` file.
+- If you've customized any of the middleware listed above, you'll need to merge your changes into the new structure.
