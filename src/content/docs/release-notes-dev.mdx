@@ -37,6 +37,9 @@ read the [upgrading notes](#upgrading) below before you upgrade.
 - Group chat now bundles htmx with the rest of your front end, instead of loading an old version of htmx from a CDN
   on projects that didn't otherwise use htmx.
 - Removed a redundant CSRF token hook from the htmx object demo. The `hx-headers` on `<body>` already handles this.
+- **Upgraded the [Pegasus CLI](https://github.com/saaspegasus/pegasus-cli/) to version 0.17**, which generates apps
+  for htmx 4. The CLI now stops with an error if you run `startapp` in a project that still uses htmx 2
+  (you can skip the check with `--force`).
 
 ### Async-capable middleware
 
@@ -62,18 +65,26 @@ switch between sync and async contexts around each one when serving requests und
   - The TypeScript `module` setting in `tsconfig.json` is now `es2020` (was `es6`) so that type checking allows `import.meta`.
 - Added `terser-webpack-plugin` as an explicit dev dependency on Webpack builds. `webpack.config.js` uses it, but it was
   only installed as a dependency of Webpack, which Webpack 5.108 no longer includes.
+- `tsconfig.json` now lists the folders TypeScript should check (`assets`, `api-client`, and the root config files),
+  instead of listing the folders it should skip.
 - Ran `npm audit fix` to address security advisories in Vite, PostCSS, nanoid, js-yaml, and others.
 - The GitLab CI front end jobs now use the same Node version as the rest of the project (Node 24, was Node 22).
-- Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades. It now catches
-  colliding migrations and unexpected changes to user fields, flags package upgrades that get lost when
-  taking Pegasus's lock files, and handles a few more edge cases during the merge.
+- Upgraded `mcp-alchemy`, which the AI chat's database tool and the AI coding assistant MCP config use,
+  to a version that works with `mcp` 2.x.
+- Fixed the `api-client` folder not being removed from projects built without the API client.
+- Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades:
+  - It now catches colliding migrations and unexpected changes to user fields, flags package upgrades that get lost when
+    taking Pegasus's lock files, and handles a few more edge cases during the merge.
+  - It now reads the release notes for the versions you're upgrading across and follows their upgrade guidance.
+  - The check for unexpected migrations now runs even when the merge has no conflicts.
+  - The instructions were reorganized to follow the order of the work and trimmed down.
 
 ### Upgrading
 
 #### htmx 4
 
 If you only use the htmx code that ships with Pegasus, you shouldn't need to do anything.
-If you've written your own htmx code, you'll need to migrate it.
+If you've generated apps with the Pegasus CLI or written your own htmx code, you'll need to migrate them.
 The htmx team's [What's New in htmx 4](https://four.htmx.org/docs/whats-new-in-htmx-4) guide covers the
 full list of changes. Here are the ones most likely to affect a Pegasus project:
 
@@ -81,6 +92,9 @@ full list of changes. Here are the ones most likely to affect a Pegasus project:
   applied to all of its children. In htmx 4 you have to add `:inherited` (e.g. `hx-target:inherited="this"`)
   for that to happen. This is the change that's easiest to miss, because templates that rely on it won't error.
   They'll just target the wrong element.
+- **The `HX-Target` request header now includes the tag name**, e.g. `div#page-content` instead of `page-content`.
+  Any view that checks `request.htmx.target` needs to be updated. `HX-Trigger-Name` (`request.htmx.trigger_name`)
+  was removed.
 - **Event names changed** to a colon-separated style (e.g. `htmx:afterSwap` is now `htmx:after:swap`).
   Check any `addEventListener` calls and `hx-on` / `hx-trigger` attributes that use htmx events.
 - **Websockets use new attributes and events.** `hx-ext="ws"` + `ws-connect` is now `hx-ws:connect`, `ws-send` is now
@@ -92,7 +106,30 @@ full list of changes. Here are the ones most likely to affect a Pegasus project:
   [htmx-2-compat extension](https://four.htmx.org/extensions/htmx-2-compat) restores the htmx 2 event names
   and implicit inheritance.
 
+#### Apps generated with the Pegasus CLI
+
+Apps you generated with an older version of the CLI use htmx 2 syntax. If you don't update them, their links,
+forms and pagination will swap content into the wrong place. Two changes fix them:
+
+1. In each of the app's templates (`<app>_home.html`, and `<model>_list.html`, `<model>_detail.html`,
+   and `<model>_form.html` for each model), change the `page-content` wrapper from
+   `hx-target="#page-content"` to `hx-target:inherited="#page-content"`.
+2. In each model's list view in `views.py`, change `request.htmx.target == "page-content"`
+   to `request.htmx.target == "div#page-content"`.
+
+To find everything that needs changing, run this from your project root:
+
+```bash
+grep -rnE --exclude-dir=node_modules 'hx-target="#page-content"|htmx\.target == "page-content"' .
+```
+
+Apps you generate after upgrading will use the htmx 4 syntax automatically. If you need to generate an app in a
+project that hasn't been upgraded yet, install an older version of the CLI with `pip install 'pegasus-cli<0.17'`.
+
 #### Other changes
+
+- If you have TypeScript files outside `assets/` or `api-client/` that you want type checked,
+  add their folders to the `include` list in `tsconfig.json`.
 
 - If your app calls the GitHub API with the user's login token and needs more than their profile and email, add the
   scopes you need back to the GitHub entry in `SOCIALACCOUNT_PROVIDERS` in `settings.py`.
