@@ -16,8 +16,8 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ## Version 2026.11
 
-This release upgrades htmx to version 4, makes Pegasus's custom middleware async-capable,
-fixes a Vite config warning, and upgrades Python and JavaScript dependencies.
+This release upgrades htmx to version 4, removes SQLite support, updates the AI models and admin database tools,
+makes Pegasus's custom middleware async-capable, and upgrades Python and JavaScript dependencies.
 
 ### htmx 4
 
@@ -34,12 +34,36 @@ read the [upgrading notes](#upgrading) below before you upgrade.
   responses with `hx-status` (for example, `hx-status:422="swap:innerHTML"`).
 - Fixed a bug where the chat UI could get stuck on "Connecting..." if the websocket opened before the page's
   JavaScript was ready. htmx 4 initializes sooner than htmx 2 did, which made this more likely.
+- Fixed a bug where the streaming chat UI could send an empty message, because the input was cleared before htmx read it.
+  The input is now cleared after the message is sent.
 - Group chat now bundles htmx with the rest of your front end, instead of loading an old version of htmx from a CDN
   on projects that didn't otherwise use htmx.
 - Removed a redundant CSRF token hook from the htmx object demo. The `hx-headers` on `<body>` already handles this.
 - **Upgraded the [Pegasus CLI](https://github.com/saaspegasus/pegasus-cli/) to version 0.17**, which generates apps
   for htmx 4. The CLI now stops with an error if you run `startapp` in a project that still uses htmx 2
   (you can skip the check with `--force`).
+
+### SQLite support removed
+
+**Postgres is now the only supported database.** The database option has been removed from the project settings,
+and projects that were configured for SQLite will now be built with Postgres.
+
+See the [upgrading notes](#upgrading) if your project uses SQLite.
+
+### AI updates
+
+- **The admin agent's database tools no longer use an MCP server.** They used to spawn
+  [mcp-alchemy](https://github.com/runekaagaard/mcp-alchemy) in a separate process (via `uvx`).
+  They now run inside your app, using Django's own database connection.
+  - Queries run in a read-only transaction with a 30 second timeout, and long results are truncated.
+  - Added tests for the database tools.
+  - The `mcp-alchemy` package and pydantic-ai's `mcp` extra have been removed from your requirements.
+- **The default AI chat model is now `openai:gpt-5.6-terra`** (was `openai:gpt-5-mini`).
+- **Updated the AI images example to current models.** The options are now Nano Banana Pro, Nano Banana 2 (faster and cheaper),
+  and OpenAI's GPT Image 2.
+  - Replaced DALL-E 2 and DALL-E 3 with GPT Image 2, and moved Nano Banana Pro from its preview model to the released one.
+  - Removed Stability AI, along with its API key setting.
+  - Removed the provider logos from the page, which went stale whenever the models changed.
 
 ### Async-capable middleware
 
@@ -69,8 +93,8 @@ switch between sync and async contexts around each one when serving requests und
   instead of listing the folders it should skip.
 - Ran `npm audit fix` to address security advisories in Vite, PostCSS, nanoid, js-yaml, and others.
 - The GitLab CI front end jobs now use the same Node version as the rest of the project (Node 24, was Node 22).
-- Upgraded `mcp-alchemy`, which the AI chat's database tool and the AI coding assistant MCP config use,
-  to a version that works with `mcp` 2.x.
+- Upgraded `mcp-alchemy` in the AI coding assistant MCP config to a version that works with `mcp` 2.x.
+- Fixed the htmx CSRF header being added to every page, even in projects that don't include htmx.
 - Fixed the `api-client` folder not being removed from projects built without the API client.
 - Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades:
   - It now catches colliding migrations and unexpected changes to user fields, flags package upgrades that get lost when
@@ -125,6 +149,32 @@ grep -rnE --exclude-dir=node_modules 'hx-target="#page-content"|htmx\.target == 
 
 Apps you generate after upgrading will use the htmx 4 syntax automatically. If you need to generate an app in a
 project that hasn't been upgraded yet, install an older version of the CLI with `pip install 'pegasus-cli<0.17'`.
+
+#### SQLite
+
+If your project uses SQLite, you'll need to move to Postgres as part of this upgrade.
+After the upgrade, your project's settings, requirements and `.env.example` will all be set up for Postgres.
+
+1. Install Postgres (or use the Docker setup) and create a database for your project.
+   See [Getting Started](/getting-started/) for details.
+2. Set `DATABASE_URL` in your `.env` file to point at it, or use the default Postgres settings in `settings.py`.
+3. Run `./manage.py migrate` to create the tables.
+4. If you have data you want to keep, you can move it over with Django's `dumpdata` and `loaddata` commands,
+   or a tool like [pgloader](https://pgloader.io/).
+
+In the meantime, you can keep using SQLite by setting `DATABASE_URL="sqlite:///db.sqlite3"`, but Pegasus no
+longer tests against it, and some features (like the admin database tools) won't work.
+
+#### AI
+
+- If you set `DEFAULT_AI_MODEL` in your `.env` file, that model will still be used. Otherwise, the new default applies.
+- If you've added your own MCP toolsets to an agent, add the `mcp` extra back to `pydantic-ai-slim` in your requirements.
+- If you've used `tool_requires_superuser` for your own tools, switch to the new `require_superuser` function in `apps/ai/permissions.py`.
+  It's called at the top of each tool rather than wrapping the toolset.
+  It now only checks `is_superuser` (it used to also require `is_staff`).
+- If you use the AI images example, you can remove `AI_IMAGES_STABILITY_AI_API_KEY` from your environment.
+  The `requests` library is no longer listed as a dependency of the example, so if your own code uses it,
+  make sure it's in your requirements.
 
 #### Other changes
 
