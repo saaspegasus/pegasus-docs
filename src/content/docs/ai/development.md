@@ -44,7 +44,7 @@ They are provided as a quick way to get started.
 
 ## MCP
 
-Pegasus also includes a default MCP setup containing two tools, a database inspector (Postgres builds only),
+Pegasus also includes a default MCP setup containing two tools, a database inspector,
 and a web browser.
 You can use these tools to give your AI assistants access to your database + schema and let them
 work directly with your application in a browser.
