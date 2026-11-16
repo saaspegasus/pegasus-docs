@@ -11,6 +11,144 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 </Aside>
 
 
+## Version 2026.11
+
+This release upgrades htmx to version 4, removes SQLite support, updates the AI models and admin database tools,
+makes Pegasus's custom middleware async-capable, and upgrades Python and JavaScript dependencies.
+
+### htmx 4 upgrade
+
+Pegasus now uses [htmx 4](https://four.htmx.org/announcements/2026-08-28-htmx-4.0.0-is-released).
+htmx 4 is a major rewrite with breaking changes, so be sure to read the upgrade notes below.
+These are the main changes:
+
+- **Upgraded `htmx.org` to version 4.** The websockets extension now ships with htmx, so the separate `htmx-ext-ws`
+  package has been removed.
+- Updated all htmx templates and JavaScript to the htmx 4 syntax.
+- Set `hx-target:inherited` on all wrapper elements to match htmx 4's [explicit inheritance](https://four.htmx.org/docs/whats-new-in-htmx-4#explicit-inheritance).
+- Set [`htmx.config.noSwap`](https://four.htmx.org/docs/whats-new-in-htmx-4#error-responses-swap) to preserve the htmx 2 behavior
+  of ignoring 4xx and 5xx responses. This avoids accidentally swapping Django's error pages into htmx elements.
+
+Related changes:
+
+- Fixed a bug where the chat UI could get stuck on "Connecting..." if the websocket opened before the page's
+  JavaScript was ready. htmx 4 initializes sooner than htmx 2 did, which made this more likely.
+- Fixed a bug where the streaming chat UI could send an empty message, because the input was cleared before htmx read it.
+  The input is now cleared after the message is sent.
+- Group chat now bundles htmx with the rest of your front end, instead of loading an old version of htmx from a CDN
+  on projects that didn't use htmx elsewhere.
+- **Upgraded the [Pegasus CLI](https://github.com/saaspegasus/pegasus-cli/) to version 0.17**, which generates apps
+  for htmx 4.
+
+### Async-capable middleware
+
+Pegasus's custom middleware now supports both sync and async requests natively. Before, Django had to
+switch between sync and async contexts around each one when serving requests under ASGI.
+This provides a mild performance benefit for ASGI applications.
+
+- **`TeamsMiddleware` is now async-capable.** It also now leaves the current team context alone if
+  `process_view` never ran, for example on a 404 where URL resolution fails.
+- **`HealthCheckMiddleware`, `UserLocaleMiddleware`, and `UserTimezoneMiddleware` now use Django's `MiddlewareMixin`**,
+  which makes them work with both sync and async requests. Their logic moved into `process_request` / `process_response` hooks.
+- Added tests for the locale and timezone middleware under async requests, and for the team context
+  on async and unresolved requests.
+
+### Coding assistant rule/skill overhaul
+
+The rules files for AI coding assistants (`CLAUDE.md`, `AGENTS.md`, Cursor rules, etc.) have been trimmed down.
+A lot of the old guidance was generic advice that today's coding agents follow without being told.
+
+- Removed generic advice from the general, Python, JavaScript and Django template guidelines
+  (e.g. "prefer simple solutions", PEP 8 rules, React best practices), in favor of encouraging
+  the agents to follow the project's existing conventions before introducing new patterns.
+- Made smaller fixes, tweaks, and cuts to other guidance and skills files, and better customized them to specific project setups.
+- Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades.
+  It now handles migration conflicts better and checks the release notes for gotchas.
+
+### Other changes
+
+- **Upgraded most Python and JavaScript dependencies.**
+  - Also ran `npm audit fix`.
+- **The admin agent's database tools no longer use an MCP server.**
+  Dropped `mcp-alchemy` in favor of a lightweight, inline set of tools running against Django's own database connection,
+  with tests.
+  - The `mcp-alchemy` package and pydantic-ai's `mcp` extra have been removed from requirements.
+    Its pins were causing problems with other projects wanting to use newer versions of `mcp`.
+  - Replaced `tool_requires_superuser` check with a simpler `require_superuser` call that can be used inside superuser-facing tools,
+    and removed the `is_staff` requirement.
+- Bumped `mcp-alchemy` in the coding assistant MCP config files to a version that works with `mcp` 2.x.
+- Bumped the default AI chat model references to the latest versions. The main default is now `openai:gpt-5.6-terra` (replacing the deprecated `openai:gpt-5-mini`).
+- Updated the AI images example to current models. The options are now Nano Banana Pro, Nano Banana 2 (faster and cheaper),
+  and OpenAI's GPT Image 2, removing DALL-E 2 and DALL-E 3.
+- Narrowed the GitHub social login scope from `user` to `user:email`. This avoids the app having unnecessary
+  read/write access to the user's GitHub profile.
+- **Renamed `vite.config.ts` to `vite.config.mts`.** This fixes a config warning in Vite 8.3.
+  - The config now uses `import.meta.dirname` instead of `__dirname`, which isn't available in ES modules.
+  - The TypeScript `module` setting in `tsconfig.json` is now `es2020` (was `es6`) so that type checking allows `import.meta`.
+- **`tsconfig.json` now lists the folders TypeScript should check (`assets`, `api-client`, and the root config files),
+  instead of listing the folders it should skip.** This is more in line with best practices and can substantially
+  reduce type-checking times in situations where large folders were needlessly being checked.
+- Fixed the htmx CSRF header being added to every page, even in projects that don't include htmx.
+- Removed a redundant CSRF token hook from the htmx object demo. The `hx-headers` on `<body>` already handles this.
+- Fixed the `api-client` folder not being removed from projects built without the API client.
+- The GitLab CI front end jobs now use the same Node version as the rest of the project (Node 24, was Node 22).
+- Added `terser-webpack-plugin` as an explicit dev dependency on legacy Webpack builds.
+
+### Removed
+
+- Officially dropped the deprecated SQLite database option.
+  Postgres is now the only supported database and projects that were configured for SQLite will now be built with Postgres.
+- Removed Stability AI option from the AI image demos, and removed the provider logos from the demo page.
+
+### Upgrading
+
+#### htmx 4
+
+If you've generated apps with the Pegasus CLI or written your own htmx code, you'll need to migrate them.
+The htmx team's [upgrade guide](https://four.htmx.org/docs/whats-new-in-htmx-4) covers the
+full list of changes and it is recommended to read (or have your agent read) and apply those recommendations.
+
+These are the ones most likely to affect a Pegasus project:
+
+- **Attribute inheritance is now explicit.** In htmx 2, attributes like `hx-target` and `hx-swap` on a parent element
+  applied to all of its children. In htmx 4 you have to add `:inherited` (e.g. `hx-target:inherited="this"`)
+  for that to happen. You'll see many examples of this in your upgraded project.
+- **The `HX-Target` request header now includes the tag name**, e.g. `div#page-content` instead of `page-content`.
+  Any view that checks `request.htmx.target` needs to be updated. `HX-Trigger-Name` (`request.htmx.trigger_name`)
+  was removed.
+- **Event names changed** to a colon-separated style (e.g. `htmx:afterSwap` is now `htmx:after:swap`).
+  Check any `addEventListener` calls and `hx-on` / `hx-trigger` attributes that use htmx events.
+- **Websockets use new attributes and events.** `hx-ext="ws"` + `ws-connect` is now `hx-ws:connect`, `ws-send` is now
+  `hx-ws:send`, and the event payloads have a different shape. See the [hx-ws extension docs](https://four.htmx.org/extensions/hx-ws).
+- **Error responses aren't swapped.** As described above, Pegasus keeps the htmx 2 behavior. If you want htmx 4's
+  default instead, remove the `noSwap` config and `htmx:before:swap` listener from `assets/javascript/htmx.js`.
+- If you have a lot of htmx code and want to migrate gradually, the
+  [htmx-2-compat extension](https://four.htmx.org/extensions/htmx-2-compat) restores the htmx 2 event names
+  and implicit inheritance.
+
+#### Apps generated with the Pegasus CLI
+
+Apps you generated with an older version of the CLI use htmx 2 syntax. If you don't update them, their links,
+forms and pagination will swap content into the wrong place. Two changes fix them:
+
+1. In each of the app's templates (`<app>_home.html`, and `<model>_list.html`, `<model>_detail.html`,
+   and `<model>_form.html` for each model), change the `page-content` wrapper from
+   `hx-target="#page-content"` to `hx-target:inherited="#page-content"`.
+2. In each model's list view in `views.py`, change `request.htmx.target == "page-content"`
+   to `request.htmx.target == "div#page-content"`.
+
+#### Other changes
+
+- If you've added your own MCP toolsets to an agent, add the `mcp` extra back to `pydantic-ai-slim` in your requirements.
+- If you've used `tool_requires_superuser` for your own tools, switch to the new `require_superuser` function in `apps/ai/permissions.py`
+  or restore that function.
+- If you have TypeScript files outside `assets/` or `api-client/` that you want type checked,
+  add their folders to the `include` list in `tsconfig.json`.
+- If you've customized `vite.config.ts`, move your changes into `vite.config.mts` and replace any uses of `__dirname`
+  with `import.meta.dirname`. Then delete the old `vite.config.ts` file.
+
+*November 16, 2026*
+
 ## Version 2026.10.2
 
 This release follows up on 2026.10.1 with the Node.js side of the

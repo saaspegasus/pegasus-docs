@@ -18,7 +18,7 @@ in your `settings.py` or environment variables / `.env` file.
 The format is `provider:model_name`, for example:
 
 ```bash
-DEFAULT_AI_MODEL="openai:gpt-5-mini"
+DEFAULT_AI_MODEL="openai:gpt-5.6-terra"
 ```
 
 The chat UI and all agents will use whatever is set in `DEFAULT_AI_MODEL`.
@@ -101,7 +101,7 @@ your own agents. These agents are built with [Pydantic AI](https://docs.pydantic
 
 - A weather and location lookup agent, with tools to do geo-lookups and access current weather information.
 - A chatbot to interact with employee application data models, with tools to work with employee data.
-- A chatbot to interact with system database, with MCP tool to access postgres data.
+- A chatbot to interact with your database (superusers only), with read-only tools to explore the schema and run SQL queries.
 - A tool to send emails.
 
 For more information on these agents and how they work, you can watch this video:
