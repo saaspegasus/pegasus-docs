@@ -50,6 +50,8 @@ A lot of the old guidance was generic advice that today's coding agents follow w
   (e.g. "prefer simple solutions", PEP 8 rules, React best practicess), in favor of encouraging
   the agents to follow the project's existing conventions before introducing new patterns.
 - Made smaller fixes, tweaks, and cuts to other guidance and skills files, and better customized them to specific project setups.
+- Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades.
+  It now handles migration conflicts better and checks the release notes for gotchas.
 
 ### AI updates
 
@@ -93,12 +95,6 @@ switch between sync and async contexts around each one when serving requests und
 - Upgraded `mcp-alchemy` in the AI coding assistant MCP config to a version that works with `mcp` 2.x.
 - Fixed the htmx CSRF header being added to every page, even in projects that don't include htmx.
 - Fixed the `api-client` folder not being removed from projects built without the API client.
-- Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades:
-  - It now catches colliding migrations and unexpected changes to user fields, flags package upgrades that get lost when
-    taking Pegasus's lock files, and handles a few more edge cases during the merge.
-  - It now reads the release notes for the versions you're upgrading across and follows their upgrade guidance.
-  - The check for unexpected migrations now runs even when the merge has no conflicts.
-  - The instructions were reorganized to follow the order of the work and trimmed down.
 - Removed a redundant CSRF token hook from the htmx object demo. The `hx-headers` on `<body>` already handles this.
 
 ### Removed
