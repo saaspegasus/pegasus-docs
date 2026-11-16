@@ -65,6 +65,22 @@ See the [upgrading notes](#upgrading) if your project uses SQLite.
   - Removed Stability AI, along with its API key setting.
   - Removed the provider logos from the page, which went stale whenever the models changed.
 
+### Coding assistant rules and skills
+
+The rules files for AI coding assistants (`CLAUDE.md`, `AGENTS.md`, Cursor rules, etc.) have been trimmed down.
+A lot of the old guidance was generic advice that today's coding agents follow without being told.
+
+- **Removed generic advice** from the general, Python, JavaScript and Django template guidelines
+  (e.g. "prefer simple solutions", PEP 8 rules, React best practices, and the 200-300 line file limit).
+- **Added two new rules:** follow the project's existing conventions before introducing new patterns,
+  and don't add broad `try/except` blocks or fallback values that hide errors.
+- **Fixed some guidance that didn't match your project.** The architecture section now names the API framework you
+  actually use (Django REST Framework or Django Ninja), and only mentions the API client and Celery if your project has them.
+  The Webpack watch command is now correctly listed as `make npm-watch`.
+- Fixed the `upgrade-js-deps` and `upgrade-python-deps` skills, which told the agent to commit using a
+  `/commit` skill that doesn't exist.
+- Removed some redundant notes from the `worktree` and `resolve-pegasus-conflicts` skills.
+
 ### Async-capable middleware
 
 Pegasus's custom middleware now supports both sync and async requests natively. Before, Django had to
