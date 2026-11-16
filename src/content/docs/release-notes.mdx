@@ -27,7 +27,7 @@ These are the main changes:
 - Updated all htmx templates and JavaScript to the htmx 4 syntax.
 - Set `hx-target:inherited` on all wrapper elements to match htmx 4's [explicit inheritance](https://four.htmx.org/docs/whats-new-in-htmx-4#explicit-inheritance).
 - Set [`htmx.config.noSwap`](https://four.htmx.org/docs/whats-new-in-htmx-4#error-responses-swap) to preserve the htmx 2 behavior
-  of ignoring 4xx and 5xx responses. This avoids accidentally swapping in Django's error pages into htmx elements.
+  of ignoring 4xx and 5xx responses. This avoids accidentally swapping Django's error pages into htmx elements.
 
 Related changes:
 
@@ -59,7 +59,7 @@ The rules files for AI coding assistants (`CLAUDE.md`, `AGENTS.md`, Cursor rules
 A lot of the old guidance was generic advice that today's coding agents follow without being told.
 
 - Removed generic advice from the general, Python, JavaScript and Django template guidelines
-  (e.g. "prefer simple solutions", PEP 8 rules, React best practicess), in favor of encouraging
+  (e.g. "prefer simple solutions", PEP 8 rules, React best practices), in favor of encouraging
   the agents to follow the project's existing conventions before introducing new patterns.
 - Made smaller fixes, tweaks, and cuts to other guidance and skills files, and better customized them to specific project setups.
 - Improved the built-in `resolve-pegasus-conflicts` skill based on feedback from real upgrades.
@@ -76,18 +76,18 @@ A lot of the old guidance was generic advice that today's coding agents follow w
     Its pins were causing problems with other projects wanting to use newer versions of `mcp`.
   - Replaced `tool_requires_superuser` check with a simpler `require_superuser` call that can be used inside superuser-facing tools,
     and removed the `is_staff` requirement.
-- Bumped `mcp-alchemy` in the `.mcp.json` file to a version that works with `mcp` 2.x.
+- Bumped `mcp-alchemy` in the coding assistant MCP config files to a version that works with `mcp` 2.x.
 - Bumped the default AI chat model references to the latest versions. The main default is now `openai:gpt-5.6-terra` (replacing the deprecated `openai:gpt-5-mini`).
 - Updated the AI images example to current models. The options are now Nano Banana Pro, Nano Banana 2 (faster and cheaper),
   and OpenAI's GPT Image 2, removing DALL-E 2 and DALL-E 3.
 - Narrowed the GitHub social login scope from `user` to `user:email`. This avoids the app having unnecessary
   read/write access to the user's GitHub profile.
-- **Renamed `vite.config.ts` to `vite.config.mts`.** This fixes a syntax warning in Vite 8.3.
+- **Renamed `vite.config.ts` to `vite.config.mts`.** This fixes a config warning in Vite 8.3.
   - The config now uses `import.meta.dirname` instead of `__dirname`, which isn't available in ES modules.
   - The TypeScript `module` setting in `tsconfig.json` is now `es2020` (was `es6`) so that type checking allows `import.meta`.
 - **`tsconfig.json` now lists the folders TypeScript should check (`assets`, `api-client`, and the root config files),
   instead of listing the folders it should skip.** This is more in line with best practices and can substantially
-  reduce build times in situations where large folders were needlessly being checked.
+  reduce type-checking times in situations where large folders were needlessly being checked.
 - Fixed the htmx CSRF header being added to every page, even in projects that don't include htmx.
 - Removed a redundant CSRF token hook from the htmx object demo. The `hx-headers` on `<body>` already handles this.
 - Fixed the `api-client` folder not being removed from projects built without the API client.
