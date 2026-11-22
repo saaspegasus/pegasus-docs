@@ -111,6 +111,34 @@ For more information on these agents and how they work, you can watch this video
 </div>
 
 
+### App tools
+
+App tools are AI tools that you define once, and then give to any agent or serve over the [MCP server](/ai/mcp/).
+An app tool is a function that takes the user and, optionally, a pydantic model of parameters:
+
+```python
+from pydantic import BaseModel, Field
+
+from apps.utils.app_tools import app_tool
+
+
+class RenameParams(BaseModel):
+    first_name: str = Field(description="The new first name.")
+
+
+@app_tool(description="Change the user's first name.")
+def rename(user: CustomUser, params: RenameParams) -> dict:
+    ...
+```
+
+To give app tools to an agent, wrap them in a toolset with `app_toolset`:
+
+```python
+_get_agent([weather_toolset, app_toolset(PROFILE_TOOLS)])
+```
+
+See the profile tools in `apps/users/tools.py` for a complete example.
+
 ### Setting the agent model and keys
 
 Agents use the same `DEFAULT_AI_MODEL` setting as the chat UI.

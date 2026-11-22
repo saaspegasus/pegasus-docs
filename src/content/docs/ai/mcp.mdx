@@ -1,0 +1,37 @@
+---
+title: MCP Server
+description: Let your users connect Claude, ChatGPT, Cursor, and other AI apps to their account with an OAuth-protected MCP server.
+sidebar:
+  order: 4
+---
+
+Pegasus includes an optional [MCP](https://modelcontextprotocol.io/) server, which lets your users connect
+AI apps like Claude, ChatGPT, and Cursor to their account in your app.
+It's built on [django-mcpz](https://pypi.org/project/django-mcpz/).
+
+To enable it, choose the "Use MCP Server" option when building your project.
+
+## Connecting an app
+
+The MCP server runs at `/mcp` on your site (e.g. `https://example.com/mcp`).
+Users add that URL as a connector in their AI app, and approve access on an authorization page in your app.
+Clients authenticate with OAuth, so users never have to copy API keys around.
+
+Users can see the MCP server URL and their connected apps in the "Connected AI Apps" section of their profile page,
+and disconnect any app from there.
+All connected apps are disconnected automatically when a user changes their password or 2FA setup.
+
+If you're using Celery, a daily task clears out expired OAuth codes and tokens.
+
+## Adding tools
+
+The MCP server serves [app tools](/ai/llms/#app-tools), the same tools your in-app agents can use.
+Out of the box it serves the tools to read and update the user's profile.
+
+To add your own, define them as app tools and register them in `apps/mcp/server.py`:
+
+```python
+register_app_tools(mcp_server, PROFILE_TOOLS + MY_TOOLS)
+```
+
+Tools always run as the user who connected the app.
