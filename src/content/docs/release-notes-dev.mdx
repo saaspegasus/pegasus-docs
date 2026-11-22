@@ -35,3 +35,11 @@ Pegasus can now include an [MCP](https://modelcontextprotocol.io/) server, built
   takes the user and an optional pydantic model of parameters. See `apps/utils/app_tools.py`.
 - Added tools to read and update the user's profile. The weather and admin agents now use them, and the MCP server
   serves them when it's enabled.
+
+### Upgrading
+
+If you enable the MCP server, make sure requests to `/.well-known/` reach Django.
+MCP clients use discovery documents at those paths to find your OAuth endpoints.
+Some server setups (often from Let's Encrypt/certbot instructions) serve all of `/.well-known/` from a directory on disk,
+which makes these return a 404 and prevents clients from connecting.
+If that's the case, narrow the rule to only the paths that need it, e.g. `/.well-known/acme-challenge/`.
