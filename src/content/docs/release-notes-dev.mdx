@@ -14,4 +14,24 @@ To try these features early, see the [Early Access Program](/early-access/).
 
 ---
 
-There haven't been any updates since the last release.
+This release adds an optional MCP server, so your users can connect AI apps like Claude, ChatGPT, and Cursor
+to their account, along with a new way to define AI tools once and share them between MCP and your in-app agents.
+
+### MCP server
+
+Pegasus can now include an [MCP](https://modelcontextprotocol.io/) server, built on
+[django-mcpz](https://pypi.org/project/django-mcpz/). Enable it with the new "Use MCP Server" option.
+
+- **Users connect MCP clients with OAuth.** Clients add your site's `/mcp` URL as a connector, and users approve
+  access on an authorization page in your app.
+- **Added a "Connected AI Apps" section to the profile page.** It shows the MCP server URL and lists the
+  connected apps, each of which can be disconnected.
+- **Connected apps are disconnected automatically** when a user changes their password or 2FA setup.
+- Added a daily Celery task that clears expired OAuth codes and tokens.
+
+### App tools
+
+- **Added "app tools": AI tools defined once and shared by MCP and the in-app agents.** A tool is a function that
+  takes the user and an optional pydantic model of parameters. See `apps/utils/app_tools.py`.
+- Added tools to read and update the user's profile. The weather and admin agents now use them, and the MCP server
+  serves them when it's enabled.
