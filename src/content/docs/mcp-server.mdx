@@ -3,7 +3,7 @@ title: Pegasus MCP Server
 description: Connect Claude, ChatGPT, Cursor, or any other MCP client to your SaaS Pegasus account to create, configure, and push your projects from an AI chat.
 ---
 
-import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 SaaS Pegasus runs an [MCP](https://modelcontextprotocol.io/) server, so you can work with your Pegasus projects
 from Claude, ChatGPT, Cursor, or any other AI app that supports MCP.
@@ -97,21 +97,10 @@ The server gives your AI app these tools:
 Creating or updating a project only saves its configuration---it doesn't generate any code.
 To get code, the AI pushes the project to GitHub, which opens a pull request with the changes.
 
-## Getting code into GitHub
+## Pushing to GitHub
 
 Pushing needs a GitHub repository connected to the project, and connecting one has to be done on the
 SaaS Pegasus website. See [GitHub Integration](/github/) for how.
-Once a project has a repository, your AI app can push to it as often as you like (up to 10 pushes an hour,
-shared with the CLI).
-
-A typical session looks like this:
-
-<Steps>
-1. **Create or pick a project.** Ask the AI to create one, or to change one you already have.
-2. **Connect a repository.** For a new project, connect its GitHub repository on the project's download page.
-3. **Push.** Ask the AI to push the project. It starts the build and checks on it until the pull request is ready.
-4. **Review and merge** the pull request on GitHub as usual.
-</Steps>
 
 ## License tiers
 
