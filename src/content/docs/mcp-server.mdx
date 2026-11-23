@@ -1,0 +1,128 @@
+---
+title: Pegasus MCP Server
+description: Connect Claude, ChatGPT, Cursor, or any other MCP client to your SaaS Pegasus account to create, configure, and push your projects from an AI chat.
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+SaaS Pegasus runs an [MCP](https://modelcontextprotocol.io/) server, so you can work with your Pegasus projects
+from Claude, ChatGPT, Cursor, or any other AI app that supports MCP.
+Once it's connected, you can ask things like:
+
+- "Create a new Pegasus project called Acme with teams, subscriptions, and React."
+- "Turn on Celery and Sentry for my acme project, then push it to GitHub."
+- "Upgrade acme to the latest Pegasus release and open a pull request."
+
+It does the same things as the [Pegasus CLI](https://github.com/saaspegasus/pegasus-cli/), without leaving the chat.
+
+:::note
+This page is about the MCP server for your Pegasus *account*, which manages your projects.
+To add an MCP server to the app you're building, see the "Use MCP Server" project option instead.
+:::
+
+## Connecting
+
+The server's URL is:
+
+```
+https://www.saaspegasus.com/mcp
+```
+
+Add it to your AI app as a remote MCP server, or "connector".
+The first time the app uses it, you'll be sent to SaaS Pegasus to log in and approve the connection.
+There's no API key to copy: the app gets its own access, which you can revoke at any time.
+
+<Tabs>
+  <TabItem label="Claude">
+    In Claude (web or desktop), go to **Settings → Connectors**, choose **Add custom connector**,
+    and paste the URL above. Then click **Connect** and approve access on SaaS Pegasus.
+  </TabItem>
+  <TabItem label="Claude Code">
+    ```bash
+    claude mcp add --transport http saas-pegasus https://www.saaspegasus.com/mcp
+    ```
+
+    Then run `/mcp` inside Claude Code and choose the server to log in.
+  </TabItem>
+  <TabItem label="Cursor">
+    Add the server to `~/.cursor/mcp.json` (or `.cursor/mcp.json` in a project):
+
+    ```json
+    {
+      "mcpServers": {
+        "saas-pegasus": {
+          "url": "https://www.saaspegasus.com/mcp"
+        }
+      }
+    }
+    ```
+
+    Cursor will prompt you to log in the first time it connects.
+  </TabItem>
+  <TabItem label="VS Code">
+    Add the server to `.vscode/mcp.json`:
+
+    ```json
+    {
+      "servers": {
+        "saas-pegasus": {
+          "type": "http",
+          "url": "https://www.saaspegasus.com/mcp"
+        }
+      }
+    }
+    ```
+  </TabItem>
+  <TabItem label="Other apps">
+    Any app that supports remote MCP servers with OAuth will work.
+    Add `https://www.saaspegasus.com/mcp` as a custom connector or remote server, then approve access when prompted.
+  </TabItem>
+</Tabs>
+
+## What it can do
+
+The server gives your AI app these tools:
+
+| Tool | What it does |
+|---|---|
+| `list_projects` | Lists your projects, including whether each has a GitHub repository connected. |
+| `get_project` | Gets a project's full configuration, using the same field names as `pegasus-config.yaml`. |
+| `get_config_schema` | Describes every configuration field: its type, allowed values, and the license tier it needs. |
+| `create_project` | Creates a new project from a configuration. |
+| `update_project` | Changes some of a project's configuration. |
+| `push_to_github` | Generates the project's code and opens a pull request on its GitHub repository. Can also upgrade the project to the latest Pegasus release first. |
+| `get_task_status` | Checks on a push while it runs, and returns the pull request link when it's done. |
+| `get_profile` / `update_profile` | Reads and updates your name. |
+
+Creating or updating a project only saves its configuration---it doesn't generate any code.
+To get code, the AI pushes the project to GitHub, which opens a pull request with the changes.
+
+## Getting code into GitHub
+
+Pushing needs a GitHub repository connected to the project, and connecting one has to be done on the
+SaaS Pegasus website. See [GitHub Integration](/github/) for how.
+Once a project has a repository, your AI app can push to it as often as you like (up to 10 pushes an hour,
+shared with the CLI).
+
+A typical session looks like this:
+
+<Steps>
+1. **Create or pick a project.** Ask the AI to create one, or to change one you already have.
+2. **Connect a repository.** For a new project, connect its GitHub repository on the project's download page.
+3. **Push.** Ask the AI to push the project. It starts the build and checks on it until the pull request is ready.
+4. **Review and merge** the pull request on GitHub as usual.
+</Steps>
+
+## License tiers
+
+Your AI app sees which features your license includes, and it can't turn on features above your tier.
+If you ask for one, it'll tell you what's needed and link you to the page where you can upgrade.
+
+## Managing access
+
+Every app you've connected is listed under **Connected AI Apps** on your
+[profile page](https://www.saaspegasus.com/users/profile/), along with when it was last active.
+Click **Disconnect** to revoke an app's access immediately.
+
+Changing your password or your two-factor authentication setup disconnects every app, so you'll need to
+approve them again.
