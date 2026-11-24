@@ -193,6 +193,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             'github',
+            'mcp-server',
             'upgrading',
             'early-access',
             'marketplace/connecting',
