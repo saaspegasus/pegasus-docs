@@ -71,8 +71,10 @@ The following prerequisites are needed to run the app in the recommended configu
 - [uv](/python/setup/#using-uv)
 - [Node and npm](/front-end/overview/#prerequisites-to-building-the-front-end)
 
-On Windows, you will also need to install `make`, which you can do by
-[following these instructions](https://stackoverflow.com/a/57042516/8207).
+On Windows, run the project from [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+(install `make` with `sudo apt install make`), or from Git Bash with `make` installed via
+[these instructions](https://stackoverflow.com/a/57042516/8207).
+The `Makefile` won't work from PowerShell or Command Prompt.
 
 <Aside title="Other configurations">
 - If you use Docker "full mode" you do not need to install uv or Node/npm.
