@@ -47,11 +47,10 @@ start all the processes needed to run your application, including Django, the fr
 and Celery.
 
 <Aside title="make and Windows">
-Windows users may need to install a 3rd-party package to run `make` commands.
-The easiest way to do that is via [these instructions](https://stackoverflow.com/a/57042516/8207).
-
-The Pegasus `Makefile` uses Unix shell commands, so run `make` from
-[WSL](https://learn.microsoft.com/en-us/windows/wsl/install) or Git Bash, not from PowerShell or Command Prompt.
+On Windows, run the project from [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+(install `make` with `sudo apt install make`), or from Git Bash with `make` installed via
+[these instructions](https://stackoverflow.com/a/57042516/8207).
+The `Makefile` won't work from PowerShell or Command Prompt.
 </Aside>
 
 The first time you run the app you should run:
