@@ -49,6 +49,11 @@ It's built on [django-mcpz](https://pypi.org/project/django-mcpz/). Enable it wi
 
 - **Overhauled the landing page** to be more modern and better aligned with DaisyUI theming.
 - Removed a few unused images.
+- **CI now fails when your lockfiles are out of sync.** The GitHub Actions workflows install dependencies with
+  `uv sync --locked` and `npm ci`, so changing `pyproject.toml` or `package.json` without updating `uv.lock` or
+  `package-lock.json` is caught.
+- **Added a test that compiles every template.** It catches template syntax errors, missing `{% load %}` tags,
+  and `{% extends %}`/`{% include %}` targets that don't exist, which otherwise only show up when a page is rendered.
 
 ### Upgrading
 
@@ -57,6 +62,9 @@ MCP clients use discovery documents at those paths to find your OAuth endpoints.
 Some server setups (often from Let's Encrypt/certbot instructions) serve all of `/.well-known/` from a directory on disk,
 which makes these return a 404 and prevents clients from connecting.
 If that's the case, narrow the rule to only the paths that need it, e.g. `/.well-known/acme-challenge/`.
+
+If your GitHub Actions builds start failing at the "Install dependencies" step after upgrading,
+your lockfiles are out of sync with your dependencies. Run `uv lock` and/or `npm install` and commit the updated lockfiles.
 
 *November 26, 2026*
 
