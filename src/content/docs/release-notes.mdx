@@ -41,6 +41,15 @@ Pegasus can now include an [MCP](https://modelcontextprotocol.io/) server, built
 - **Overhauled the landing page** to be more modern and better aligned with DaisyUI theming.
 - Removed a few unused images.
 
+### The Pegasus MCP server
+
+Separately from this release, SaaS Pegasus itself now has an MCP server for managing your Pegasus projects.
+This is different from the MCP server above, which you can add to the apps you build.
+Connect Claude, ChatGPT, Cursor, or any other MCP client to `https://www.saaspegasus.com/mcp`, and you can
+create, configure, push, and upgrade your Pegasus projects right from the chat.
+
+It's still experimental. See the [Pegasus MCP Server docs](/mcp-server/) for setup instructions.
+
 ### Upgrading
 
 If you enable the MCP server, make sure requests to `/.well-known/` reach Django.
