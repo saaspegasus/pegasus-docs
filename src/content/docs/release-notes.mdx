@@ -21,39 +21,40 @@ and a refreshed landing page.
 
 SaaS Pegasus now has an [MCP](https://modelcontextprotocol.io/) server for managing your Pegasus projects.
 Connect Claude, ChatGPT, Cursor, or any other MCP client to `https://www.saaspegasus.com/mcp`, and you can
-create, configure, push, and upgrade your Pegasus projects right from the chat.
+create, configure, push, and upgrade your Pegasus projects directly from the chat with no CLI or installation.
 
-It's still experimental. See the [Pegasus MCP Server docs](/mcp-server/) for setup instructions.
+See the [Pegasus MCP Server docs](/mcp-server/) for setup instructions.
 
 ### An MCP server for your project
 
-Your project can now include an MCP server, based on the one that powers SaaS Pegasus,
-so your users can connect AI apps like Claude, ChatGPT, and Cursor to their account.
-It's built on [django-mcpz](https://pypi.org/project/django-mcpz/). Enable it with the new "Use MCP Server" option.
+Your project can also now include a built-in MCP server. This the same underlying framework that powers Pegasus's own server
+and offers the same functionality and authentication experience, built on [django-mcpz](https://pypi.org/project/django-mcpz/).
+Enable it with the new "Use MCP Server" option.
+
+Details:
 
 - **Users connect MCP clients with OAuth.** Clients add your site's `/mcp` URL as a connector, and users approve
   access on an authorization page in your app.
-- **Added a "Connected AI Apps" section to the profile page.** It shows the MCP server URL and lists the
-  connected apps, each of which can be disconnected.
-- **Connected apps are disconnected automatically** when a user changes their password or 2FA setup.
-- Added a daily Celery task that clears expired OAuth codes and tokens.
+- Added a "Connected AI Apps" section to the profile page to allow users to see and manage connected apps.
+- Connected apps are disconnected automatically when a user changes their password or 2FA setup.
+- A daily Celery task clears expired OAuth codes and tokens.
+- Added a tool to read and update the user's profile via MCP.
 
 ### App tools
 
-- **Added "app tools": AI tools defined once and shared by MCP and the in-app agents.** A tool is a function that
-  takes the user and an optional pydantic model of parameters. See `apps/utils/app_tools.py`.
-- Added tools to read and update the user's profile. The weather and admin agents now use them, and the MCP server
-  serves them when it's enabled.
+A new "app tools" framework allows AI tools to be defined once and shared by both MCP and the in-app agents.
+You can define a tool in a single place and immediately make it available both in your in-app chat and via MCP.
+The user profile tool is written this way and is also now available in the weather and admin agent examples.
 
 ### Other changes
 
 - **Overhauled the landing page** to be more modern and better aligned with DaisyUI theming.
-- Removed a few unused images.
-- **CI now fails when your lockfiles are out of sync.** The GitHub Actions workflows install dependencies with
+- The GitHub Actions workflows now install dependencies with
   `uv sync --locked` and `npm ci`, so changing `pyproject.toml` or `package.json` without updating `uv.lock` or
   `package-lock.json` is caught.
-- **Added a test that compiles every template.** It catches template syntax errors, missing `{% load %}` tags,
-  and `{% extends %}`/`{% include %}` targets that don't exist, which otherwise only show up when a page is rendered.
+- Added a test that compiles every template to catch unexpected syntax errors in CI.
+- Removed a few unused images.
+
 
 ### Upgrading
 
