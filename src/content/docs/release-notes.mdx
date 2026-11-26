@@ -27,8 +27,9 @@ See the [Pegasus MCP Server docs](/mcp-server/) for setup instructions.
 
 ### An MCP server for your project
 
-Your project can also now include a built-in MCP server. This the same underlying framework that powers Pegasus's own server
-and offers the same functionality and authentication experience, built on [django-mcpz](https://pypi.org/project/django-mcpz/).
+Your project can also now include a built-in MCP server. This is built on the same underlying framework that powers Pegasus's own server
+and offers the same UX and authentication experience.
+Under the hood it uses [django-mcpz](https://pypi.org/project/django-mcpz/).
 Enable it with the new "Use MCP Server" option.
 
 Details:
@@ -38,13 +39,13 @@ Details:
 - Added a "Connected AI Apps" section to the profile page to allow users to see and manage connected apps.
 - Connected apps are disconnected automatically when a user changes their password or 2FA setup.
 - A daily Celery task clears expired OAuth codes and tokens.
-- Added a tool to read and update the user's profile via MCP.
+- Added tools to read and update the user's profile via MCP.
 
 ### App tools
 
 A new "app tools" framework allows AI tools to be defined once and shared by both MCP and the in-app agents.
 You can define a tool in a single place and immediately make it available both in your in-app chat and via MCP.
-The user profile tool is written this way and is also now available in the weather and admin agent examples.
+The user profile tools are written this way and are also now available in the weather and admin agent examples.
 
 ### Other changes
 
@@ -54,7 +55,6 @@ The user profile tool is written this way and is also now available in the weath
   `package-lock.json` is caught.
 - Added a test that compiles every template to catch unexpected syntax errors in CI.
 - Removed a few unused images.
-
 
 ### Upgrading
 
