@@ -11,6 +11,64 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 </Aside>
 
 
+## Version 2026.11.1
+
+SaaS Pegasus now has its own MCP server, and this release lets you add the same kind of MCP server to your own projects.
+It also adds a new way to define AI tools once and share them between MCP and your in-app agents,
+and a refreshed landing page.
+
+### The Pegasus MCP server
+
+SaaS Pegasus now has an [MCP](https://modelcontextprotocol.io/) server for managing your Pegasus projects.
+Connect Claude, ChatGPT, Cursor, or any other MCP client to `https://www.saaspegasus.com/mcp`, and you can
+create, configure, push, and upgrade your Pegasus projects directly from the chat with no CLI or installation.
+
+See the [Pegasus MCP Server docs](/mcp-server/) for setup instructions.
+
+### An MCP server for your project
+
+Your project can also now include a built-in MCP server. This is built on the same underlying framework that powers Pegasus's own server
+and offers the same UX and authentication experience.
+Under the hood it uses [django-mcpz](https://pypi.org/project/django-mcpz/).
+Enable it with the new "Use MCP Server" option.
+
+Details:
+
+- **Users connect MCP clients with OAuth.** Clients add your site's `/mcp` URL as a connector, and users approve
+  access on an authorization page in your app.
+- Added a "Connected AI Apps" section to the profile page to allow users to see and manage connected apps.
+- Connected apps are disconnected automatically when a user changes their password or 2FA setup.
+- A daily Celery task clears expired OAuth codes and tokens.
+- Added tools to read and update the user's profile via MCP.
+
+### App tools
+
+A new "app tools" framework allows AI tools to be defined once and shared by both MCP and the in-app agents.
+You can define a tool in a single place and immediately make it available both in your in-app chat and via MCP.
+The user profile tools are written this way and are also now available in the weather and admin agent examples.
+
+### Other changes
+
+- **Overhauled the landing page** to be more modern and better aligned with DaisyUI theming.
+- The GitHub Actions workflows now install dependencies with
+  `uv sync --locked` and `npm ci`, so changing `pyproject.toml` or `package.json` without updating `uv.lock` or
+  `package-lock.json` is caught.
+- Added a test that compiles every template to catch unexpected syntax errors in CI.
+- Removed a few unused images.
+
+### Upgrading
+
+If you enable your project's MCP server, make sure requests to `/.well-known/` reach Django.
+MCP clients use discovery documents at those paths to find your OAuth endpoints.
+Some server setups (often from Let's Encrypt/certbot instructions) serve all of `/.well-known/` from a directory on disk,
+which makes these return a 404 and prevents clients from connecting.
+If that's the case, narrow the rule to only the paths that need it, e.g. `/.well-known/acme-challenge/`.
+
+If your GitHub Actions builds start failing at the "Install dependencies" step after upgrading,
+your lockfiles are out of sync with your dependencies. Run `uv lock` and/or `npm install` and commit the updated lockfiles.
+
+*November 26, 2026*
+
 ## Version 2026.11
 
 This release upgrades htmx to version 4, removes SQLite support, updates the AI models and admin database tools,
