@@ -13,14 +13,23 @@ See the [Development Release Notes](/release-notes-dev/) for a preview of what's
 
 ## Version 2026.11.1
 
-This release adds an optional MCP server, so your users can connect AI apps like Claude, ChatGPT, and Cursor
-to their account, along with a new way to define AI tools once and share them between MCP and your in-app agents.
-It also includes a refreshed landing page.
+SaaS Pegasus now has its own MCP server, and this release lets you add the same kind of MCP server to your own projects.
+It also adds a new way to define AI tools once and share them between MCP and your in-app agents,
+and a refreshed landing page.
 
-### MCP server
+### The Pegasus MCP server
 
-Pegasus can now include an [MCP](https://modelcontextprotocol.io/) server, built on
-[django-mcpz](https://pypi.org/project/django-mcpz/). Enable it with the new "Use MCP Server" option.
+SaaS Pegasus now has an [MCP](https://modelcontextprotocol.io/) server for managing your Pegasus projects.
+Connect Claude, ChatGPT, Cursor, or any other MCP client to `https://www.saaspegasus.com/mcp`, and you can
+create, configure, push, and upgrade your Pegasus projects right from the chat.
+
+It's still experimental. See the [Pegasus MCP Server docs](/mcp-server/) for setup instructions.
+
+### An MCP server for your project
+
+Your project can now include an MCP server, based on the one that powers SaaS Pegasus,
+so your users can connect AI apps like Claude, ChatGPT, and Cursor to their account.
+It's built on [django-mcpz](https://pypi.org/project/django-mcpz/). Enable it with the new "Use MCP Server" option.
 
 - **Users connect MCP clients with OAuth.** Clients add your site's `/mcp` URL as a connector, and users approve
   access on an authorization page in your app.
@@ -41,18 +50,9 @@ Pegasus can now include an [MCP](https://modelcontextprotocol.io/) server, built
 - **Overhauled the landing page** to be more modern and better aligned with DaisyUI theming.
 - Removed a few unused images.
 
-### The Pegasus MCP server
-
-Separately from this release, SaaS Pegasus itself now has an MCP server for managing your Pegasus projects.
-This is different from the MCP server above, which you can add to the apps you build.
-Connect Claude, ChatGPT, Cursor, or any other MCP client to `https://www.saaspegasus.com/mcp`, and you can
-create, configure, push, and upgrade your Pegasus projects right from the chat.
-
-It's still experimental. See the [Pegasus MCP Server docs](/mcp-server/) for setup instructions.
-
 ### Upgrading
 
-If you enable the MCP server, make sure requests to `/.well-known/` reach Django.
+If you enable your project's MCP server, make sure requests to `/.well-known/` reach Django.
 MCP clients use discovery documents at those paths to find your OAuth endpoints.
 Some server setups (often from Let's Encrypt/certbot instructions) serve all of `/.well-known/` from a directory on disk,
 which makes these return a 404 and prevents clients from connecting.
